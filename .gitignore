@@ -4,11 +4,11 @@
 # baixados separado) e arquivos temporários.
 # =============================================================================
 
-# --- ASSETS PESADOS (.sf2 soundfonts e grooves de áudio/MIDI) ---
-# Esses arquivos são grandes (>100MB) e o GitHub não recomenda versioná-los.
-# Mantenha-os locais ou faça backup separado (OneDrive, S3, etc).
-app/assets/soundfonts/
-app/assets/grooves/
+# --- ASSETS PESADOS ---
+# Soundfonts (.sf2) e grooves (.mp3) versionados — necessários pro app tocar som.
+# Total ~400MB. Maior arquivo 59MB (abaixo do limite GitHub de 100MB).
+# Ignoramos só os arquivos .original.mp3 (backups do conversor, não usados):
+app/assets/grooves/*.original.mp3
 
 # --- BUILDS COMPILADOS ---
 # Builds gerados — sempre podem ser recriados a partir do código fonte
