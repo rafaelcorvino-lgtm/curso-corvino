@@ -172,7 +172,7 @@
             <text x="35" y="172" font-size="42" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>
             <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
 
-            <!-- BAIXOS frase B — C5: Sol-SolM | C6: Dó-DóM | C7: Sol-Sol7 | C8: Dó-DóM (cadência) -->
+            <!-- BAIXOS frase B — C5: Sol-SolM | C6: Dó-DóM | C7: Sol-SolM | C8: Dó-DóM (cadência V-I) -->
             <g font-family="sans-serif">
               <!-- C5: Sol-SolM-SolM -->
               <rect   id="mpv-b13" x="93"  y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
@@ -188,13 +188,13 @@
               <text x="262" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
               <circle id="mpv-b18" cx="301" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
               <text x="301" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
-              <!-- C7: Sol-Sol7-Sol7 (preparação dominante 7ª) -->
+              <!-- C7: Sol-SolM-SolM (dominante simples — prepara o fim) -->
               <rect   id="mpv-b19" x="329" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
               <text x="341" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Sol</text>
               <circle id="mpv-b20" cx="380" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
-              <text x="380" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">7</text>
+              <text x="380" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
               <circle id="mpv-b21" cx="419" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
-              <text x="419" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">7</text>
+              <text x="419" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
               <!-- C8: Dó-DóM-DóM (cadência final V-I) -->
               <rect   id="mpv-b22" x="447" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
               <text x="459" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
@@ -206,7 +206,7 @@
             <g fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle" stroke="#1a1618" stroke-width="2.5" paint-order="stroke">
               <text x="105" y="218">4</text><text x="144" y="218">3</text><text x="183" y="218">3</text>
               <text x="223" y="218">4</text><text x="262" y="218">3</text><text x="301" y="218">3</text>
-              <text x="341" y="218">4</text><text x="380" y="218">2</text><text x="419" y="218">2</text>
+              <text x="341" y="218">4</text><text x="380" y="218">3</text><text x="419" y="218">3</text>
               <text x="459" y="218">4</text><text x="498" y="218">3</text><text x="537" y="218">3</text>
             </g>
             <!-- Barras de compasso stave 2 (com final dupla) -->
@@ -219,9 +219,11 @@
           </g>
         </svg>
         <figcaption>
-          <strong>Forma A-B em valsa.</strong> Linha 1 (frase A): Mi-Sol-Mi-Dó (descida pela tônica).
-          Linha 2 (frase B): Sol-Mi-Ré-Dó (escala descendente até resolver). Cada nota MD é uma <em>mínima
-          pontuada</em> (vale 3 tempos = compasso inteiro). ME bum-tchim-tchim com cadência V-I (Sol7→Dó) no fim.
+          <strong>Forma A-B em valsa — toda peça tem início, meio e fim.</strong>
+          Linha 1 (frase A) <em>apresenta</em> o tema descendo pela tônica: Mi-Sol-Mi-Dó.
+          Linha 2 (frase B) <em>resolve</em> com escala descendente Sol-Mi-Ré-Dó até o repouso final no Dó.
+          Cada nota MD é uma mínima pontuada (vale 3 tempos = compasso inteiro).
+          ME bum-tchim-tchim com cadência V-I (Sol→Dó) no fim — usando só os 2 acordes que você já conhece.
         </figcaption>
         <div class="score-play-wrap">
           <button id="btn-mpv-l" class="score-play-btn">▶ Lento (60 BPM)</button>
@@ -279,16 +281,19 @@
       {midi:60, el:'#mpv-8', beats:3, articulation:0.95},  // C8 Dó (linha supl)
     ];
 
-    // ME bum-tchim-tchim. Cadência Dó-Sol-Dó-Dó-Sol-Dó-Sol7-Dó.
+    // ME bum-tchim-tchim. Cadência usa só Dó e Sol (acordes que o aluno já conhece).
+    // Início (C1-C2): estabelece tônica e dominante
+    // Meio (C3-C6): alterna entre eles, dando movimento
+    // Fim (C7-C8): cadência V-I (Sol→Dó) — resolução final
     const meSeq = [
-      [24, 25],  // C1: Dó-DóM-DóM
-      [31, 32],  // C2: Sol-SolM-SolM
-      [24, 25],  // C3: Dó-DóM-DóM
-      [24, 25],  // C4: Dó-DóM-DóM
-      [31, 32],  // C5: Sol-SolM-SolM
-      [24, 25],  // C6: Dó-DóM-DóM
-      [31, 33],  // C7: Sol-Sol7-Sol7 (dominante com 7ª)
-      [24, 25],  // C8: Dó-DóM-DóM (cadência final)
+      [24, 25],  // C1: Dó-DóM-DóM (início — tônica)
+      [31, 32],  // C2: Sol-SolM-SolM (movimento — dominante)
+      [24, 25],  // C3: Dó-DóM-DóM (volta à tônica)
+      [24, 25],  // C4: Dó-DóM-DóM (sustenta)
+      [31, 32],  // C5: Sol-SolM-SolM (movimento)
+      [24, 25],  // C6: Dó-DóM-DóM (volta)
+      [31, 32],  // C7: Sol-SolM-SolM (dominante prepara o fim)
+      [24, 25],  // C8: Dó-DóM-DóM (cadência final V-I)
     ];
 
     function build(bpm, btnId) {

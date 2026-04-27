@@ -152,7 +152,7 @@
         <text x="35" y="172" font-size="42" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>
         <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
 
-        <!-- BAIXOS frase B — Dó-Sol-Sol7-Dó (cadência final) -->
+        <!-- BAIXOS frase B — Dó-Sol-Sol-Dó (cadência final V-I) -->
         <g font-family="sans-serif">
           <!-- C5: Dó-DóM-DóM -->
           <rect   id="pv-b13" x="93"  y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
@@ -168,13 +168,13 @@
           <text x="262" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
           <circle id="pv-b18" cx="301" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
           <text x="301" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
-          <!-- C7: Sol-Sol7-Sol7 -->
+          <!-- C7: Sol-SolM-SolM (dominante prepara o fim) -->
           <rect   id="pv-b19" x="329" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
           <text x="341" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Sol</text>
           <circle id="pv-b20" cx="380" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
-          <text x="380" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">7</text>
+          <text x="380" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
           <circle id="pv-b21" cx="419" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
-          <text x="419" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">7</text>
+          <text x="419" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
           <!-- C8: Dó-DóM-DóM (cadência final V-I) -->
           <rect   id="pv-b22" x="447" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
           <text x="459" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
@@ -186,7 +186,7 @@
         <g fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle" stroke="#1a1618" stroke-width="2.5" paint-order="stroke">
           <text x="105" y="218">4</text><text x="144" y="218">3</text><text x="183" y="218">3</text>
           <text x="223" y="218">4</text><text x="262" y="218">3</text><text x="301" y="218">3</text>
-          <text x="341" y="218">4</text><text x="380" y="218">2</text><text x="419" y="218">2</text>
+          <text x="341" y="218">4</text><text x="380" y="218">3</text><text x="419" y="218">3</text>
           <text x="459" y="218">4</text><text x="498" y="218">3</text><text x="537" y="218">3</text>
         </g>
         <!-- Barras de compasso stave 2 (com final dupla) -->
@@ -201,7 +201,7 @@
     <figcaption>
       <strong>Valsa em Dó com ligadura nos compassos 3-4.</strong> O Sol do C3 <em>soa por 6 tempos</em>
       (ligado ao Sol do C4). A ME continua o bum-tchim-tchim — você sente o pulso mesmo com a MD parada.
-      Frase B (C5-C8) faz a descida Mi-Ré-Dó com cadência V-I (Sol7→Dó).
+      Frase B (C5-C8) faz a descida Mi-Ré-Dó com cadência V-I (Sol→Dó).
     </figcaption>
     <div class="score-play-wrap">
       <button id="btn-pv-l" class="score-play-btn">▶ Lento (60 BPM)</button>
@@ -252,16 +252,17 @@
     {midi:60, el:'#pv-8', beats:3, articulation:0.95},  // C8 Dó (final)
   ];
 
-  // ME: bum-tchim-tchim. Cadência Dó-Sol-Sol(C3-C4)-Dó-Sol-Sol7-Dó
+  // ME: bum-tchim-tchim usando só Dó e Sol (acordes que o aluno já conhece).
+  // Sol7 só aparece a partir da aula 38 (Leitura de Baixos) — aqui ainda é Sol-SolM.
   const meSeq = [
-    [24, 25],  // C1: Dó-DóM
+    [24, 25],  // C1: Dó-DóM (início)
     [31, 32],  // C2: Sol-SolM
     [31, 32],  // C3: Sol-SolM (durante a ligadura)
     [31, 32],  // C4: Sol-SolM (continua)
-    [24, 25],  // C5: Dó-DóM
+    [24, 25],  // C5: Dó-DóM (resolve)
     [31, 32],  // C6: Sol-SolM
-    [31, 33],  // C7: Sol-Sol7
-    [24, 25],  // C8: Dó-DóM
+    [31, 32],  // C7: Sol-SolM (dominante prepara o fim)
+    [24, 25],  // C8: Dó-DóM (cadência final V-I)
   ];
 
   function build(bpm, btnId) {
