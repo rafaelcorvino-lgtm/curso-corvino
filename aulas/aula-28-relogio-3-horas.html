@@ -31,10 +31,11 @@
   <p>O contraste entre lento ↔ rápido é o que dá <em>caráter</em> à peça. Não é só técnica — é <strong>imaginação musical</strong>.</p>
 
   <h2>2. Exemplo educacional — valsa com contraste rítmico (8 compassos forma A-B)</h2>
-  <p>Esse é um exemplo <strong>original</strong> que demonstra o contraste. Frase A: 4 compassos com mín pontuadas (as "badaladas"). Frase B: 4 compassos com semínimas (o "mecanismo correndo"). A ME continua bum-tchim-tchim em todos os 8 compassos.</p>
+  <p>Esse é um exemplo <strong>original</strong> que demonstra o contraste. Frase A (stave 1): 4 compassos com mín pontuadas (as "badaladas"). Frase B (stave 2): 3 compassos com semínimas (o "mecanismo correndo") + C8 finalizando com Dó. A ME continua bum-tchim-tchim em todos os 8 compassos.</p>
 
   <figure class="score-figure">
-    <svg viewBox="0 0 580 230" class="score-svg">
+    <svg viewBox="0 0 580 470" class="score-svg">
+      <!-- ============ STAVE 1 (compassos 1-4) — Frase A: badaladas ============ -->
       <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
         <line x1="20" y1="50" x2="560" y2="50"/><line x1="20" y1="65" x2="560" y2="65"/>
         <line x1="20" y1="80" x2="560" y2="80"/><line x1="20" y1="95" x2="560" y2="95"/>
@@ -45,41 +46,19 @@
         <text x="85" y="75" font-size="22">3</text><text x="85" y="102" font-size="22">4</text>
       </g>
 
-      <!-- 8 compassos. Frase A (C1-4): 1 mín pontuada por compasso (badaladas).
-                       Frase B (C5-8): 3 semínimas por compasso (mecanismo). -->
-      <!-- Frase A — Mi-Sol-Mi-Dó (mín pontuada, círculo aberto) -->
+      <!-- FRASE A — C1: Mi  C2: Sol  C3: Mi  C4: Dó (mín pontuadas, badaladas) -->
       <g>
-        <ellipse id="rl-1" cx="135" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-        <ellipse id="rl-2" cx="200" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-        <ellipse id="rl-3" cx="265" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-        <line x1="320" y1="125" x2="340" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
-        <ellipse id="rl-4" cx="330" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <ellipse id="rl-1" cx="130" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <ellipse id="rl-2" cx="248" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <ellipse id="rl-3" cx="367" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <line x1="475" y1="125" x2="495" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+        <ellipse id="rl-4" cx="485" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
       </g>
-      <!-- Frase B — 3 semínimas por compasso (preenchidas) -->
-      <g>
-        <!-- C5: Mi-Sol-Mi -->
-        <ellipse id="rl-5"  cx="378" cy="110" rx="6" ry="4" fill="var(--gold)"/>
-        <ellipse id="rl-6"  cx="395" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
-        <ellipse id="rl-7"  cx="412" cy="110" rx="6" ry="4" fill="var(--gold)"/>
-        <!-- C6: Sol-Mi-Sol -->
-        <ellipse id="rl-8"  cx="438" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
-        <ellipse id="rl-9"  cx="455" cy="110" rx="6" ry="4" fill="var(--gold)"/>
-        <ellipse id="rl-10" cx="472" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
-        <!-- C7: Mi-Ré-Mi -->
-        <ellipse id="rl-11" cx="498" cy="110" rx="6" ry="4" fill="var(--gold)"/>
-        <ellipse id="rl-12" cx="515" cy="117" rx="6" ry="4" fill="var(--gold)"/>
-        <ellipse id="rl-13" cx="532" cy="110" rx="6" ry="4" fill="var(--gold)"/>
-      </g>
-      <!-- C8: Dó (mín pontuada — fim) -->
-      <line x1="546" y1="125" x2="566" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
-      <!-- Não há C8 visível pq cabe estritamente — vou remover essa nota e fazer C7 ser a final -->
-
       <g font-family="serif" font-style="italic" font-size="11" text-anchor="middle" fill="#d4c9a8">
-        <text x="135" y="40">Mi</text><text x="200" y="40">Sol</text><text x="265" y="40">Mi</text><text x="330" y="40">Dó</text>
-        <text x="395" y="40" fill="var(--gold)">tic-tac→</text>
+        <text x="290" y="40" fill="var(--gold)" font-weight="700">Frase A — badaladas (mín pontuadas)</text>
       </g>
 
-      <!-- Pauta ME (clave de Fá) -->
+      <!-- Pauta ME stave 1 -->
       <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
         <line x1="20" y1="140" x2="560" y2="140"/><line x1="20" y1="155" x2="560" y2="155"/>
         <line x1="20" y1="170" x2="560" y2="170"/><line x1="20" y1="185" x2="560" y2="185"/>
@@ -91,76 +70,128 @@
       </g>
       <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
 
-      <!-- BAIXOS — 7 compassos visuais (C1-C7) × 3 baixos = 21 elementos.
-           C8 do JS toca sem visualização (compasso final vazio). -->
+      <!-- BAIXOS frase A — bum-tchim-tchim -->
       <g font-family="sans-serif">
-        <!-- C1: Dó-DóM-DóM (117, 140, 162) -->
-        <rect id="rl-b1"  x="107" y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
-        <text x="117" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
-        <circle id="rl-b2"  cx="140" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="140" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="rl-b3"  cx="162" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="162" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C2: Sol-SolM-SolM (182, 205, 227) -->
-        <rect id="rl-b4"  x="172" y="160" width="20" height="18" rx="3" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
-        <text x="182" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Sol</text>
-        <circle id="rl-b5"  cx="205" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="205" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="rl-b6"  cx="227" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="227" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C3: Dó-DóM-DóM (247, 270, 292) -->
-        <rect id="rl-b7"  x="237" y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
-        <text x="247" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
-        <circle id="rl-b8"  cx="270" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="270" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="rl-b9"  cx="292" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="292" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C4: Dó-DóM-DóM (312, 335, 357) -->
-        <rect id="rl-b10" x="302" y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
-        <text x="312" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
-        <circle id="rl-b11" cx="335" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="335" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="rl-b12" cx="357" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="357" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C5: Dó-DóM-DóM (376, 395, 414) -->
-        <rect id="rl-b13" x="366" y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
-        <text x="376" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
-        <circle id="rl-b14" cx="395" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="395" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="rl-b15" cx="414" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="414" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C6: Sol-SolM-SolM (436, 455, 474) -->
-        <rect id="rl-b16" x="426" y="160" width="20" height="18" rx="3" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
-        <text x="436" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Sol</text>
-        <circle id="rl-b17" cx="455" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="455" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="rl-b18" cx="474" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="474" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C7: Sol-Sol7-Sol7 (496, 515, 534) -->
-        <rect id="rl-b19" x="486" y="160" width="20" height="18" rx="3" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
-        <text x="496" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Sol</text>
-        <circle id="rl-b20" cx="515" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="515" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">7</text>
-        <circle id="rl-b21" cx="534" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="534" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">7</text>
+        <!-- C1: Dó-DóM-DóM -->
+        <rect   id="rl-b1"  x="93"  y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+        <text x="105" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+        <circle id="rl-b2"  cx="144" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+        <text x="144" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <circle id="rl-b3"  cx="183" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+        <text x="183" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <!-- C2: Sol-SolM-SolM -->
+        <rect   id="rl-b4"  x="211" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+        <text x="223" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Sol</text>
+        <circle id="rl-b5"  cx="262" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+        <text x="262" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <circle id="rl-b6"  cx="301" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+        <text x="301" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <!-- C3: Dó-DóM-DóM -->
+        <rect   id="rl-b7"  x="329" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+        <text x="341" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+        <circle id="rl-b8"  cx="380" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+        <text x="380" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <circle id="rl-b9"  cx="419" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+        <text x="419" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <!-- C4: Dó-DóM-DóM -->
+        <rect   id="rl-b10" x="447" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+        <text x="459" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+        <circle id="rl-b11" cx="498" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+        <text x="498" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <circle id="rl-b12" cx="537" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+        <text x="537" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+      </g>
+      <!-- Barras de compasso stave 1 -->
+      <g stroke="#e0d8c0" stroke-width="1.5">
+        <line x1="203" y1="50" x2="203" y2="200"/>
+        <line x1="321" y1="50" x2="321" y2="200"/>
+        <line x1="440" y1="50" x2="440" y2="200"/>
+        <line x1="558" y1="50" x2="558" y2="200"/>
       </g>
 
-      <text x="290" y="220" font-size="10" font-style="italic" fill="var(--fg-dim)" text-anchor="middle">Frase A: badaladas (mín) · Frase B: tic-tac (sem) · ME: bum-tchim-tchim em todos</text>
+      <!-- ============ STAVE 2 (compassos 5-8) — Frase B: tic-tac ============ -->
+      <g transform="translate(0, 240)">
+        <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+          <line x1="20" y1="50" x2="560" y2="50"/><line x1="20" y1="65" x2="560" y2="65"/>
+          <line x1="20" y1="80" x2="560" y2="80"/><line x1="20" y1="95" x2="560" y2="95"/>
+          <line x1="20" y1="110" x2="560" y2="110"/>
+        </g>
+        <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
 
-      <!-- Barras de compasso -->
-      <g stroke="#e0d8c0" stroke-width="1.5">
-        <line x1="170" y1="50" x2="170" y2="200"/>
-        <line x1="235" y1="50" x2="235" y2="200"/>
-        <line x1="300" y1="50" x2="300" y2="200"/>
-        <line x1="365" y1="50" x2="365" y2="200"/>
-        <line x1="425" y1="50" x2="425" y2="200"/>
-        <line x1="485" y1="50" x2="485" y2="200"/>
-        <line x1="545" y1="50" x2="545" y2="200"/>
-        <line x1="558" y1="50" x2="558" y2="200" stroke-width="3"/>
+        <!-- FRASE B — C5/C6/C7: 3 sem por compasso (tic-tac), C8: Dó mín (final) -->
+        <g>
+          <!-- C5: Mi-Sol-Mi -->
+          <ellipse id="rl-5"  cx="105" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="rl-6"  cx="144" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="rl-7"  cx="183" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+          <!-- C6: Sol-Mi-Sol -->
+          <ellipse id="rl-8"  cx="223" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="rl-9"  cx="262" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="rl-10" cx="301" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+          <!-- C7: Mi-Ré-Mi -->
+          <ellipse id="rl-11" cx="341" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="rl-12" cx="380" cy="117" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="rl-13" cx="419" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+          <!-- C8: Dó mín pontuada (final) -->
+          <line x1="475" y1="125" x2="495" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+          <ellipse id="rl-14" cx="485" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        </g>
+        <g font-family="serif" font-style="italic" font-size="11" text-anchor="middle" fill="#d4c9a8">
+          <text x="262" y="40" fill="var(--gold)" font-weight="700">Frase B — tic-tac (semínimas)</text>
+          <text x="485" y="40" fill="var(--gold)" font-weight="700">Dó (final)</text>
+        </g>
+
+        <!-- Pauta ME stave 2 -->
+        <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+          <line x1="20" y1="140" x2="560" y2="140"/><line x1="20" y1="155" x2="560" y2="155"/>
+          <line x1="20" y1="170" x2="560" y2="170"/><line x1="20" y1="185" x2="560" y2="185"/>
+          <line x1="20" y1="200" x2="560" y2="200"/>
+        </g>
+        <text x="35" y="172" font-size="42" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>
+        <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
+
+        <!-- BAIXOS frase B — bum-tchim-tchim continua. Cadência Dó-Sol-Sol7-Dó -->
+        <g font-family="sans-serif">
+          <!-- C5: Dó-DóM-DóM -->
+          <rect   id="rl-b13" x="93"  y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+          <text x="105" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+          <circle id="rl-b14" cx="144" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+          <text x="144" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <circle id="rl-b15" cx="183" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+          <text x="183" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <!-- C6: Sol-SolM-SolM -->
+          <rect   id="rl-b16" x="211" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+          <text x="223" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Sol</text>
+          <circle id="rl-b17" cx="262" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+          <text x="262" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <circle id="rl-b18" cx="301" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+          <text x="301" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <!-- C7: Sol-Sol7-Sol7 -->
+          <rect   id="rl-b19" x="329" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+          <text x="341" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Sol</text>
+          <circle id="rl-b20" cx="380" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+          <text x="380" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">7</text>
+          <circle id="rl-b21" cx="419" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+          <text x="419" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">7</text>
+          <!-- C8: Dó-DóM-DóM (cadência final) -->
+          <rect   id="rl-b22" x="447" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+          <text x="459" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+          <circle id="rl-b23" cx="498" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+          <text x="498" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <circle id="rl-b24" cx="537" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+          <text x="537" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        </g>
+        <!-- Barras de compasso stave 2 (com final dupla) -->
+        <g stroke="#e0d8c0" stroke-width="1.5">
+          <line x1="203" y1="50" x2="203" y2="200"/>
+          <line x1="321" y1="50" x2="321" y2="200"/>
+          <line x1="440" y1="50" x2="440" y2="200"/>
+          <line x1="558" y1="50" x2="558" y2="200" stroke-width="3"/>
+        </g>
       </g>
     </svg>
     <figcaption>
-      <strong>Contraste rítmico</strong>: Frase A (compassos 1-4) tem mínimas pontuadas — 1 nota só por compasso, simulando as "badaladas". Frase B (compassos 5-7) tem semínimas — 3 notas por compasso, o "tic-tac correndo". A última nota (C7-Mi) sustenta como repouso final. ME segue bum-tchim-tchim sem mudança.
+      <strong>Contraste rítmico</strong>: Stave 1 (C1-C4) tem mínimas pontuadas — 1 nota só por compasso, simulando as "badaladas". Stave 2 (C5-C7) tem semínimas — 3 notas por compasso, o "tic-tac correndo". C8 fecha em Dó mín pontuada (cadência V-I). ME segue bum-tchim-tchim sem mudança em todos os 8 compassos.
     </figcaption>
     <div class="score-play-wrap">
       <button id="btn-rl-l" class="score-play-btn">▶ Lento (60 BPM)</button>
@@ -197,11 +228,9 @@
   // MIDIs MD: Mi=64, Sol=67, Ré=62, Dó central=60
   // ME (Stradella): Dó=24, DóM=25, Sol=31, SolM=32, Sol7=33
 
-  // Frase A: 4 mín pontuadas (Mi-Sol-Mi-Dó)
-  // Frase B: 9 semínimas (3 por compasso × 3 compassos: C5/C6/C7) — Mi-Sol-Mi | Sol-Mi-Sol | Mi-Ré-Mi
-  // C8 não tem MD nova (pausa pra fechar) — só ME
-  // Nota: cabe perfeitamente em 8 compassos × 3t = 24 tempos
-  // 4×3 (A) + 9×1 (B) + 3 (silêncio em C8) = 12 + 9 + 3 = 24 ✓
+  // Frase A (C1-C4): 4 mín pontuadas (Mi-Sol-Mi-Dó)
+  // Frase B (C5-C7): 3 sem por compasso (Mi-Sol-Mi | Sol-Mi-Sol | Mi-Ré-Mi)
+  // C8: Dó mín pontuada (final)
   const md = [
     {midi:64, el:'#rl-1', beats:3, articulation:0.95},  // C1 Mi
     {midi:67, el:'#rl-2', beats:3, articulation:0.95},  // C2 Sol
@@ -213,18 +242,20 @@
     {midi:67, el:'#rl-8'},  {midi:64, el:'#rl-9'},  {midi:67, el:'#rl-10'},
     // C7
     {midi:64, el:'#rl-11'}, {midi:62, el:'#rl-12'}, {midi:64, el:'#rl-13'},
+    // C8: Dó mín pontuada
+    {midi:60, el:'#rl-14', beats:3, articulation:0.95},
   ];
 
-  // ME: bum-tchim-tchim padrão. Cadência simples Dó-Sol-Dó-Dó-Dó-Sol-Sol7-Dó
+  // ME: bum-tchim-tchim. Cadência Dó-Sol-Dó-Dó-Dó-Sol-Sol7-Dó
   const meSeq = [
-    [24, 25],  // C1: Dó-DóM
-    [31, 32],  // C2: Sol-SolM
-    [24, 25],  // C3: Dó-DóM
-    [24, 25],  // C4: Dó-DóM
-    [24, 25],  // C5: Dó-DóM
-    [31, 32],  // C6: Sol-SolM
-    [31, 33],  // C7: Sol-Sol7 (preparação)
-    [24, 25],  // C8: Dó-DóM (final, ME só)
+    [24, 25],  // C1: Dó
+    [31, 32],  // C2: Sol
+    [24, 25],  // C3: Dó
+    [24, 25],  // C4: Dó
+    [24, 25],  // C5: Dó
+    [31, 32],  // C6: Sol
+    [31, 33],  // C7: Sol-Sol7
+    [24, 25],  // C8: Dó (final)
   ];
 
   function build(bpm, btnId) {
@@ -233,26 +264,25 @@
     for (let c = 0; c < 8; c++) {
       const t0 = c*3;
       // MD
-      if (c < 4) {
-        // Frase A: 1 mín pontuada (3 tempos)
+      if (c < 4 || c === 7) {
+        // Frase A (C1-C4) e C8: 1 mín pontuada (3 tempos)
         all.push({...md[mdI], startBeat:t0});
         mdI++;
-      } else if (c < 7) {
-        // Frase B: 3 semínimas
+      } else {
+        // C5-C7: 3 semínimas
         for (let t = 0; t < 3; t++) {
           all.push({...md[mdI], beats:1, articulation:MEL, startBeat:t0+t});
           mdI++;
         }
       }
-      // C8 não tem MD (silêncio MD, só ME continua)
 
-      // ME: bum-tchim-tchim com IDs rl-b1..rl-b21 (C1-C7 visíveis; C8 toca sem visualização)
-      const fundEl    = c < 7 ? `#rl-b${c*3 + 1}` : null;
-      const acordeEl1 = c < 7 ? `#rl-b${c*3 + 2}` : null;
-      const acordeEl2 = c < 7 ? `#rl-b${c*3 + 3}` : null;
-      all.push({midi:meSeq[c][0], beats:1, isBass:true, articulation:SUST, startBeat:t0,   ...(fundEl ? {el:fundEl} : {})});
-      all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+1, ...(acordeEl1 ? {el:acordeEl1} : {})});
-      all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+2, ...(acordeEl2 ? {el:acordeEl2} : {})});
+      // ME: bum-tchim-tchim com IDs rl-b1..rl-b24 (todos compassos visíveis)
+      const fundEl    = `#rl-b${c*3 + 1}`;
+      const acordeEl1 = `#rl-b${c*3 + 2}`;
+      const acordeEl2 = `#rl-b${c*3 + 3}`;
+      all.push({midi:meSeq[c][0], beats:1, isBass:true, articulation:SUST, startBeat:t0,   el:fundEl});
+      all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+1, el:acordeEl1});
+      all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+2, el:acordeEl2});
     }
     attachScorePlayer({ playBtnId: btnId, bpm, beatsPerBar:3, notes: all });
   }

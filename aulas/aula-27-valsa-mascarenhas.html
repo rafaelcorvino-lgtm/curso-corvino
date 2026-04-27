@@ -23,14 +23,15 @@
   </div>
 
   <h2>1. O que é uma ligadura</h2>
-  <p>Quando você vê uma <strong>curva</strong> conectando duas notas iguais (mesmo nome, mesma altura), elas viram <em>uma nota só</em> que dura a soma das durações. Em vez de tocar Mi e depois Mi de novo, você toca Mi <strong>uma vez só</strong> e deixa soar pelos 2 compassos juntos.</p>
+  <p>Quando você vê uma <strong>curva</strong> conectando duas notas iguais (mesmo nome, mesma altura), elas viram <em>uma nota só</em> que dura a soma das durações. Em vez de tocar Sol e depois Sol de novo, você toca Sol <strong>uma vez só</strong> e deixa soar pelos 2 compassos juntos.</p>
   <p>É um recurso musical pra criar <strong>repouso</strong> — uma respiração na frase. A ME continua tocando bum-tchim-tchim por baixo, dando movimento ao acompanhamento enquanto a MD sustenta a nota.</p>
 
   <h2>2. Exemplo educacional — valsa com ligadura (8 compassos forma A-B)</h2>
-  <p>Esse é um exemplo <strong>original</strong> que demonstra a ligadura. Os compassos 4-5 têm uma ligadura no Sol — toque Sol no compasso 4 e deixe soar pelos 6 tempos (2 compassos × 3). A ME continua bum-tchim-tchim por baixo.</p>
+  <p>Esse é um exemplo <strong>original</strong> que demonstra a ligadura. Os compassos 3-4 têm uma ligadura no Sol — toque Sol no compasso 3 e deixe soar pelos 6 tempos (2 compassos × 3). A ME continua bum-tchim-tchim por baixo.</p>
 
   <figure class="score-figure">
-    <svg viewBox="0 0 580 230" class="score-svg">
+    <svg viewBox="0 0 580 470" class="score-svg">
+      <!-- ============ STAVE 1 (compassos 1-4) — Frase A com ligadura ============ -->
       <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
         <line x1="20" y1="50" x2="560" y2="50"/><line x1="20" y1="65" x2="560" y2="65"/>
         <line x1="20" y1="80" x2="560" y2="80"/><line x1="20" y1="95" x2="560" y2="95"/>
@@ -41,30 +42,23 @@
         <text x="85" y="75" font-size="22">3</text><text x="85" y="102" font-size="22">4</text>
       </g>
 
-      <!-- 8 compassos × 1 nota cada (mín pontuada). Sequência Mi-Sol-Mi-Sol(tied)-Sol-Mi-Ré-Dó.
-           Compassos 4-5 têm ligadura (Sol-Sol tied). -->
+      <!-- FRASE A — C1: Mi  C2: Sol  C3: Sol(tied)  C4: Sol(continuação) -->
       <g>
         <ellipse id="pv-1" cx="130" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-        <ellipse id="pv-2" cx="190" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-        <ellipse id="pv-3" cx="250" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-        <!-- C4 e C5 tied (Sol-Sol). C5 é só visualmente — o som não toca novamente. -->
-        <ellipse id="pv-4" cx="310" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-        <ellipse cx="370" cy="95" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2" opacity="0.5"/>
-        <!-- Curva da ligadura conectando C4 (Sol) e C5 (Sol) -->
-        <path d="M 313 87 Q 340 75 367 87" stroke="var(--gold)" stroke-width="2" fill="none"/>
-        <ellipse id="pv-6" cx="425" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-        <ellipse id="pv-7" cx="478" cy="117" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-        <line x1="525" y1="125" x2="545" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
-        <ellipse id="pv-8" cx="535" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <ellipse id="pv-2" cx="248" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <!-- C3 e C4 tied (Sol-Sol). C4 é só visualmente — o som não toca novamente. -->
+        <ellipse id="pv-3" cx="367" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <ellipse cx="485" cy="95" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2" opacity="0.5"/>
+        <!-- Curva da ligadura conectando C3 (Sol) e C4 (Sol) -->
+        <path d="M 370 87 Q 425 70 482 87" stroke="var(--gold)" stroke-width="2" fill="none"/>
       </g>
-
       <g font-family="serif" font-style="italic" font-size="11" text-anchor="middle" fill="#d4c9a8">
-        <text x="130" y="40">Mi</text><text x="190" y="40">Sol</text><text x="250" y="40">Mi</text>
-        <text x="340" y="40" fill="var(--gold)" font-weight="700">Sol (tied)</text>
-        <text x="425" y="40">Mi</text><text x="478" y="40">Ré</text><text x="535" y="40">Dó</text>
+        <text x="130" y="40">Mi</text>
+        <text x="248" y="40">Sol</text>
+        <text x="425" y="40" fill="var(--gold)" font-weight="700">Sol (tied — 6 tempos)</text>
       </g>
 
-      <!-- Pauta ME (clave de Fá) -->
+      <!-- Pauta ME (clave de Fá) stave 1 -->
       <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
         <line x1="20" y1="140" x2="560" y2="140"/><line x1="20" y1="155" x2="560" y2="155"/>
         <line x1="20" y1="170" x2="560" y2="170"/><line x1="20" y1="185" x2="560" y2="185"/>
@@ -76,83 +70,136 @@
       </g>
       <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
 
-      <!-- BAIXOS — 8 compassos × 3 tempos. Cadência Dó-Sol-Dó-Sol-Sol-Dó-Sol7-Dó.
-           Note: durante a ligadura (C4-C5) a ME continua tocando Sol -->
+      <!-- BAIXOS frase A — bum-tchim-tchim (continua mesmo durante a ligadura) -->
       <g font-family="sans-serif">
-        <!-- C1: Dó-DóM-DóM (110, 130, 150) -->
-        <rect   id="pv-b1"  x="98"  y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
-        <text x="108" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
-        <circle id="pv-b2"  cx="130" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="130" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="pv-b3"  cx="150" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="150" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C2: Sol-SolM-SolM (170, 190, 210) -->
-        <rect   id="pv-b4"  x="158" y="160" width="20" height="18" rx="3" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
-        <text x="168" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Sol</text>
-        <circle id="pv-b5"  cx="190" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="190" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="pv-b6"  cx="210" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="210" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C3: Dó-DóM-DóM (230, 250, 270) -->
-        <rect   id="pv-b7"  x="218" y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
-        <text x="228" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
-        <circle id="pv-b8"  cx="250" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="250" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="pv-b9"  cx="270" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="270" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C4: Sol-SolM-SolM (290, 310, 330) — durante a ligadura -->
-        <rect   id="pv-b10" x="278" y="160" width="20" height="18" rx="3" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
-        <text x="288" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Sol</text>
-        <circle id="pv-b11" cx="310" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="310" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="pv-b12" cx="330" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="330" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C5: Sol-SolM-SolM (350, 370, 390) — continuação da ligadura -->
-        <rect   id="pv-b13" x="338" y="160" width="20" height="18" rx="3" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
-        <text x="348" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Sol</text>
-        <circle id="pv-b14" cx="370" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="370" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="pv-b15" cx="390" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="390" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C6: Dó-DóM-DóM (410, 427, 444) -->
-        <rect   id="pv-b16" x="398" y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
-        <text x="408" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
-        <circle id="pv-b17" cx="427" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="427" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="pv-b18" cx="444" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="444" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <!-- C7: Sol-Sol7-Sol7 (463, 480, 497) — preparação dominante 7ª -->
-        <rect   id="pv-b19" x="453" y="160" width="20" height="18" rx="3" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
-        <text x="463" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Sol</text>
-        <circle id="pv-b20" cx="480" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="480" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">7</text>
-        <circle id="pv-b21" cx="497" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
-        <text x="497" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">7</text>
-        <!-- C8: Dó-DóM-DóM (513, 530, 548) — cadência final V-I -->
-        <rect   id="pv-b22" x="503" y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
-        <text x="513" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
-        <circle id="pv-b23" cx="530" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="530" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
-        <circle id="pv-b24" cx="548" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
-        <text x="548" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
+        <!-- C1: Dó-DóM-DóM -->
+        <rect   id="pv-b1"  x="93"  y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+        <text x="105" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+        <circle id="pv-b2"  cx="144" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+        <text x="144" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <circle id="pv-b3"  cx="183" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+        <text x="183" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <!-- C2: Sol-SolM-SolM -->
+        <rect   id="pv-b4"  x="211" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+        <text x="223" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Sol</text>
+        <circle id="pv-b5"  cx="262" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+        <text x="262" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <circle id="pv-b6"  cx="301" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+        <text x="301" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <!-- C3: Sol-SolM-SolM (durante a ligadura) -->
+        <rect   id="pv-b7"  x="329" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+        <text x="341" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Sol</text>
+        <circle id="pv-b8"  cx="380" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+        <text x="380" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <circle id="pv-b9"  cx="419" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+        <text x="419" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <!-- C4: Sol-SolM-SolM (continuação ligadura) -->
+        <rect   id="pv-b10" x="447" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+        <text x="459" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Sol</text>
+        <circle id="pv-b11" cx="498" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+        <text x="498" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <circle id="pv-b12" cx="537" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+        <text x="537" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+      </g>
+      <!-- Dedilhado ME stave 1 -->
+      <g fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle" stroke="#1a1618" stroke-width="2.5" paint-order="stroke">
+        <text x="105" y="218">4</text><text x="144" y="218">3</text><text x="183" y="218">3</text>
+        <text x="223" y="218">4</text><text x="262" y="218">3</text><text x="301" y="218">3</text>
+        <text x="341" y="218">4</text><text x="380" y="218">3</text><text x="419" y="218">3</text>
+        <text x="459" y="218">4</text><text x="498" y="218">3</text><text x="537" y="218">3</text>
+      </g>
+      <!-- Barras de compasso stave 1 -->
+      <g stroke="#e0d8c0" stroke-width="1.5">
+        <line x1="203" y1="50" x2="203" y2="200"/>
+        <line x1="321" y1="50" x2="321" y2="200"/>
+        <line x1="440" y1="50" x2="440" y2="200"/>
+        <line x1="558" y1="50" x2="558" y2="200"/>
       </g>
 
-      <text x="290" y="220" font-size="10" font-style="italic" fill="var(--fg-dim)" text-anchor="middle">ME: bum-tchim-tchim continua nos 8 compassos (mesmo durante a ligadura C4-C5)</text>
+      <!-- ============ STAVE 2 (compassos 5-8) — Frase B (descida final) ============ -->
+      <g transform="translate(0, 240)">
+        <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+          <line x1="20" y1="50" x2="560" y2="50"/><line x1="20" y1="65" x2="560" y2="65"/>
+          <line x1="20" y1="80" x2="560" y2="80"/><line x1="20" y1="95" x2="560" y2="95"/>
+          <line x1="20" y1="110" x2="560" y2="110"/>
+        </g>
+        <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
 
-      <g stroke="#e0d8c0" stroke-width="1.5">
-        <line x1="160" y1="50" x2="160" y2="200"/>
-        <line x1="220" y1="50" x2="220" y2="200"/>
-        <line x1="280" y1="50" x2="280" y2="200"/>
-        <line x1="340" y1="50" x2="340" y2="200"/>
-        <line x1="400" y1="50" x2="400" y2="200"/>
-        <line x1="455" y1="50" x2="455" y2="200"/>
-        <line x1="505" y1="50" x2="505" y2="200"/>
-        <line x1="558" y1="50" x2="558" y2="200" stroke-width="3"/>
+        <!-- FRASE B — C5: Mi  C6: Ré  C7: Dó  C8: Dó (resolução final) -->
+        <g>
+          <ellipse id="pv-5" cx="130" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <ellipse id="pv-6" cx="248" cy="117" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <line x1="357" y1="125" x2="377" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+          <ellipse id="pv-7" cx="367" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <line x1="475" y1="125" x2="495" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+          <ellipse id="pv-8" cx="485" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        </g>
+        <g font-family="serif" font-style="italic" font-size="11" text-anchor="middle" fill="#d4c9a8">
+          <text x="130" y="40">Mi</text>
+          <text x="248" y="40">Ré</text>
+          <text x="367" y="40">Dó</text>
+          <text x="485" y="40">Dó</text>
+        </g>
+
+        <!-- Pauta ME stave 2 -->
+        <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+          <line x1="20" y1="140" x2="560" y2="140"/><line x1="20" y1="155" x2="560" y2="155"/>
+          <line x1="20" y1="170" x2="560" y2="170"/><line x1="20" y1="185" x2="560" y2="185"/>
+          <line x1="20" y1="200" x2="560" y2="200"/>
+        </g>
+        <text x="35" y="172" font-size="42" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>
+        <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
+
+        <!-- BAIXOS frase B — Dó-Sol-Sol7-Dó (cadência final) -->
+        <g font-family="sans-serif">
+          <!-- C5: Dó-DóM-DóM -->
+          <rect   id="pv-b13" x="93"  y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+          <text x="105" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+          <circle id="pv-b14" cx="144" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+          <text x="144" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <circle id="pv-b15" cx="183" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+          <text x="183" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <!-- C6: Sol-SolM-SolM -->
+          <rect   id="pv-b16" x="211" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+          <text x="223" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Sol</text>
+          <circle id="pv-b17" cx="262" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+          <text x="262" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <circle id="pv-b18" cx="301" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+          <text x="301" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <!-- C7: Sol-Sol7-Sol7 -->
+          <rect   id="pv-b19" x="329" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+          <text x="341" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Sol</text>
+          <circle id="pv-b20" cx="380" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+          <text x="380" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">7</text>
+          <circle id="pv-b21" cx="419" cy="170" r="10" fill="none" stroke="#d94a4a" stroke-width="1.8"/>
+          <text x="419" y="174" fill="#d94a4a" font-size="10" font-weight="700" text-anchor="middle">7</text>
+          <!-- C8: Dó-DóM-DóM (cadência final V-I) -->
+          <rect   id="pv-b22" x="447" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+          <text x="459" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+          <circle id="pv-b23" cx="498" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+          <text x="498" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <circle id="pv-b24" cx="537" cy="170" r="10" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+          <text x="537" y="174" fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        </g>
+        <g fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle" stroke="#1a1618" stroke-width="2.5" paint-order="stroke">
+          <text x="105" y="218">4</text><text x="144" y="218">3</text><text x="183" y="218">3</text>
+          <text x="223" y="218">4</text><text x="262" y="218">3</text><text x="301" y="218">3</text>
+          <text x="341" y="218">4</text><text x="380" y="218">2</text><text x="419" y="218">2</text>
+          <text x="459" y="218">4</text><text x="498" y="218">3</text><text x="537" y="218">3</text>
+        </g>
+        <!-- Barras de compasso stave 2 (com final dupla) -->
+        <g stroke="#e0d8c0" stroke-width="1.5">
+          <line x1="203" y1="50" x2="203" y2="200"/>
+          <line x1="321" y1="50" x2="321" y2="200"/>
+          <line x1="440" y1="50" x2="440" y2="200"/>
+          <line x1="558" y1="50" x2="558" y2="200" stroke-width="3"/>
+        </g>
       </g>
     </svg>
     <figcaption>
-      <strong>Valsa em Dó com ligadura nos compassos 4-5.</strong> O Sol do C4 <em>soa por 6 tempos</em>
-      (ligado ao Sol do C5). A ME continua o bum-tchim-tchim — você sente o pulso mesmo com a MD parada.
+      <strong>Valsa em Dó com ligadura nos compassos 3-4.</strong> O Sol do C3 <em>soa por 6 tempos</em>
+      (ligado ao Sol do C4). A ME continua o bum-tchim-tchim — você sente o pulso mesmo com a MD parada.
+      Frase B (C5-C8) faz a descida Mi-Ré-Dó com cadência V-I (Sol7→Dó).
     </figcaption>
     <div class="score-play-wrap">
       <button id="btn-pv-l" class="score-play-btn">▶ Lento (60 BPM)</button>
@@ -163,7 +210,7 @@
   <h2>3. Como estudar</h2>
   <ol>
     <li><strong>Ouça primeiro</strong> a Pequena Valsa do Mascarenhas (link no callout amarelo).</li>
-    <li><strong>MD sozinha:</strong> conte 1-2-3 cada compasso. Na ligadura (C4-C5), <em>toque Sol uma vez só</em> e conte mentalmente "1-2-3-1-2-3" (6 tempos) sem soltar a tecla.</li>
+    <li><strong>MD sozinha:</strong> conte 1-2-3 cada compasso. Na ligadura (C3-C4), <em>toque Sol uma vez só</em> e conte mentalmente "1-2-3-1-2-3" (6 tempos) sem soltar a tecla.</li>
     <li><strong>ME sozinha, 60 BPM:</strong> bum-tchim-tchim. Atenção: na linha da ligadura, a ME continua tocando — não pare.</li>
     <li><strong>Mãos juntas, 60 BPM.</strong> A ligadura é o ponto crítico — pratique isolado.</li>
     <li>Sobe pra 90 BPM quando o lento sair limpo 3x.</li>
@@ -190,28 +237,27 @@
   // MIDIs MD: Mi=64, Sol=67, Ré=62, Dó central=60
   // ME (Stradella): Dó=24, DóM=25, Sol=31, SolM=32, Sol7=33
 
-  // Sequência Mi-Sol-Mi-Sol(tied 6t)-Mi-Ré-Dó.
-  // Sol do C4 dura 6 tempos (mín pontuada × 2 com ligadura).
-  // C5 não tem nota nova — o Sol continua soando da ligadura.
-  // 7 notas únicas em 8 compassos.
+  // Frase A: Mi(C1) - Sol(C2) - Sol(C3 tied 6t) - [continuação C4]
+  // Frase B: Mi(C5) - Ré(C6) - Dó(C7) - Dó(C8 final)
+  // C4 não tem nota nova — Sol continua soando da ligadura.
   const md = [
     {midi:64, el:'#pv-1', beats:3, articulation:0.95},  // C1 Mi
     {midi:67, el:'#pv-2', beats:3, articulation:0.95},  // C2 Sol
-    {midi:64, el:'#pv-3', beats:3, articulation:0.95},  // C3 Mi
-    {midi:67, el:'#pv-4', beats:6, articulation:0.95},  // C4-C5 Sol tied (6 tempos)
-    {midi:64, el:'#pv-6', beats:3, articulation:0.95},  // C6 Mi
-    {midi:62, el:'#pv-7', beats:3, articulation:0.95},  // C7 Ré
-    {midi:60, el:'#pv-8', beats:3, articulation:0.95},  // C8 Dó
+    {midi:67, el:'#pv-3', beats:6, articulation:0.95},  // C3-C4 Sol tied (6 tempos)
+    {midi:64, el:'#pv-5', beats:3, articulation:0.95},  // C5 Mi
+    {midi:62, el:'#pv-6', beats:3, articulation:0.95},  // C6 Ré
+    {midi:60, el:'#pv-7', beats:3, articulation:0.95},  // C7 Dó
+    {midi:60, el:'#pv-8', beats:3, articulation:0.95},  // C8 Dó (final)
   ];
 
-  // ME: bum-tchim-tchim. Cadência Dó-Sol-Dó-Sol(C4-C5)-Dó-Sol7-Dó
+  // ME: bum-tchim-tchim. Cadência Dó-Sol-Sol(C3-C4)-Dó-Sol-Sol7-Dó
   const meSeq = [
     [24, 25],  // C1: Dó-DóM
     [31, 32],  // C2: Sol-SolM
-    [24, 25],  // C3: Dó-DóM
-    [31, 32],  // C4: Sol-SolM (durante a ligadura)
-    [31, 32],  // C5: Sol-SolM (continua)
-    [24, 25],  // C6: Dó-DóM
+    [31, 32],  // C3: Sol-SolM (durante a ligadura)
+    [31, 32],  // C4: Sol-SolM (continua)
+    [24, 25],  // C5: Dó-DóM
+    [31, 32],  // C6: Sol-SolM
     [31, 33],  // C7: Sol-Sol7
     [24, 25],  // C8: Dó-DóM
   ];
@@ -221,8 +267,8 @@
     let mdI = 0;
     for (let c = 0; c < 8; c++) {
       const t0 = c*3;
-      // MD: tocar nota só nos compassos onde tem novo ataque (não em C5 = continuação da ligadura)
-      if (c !== 4) {
+      // MD: tocar nota só nos compassos com novo ataque (não em C4 = continuação da ligadura)
+      if (c !== 3) {
         all.push({...md[mdI], startBeat:t0});
         mdI++;
       }
