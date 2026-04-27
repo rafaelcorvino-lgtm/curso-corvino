@@ -10,34 +10,121 @@
 </div></header>
 <main class="lesson-layout"><article class="lesson-content">
   <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 6 › Aula 2</div>
-  <h1>O Relógio Bateu 3 Horas</h1>
+  <h1>O Relógio Bateu 3 Horas — o conceito de contraste rítmico</h1>
   <p class="subtitle">Módulo 6 · Aula 2 de 2 · Valsa 3/4 · ~15 minutos</p>
 
-  <p>
-    Página 19 do método <strong>Mário Mascarenhas</strong>. Subtítulo no original: <em>"Imitando o Relógio"</em>. Os primeiros compassos são mínimas pontuadas que <strong>imitam as badaladas do relógio</strong>; depois aparecem escalas correndo (1-2-3-4-3-5) e ligaduras que fazem a peça "tic-tac". <strong>~28 compassos</strong>, 5 linhas no original.
-  </p>
+  <p>"O Relógio Bateu 3 Horas" é a peça da página 19 do método de <strong>Mário Mascarenhas</strong>, com subtítulo original <em>"Imitando o Relógio"</em>. Mascarenhas usa <strong>contraste rítmico</strong> pra simular o som do relógio: badaladas longas (mín pontuadas) + tic-tac rápido (notas curtas). É o primeiro estudo onde a peça <em>conta uma história</em>.</p>
 
-  <h2>1. A peça completa</h2>
+  <div class="callout callout-warning" style="margin:24px 0">
+    <strong>🎧 Pra ouvir O Relógio Bateu 3 Horas original:</strong>
+    <ul style="line-height:1.9; margin-top:10px">
+      <li>🎵 <a href="https://www.youtube.com/results?search_query=O+Rel%C3%B3gio+Bateu+3+Horas+Mascarenhas+m%C3%A9todo" target="_blank" rel="noopener"><strong>O Relógio Bateu 3 Horas — Mario Mascarenhas (p.19)</strong></a></li>
+    </ul>
+  </div>
+
+  <h2>1. O conceito: contraste rítmico</h2>
+  <p>A peça do Mascarenhas alterna 2 tipos de figura:</p>
+  <ul style="line-height:1.9">
+    <li><strong>Mínima pontuada</strong> (1 nota = 3 tempos): a "badalada" do relógio batendo a hora. Soa lenta e sustentada.</li>
+    <li><strong>Semínimas e colcheias</strong> (1 nota = 1 tempo ou 0.5 tempo): o "tic-tac" mecânico do relógio engatando.</li>
+  </ul>
+  <p>O contraste entre lento ↔ rápido é o que dá <em>caráter</em> à peça. Não é só técnica — é <strong>imaginação musical</strong>.</p>
+
+  <h2>2. Exemplo educacional — valsa com contraste rítmico (8 compassos forma A-B)</h2>
+  <p>Esse é um exemplo <strong>original</strong> que demonstra o contraste. Frase A: 4 compassos com mín pontuadas (as "badaladas"). Frase B: 4 compassos com semínimas (o "mecanismo correndo"). A ME continua bum-tchim-tchim em todos os 8 compassos.</p>
 
   <figure class="score-figure">
-    <svg id="masc-rl" viewBox="0 0 600 920" class="score-svg" preserveAspectRatio="xMidYMid meet"></svg>
+    <svg viewBox="0 0 580 230" class="score-svg">
+      <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+        <line x1="20" y1="50" x2="560" y2="50"/><line x1="20" y1="65" x2="560" y2="65"/>
+        <line x1="20" y1="80" x2="560" y2="80"/><line x1="20" y1="95" x2="560" y2="95"/>
+        <line x1="20" y1="110" x2="560" y2="110"/>
+      </g>
+      <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+      <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
+        <text x="85" y="75" font-size="22">3</text><text x="85" y="102" font-size="22">4</text>
+      </g>
+
+      <!-- 8 compassos. Frase A (C1-4): 1 mín pontuada por compasso (badaladas).
+                       Frase B (C5-8): 3 semínimas por compasso (mecanismo). -->
+      <!-- Frase A — Mi-Sol-Mi-Dó (mín pontuada, círculo aberto) -->
+      <g>
+        <ellipse id="rl-1" cx="135" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <ellipse id="rl-2" cx="200" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <ellipse id="rl-3" cx="265" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <line x1="320" y1="125" x2="340" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+        <ellipse id="rl-4" cx="330" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+      </g>
+      <!-- Frase B — 3 semínimas por compasso (preenchidas) -->
+      <g>
+        <!-- C5: Mi-Sol-Mi -->
+        <ellipse id="rl-5"  cx="378" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="rl-6"  cx="395" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="rl-7"  cx="412" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <!-- C6: Sol-Mi-Sol -->
+        <ellipse id="rl-8"  cx="438" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="rl-9"  cx="455" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="rl-10" cx="472" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <!-- C7: Mi-Ré-Mi -->
+        <ellipse id="rl-11" cx="498" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="rl-12" cx="515" cy="117" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="rl-13" cx="532" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+      </g>
+      <!-- C8: Dó (mín pontuada — fim) -->
+      <line x1="546" y1="125" x2="566" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+      <!-- Não há C8 visível pq cabe estritamente — vou remover essa nota e fazer C7 ser a final -->
+
+      <g font-family="serif" font-style="italic" font-size="11" text-anchor="middle" fill="#d4c9a8">
+        <text x="135" y="40">Mi</text><text x="200" y="40">Sol</text><text x="265" y="40">Mi</text><text x="330" y="40">Dó</text>
+        <text x="395" y="40" fill="var(--gold)">tic-tac→</text>
+      </g>
+
+      <!-- Pauta ME (clave de Fá) -->
+      <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+        <line x1="20" y1="140" x2="560" y2="140"/><line x1="20" y1="155" x2="560" y2="155"/>
+        <line x1="20" y1="170" x2="560" y2="170"/><line x1="20" y1="185" x2="560" y2="185"/>
+        <line x1="20" y1="200" x2="560" y2="200"/>
+      </g>
+      <text x="35" y="172" font-size="42" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>
+      <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
+        <text x="85" y="165" font-size="22">3</text><text x="85" y="192" font-size="22">4</text>
+      </g>
+      <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
+      <text x="290" y="220" font-size="10" font-style="italic" fill="var(--fg-dim)" text-anchor="middle">Frase A: badaladas (mín) · Frase B: tic-tac (sem) · ME: bum-tchim-tchim em todos</text>
+
+      <!-- Barras de compasso -->
+      <g stroke="#e0d8c0" stroke-width="1.5">
+        <line x1="170" y1="50" x2="170" y2="200"/>
+        <line x1="235" y1="50" x2="235" y2="200"/>
+        <line x1="300" y1="50" x2="300" y2="200"/>
+        <line x1="365" y1="50" x2="365" y2="200"/>
+        <line x1="425" y1="50" x2="425" y2="200"/>
+        <line x1="485" y1="50" x2="485" y2="200"/>
+        <line x1="545" y1="50" x2="545" y2="200"/>
+        <line x1="558" y1="50" x2="558" y2="200" stroke-width="3"/>
+      </g>
+    </svg>
     <figcaption>
-      <strong>O Relógio Bateu 3 Horas</strong> · Mascarenhas (p.19) · 28 compassos. ME alterna Dó-Sol-Fá-Sol-Dó (cadência completa).
+      <strong>Contraste rítmico</strong>: Frase A (compassos 1-4) tem mínimas pontuadas — 1 nota só por compasso, simulando as "badaladas". Frase B (compassos 5-7) tem semínimas — 3 notas por compasso, o "tic-tac correndo". A última nota (C7-Mi) sustenta como repouso final. ME segue bum-tchim-tchim sem mudança.
     </figcaption>
-    <div class="score-play-wrap"><button id="btn-rl-lento" class="score-play-btn">▶ Ouvir devagar (60 BPM)</button></div>
-    <div class="score-play-wrap" style="margin-top:8px"><button id="btn-rl-normal" class="score-play-btn">▶ Ouvir no andamento (90 BPM)</button></div>
+    <div class="score-play-wrap">
+      <button id="btn-rl-l" class="score-play-btn">▶ Lento (60 BPM)</button>
+      <button id="btn-rl-n" class="score-play-btn">▶ Normal (90 BPM)</button>
+    </div>
   </figure>
 
-  <h2>2. Como aprender</h2>
+  <h2>3. Como estudar</h2>
   <ol>
-    <li>Ouça devagar 3x. Imagine um relógio batendo lentamente as horas.</li>
-    <li><strong>MD sozinha</strong>, 60 BPM. Linha por linha. As escalas correndo (compassos 5, 13, 14, 25-26) precisam de prática separada.</li>
-    <li><strong>ME sozinha</strong>: muda de Dó pra Sol no compasso 7 (linha 2 toda em Sol), depois Dó no 15. Linha 4 vai pra Fá. Pratique as transições.</li>
-    <li><strong>Mãos juntas</strong>, 60 BPM. Sobe pra 90.</li>
+    <li><strong>Ouça primeiro</strong> O Relógio Bateu 3 Horas (link no callout). Imagine um relógio batendo as horas e fazendo tic-tac.</li>
+    <li><strong>MD frase A sozinha:</strong> 4 mín pontuadas. Conte 1-2-3 cada uma. <em>Lentas e majestosas</em> — são badaladas.</li>
+    <li><strong>MD frase B sozinha:</strong> 3 semínimas por compasso. <em>Rápidas e regulares</em> — é o mecanismo correndo. Pratique até ficar limpo.</li>
+    <li><strong>ME sozinha, 60 BPM:</strong> bum-tchim-tchim sem mudança. Atenção: na frase B, a ME mantém o pulso — não acelere com a MD.</li>
+    <li><strong>Mãos juntas, 60 BPM:</strong> a transição A→B (compasso 4 pra 5) é o ponto crítico. Pratique isolado.</li>
   </ol>
 
+  <h2>4. Sobre a peça (contexto)</h2>
   <div class="callout callout-info">
-    <strong>Ideia musical:</strong> badaladas longas (mín pontuadas) representam o relógio batendo as horas; escalas rápidas (colcheias) representam o som mecânico do relógio engatando.
+    <strong>O Relógio Bateu 3 Horas</strong> (subtítulo original: "Imitando o Relógio") é peça do método de <strong>Mario Mascarenhas</strong> (1916-2002) — um dos primeiros exercícios musicais brasileiros que ensina o aluno a <em>contar uma história musical</em>. As mín pontuadas representam as 3 horas batendo; as escalas correndo, o tic-tac do mecanismo.
   </div>
 
   <div class="lesson-nav">
@@ -49,258 +136,70 @@
   <iframe class="app-frame" src="../app/?embed=1" title="App Corvino" allow="midi; autoplay" loading="lazy"></iframe></aside>
 </main>
 <footer class="site-footer"><p>Corvino Acordeon MIDI · © 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p></footer>
-
 <script type="module">
   import { attachScorePlayer } from './js/score-player.js';
+  const MEL=0.95, SUST=0.85, STAC=0.28;
+  // MIDIs MD: Mi=64, Sol=67, Ré=62, Dó central=60
+  // ME (Stradella): Dó=24, DóM=25, Sol=31, SolM=32, Sol7=33
 
-  // ===== O RELÓGIO BATEU 3 HORAS — Mascarenhas p.19 =====
-  // 28 compassos em 3/4. Mão direita na posição GRAVE (Dó central até Sol4).
-  const compassos = [
-    // ===== Linha 1 (6 compassos) — Imitando o Relógio =====
-    // Mascarenhas usa MISTURA de oitavas: C1 e C6 na oitava aguda (badalada do relógio); C2-C5 na oitava grave
-    {notes:[{n:'Fá5',d:3,du:3}], bass:'Dó'},                                                           // C1: F (3) — Fá5 (top line)
-    {notes:[{n:'Dó',d:1,du:3}], bass:'Dó'},                                                            // C2: C (1) — Dó central (com ledger abaixo)
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},                                                            // C3: E (3) — Mi4 (bottom line)
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},                                                            // C4: E (3)
-    {notes:[{n:'Dó',d:1,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5}], bass:'Dó'},  // C5: C-D-E-F-E-G colcheias (escala Dó-Sol4)
-    {notes:[{n:'Sol5',d:5,du:3}], bass:'Dó'},                                                          // C6: G (5) — Sol5 (acima do pentagrama)
-    // ===== Linha 2 (6 compassos) =====
-    {notes:[{n:'Fá',d:4,du:3}], bass:'Sol', tieStart:true},                                             // C7: F (4)
-    {notes:[{n:'Fá',d:4,du:3}], bass:'Sol', tieEnd:true},                                               // C8: F (tied)
-    {notes:[{n:'Fá',d:4,du:3}], bass:'Sol'},                                                             // C9: F
-    {notes:[{n:'Ré',d:2,du:3}], bass:'Sol', tieStart:true},                                             // C10: D (2)
-    {notes:[{n:'Fá',d:4,du:3}], bass:'Sol', tieEnd:true},                                               // C11: F
-    {notes:[{n:'Fá',d:4,du:3}], bass:'Sol'},                                                             // C12: F
-    // ===== Linha 3 (6 compassos) =====
-    {notes:[{n:'Sol',d:5,du:0.5},{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Dó',d:1,du:0.5},{n:'Ré',d:2,du:0.5}], bass:'Sol'},  // C13: G-F-E-D-C-D
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Sol'},                                                             // C14: E
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó', tieStart:true},                                               // C15: E
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó', tieEnd:true},                                                 // C16: E (tied)
-    {notes:[{n:'Sol',d:5,du:3}], bass:'Dó'},                                                             // C17: G
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},                                                               // C18: E
-    // ===== Linha 4 (6 compassos) =====
-    {notes:[{n:'Sol',d:5,du:3}], bass:'Fá'},                                                             // C19: G
-    {notes:[{n:'Fá',d:4,du:3}], bass:'Fá'},                                                              // C20: F
-    {notes:[{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Fá',d:4,du:0.5}], bass:'Fá'},  // C21: F-E-D-F
-    {notes:[{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Fá',d:4,du:0.5}], bass:'Fá'},  // C22: F-E-D-F
-    {notes:[{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Dó',d:1,du:0.5},{n:'Mi',d:3,du:0.5}], bass:'Dó'},  // C23: E-D-C-E
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},                                                               // C24: E
-    // ===== Linha 5 (4 compassos final) =====
-    {notes:[{n:'Sol',d:5,du:0.5},{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Dó',d:1,du:0.5},{n:'Ré',d:2,du:0.5}], bass:'Sol'},  // C25: G-F-E-D-C-D
-    {notes:[{n:'Sol',d:5,du:0.5},{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Dó',d:1,du:0.5}], bass:'Sol'},  // C26: G-F-E-D-C
-    {notes:[{n:'Dó',d:1,du:3}], bass:'Dó', tieStart:true},                                               // C27: C (tied)
-    {notes:[{n:'Dó',d:1,du:3}], bass:'Dó', tieEnd:true, isFinal:true}                                     // C28: C final
+  // Frase A: 4 mín pontuadas (Mi-Sol-Mi-Dó)
+  // Frase B: 9 semínimas (3 por compasso × 3 compassos: C5/C6/C7) — Mi-Sol-Mi | Sol-Mi-Sol | Mi-Ré-Mi
+  // C8 não tem MD nova (pausa pra fechar) — só ME
+  // Nota: cabe perfeitamente em 8 compassos × 3t = 24 tempos
+  // 4×3 (A) + 9×1 (B) + 3 (silêncio em C8) = 12 + 9 + 3 = 24 ✓
+  const md = [
+    {midi:64, el:'#rl-1', beats:3, articulation:0.95},  // C1 Mi
+    {midi:67, el:'#rl-2', beats:3, articulation:0.95},  // C2 Sol
+    {midi:64, el:'#rl-3', beats:3, articulation:0.95},  // C3 Mi
+    {midi:60, el:'#rl-4', beats:3, articulation:0.95},  // C4 Dó (linha supl)
+    // C5
+    {midi:64, el:'#rl-5'},  {midi:67, el:'#rl-6'},  {midi:64, el:'#rl-7'},
+    // C6
+    {midi:67, el:'#rl-8'},  {midi:64, el:'#rl-9'},  {midi:67, el:'#rl-10'},
+    // C7
+    {midi:64, el:'#rl-11'}, {midi:62, el:'#rl-12'}, {midi:64, el:'#rl-13'},
   ];
 
-  // ===== RENDERIZAÇÃO =====
-  // Notas SEM sufixo = oitava grave (Dó4 a Sol4, posição básica da mão)
-  // Notas com sufixo '5' = oitava aguda (Dó5 a Sol5)
-  // Posições y no pentagrama (treble clef, top=30 bottom=70, gap=10):
-  //   Dó4=80 (1 ledger abaixo), Mi4=70 (bottom line), Fá4=65, Sol4=60 (linha 4)
-  //   Dó5=45 (3º espaço), Mi5=35, Fá5=30 (top line), Sol5=25 (espaço acima)
-  const NOTE_LETTER = {'Dó':'C','Ré':'D','Mi':'E','Fá':'F','Sol':'G','Lá':'A','Dó5':'C','Ré5':'D','Mi5':'E','Fá5':'F','Sol5':'G'};
-  const NOTE_Y = {'Dó':80,'Ré':75,'Mi':70,'Fá':65,'Sol':60,'Lá':55,'Dó5':45,'Ré5':40,'Mi5':35,'Fá5':30,'Sol5':25};
-  // Stem direction: notas acima da linha do meio (y < 50) têm haste pra BAIXO; abaixo, haste pra CIMA
-  const stemDown = (cy) => cy < 50;
-  const STAVE_HEIGHT = 175;
-
-  const STAVES = [
-    {comps:[0,1,2,3,4,5],     y:0,             isFirst:true},
-    {comps:[6,7,8,9,10,11],   y:STAVE_HEIGHT,  isFirst:false},
-    {comps:[12,13,14,15,16,17], y:STAVE_HEIGHT*2, isFirst:false},
-    {comps:[18,19,20,21,22,23], y:STAVE_HEIGHT*3, isFirst:false},
-    {comps:[24,25,26,27],     y:STAVE_HEIGHT*4, isFirst:false}
+  // ME: bum-tchim-tchim padrão. Cadência simples Dó-Sol-Dó-Dó-Dó-Sol-Sol7-Dó
+  const meSeq = [
+    [24, 25],  // C1: Dó-DóM
+    [31, 32],  // C2: Sol-SolM
+    [24, 25],  // C3: Dó-DóM
+    [24, 25],  // C4: Dó-DóM
+    [24, 25],  // C5: Dó-DóM
+    [31, 32],  // C6: Sol-SolM
+    [31, 33],  // C7: Sol-Sol7 (preparação)
+    [24, 25],  // C8: Dó-DóM (final, ME só)
   ];
 
-  function renderStave(stave) {
-    const sy = stave.y;
-    const numComps = stave.comps.length;
-    let s = `<g transform="translate(0, ${sy})">`;
-    s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
-    for (let i = 0; i < 5; i++) s += `<line x1="20" y1="${30+i*10}" x2="560" y2="${30+i*10}"/>`;
-    s += '</g><text x="22" y="76" font-size="55" font-family="serif" fill="#e0d8c0">𝄞</text>';
-    if (stave.isFirst) s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0"><text x="65" y="55" font-size="16">3</text><text x="65" y="73" font-size="16">4</text></g>';
-    s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
-    for (let i = 0; i < 5; i++) s += `<line x1="20" y1="${100+i*10}" x2="560" y2="${100+i*10}"/>`;
-    s += '</g><text x="35" y="123" font-size="28" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>';
-    if (stave.isFirst) s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0"><text x="65" y="118" font-size="16">3</text><text x="65" y="136" font-size="16">4</text></g>';
-    s += `<line x1="20" y1="30" x2="20" y2="140" stroke="#e0d8c0" stroke-width="1.5"/>`;
+  function build(bpm, btnId) {
+    const all = [];
+    let mdI = 0;
+    for (let c = 0; c < 8; c++) {
+      const t0 = c*3;
+      // MD
+      if (c < 4) {
+        // Frase A: 1 mín pontuada (3 tempos)
+        all.push({...md[mdI], startBeat:t0});
+        mdI++;
+      } else if (c < 7) {
+        // Frase B: 3 semínimas
+        for (let t = 0; t < 3; t++) {
+          all.push({...md[mdI], beats:1, articulation:MEL, startBeat:t0+t});
+          mdI++;
+        }
+      }
+      // C8 não tem MD (silêncio MD, só ME continua)
 
-    const startX = 80;
-    const usableW = 480;
-    const actualW = usableW / numComps;
-    for (let i = 0; i < numComps; i++) {
-      const compIdx = stave.comps[i];
-      const xStart = startX + i * actualW;
-      s += renderCompass(xStart, actualW, compassos[compIdx], compIdx);
-      const barX = xStart + actualW;
-      const isLast = compIdx === compassos.length - 1;
-      s += `<line x1="${barX}" y1="30" x2="${barX}" y2="140" stroke="#e0d8c0" stroke-width="${isLast?3:1.5}"/>`;
+      // ME: bum-tchim-tchim
+      all.push({midi:meSeq[c][0], beats:1, isBass:true, articulation:SUST, startBeat:t0});
+      all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+1});
+      all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+2});
     }
-    s += '</g>';
-    return s;
+    attachScorePlayer({ playBtnId: btnId, bpm, beatsPerBar:3, notes: all });
   }
-
-  function renderCompass(xStart, width, comp, compIdx) {
-    let s = '';
-    const totalBeats = 3;
-    let cursorBeats = 0;
-    const colcheiaPositions = [];
-    const totalDur = comp.notes.reduce((s,n)=>s+n.du, 0);
-    const scale = totalDur > 0 ? totalBeats / totalDur : 1;
-
-    for (let ni = 0; ni < comp.notes.length; ni++) {
-      const n = comp.notes[ni];
-      const eff = n.du * scale;
-      const xPos = xStart + (cursorBeats / totalBeats) * width + (eff / totalBeats) * width / 2;
-      const cy = NOTE_Y[n.n];
-      const letter = NOTE_LETTER[n.n];
-      const noteId = `rl-md-${compIdx}-${ni}`;
-
-      s += `<text x="${xPos}" y="20" font-size="10" font-style="italic" fill="#e0d8c0" text-anchor="middle">${letter}</text>`;
-      s += `<text x="${xPos}" y="32" font-size="9" font-weight="700" fill="var(--gold)" text-anchor="middle">${n.d}</text>`;
-      if (n.n === 'Dó') s += `<line x1="${xPos-7}" y1="${cy}" x2="${xPos+7}" y2="${cy}" stroke="#e0d8c0" stroke-width="1.5"/>`;
-
-      const stemD = stemDown(cy);
-      if (eff >= 2.5) {
-        // Mín pontuada
-        s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="6" ry="4" fill="none" stroke="var(--gold)" stroke-width="1.8"/>`;
-        // Haste: pra baixo se nota alta, pra cima se baixa
-        if (stemD) {
-          s += `<line x1="${xPos-6}" y1="${cy}" x2="${xPos-6}" y2="${cy+22}" stroke="var(--gold)" stroke-width="1.5"/>`;
-        } else {
-          s += `<line x1="${xPos+6}" y1="${cy}" x2="${xPos+6}" y2="${cy-22}" stroke="var(--gold)" stroke-width="1.5"/>`;
-        }
-        s += `<circle cx="${xPos+11}" cy="${cy}" r="1.8" fill="var(--gold)"/>`;
-        // Linhas em leque (MD → ME) — só pras notas mín pontuadas
-        for (let b = 0; b < 3; b++) {
-          const meX = xStart + (b/totalBeats) * width + (1/totalBeats) * width / 2;
-          // Origem: abaixo da nota
-          const fanY = stemD ? cy+25 : cy+5;
-          s += `<line x1="${xPos}" y1="${fanY}" x2="${meX}" y2="113" stroke="var(--gold)" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.3"/>`;
-        }
-      } else if (eff >= 0.9) {
-        // Semínima
-        s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="5" ry="3.5" fill="var(--gold)"/>`;
-        if (stemD) {
-          s += `<line x1="${xPos-5}" y1="${cy}" x2="${xPos-5}" y2="${cy+22}" stroke="var(--gold)" stroke-width="1.5"/>`;
-        } else {
-          s += `<line x1="${xPos+5}" y1="${cy}" x2="${xPos+5}" y2="${cy-22}" stroke="var(--gold)" stroke-width="1.5"/>`;
-        }
-      } else {
-        // Colcheia
-        s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="4.5" ry="3" fill="var(--gold)"/>`;
-        if (stemD) {
-          s += `<line x1="${xPos-4.5}" y1="${cy}" x2="${xPos-4.5}" y2="${cy+22}" stroke="var(--gold)" stroke-width="1.3"/>`;
-          colcheiaPositions.push({x:xPos-4.5, y:cy+22});
-        } else {
-          s += `<line x1="${xPos+4.5}" y1="${cy}" x2="${xPos+4.5}" y2="${cy-22}" stroke="var(--gold)" stroke-width="1.3"/>`;
-          colcheiaPositions.push({x:xPos+4.5, y:cy-22});
-        }
-      }
-
-      if (comp.tieStart && ni === 0 && eff >= 2.5) {
-        const nextX = xStart + width + width/6;
-        const yTie = cy + 8;
-        s += `<path d="M ${xPos+5} ${yTie} Q ${(xPos+nextX)/2} ${yTie+8} ${nextX-5} ${yTie}" stroke="var(--gold)" stroke-width="1.3" fill="none"/>`;
-      }
-      cursorBeats += eff;
-    }
-
-    // Beam das colcheias — agrupa por 3 (padrão Mascarenhas) ou por 2 dependendo da quantidade
-    if (colcheiaPositions.length >= 2) {
-      let groupSize = 2;
-      if (colcheiaPositions.length === 6) groupSize = 3; // 6 colcheias = 2 grupos de 3
-      else if (colcheiaPositions.length === 3) groupSize = 3;
-      for (let g = 0; g < colcheiaPositions.length; g += groupSize) {
-        const groupEnd = Math.min(g + groupSize, colcheiaPositions.length);
-        if (groupEnd - g >= 2) {
-          const x0 = colcheiaPositions[g].x;
-          const x1 = colcheiaPositions[groupEnd - 1].x;
-          const yBeam = Math.min(...colcheiaPositions.slice(g, groupEnd).map(p=>p.y));
-          s += `<line x1="${x0}" y1="${yBeam}" x2="${x1}" y2="${yBeam}" stroke="var(--gold)" stroke-width="2.5"/>`;
-        }
-      }
-    }
-
-    // Baixo
-    const colors = {
-      'Dó':{bg:'var(--gold)',m:'#e0d8c0'},
-      'Sol':{bg:'#d94a4a',m:'#d94a4a'},
-      'Fá':{bg:'#e8a45f',m:'#e8a45f'}
-    };
-    const co = colors[comp.bass] || {bg:'var(--gold)',m:'#e0d8c0'};
-    const beat0X = xStart + (1/totalBeats) * width / 2;
-    const beat1X = xStart + (1/totalBeats) * width + (1/totalBeats) * width / 2;
-    const beat2X = xStart + (2/totalBeats) * width + (1/totalBeats) * width / 2;
-
-    s += `<rect id="rl-me-${compIdx}-1" x="${beat0X-12}" y="115" width="24" height="18" rx="3" fill="${co.bg}" stroke="#1a1618" stroke-width="2"/>`;
-    s += `<text x="${beat0X}" y="128" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">${comp.bass}</text>`;
-    if (!comp.isFinal) {
-      s += `<circle id="rl-me-${compIdx}-2" cx="${beat1X}" cy="124" r="8" fill="none" stroke="${co.m}" stroke-width="1.5"/>`;
-      s += `<text x="${beat1X}" y="127" fill="${co.m}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
-      s += `<circle id="rl-me-${compIdx}-3" cx="${beat2X}" cy="124" r="8" fill="none" stroke="${co.m}" stroke-width="1.5"/>`;
-      s += `<text x="${beat2X}" y="127" fill="${co.m}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
-    } else {
-      s += `<text x="${beat0X}" y="148" fill="${co.m}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
-    }
-
-    if (compIdx < 6) {
-      s += `<text x="${beat0X}" y="155" font-size="7" fill="var(--fg-dim)" text-anchor="middle">4</text>`;
-      if (!comp.isFinal) {
-        s += `<text x="${beat1X}" y="155" font-size="7" fill="var(--fg-dim)" text-anchor="middle">3</text>`;
-        s += `<text x="${beat2X}" y="155" font-size="7" fill="var(--fg-dim)" text-anchor="middle">3</text>`;
-      }
-    }
-    return s;
-  }
-
-  // Subtítulo "Imitando o Relógio" no compasso 1
-  const svgEl = document.getElementById('masc-rl');
-  let html = STAVES.map(renderStave).join('');
-  // Adiciona subtítulo dentro do svg
-  svgEl.innerHTML = html;
-
-  // ===== ÁUDIO =====
-  const SUST=0.85, STAC=0.28, MEL=0.85;
-  const ME_MIDIS = {
-    'Dó':  {fund:24, acord:25},
-    'Sol': {fund:31, acord:32},
-    'Fá':  {fund:29, acord:30}
-  };
-  // MIDIs: oitava grave (Dó4=48 a Sol4=55), oitava aguda (Dó5=60 a Sol5=67)
-  const MD_MIDIS = {'Dó':48,'Ré':50,'Mi':52,'Fá':53,'Sol':55,'Lá':57,'Dó5':60,'Ré5':62,'Mi5':64,'Fá5':65,'Sol5':67};
-
-  function buildPlayer(bpm, btnId) {
-    const notes = [];
-    let beat = 0;
-    compassos.forEach((c, i) => {
-      const totalDur = c.notes.reduce((s,n)=>s+n.du, 0);
-      const scale = totalDur > 0 ? 3 / totalDur : 1;
-      let cb = 0;
-      c.notes.forEach((n, ni) => {
-        const eff = n.du * scale;
-        notes.push({
-          midi:MD_MIDIS[n.n], beats:eff, el:`#rl-md-${i}-${ni}`,
-          articulation: eff >= 2.5 ? 0.95 : MEL,
-          startBeat: beat + cb
-        });
-        cb += eff;
-      });
-      const me = ME_MIDIS[c.bass];
-      notes.push({midi:me.fund, beats:1, isBass:true, articulation:SUST, el:`#rl-me-${i}-1`, startBeat:beat});
-      if (!c.isFinal) {
-        notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#rl-me-${i}-2`, startBeat:beat+1});
-        notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#rl-me-${i}-3`, startBeat:beat+2});
-      } else {
-        notes.push({midi:me.acord, beats:2, isBass:true, articulation:0.5, el:`#rl-me-${i}-2`, startBeat:beat+1});
-      }
-      beat += 3;
-    });
-    attachScorePlayer({playBtnId:btnId, bpm, beatsPerBar:3, notes});
-  }
-  buildPlayer(60, 'btn-rl-lento');
-  buildPlayer(90, 'btn-rl-normal');
+  build(60, 'btn-rl-l');
+  build(90, 'btn-rl-n');
 </script>
 <script src="js/accessibility.js"></script>
 </body></html>

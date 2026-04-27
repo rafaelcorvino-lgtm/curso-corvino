@@ -24,60 +24,117 @@
   <main class="lesson-layout">
     <article class="lesson-content">
       <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 4 › Aula 6</div>
-      <h1>Minha Primeira Valsa</h1>
-      <p class="subtitle">Módulo 4 · Aula 6 de 6 · ~20 minutos</p>
+      <h1>Minha Primeira Valsa — o estilo da valsa didática</h1>
+      <p class="subtitle">Módulo 4 · Aula 6 de 6 · Valsa 3/4 · ~20 minutos</p>
 
-      <p>
-        Sua primeira peça <strong>completa</strong>, de <strong>Mário Mascarenhas</strong> (página 17 do método). <strong>32 compassos</strong> em 3/4. Cada nota da MD é uma <em>mínima pontuada</em> (vale o compasso inteiro = 3 tempos) e a ME faz a célula da valsa: <em>baixo — acorde — acorde</em> (bum-tchim-tchim).
-      </p>
+      <p>"Minha Primeira Valsa" é a peça da página 17 do método de <strong>Mário Mascarenhas</strong> — tradicionalmente a primeira peça <em>completa</em> que o aluno toca. Nessa aula você aprende os <strong>elementos da valsa didática</strong> com um exemplo educacional original.</p>
 
-      <h2>1. A peça completa</h2>
-      <p>
-        Cópia fiel do método Mascarenhas (p.17). 6 linhas de 6 compassos + final de 2 compassos com ligadura. Letras acima das notas indicam o nome (E=Mi, C=Dó, G=Sol, D=Ré, F=Fá). Números são o dedilhado da MD. Abaixo de cada baixo: dedilhado da ME (4-3-3 = anelar-médio-médio).
-      </p>
+      <div class="callout callout-warning" style="margin:24px 0">
+        <strong>🎧 Pra ouvir Minha Primeira Valsa original:</strong>
+        <ul style="line-height:1.9; margin-top:10px">
+          <li>🎵 <a href="https://www.youtube.com/results?search_query=Minha+Primeira+Valsa+Mascarenhas+m%C3%A9todo+acordeon" target="_blank" rel="noopener"><strong>Minha Primeira Valsa — Mario Mascarenhas (p.17 do método)</strong></a> — várias gravações didáticas online.</li>
+        </ul>
+        Ouça antes de estudar — pega o caráter de valsa lenta antes da partitura entrar em cena.
+      </div>
+
+      <h2>1. Os 3 elementos da valsa didática</h2>
+      <ol style="line-height:1.9">
+        <li><strong>Mínima pontuada na MD:</strong> cada nota dura o compasso inteiro (3 tempos = 3/4). É a forma mais simples de melodia — uma nota por compasso. Você <em>conta</em> 1-2-3 mentalmente enquanto a nota soa.</li>
+        <li><strong>Bum-tchim-tchim na ME:</strong> baixo fundamental no tempo 1, acorde maior nos tempos 2 e 3. É o pulso clássico da valsa.</li>
+        <li><strong>Notas da escala em ordem cantante:</strong> a melodia "passeia" pelas notas da escala (Dó-Mi-Sol etc.) sem grandes saltos — fácil de cantar, fácil de tocar.</li>
+      </ol>
+
+      <h2>2. Exemplo educacional — valsa em Dó (8 compassos forma A-B)</h2>
+      <p>Esse é um exemplo <strong>original</strong> que usa os mesmos elementos da valsa didática. Cada compasso da MD = 1 nota só (mín pontuada). A ME faz bum-tchim-tchim. Quando ficar fluido aqui, ouça o original do Mascarenhas e tente tirar de ouvido.</p>
 
       <figure class="score-figure">
-        <svg id="masc-mpv" viewBox="0 0 600 1100" class="score-svg" preserveAspectRatio="xMidYMid meet"></svg>
+        <svg viewBox="0 0 580 230" class="score-svg">
+          <!-- Pauta MD (clave de Sol) -->
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="50" x2="560" y2="50"/><line x1="20" y1="65" x2="560" y2="65"/>
+            <line x1="20" y1="80" x2="560" y2="80"/><line x1="20" y1="95" x2="560" y2="95"/>
+            <line x1="20" y1="110" x2="560" y2="110"/>
+          </g>
+          <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+          <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
+            <text x="85" y="75" font-size="22">3</text><text x="85" y="102" font-size="22">4</text>
+          </g>
+
+          <!-- 8 compassos × 1 nota cada (mín pontuada). Larguras uniformes (~60px cada).
+               Cada nota ocupa o compasso inteiro = vale 3 tempos.
+               Compasso N centro: x = 130 + (N-1)*55
+               Sequência: Mi-Sol-Mi-Dó | Sol-Mi-Ré-Dó (forma A-B descendente) -->
+          <g>
+            <ellipse id="mpv-1" cx="130" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <ellipse id="mpv-2" cx="190" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <ellipse id="mpv-3" cx="250" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="298" y1="125" x2="318" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse id="mpv-4" cx="308" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <ellipse id="mpv-5" cx="365" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <ellipse id="mpv-6" cx="420" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <ellipse id="mpv-7" cx="478" cy="117" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="525" y1="125" x2="545" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse id="mpv-8" cx="535" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          </g>
+
+          <!-- Letra das notas acima -->
+          <g font-family="serif" font-style="italic" font-size="11" text-anchor="middle" fill="#d4c9a8">
+            <text x="130" y="40">Mi</text><text x="190" y="40">Sol</text><text x="250" y="40">Mi</text><text x="308" y="40">Dó</text>
+            <text x="365" y="40">Sol</text><text x="420" y="40">Mi</text><text x="478" y="40">Ré</text><text x="535" y="40">Dó</text>
+          </g>
+
+          <!-- Pauta ME (clave de Fá) -->
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="140" x2="560" y2="140"/><line x1="20" y1="155" x2="560" y2="155"/>
+            <line x1="20" y1="170" x2="560" y2="170"/><line x1="20" y1="185" x2="560" y2="185"/>
+            <line x1="20" y1="200" x2="560" y2="200"/>
+          </g>
+          <text x="35" y="172" font-size="42" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>
+          <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
+            <text x="85" y="165" font-size="22">3</text><text x="85" y="192" font-size="22">4</text>
+          </g>
+          <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
+
+          <!-- Indicador "ME: bum-tchim-tchim" debaixo da pauta -->
+          <text x="290" y="220" font-size="10" font-style="italic" fill="var(--fg-dim)" text-anchor="middle">ME: bum-tchim-tchim em cada compasso (acompanhamento padrão de valsa)</text>
+
+          <!-- Barras de compasso (8 compassos uniformes) -->
+          <g stroke="#e0d8c0" stroke-width="1.5">
+            <line x1="160" y1="50" x2="160" y2="200"/>
+            <line x1="220" y1="50" x2="220" y2="200"/>
+            <line x1="280" y1="50" x2="280" y2="200"/>
+            <line x1="340" y1="50" x2="340" y2="200"/>
+            <line x1="395" y1="50" x2="395" y2="200"/>
+            <line x1="450" y1="50" x2="450" y2="200"/>
+            <line x1="505" y1="50" x2="505" y2="200"/>
+            <line x1="558" y1="50" x2="558" y2="200" stroke-width="3"/>
+          </g>
+        </svg>
         <figcaption>
-          <strong>Minha Primeira Valsa</strong> · Mário Mascarenhas (p.17) · 32 compassos. Linha pontilhada dourada após cada nota da MD: indica que ela <em>sustenta</em> os 3 tempos do compasso (a ME continua tocando bum-tchim-tchim por baixo). Curva sob 2 notas iguais = ligadura (tocar como uma só).
+          <strong>Valsa em Dó — forma A-B simples.</strong> Frase A (compassos 1-4): Mi-Sol-Mi-Dó (desce até a tônica).
+          Frase B (compassos 5-8): Sol-Mi-Ré-Dó (movimento descendente em escala). Cada nota é uma <em>mínima pontuada</em>
+          que vale o compasso inteiro. ME faz bum-tchim-tchim com cadência Dó-Sol-Dó-Dó-Sol-Dó-Sol7-Dó.
         </figcaption>
         <div class="score-play-wrap">
-          <button id="btn-v1-lento" class="score-play-btn">▶ Ouvir devagar (60 BPM)</button>
-        </div>
-        <div class="score-play-wrap" style="margin-top:8px">
-          <button id="btn-v1-normal" class="score-play-btn">▶ Ouvir no andamento (90 BPM)</button>
+          <button id="btn-mpv-l" class="score-play-btn">▶ Lento (60 BPM)</button>
+          <button id="btn-mpv-n" class="score-play-btn">▶ Normal (90 BPM)</button>
         </div>
       </figure>
 
-      <h2>2. Como aprender essa valsa</h2>
+      <h2>3. Como estudar</h2>
       <ol>
-        <li><strong>Ouça devagar 3 vezes</strong> sem tocar. Acompanhe com o dedo na partitura.</li>
-        <li><strong>MD sozinha</strong>, 60 BPM, primeira linha (compassos 1-6). Cada nota dura o compasso inteiro — <em>conte 1-2-3</em>. Só passe à próxima linha quando essa sair perfeita.</li>
-        <li><strong>ME sozinha</strong>, mesmo trecho. Atenção às mudanças: ME alterna entre Dó (compassos 1-4 e 7-10), Sol (compassos 5-6 e onde aparece "Sol M M") e Fá (compassos 11-12).</li>
-        <li><strong>Mãos juntas</strong>, 60 BPM, 1 linha por vez.</li>
-        <li>Quando todas as 6 linhas saírem limpas, junte tudo e suba pra 75 BPM, depois 90.</li>
+        <li><strong>Ouça primeiro</strong> a Minha Primeira Valsa do Mascarenhas (link no callout amarelo) — 2 vezes pra fixar o caráter de valsa lenta.</li>
+        <li><strong>MD sozinha, 60 BPM:</strong> cada nota dura 3 tempos. <em>Conte alto</em> "1-2-3" enquanto a nota soa. Decore as 8 notas.</li>
+        <li><strong>ME sozinha, 60 BPM:</strong> só o bum-tchim-tchim. Pratique até trocar Dó↔Sol sem pensar.</li>
+        <li><strong>Mãos juntas, 60 BPM:</strong> 3 vezes sem errar antes de subir o BPM.</li>
+        <li><strong>Sobe pra 90 BPM:</strong> só quando o lento sair limpo.</li>
+        <li><strong>Depois de dominar:</strong> ouça a peça do Mascarenhas de novo. Tente reconhecer a estrutura "1 nota = 1 compasso" no original.</li>
       </ol>
 
-      <div class="callout callout-warning">
-        <strong>Pontos críticos</strong> dessa valsa:
-        <ul style="margin:6px 0 0 18px">
-          <li><strong>Trocas de fila do baixo:</strong> Dó→Sol (compasso 4→5), Dó→Fá (compasso 10→11), e várias outras. Pratique cada transição isoladamente.</li>
-          <li><strong>Ligaduras:</strong> compassos 15-16 (Dó-Dó) e 31-32 (Dó-Dó final) — toca apenas a primeira nota e a deixa soar pelos 6 tempos juntos.</li>
-        </ul>
-      </div>
-
+      <h2>4. Sobre a peça (contexto)</h2>
       <div class="callout callout-info">
-        <strong>Os dois modos:</strong>
-        <ul style="margin:6px 0 0 0; padding-left:20px">
-          <li><strong>Corvino físico:</strong> melhor experiência. Duas mãos no instrumento.</li>
-          <li><strong>Teclado do PC:</strong> H J K L Ç (MD) + W S (Dó f/M), E D (Sol f/M).</li>
-        </ul>
+        <strong>Minha Primeira Valsa</strong> é a primeira peça com mãos juntas no método de <strong>Mario Mascarenhas</strong> (1916-2002), o método de acordeon mais usado no Brasil no séc. XX. Toda criança que aprendeu pelo Mascarenhas passou por essa peça. É curta, com mín pontuadas e bum-tchim-tchim — exatamente o que você precisa pra <em>integrar as duas mãos pela primeira vez</em>.
       </div>
-
-      <h2>3. Fechando o Módulo 4</h2>
-      <p>
-        Você acabou de tocar sua <strong>primeira música</strong>. Não é pouco — é o ponto onde a pessoa "vira acordeonista". O Módulo 5 ensina como dar <strong>expressão</strong> ao que você toca: articulação, escolha de timbre, fraseado.
-      </p>
 
       <div class="lesson-nav">
         <a href="aula-21-juntando-as-maos.html">← Aula anterior: Juntando as mãos</a>
@@ -98,242 +155,51 @@
 
   <script type="module">
     import { attachScorePlayer } from './js/score-player.js';
+    const MEL=0.95, SUST=0.85, STAC=0.28;
+    // MIDIs MD: Mi=64, Sol=67, Ré=62, Dó central=60
+    // ME (Stradella): Dó=24, DóM=25, Sol=31, SolM=32, Sol7=33
 
-    // ===== DADOS — Mascarenhas, Minha Primeira Valsa (p.17) =====
-    // 32 compassos, exatamente como no original
-    const compassos = [
-      // Linha 1 (C1-6): Mi-Sol-Mi-Dó | Ré-Sol — ME Dó(×4), Sol(×2)
-      {note:'Mi',  dedo:3, bass:'Dó'},
-      {note:'Sol', dedo:5, bass:'Dó'},
-      {note:'Mi',  dedo:3, bass:'Dó'},
-      {note:'Dó',  dedo:1, bass:'Dó'},
-      {note:'Ré',  dedo:2, bass:'Sol'},
-      {note:'Sol', dedo:5, bass:'Sol'},
-      // Linha 2 (C7-12): Mi-Dó-Mi-Sol | Sol-Fá — ME Dó(×4), Fá(×2)
-      {note:'Mi',  dedo:3, bass:'Dó'},
-      {note:'Dó',  dedo:1, bass:'Dó'},
-      {note:'Mi',  dedo:3, bass:'Dó'},
-      {note:'Sol', dedo:5, bass:'Dó'},
-      {note:'Sol', dedo:5, bass:'Fá'},
-      {note:'Fá',  dedo:4, bass:'Fá'},
-      // Linha 3 (C13-18): Mi-Ré-Dó~Dó-Ré-Fá — ME Dó-Sol-Dó-Dó-Sol-Sol
-      {note:'Mi',  dedo:3, bass:'Dó'},
-      {note:'Ré',  dedo:2, bass:'Sol'},
-      {note:'Dó',  dedo:1, bass:'Dó', tieStart:true},
-      {note:'Dó',  dedo:1, bass:'Dó', tieEnd:true},
-      {note:'Ré',  dedo:2, bass:'Sol'},
-      {note:'Fá',  dedo:4, bass:'Sol'},
-      // Linha 4 (C19-24): Mi-Dó-Ré-Fá-Mi-Sol — ME Dó-Dó-Sol-Sol-Dó-Dó
-      {note:'Mi',  dedo:3, bass:'Dó'},
-      {note:'Dó',  dedo:1, bass:'Dó'},
-      {note:'Ré',  dedo:2, bass:'Sol'},
-      {note:'Fá',  dedo:4, bass:'Sol'},
-      {note:'Mi',  dedo:3, bass:'Dó'},
-      {note:'Sol', dedo:5, bass:'Dó'},
-      // Linha 5 (C25-30): Mi-Sol-Mi-Dó-Ré-Sol — ME Dó(×4), Sol(×2)
-      {note:'Mi',  dedo:3, bass:'Dó'},
-      {note:'Sol', dedo:5, bass:'Dó'},
-      {note:'Mi',  dedo:3, bass:'Dó'},
-      {note:'Dó',  dedo:1, bass:'Dó'},
-      {note:'Ré',  dedo:2, bass:'Sol'},
-      {note:'Sol', dedo:5, bass:'Sol'},
-      // Linha 6 (C31-32): Dó~Dó (final com ligadura)
-      {note:'Dó',  dedo:1, bass:'Dó', tieStart:true},
-      {note:'Dó',  dedo:1, bass:'Dó', tieEnd:true, isFinal:true}
+    // Melodia ORIGINAL — exemplo educacional, 1 nota por compasso (mín pontuada).
+    // Sequência Mi-Sol-Mi-Dó | Sol-Mi-Ré-Dó (forma A-B descendente).
+    const md = [
+      {midi:64, el:'#mpv-1', beats:3, articulation:0.95},  // C1 Mi
+      {midi:67, el:'#mpv-2', beats:3, articulation:0.95},  // C2 Sol
+      {midi:64, el:'#mpv-3', beats:3, articulation:0.95},  // C3 Mi
+      {midi:60, el:'#mpv-4', beats:3, articulation:0.95},  // C4 Dó (linha supl)
+      {midi:67, el:'#mpv-5', beats:3, articulation:0.95},  // C5 Sol
+      {midi:64, el:'#mpv-6', beats:3, articulation:0.95},  // C6 Mi
+      {midi:62, el:'#mpv-7', beats:3, articulation:0.95},  // C7 Ré
+      {midi:60, el:'#mpv-8', beats:3, articulation:0.95},  // C8 Dó (linha supl)
     ];
 
-    // ===== RENDERIZAÇÃO DO SVG =====
-    const NOTE_LETTER = {'Dó':'C', 'Ré':'D', 'Mi':'E', 'Fá':'F', 'Sol':'G', 'Lá':'A'};
-    // Y das notas no pauta MD (top do pauta = stave_y + 30, gap=10)
-    // F5=30, E5=35, D5=40, C5=45, B4=50, A4=55, G4=60, F4=65, E4=70, D4=75, C4=80(ledger)
-    const NOTE_Y = {'Dó':80, 'Ré':75, 'Mi':70, 'Fá':65, 'Sol':60, 'Lá':55};
-
-    const STAVES = [
-      {comps: [0,1,2,3,4,5],   y:0,    isFirst:true},
-      {comps: [6,7,8,9,10,11], y:175,  isFirst:false},
-      {comps: [12,13,14,15,16,17], y:350, isFirst:false},
-      {comps: [18,19,20,21,22,23], y:525, isFirst:false},
-      {comps: [24,25,26,27,28,29], y:700, isFirst:false},
-      {comps: [30,31],         y:875,  isFirst:false}
+    // ME: bum-tchim-tchim por compasso. Cadência Dó-Sol-Dó-Dó-Sol-Dó-Sol7-Dó.
+    const meSeq = [
+      [24, 25],  // C1: Dó-DóM-DóM
+      [31, 32],  // C2: Sol-SolM-SolM
+      [24, 25],  // C3: Dó-DóM-DóM
+      [24, 25],  // C4: Dó-DóM-DóM
+      [31, 32],  // C5: Sol-SolM-SolM
+      [24, 25],  // C6: Dó-DóM-DóM
+      [31, 33],  // C7: Sol-Sol7-Sol7 (preparação dominante 7ª)
+      [24, 25],  // C8: Dó-DóM-DóM (cadência final)
     ];
 
-    const COMPASS_W = 80;
-    const COMPASS_START_X = 80;
-
-    function renderStave(stave) {
-      const sy = stave.y;
-      let s = `<g transform="translate(0, ${sy})">`;
-
-      // Pauta MD (5 linhas, gap 10)
-      s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
-      for (let i = 0; i < 5; i++) {
-        s += `<line x1="20" y1="${30 + i*10}" x2="560" y2="${30 + i*10}"/>`;
+    function build(bpm, btnId) {
+      const all = [];
+      for (let c = 0; c < 8; c++) {
+        const t0 = c*3;
+        // MD: 1 mín pontuada por compasso
+        all.push({...md[c], startBeat:t0});
+        // ME: 3 baixos por compasso (bum-tchim-tchim)
+        all.push({midi:meSeq[c][0], beats:1, isBass:true, articulation:SUST, startBeat:t0});
+        all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+1});
+        all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+2});
       }
-      s += '</g>';
-      // Clave Sol
-      s += '<text x="22" y="76" font-size="55" font-family="serif" fill="#e0d8c0">𝄞</text>';
-      // Tempo 3/4 só na primeira linha
-      if (stave.isFirst) {
-        s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">';
-        s += '<text x="65" y="55" font-size="16">3</text>';
-        s += '<text x="65" y="73" font-size="16">4</text>';
-        s += '</g>';
-      }
-
-      // Pauta ME (5 linhas, gap 10)
-      s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
-      for (let i = 0; i < 5; i++) {
-        s += `<line x1="20" y1="${100 + i*10}" x2="560" y2="${100 + i*10}"/>`;
-      }
-      s += '</g>';
-      // Clave Fá
-      s += '<text x="35" y="123" font-size="28" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>';
-      if (stave.isFirst) {
-        s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">';
-        s += '<text x="65" y="118" font-size="16">3</text>';
-        s += '<text x="65" y="136" font-size="16">4</text>';
-        s += '</g>';
-      }
-
-      // Barra inicial conectando MD e ME
-      s += `<line x1="20" y1="30" x2="20" y2="140" stroke="#e0d8c0" stroke-width="1.5"/>`;
-
-      // Compassos
-      for (let i = 0; i < stave.comps.length; i++) {
-        const compIdx = stave.comps[i];
-        const xStart = COMPASS_START_X + i * COMPASS_W;
-        s += renderCompass(xStart, COMPASS_W, compassos[compIdx], compIdx);
-
-        // Barra final do compasso
-        const barX = xStart + COMPASS_W;
-        const isLastInPiece = compIdx === compassos.length - 1;
-        const barWidth = isLastInPiece ? 3 : 1.5;
-        s += `<line x1="${barX}" y1="30" x2="${barX}" y2="140" stroke="#e0d8c0" stroke-width="${barWidth}"/>`;
-      }
-
-      s += '</g>';
-      return s;
+      attachScorePlayer({ playBtnId: btnId, bpm, beatsPerBar:3, notes: all });
     }
-
-    function renderCompass(xStart, width, comp, compIdx) {
-      // MD alinhada com o CENTRO do baixo Dó (xStart+8 + 22/2 = xStart+19)
-      const cx = xStart + 19;
-      const cy = NOTE_Y[comp.note];
-      const letter = NOTE_LETTER[comp.note];
-
-      // Posições x das 3 batidas da ME (referência pras linhas de leque)
-      const beatX = [xStart + 19, xStart + 45, xStart + 65];
-
-      let s = '';
-
-      // Letra acima (E, C, G…)
-      s += `<text x="${cx}" y="20" font-size="11" font-style="italic" fill="#e0d8c0" text-anchor="middle">${letter}</text>`;
-      // Dedilhado MD
-      s += `<text x="${cx}" y="32" font-size="9" font-weight="700" fill="var(--gold)" text-anchor="middle">${comp.dedo}</text>`;
-
-      // Linha suplementar para Dó (C4)
-      if (comp.note === 'Dó') {
-        s += `<line x1="${cx-9}" y1="${cy}" x2="${cx+9}" y2="${cy}" stroke="#e0d8c0" stroke-width="1.5"/>`;
-      }
-
-      // Linhas em LEQUE da MD pra cada elemento da ME — mostra sincronia (Mascarenhas usa esse recurso)
-      // Origem: logo abaixo da nota MD; destinos: topo de cada elemento da ME (y=113)
-      const fanOriginY = cy + 7;
-      const fanTargetY = 113;
-      for (let b = 0; b < beatX.length; b++) {
-        s += `<line x1="${cx}" y1="${fanOriginY}" x2="${beatX[b]}" y2="${fanTargetY}" stroke="var(--gold)" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.35"/>`;
-      }
-
-      // Mín pontuada (oval vazia + haste + ponto)
-      s += `<ellipse id="mpv-md-${compIdx}" cx="${cx}" cy="${cy}" rx="7" ry="5" fill="none" stroke="var(--gold)" stroke-width="2"/>`;
-      // Haste pra cima (Dó/Ré/Mi têm haste pra cima; Fá/Sol pra baixo seria padrão mas aqui simplifico)
-      const stemUp = cy >= 65; // se nota está na metade inferior do staff
-      if (stemUp) {
-        s += `<line x1="${cx+7}" y1="${cy}" x2="${cx+7}" y2="${cy-25}" stroke="var(--gold)" stroke-width="1.5"/>`;
-      } else {
-        s += `<line x1="${cx-7}" y1="${cy}" x2="${cx-7}" y2="${cy+22}" stroke="var(--gold)" stroke-width="1.5"/>`;
-      }
-      // Ponto de aumento
-      s += `<circle cx="${cx+13}" cy="${cy}" r="2" fill="var(--gold)"/>`;
-
-      // Ligadura (tie) entre 2 compassos com mesma nota
-      if (comp.tieStart) {
-        const nextCx = xStart + width + 19; // próximo compasso usa mesmo offset
-        const yTie = cy + 10;
-        s += `<path d="M ${cx+5} ${yTie} Q ${(cx+nextCx)/2} ${yTie+10} ${nextCx-5} ${yTie}" stroke="var(--gold)" stroke-width="1.5" fill="none"/>`;
-      }
-
-      // ===== Baixo (ME) =====
-      const isFinal = comp.isFinal;
-      const bassColor = comp.bass === 'Dó' ? 'var(--gold)' : '#d94a4a';
-      const mStroke = comp.bass === 'Dó' ? '#e0d8c0' : '#d94a4a';
-
-      // Rect (Dó / Sol / Fá)
-      s += `<rect id="mpv-me-${compIdx}-1" x="${xStart+8}" y="${115}" width="22" height="20" rx="3" fill="${bassColor}" stroke="#1a1618" stroke-width="2"/>`;
-      s += `<text x="${xStart+19}" y="${129}" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">${comp.bass}</text>`;
-
-      // Acorde 1
-      if (!isFinal) {
-        s += `<circle id="mpv-me-${compIdx}-2" cx="${xStart+45}" cy="${125}" r="9" fill="none" stroke="${mStroke}" stroke-width="1.5"/>`;
-        s += `<text x="${xStart+45}" y="${129}" fill="${mStroke}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
-        // Acorde 2
-        s += `<circle id="mpv-me-${compIdx}-3" cx="${xStart+65}" cy="${125}" r="9" fill="none" stroke="${mStroke}" stroke-width="1.5"/>`;
-        s += `<text x="${xStart+65}" y="${129}" fill="${mStroke}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
-      } else {
-        // Compasso final: só "Dó / M" (sem dois acordes)
-        s += `<circle id="mpv-me-${compIdx}-2" cx="${xStart+50}" cy="${125}" r="9" fill="none" stroke="${mStroke}" stroke-width="1.5"/>`;
-        s += `<text x="${xStart+50}" y="${129}" fill="${mStroke}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
-      }
-
-      // Dedilhado ME (4 3 3)
-      const dedoY = 152;
-      s += `<text x="${xStart+19}" y="${dedoY}" font-size="8" fill="var(--fg-dim)" text-anchor="middle">4</text>`;
-      if (!isFinal) {
-        s += `<text x="${xStart+45}" y="${dedoY}" font-size="8" fill="var(--fg-dim)" text-anchor="middle">3</text>`;
-        s += `<text x="${xStart+65}" y="${dedoY}" font-size="8" fill="var(--fg-dim)" text-anchor="middle">3</text>`;
-      } else {
-        s += `<text x="${xStart+50}" y="${dedoY}" font-size="8" fill="var(--fg-dim)" text-anchor="middle">3</text>`;
-      }
-
-      return s;
-    }
-
-    // Renderiza todas as staves
-    const svgEl = document.getElementById('masc-mpv');
-    svgEl.innerHTML = STAVES.map(renderStave).join('');
-
-    // ===== ÁUDIO =====
-    const SUST=0.85, STAC=0.28;
-    const ME_MIDIS = {
-      'Dó':  {fund: 24, acord: 25}, // Dó f / Dó M
-      'Sol': {fund: 31, acord: 32}, // Sol f / Sol M
-      'Fá':  {fund: 29, acord: 30}  // Fá f / Fá M
-    };
-    const MD_MIDIS = {'Dó':48, 'Ré':50, 'Mi':52, 'Fá':53, 'Sol':55, 'Lá':57};
-
-    function buildPlayer(bpm, btnId) {
-      const notes = [];
-      let beat = 0; // tempo absoluto em beats
-      compassos.forEach((c, i) => {
-        // MD: mín pontuada (3 beats) — começa no beat 0 do compasso
-        notes.push({midi: MD_MIDIS[c.note], beats: 3, el: `#mpv-md-${i}`, articulation: 0.95, startBeat: beat});
-        // ME: bum-tchim-tchim — EM PARALELO com a MD (mesmo intervalo de 3 beats)
-        const me = ME_MIDIS[c.bass];
-        notes.push({midi: me.fund,  beats: 1, isBass: true, articulation: SUST, el: `#mpv-me-${i}-1`, startBeat: beat});
-        if (!c.isFinal) {
-          notes.push({midi: me.acord, beats: 1, isBass: true, articulation: STAC, el: `#mpv-me-${i}-2`, startBeat: beat + 1});
-          notes.push({midi: me.acord, beats: 1, isBass: true, articulation: STAC, el: `#mpv-me-${i}-3`, startBeat: beat + 2});
-        } else {
-          // Compasso final: 1 acorde sustentado por 2 tempos
-          notes.push({midi: me.acord, beats: 2, isBass: true, articulation: 0.5, el: `#mpv-me-${i}-2`, startBeat: beat + 1});
-        }
-        beat += 3; // avança 1 compasso (3/4)
-      });
-      attachScorePlayer({ playBtnId: btnId, bpm, beatsPerBar: 3, notes });
-    }
-    buildPlayer(60, 'btn-v1-lento');
-    buildPlayer(90, 'btn-v1-normal');
+    build(60, 'btn-mpv-l');
+    build(90, 'btn-mpv-n');
   </script>
-<script src="js/accessibility.js"></script>
+  <script src="js/accessibility.js"></script>
 </body>
 </html>

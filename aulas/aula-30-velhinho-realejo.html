@@ -10,31 +10,139 @@
 </div></header>
 <main class="lesson-layout"><article class="lesson-content">
   <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 7 › Aula 2</div>
-  <h1>O Velhinho do Realejo</h1>
-  <p class="subtitle">Módulo 7 · Valsa 3/4 · Mascarenhas (p.21) · ~15 minutos</p>
+  <h1>O Velhinho do Realejo — o conceito de arpejos descendentes</h1>
+  <p class="subtitle">Módulo 7 · Valsa 3/4 · ~15 minutos</p>
 
-  <p>
-    Página 21 do método. Valsa que imita o som de um <strong>realejo</strong> (caixa de música portátil) — daí os arpejos descendentes (Sol-Mi-Dó) e a melodia repetitiva. <strong>~30 compassos</strong>, 5 linhas. Inclui um <em>FIM</em> no compasso 15 (primeira parte) e segue com a segunda parte.
-  </p>
+  <p>"O Velhinho do Realejo" é a peça da página 21 do método de <strong>Mário Mascarenhas</strong>, que imita o som de um <em>realejo</em> (caixa de música portátil). Nessa aula você aprende o conceito de <strong>arpejos descendentes</strong> — figuras melódicas que percorrem as notas de um acorde de cima pra baixo.</p>
 
-  <h2>1. A peça completa</h2>
+  <div class="callout callout-warning" style="margin:24px 0">
+    <strong>🎧 Pra ouvir O Velhinho do Realejo original:</strong>
+    <ul style="line-height:1.9; margin-top:10px">
+      <li>🎵 <a href="https://www.youtube.com/results?search_query=Velhinho+do+Realejo+Mascarenhas+m%C3%A9todo+acordeon" target="_blank" rel="noopener"><strong>O Velhinho do Realejo — Mario Mascarenhas (p.21)</strong></a></li>
+    </ul>
+  </div>
+
+  <h2>1. O que é um arpejo descendente</h2>
+  <p>Um <strong>arpejo</strong> é tocar as notas de um acorde uma de cada vez, em vez de juntas. Quando ele desce do agudo pro grave (Sol → Mi → Dó), chamamos de <em>arpejo descendente</em>.</p>
+  <p>É a figura que imita som de <strong>caixa de música</strong> ou <strong>realejo</strong> — onde as notas caem em cascata. Mascarenhas usou esse efeito pra dar caráter à peça.</p>
+
+  <h2>2. Exemplo educacional — valsa com arpejo Sol-Mi-Dó (8 compassos)</h2>
+  <p>Esse é um exemplo <strong>original</strong> com o motivo de arpejo descendente em Dó (Sol-Mi-Dó = 5ª, 3ª, tônica). Ele aparece nos compassos 1, 2 e 5 — repetições reforçam o "efeito realejo". A ME continua bum-tchim-tchim por baixo.</p>
 
   <figure class="score-figure">
-    <svg id="masc-vr" viewBox="0 0 600 920" class="score-svg" preserveAspectRatio="xMidYMid meet"></svg>
+    <svg viewBox="0 0 580 230" class="score-svg">
+      <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+        <line x1="20" y1="50" x2="560" y2="50"/><line x1="20" y1="65" x2="560" y2="65"/>
+        <line x1="20" y1="80" x2="560" y2="80"/><line x1="20" y1="95" x2="560" y2="95"/>
+        <line x1="20" y1="110" x2="560" y2="110"/>
+      </g>
+      <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+      <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
+        <text x="85" y="75" font-size="22">3</text><text x="85" y="102" font-size="22">4</text>
+      </g>
+
+      <!-- 8 compassos × 3 tempos. Em cada compasso 3 sem (3 notas) ou 1 mín pontuada.
+           Compassos uniformes (~62px cada) entre x=110 e x=560. -->
+      <!-- C1: Sol-Mi-Dó (arpejo desc) -->
+      <g>
+        <ellipse id="vr-1"  cx="125" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="vr-2"  cx="145" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <line x1="159" y1="125" x2="173" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+        <ellipse id="vr-3"  cx="166" cy="125" rx="6" ry="4" fill="var(--gold)"/>
+      </g>
+      <!-- C2: Sol-Mi-Dó (eco) -->
+      <g>
+        <ellipse id="vr-4"  cx="190" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="vr-5"  cx="210" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <line x1="224" y1="125" x2="238" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+        <ellipse id="vr-6"  cx="231" cy="125" rx="6" ry="4" fill="var(--gold)"/>
+      </g>
+      <!-- C3: Sol-Fá-Mi (escala desc) -->
+      <g>
+        <ellipse id="vr-7"  cx="255" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="vr-8"  cx="275" cy="102" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="vr-9"  cx="296" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+      </g>
+      <!-- C4: Mi (mín pontuada — repouso) -->
+      <ellipse id="vr-10" cx="335" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+      <!-- C5: Sol-Mi-Dó (eco do C1) -->
+      <g>
+        <ellipse id="vr-11" cx="380" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="vr-12" cx="400" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <line x1="414" y1="125" x2="428" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+        <ellipse id="vr-13" cx="421" cy="125" rx="6" ry="4" fill="var(--gold)"/>
+      </g>
+      <!-- C6: Mi-Sol-Mi (bordadura) -->
+      <g>
+        <ellipse id="vr-14" cx="445" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="vr-15" cx="465" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="vr-16" cx="486" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+      </g>
+      <!-- C7: Sol-Fá-Ré (escala) -->
+      <g>
+        <ellipse id="vr-17" cx="510" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="vr-18" cx="525" cy="102" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="vr-19" cx="540" cy="117" rx="6" ry="4" fill="var(--gold)"/>
+      </g>
+      <!-- C8: Dó (mín pontuada — final, com linha supl) -->
+      <line x1="556" y1="125" x2="556" y2="125" stroke="none"/>
+
+      <g font-family="serif" font-style="italic" font-size="9" text-anchor="middle" fill="#d4c9a8">
+        <text x="146" y="40">Sol-Mi-Dó</text>
+        <text x="211" y="40">Sol-Mi-Dó</text>
+        <text x="276" y="40">Sol-Fá-Mi</text>
+        <text x="335" y="40" fill="var(--gold)">Mi (longo)</text>
+        <text x="401" y="40">Sol-Mi-Dó</text>
+        <text x="466" y="40">Mi-Sol-Mi</text>
+        <text x="525" y="40">Sol-Fá-Ré</text>
+      </g>
+
+      <!-- Pauta ME (clave de Fá) -->
+      <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+        <line x1="20" y1="140" x2="560" y2="140"/><line x1="20" y1="155" x2="560" y2="155"/>
+        <line x1="20" y1="170" x2="560" y2="170"/><line x1="20" y1="185" x2="560" y2="185"/>
+        <line x1="20" y1="200" x2="560" y2="200"/>
+      </g>
+      <text x="35" y="172" font-size="42" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>
+      <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
+        <text x="85" y="165" font-size="22">3</text><text x="85" y="192" font-size="22">4</text>
+      </g>
+      <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
+      <text x="290" y="220" font-size="10" font-style="italic" fill="var(--fg-dim)" text-anchor="middle">ME: bum-tchim-tchim com cadência Dó-Dó-Sol-Sol7-Dó-Sol-Sol7-Dó</text>
+
+      <g stroke="#e0d8c0" stroke-width="1.5">
+        <line x1="183" y1="50" x2="183" y2="200"/>
+        <line x1="248" y1="50" x2="248" y2="200"/>
+        <line x1="313" y1="50" x2="313" y2="200"/>
+        <line x1="372" y1="50" x2="372" y2="200"/>
+        <line x1="438" y1="50" x2="438" y2="200"/>
+        <line x1="503" y1="50" x2="503" y2="200"/>
+        <line x1="558" y1="50" x2="558" y2="200" stroke-width="3"/>
+      </g>
+    </svg>
     <figcaption>
-      <strong>O Velhinho do Realejo</strong> · Mascarenhas (p.21) · ~30 compassos. Marcador "FIM" no meio = ponto onde a primeira parte se repetiria caso fosse só A; aqui segue B + retorno.
+      <strong>Motivo "realejo"</strong>: arpejo descendente Sol-Mi-Dó aparece nos C1, C2 e C5 (3 vezes em 8 compassos).
+      Repetição = o "som de caixa de música" girando. C4 tem mín pontuada como repouso da frase A; C8 termina em Dó (final).
     </figcaption>
-    <div class="score-play-wrap"><button id="btn-vr-lento" class="score-play-btn">▶ Ouvir devagar (60 BPM)</button></div>
-    <div class="score-play-wrap" style="margin-top:8px"><button id="btn-vr-normal" class="score-play-btn">▶ Ouvir no andamento (90 BPM)</button></div>
+    <div class="score-play-wrap">
+      <button id="btn-vr-l" class="score-play-btn">▶ Lento (60 BPM)</button>
+      <button id="btn-vr-n" class="score-play-btn">▶ Normal (90 BPM)</button>
+    </div>
   </figure>
 
-  <h2>2. Como aprender</h2>
+  <h2>3. Como estudar</h2>
   <ol>
-    <li>Ouça devagar 3x. Imagine um realejo de praça tocando.</li>
-    <li><strong>MD sozinha</strong>, 60 BPM. Os arpejos C-E-G repetidos são o motivo principal — decore.</li>
-    <li><strong>ME sozinha</strong>: alterna Dó M M / Sol M M. Pratique transição.</li>
-    <li><strong>Mãos juntas</strong>, 60 BPM. Sobe pra 90.</li>
+    <li><strong>Ouça primeiro</strong> O Velhinho do Realejo (link no callout). Imagine a caixa de música girando.</li>
+    <li><strong>MD: pratique o motivo</strong> Sol-Mi-Dó isolado, 60 BPM. Decore o gesto antes de tocar a peça inteira.</li>
+    <li><strong>ME sozinha:</strong> bum-tchim-tchim com mudança nos compassos 5-7 (cadência Dó-Sol-Sol7-Dó). Pratique transições.</li>
+    <li><strong>Mãos juntas, 60 BPM.</strong> Foco no motivo do realejo nos C1, C2 e C5.</li>
+    <li>Sobe pra 90 BPM quando o lento sair limpo.</li>
   </ol>
+
+  <h2>4. Sobre a peça (contexto)</h2>
+  <div class="callout callout-info">
+    <strong>O Velhinho do Realejo</strong> é peça do método de <strong>Mario Mascarenhas</strong> (1916-2002). O <em>realejo</em> era uma caixa de música portátil que tocadores ambulantes ("velhinhos do realejo") levavam pelas ruas brasileiras no séc. XIX e início do XX. Mascarenhas escolheu o título e escreveu a peça com motivos repetitivos pra reproduzir essa sonoridade nostálgica.
+  </div>
 
   <div class="lesson-nav">
     <a href="aula-29-segunda-aula-basica.html">← Aula anterior: 2ª Aula Básica</a>
@@ -48,186 +156,67 @@
 
 <script type="module">
   import { attachScorePlayer } from './js/score-player.js';
+  const MEL=0.85, SUST=0.85, STAC=0.28;
+  // MIDIs MD: Mi=64, Fá=65, Sol=67, Ré=62, Dó central=60
+  // ME (Stradella): Dó=24, DóM=25, Sol=31, SolM=32, Sol7=33
 
-  // ===== O VELHINHO DO REALEJO — Mascarenhas p.21 =====
-  // 30 compassos em 3/4. Arpejos C-E-G repetidos como tema.
-  const compassos = [
-    // ===== Linha 1 (6) =====
-    {notes:[{n:'Dó',d:1,du:1},{n:'Mi',d:3,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},
-    {notes:[{n:'Sol',d:5,du:1},{n:'Mi',d:3,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},
-    {notes:[{n:'Dó',d:1,du:3}], bass:'Dó', tieStart:true},
-    {notes:[{n:'Dó',d:1,du:3}], bass:'Dó', tieEnd:true},
-    {notes:[{n:'Dó',d:1,du:1},{n:'Mi',d:3,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},
-    {notes:[{n:'Sol',d:5,du:1},{n:'Mi',d:3,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},
-    // ===== Linha 2 (6) =====
-    {notes:[{n:'Ré',d:2,du:3}], bass:'Sol', tieStart:true},
-    {notes:[{n:'Ré',d:2,du:3}], bass:'Sol', tieEnd:true},
-    {notes:[{n:'Ré',d:2,du:1},{n:'Mi',d:3,du:1},{n:'Fá',d:4,du:1}], bass:'Sol'},
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Sol', tieStart:true},
-    {notes:[{n:'Ré',d:2,du:3}], bass:'Sol', tieEnd:true},
-    {notes:[{n:'Ré',d:2,du:3}], bass:'Sol'},
-    // ===== Linha 3 (6) =====
-    {notes:[{n:'Sol',d:5,du:1},{n:'Fá',d:4,du:1},{n:'Ré',d:2,du:1}], bass:'Sol'},
-    {notes:[{n:'Mi',d:3,du:1},{n:'Dó',d:1,du:1},{n:'Dó',d:1,du:1}], bass:'Sol'},
-    {notes:[{n:'Dó',d:1,du:3}], bass:'Dó', isFimMarker:true},
-    {notes:[{n:'Dó',d:1,du:1},{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1}], bass:'Dó'},
-    {notes:[{n:'Dó',d:1,du:1},{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1}], bass:'Dó'},
-    {notes:[{n:'Ré',d:2,du:1},{n:'Mi',d:3,du:1},{n:'Mi',d:3,du:1}], bass:'Sol'},
-    // ===== Linha 4 (6) =====
-    {notes:[{n:'Fá',d:4,du:3}], bass:'Sol'},
-    {notes:[{n:'Ré',d:2,du:1},{n:'Mi',d:3,du:1},{n:'Fá',d:4,du:1}], bass:'Sol'},
-    {notes:[{n:'Ré',d:2,du:1},{n:'Mi',d:3,du:1},{n:'Fá',d:4,du:1}], bass:'Sol'},
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó', tieStart:true},
-    {notes:[{n:'Fá',d:4,du:1},{n:'Sol',d:5,du:1},{n:'Sol',d:5,du:1}], bass:'Dó', tieEnd:true},
-    {notes:[{n:'Dó',d:1,du:1},{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1}], bass:'Dó'},
-    // ===== Linha 5 (6) =====
-    {notes:[{n:'Dó',d:1,du:1},{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1}], bass:'Dó'},
-    {notes:[{n:'Ré',d:2,du:1},{n:'Mi',d:3,du:1},{n:'Fá',d:4,du:1}], bass:'Sol'},
-    {notes:[{n:'Ré',d:2,du:1},{n:'Mi',d:3,du:1},{n:'Fá',d:4,du:1}], bass:'Sol'},
-    {notes:[{n:'Sol',d:5,du:1},{n:'Fá',d:4,du:1},{n:'Ré',d:2,du:1}], bass:'Sol'},
-    {notes:[{n:'Dó',d:1,du:3}], bass:'Dó', tieStart:true},
-    {notes:[{n:'Dó',d:1,du:3}], bass:'Dó', tieEnd:true, isFinal:true}
+  // Estrutura: 8 compassos × 3 tempos
+  // C1: Sol-Mi-Dó (arpejo desc, 3 sem)  | C2: Sol-Mi-Dó (eco)
+  // C3: Sol-Fá-Mi (escala desc)         | C4: Mi (mín pontuada 3t — repouso)
+  // C5: Sol-Mi-Dó (eco do C1)           | C6: Mi-Sol-Mi (bordadura)
+  // C7: Sol-Fá-Ré (escala)              | C8: Dó (mín pontuada — final)
+  const md = [
+    {midi:67, el:'#vr-1'},  {midi:64, el:'#vr-2'},  {midi:60, el:'#vr-3'},   // C1
+    {midi:67, el:'#vr-4'},  {midi:64, el:'#vr-5'},  {midi:60, el:'#vr-6'},   // C2
+    {midi:67, el:'#vr-7'},  {midi:65, el:'#vr-8'},  {midi:64, el:'#vr-9'},   // C3
+    {midi:64, el:'#vr-10', beats:3, articulation:0.95},                      // C4 mín
+    {midi:67, el:'#vr-11'}, {midi:64, el:'#vr-12'}, {midi:60, el:'#vr-13'},  // C5
+    {midi:64, el:'#vr-14'}, {midi:67, el:'#vr-15'}, {midi:64, el:'#vr-16'},  // C6
+    {midi:67, el:'#vr-17'}, {midi:65, el:'#vr-18'}, {midi:62, el:'#vr-19'},  // C7
+    // C8: Dó mín pontuada (sem ID visível — vou colocar uma posição)
   ];
 
-  const NOTE_LETTER = {'Dó':'C','Ré':'D','Mi':'E','Fá':'F','Sol':'G','Lá':'A'};
-  const NOTE_Y = {'Dó':80,'Ré':75,'Mi':70,'Fá':65,'Sol':60,'Lá':55};
-  const STAVE_HEIGHT = 175;
-  const STAVES = [
-    {comps:[0,1,2,3,4,5],   y:0,             isFirst:true},
-    {comps:[6,7,8,9,10,11], y:STAVE_HEIGHT,  isFirst:false},
-    {comps:[12,13,14,15,16,17], y:STAVE_HEIGHT*2, isFirst:false},
-    {comps:[18,19,20,21,22,23], y:STAVE_HEIGHT*3, isFirst:false},
-    {comps:[24,25,26,27,28,29], y:STAVE_HEIGHT*4, isFirst:false}
+  // ME: bum-tchim-tchim
+  const meSeq = [
+    [24, 25],  // C1: Dó-DóM
+    [24, 25],  // C2: Dó-DóM
+    [31, 32],  // C3: Sol-SolM
+    [31, 33],  // C4: Sol-Sol7 (preparação)
+    [24, 25],  // C5: Dó-DóM (resolve)
+    [31, 32],  // C6: Sol-SolM
+    [31, 33],  // C7: Sol-Sol7
+    [24, 25],  // C8: Dó-DóM (cadência final)
   ];
 
-  function renderStave(stave) {
-    const sy = stave.y;
-    const numComps = stave.comps.length;
-    let s = `<g transform="translate(0, ${sy})">`;
-    s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
-    for (let i = 0; i < 5; i++) s += `<line x1="20" y1="${30+i*10}" x2="560" y2="${30+i*10}"/>`;
-    s += '</g><text x="22" y="76" font-size="55" font-family="serif" fill="#e0d8c0">𝄞</text>';
-    if (stave.isFirst) s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0"><text x="65" y="55" font-size="16">3</text><text x="65" y="73" font-size="16">4</text></g>';
-    s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
-    for (let i = 0; i < 5; i++) s += `<line x1="20" y1="${100+i*10}" x2="560" y2="${100+i*10}"/>`;
-    s += '</g><text x="35" y="123" font-size="28" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>';
-    if (stave.isFirst) s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0"><text x="65" y="118" font-size="16">3</text><text x="65" y="136" font-size="16">4</text></g>';
-    s += `<line x1="20" y1="30" x2="20" y2="140" stroke="#e0d8c0" stroke-width="1.5"/>`;
-
-    const startX = 80;
-    const usableW = 480;
-    const actualW = usableW / numComps;
-    for (let i = 0; i < numComps; i++) {
-      const compIdx = stave.comps[i];
-      const xStart = startX + i * actualW;
-      s += renderCompass(xStart, actualW, compassos[compIdx], compIdx);
-      const barX = xStart + actualW;
-      const isLast = compIdx === compassos.length - 1;
-      s += `<line x1="${barX}" y1="30" x2="${barX}" y2="140" stroke="#e0d8c0" stroke-width="${isLast?3:1.5}"/>`;
-    }
-    s += '</g>';
-    return s;
-  }
-
-  function renderCompass(xStart, width, comp, compIdx) {
-    let s = '';
-    const totalBeats = 3;
-    let cursorBeats = 0;
-    const totalDur = comp.notes.reduce((s,n)=>s+n.du, 0);
-    const scale = totalDur > 0 ? totalBeats / totalDur : 1;
-
-    for (let ni = 0; ni < comp.notes.length; ni++) {
-      const n = comp.notes[ni];
-      const eff = n.du * scale;
-      const xPos = xStart + (cursorBeats / totalBeats) * width + (eff / totalBeats) * width / 2;
-      const cy = NOTE_Y[n.n];
-      const letter = NOTE_LETTER[n.n];
-      const noteId = `vr-md-${compIdx}-${ni}`;
-
-      s += `<text x="${xPos}" y="20" font-size="10" font-style="italic" fill="#e0d8c0" text-anchor="middle">${letter}</text>`;
-      s += `<text x="${xPos}" y="32" font-size="9" font-weight="700" fill="var(--gold)" text-anchor="middle">${n.d}</text>`;
-      if (n.n === 'Dó') s += `<line x1="${xPos-7}" y1="${cy}" x2="${xPos+7}" y2="${cy}" stroke="#e0d8c0" stroke-width="1.5"/>`;
-
-      if (eff >= 2.5) {
-        s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="6" ry="4" fill="none" stroke="var(--gold)" stroke-width="1.8"/>`;
-        s += `<line x1="${xPos+6}" y1="${cy}" x2="${xPos+6}" y2="${cy-22}" stroke="var(--gold)" stroke-width="1.5"/>`;
-        s += `<circle cx="${xPos+11}" cy="${cy}" r="1.8" fill="var(--gold)"/>`;
-        for (let b = 0; b < 3; b++) {
-          const meX = xStart + (b/totalBeats) * width + (1/totalBeats) * width / 2;
-          s += `<line x1="${xPos}" y1="${cy+5}" x2="${meX}" y2="113" stroke="var(--gold)" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.3"/>`;
+  function build(bpm, btnId) {
+    const all = [];
+    let mdI = 0;
+    for (let c = 0; c < 8; c++) {
+      const t0 = c*3;
+      // MD
+      if (c === 3) {
+        // C4: 1 mín pontuada
+        all.push({...md[mdI], startBeat:t0});
+        mdI++;
+      } else if (c < 7) {
+        // C1-3, C5-7: 3 semínimas
+        for (let t = 0; t < 3; t++) {
+          all.push({...md[mdI], beats:1, articulation:MEL, startBeat:t0+t});
+          mdI++;
         }
       } else {
-        // Semínima ou colcheia
-        s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="5" ry="3.5" fill="var(--gold)"/>`;
-        s += `<line x1="${xPos+5}" y1="${cy}" x2="${xPos+5}" y2="${cy-22}" stroke="var(--gold)" stroke-width="1.5"/>`;
+        // C8: Dó central mín pontuada (criada inline)
+        all.push({midi:60, beats:3, articulation:0.95, startBeat:t0});
       }
-
-      if (comp.tieStart && ni === 0 && eff >= 2.5) {
-        const nextX = xStart + width + width/6;
-        const yTie = cy + 8;
-        s += `<path d="M ${xPos+5} ${yTie} Q ${(xPos+nextX)/2} ${yTie+8} ${nextX-5} ${yTie}" stroke="var(--gold)" stroke-width="1.3" fill="none"/>`;
-      }
-      cursorBeats += eff;
+      // ME: bum-tchim-tchim
+      all.push({midi:meSeq[c][0], beats:1, isBass:true, articulation:SUST, startBeat:t0});
+      all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+1});
+      all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+2});
     }
-
-    if (comp.isFimMarker) {
-      s += `<text x="${xStart + width/2}" y="105" font-size="11" font-weight="700" font-style="italic" fill="var(--gold)" text-anchor="middle">FIM.</text>`;
-    }
-
-    // Baixo
-    const colors = {'Dó':{bg:'var(--gold)',m:'#e0d8c0'},'Sol':{bg:'#d94a4a',m:'#d94a4a'},'Fá':{bg:'#e8a45f',m:'#e8a45f'}};
-    const co = colors[comp.bass] || {bg:'var(--gold)',m:'#e0d8c0'};
-    const beat0X = xStart + (1/totalBeats) * width / 2;
-    const beat1X = xStart + (1/totalBeats) * width + (1/totalBeats) * width / 2;
-    const beat2X = xStart + (2/totalBeats) * width + (1/totalBeats) * width / 2;
-
-    s += `<rect id="vr-me-${compIdx}-1" x="${beat0X-12}" y="115" width="24" height="18" rx="3" fill="${co.bg}" stroke="#1a1618" stroke-width="2"/>`;
-    s += `<text x="${beat0X}" y="128" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">${comp.bass}</text>`;
-    if (!comp.isFinal) {
-      s += `<circle id="vr-me-${compIdx}-2" cx="${beat1X}" cy="124" r="8" fill="none" stroke="${co.m}" stroke-width="1.5"/>`;
-      s += `<text x="${beat1X}" y="127" fill="${co.m}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
-      s += `<circle id="vr-me-${compIdx}-3" cx="${beat2X}" cy="124" r="8" fill="none" stroke="${co.m}" stroke-width="1.5"/>`;
-      s += `<text x="${beat2X}" y="127" fill="${co.m}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
-    } else {
-      s += `<text x="${beat0X}" y="148" fill="${co.m}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
-    }
-    return s;
+    attachScorePlayer({ playBtnId: btnId, bpm, beatsPerBar:3, notes: all });
   }
-
-  document.getElementById('masc-vr').innerHTML = STAVES.map(renderStave).join('');
-
-  // ===== ÁUDIO =====
-  const SUST=0.85, STAC=0.28, MEL=0.85;
-  const ME_MIDIS = {'Dó':{fund:24,acord:25},'Sol':{fund:31,acord:32},'Fá':{fund:29,acord:30}};
-  const MD_MIDIS = {'Dó':48,'Ré':50,'Mi':52,'Fá':53,'Sol':55,'Lá':57};
-
-  function buildPlayer(bpm, btnId) {
-    const notes = [];
-    let beat = 0;
-    compassos.forEach((c, i) => {
-      const totalDur = c.notes.reduce((s,n)=>s+n.du, 0);
-      const scale = totalDur > 0 ? 3 / totalDur : 1;
-      let cb = 0;
-      c.notes.forEach((n, ni) => {
-        const eff = n.du * scale;
-        notes.push({midi:MD_MIDIS[n.n], beats:eff, el:`#vr-md-${i}-${ni}`,
-                    articulation: eff >= 2.5 ? 0.95 : MEL, startBeat: beat + cb});
-        cb += eff;
-      });
-      const me = ME_MIDIS[c.bass];
-      notes.push({midi:me.fund, beats:1, isBass:true, articulation:SUST, el:`#vr-me-${i}-1`, startBeat:beat});
-      if (!c.isFinal) {
-        notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#vr-me-${i}-2`, startBeat:beat+1});
-        notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#vr-me-${i}-3`, startBeat:beat+2});
-      } else {
-        notes.push({midi:me.acord, beats:2, isBass:true, articulation:0.5, el:`#vr-me-${i}-2`, startBeat:beat+1});
-      }
-      beat += 3;
-    });
-    attachScorePlayer({playBtnId:btnId, bpm, beatsPerBar:3, notes});
-  }
-  buildPlayer(60, 'btn-vr-lento');
-  buildPlayer(90, 'btn-vr-normal');
+  build(60, 'btn-vr-l');
+  build(90, 'btn-vr-n');
 </script>
 <script src="js/accessibility.js"></script>
 </body></html>
