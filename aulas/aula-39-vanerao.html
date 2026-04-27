@@ -258,24 +258,247 @@
     <div class="score-play-wrap"><button id="btn-v" class="score-play-btn">▶ Ouvir (130 BPM)</button></div>
   </figure>
 
+  <h2>3. Vanerão intermediário (variação rítmica + escala descendente)</h2>
+  <p>
+    Quando o exemplo simples ficar fluido, suba pra esse: mesma estrutura A-B em 8 compassos, mas com
+    <strong>escala descendente</strong> (Sol-Fá-Mi-Ré aparece 2 vezes), <strong>saltos de quinta</strong>
+    (Sol↔Ré) e <strong>variação rítmica</strong> nos compassos 4 e 8 — <em>mínimas</em> que dão
+    "respiração" pro pulso. Andamento mais animado: 145 BPM.
+  </p>
+  <figure class="score-figure">
+    <svg viewBox="0 0 580 470" class="score-svg">
+      <!-- ============ STAVE 1 (compassos 1-4) — Frase A ============ -->
+      <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+        <line x1="20" y1="50" x2="560" y2="50"/><line x1="20" y1="65" x2="560" y2="65"/>
+        <line x1="20" y1="80" x2="560" y2="80"/><line x1="20" y1="95" x2="560" y2="95"/>
+        <line x1="20" y1="110" x2="560" y2="110"/>
+      </g>
+      <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+      <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
+        <text x="85" y="75" font-size="22">4</text><text x="85" y="102" font-size="22">4</text>
+      </g>
+      <!-- FRASE A — C1: Sol-Mi-Sol-Ré (saltos)   C2: Sol-Fá-Mi-Ré (escala desc)
+                    C3: Mi-Sol-Mi-Sol (terças)   C4: Sol-Mi (sem) + Sol (mín 2t) -->
+      <g>
+        <!-- C1 -->
+        <ellipse id="v2-1"  cx="99"  cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="v2-2"  cx="129" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="v2-3"  cx="159" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="v2-4"  cx="189" cy="117" rx="6" ry="4" fill="var(--gold)"/>
+        <!-- C2 — escala descendente característica do vanerão -->
+        <ellipse id="v2-5"  cx="217" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="v2-6"  cx="247" cy="102" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="v2-7"  cx="277" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="v2-8"  cx="307" cy="117" rx="6" ry="4" fill="var(--gold)"/>
+        <!-- C3 — terças paralelas -->
+        <ellipse id="v2-9"  cx="335" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="v2-10" cx="365" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="v2-11" cx="395" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="v2-12" cx="425" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <!-- C4 — Sol-Mi (sem) + Sol (mín 2t, sem preenchimento) -->
+        <ellipse id="v2-13" cx="454" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="v2-14" cx="484" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+        <ellipse id="v2-15" cx="529" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+      </g>
+      <!-- Dedilhado MD frase A -->
+      <g fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle" stroke="#1a1618" stroke-width="2.5" paint-order="stroke">
+        <text x="99"  y="30">5</text><text x="129" y="30">3</text><text x="159" y="30">5</text><text x="189" y="30">2</text>
+        <text x="217" y="30">5</text><text x="247" y="30">4</text><text x="277" y="30">3</text><text x="307" y="30">2</text>
+        <text x="335" y="30">3</text><text x="365" y="30">5</text><text x="395" y="30">3</text><text x="425" y="30">5</text>
+        <text x="454" y="30">5</text><text x="484" y="30">3</text><text x="529" y="30">5</text>
+      </g>
+
+      <!-- ============ PAUTA ME (clave de Fá) — baixos ============ -->
+      <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+        <line x1="20" y1="140" x2="560" y2="140"/><line x1="20" y1="155" x2="560" y2="155"/>
+        <line x1="20" y1="170" x2="560" y2="170"/><line x1="20" y1="185" x2="560" y2="185"/>
+        <line x1="20" y1="200" x2="560" y2="200"/>
+      </g>
+      <text x="35" y="172" font-size="42" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>
+      <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
+        <text x="85" y="165" font-size="22">4</text><text x="85" y="192" font-size="22">4</text>
+      </g>
+      <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
+
+      <!-- BAIXOS frase A — TRIÂNGULO Dó-DóM-Mi-DóM × 4 compassos -->
+      <g font-family="sans-serif">
+        <!-- C1 -->
+        <rect   id="v2-b1"  x="87"  y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+        <text x="99"  y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+        <circle id="v2-b2"  cx="129" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+        <text x="129" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <rect   id="v2-b3"  x="147" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+        <text x="159" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Mi</text>
+        <circle id="v2-b4"  cx="189" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+        <text x="189" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <!-- C2 -->
+        <rect   id="v2-b5"  x="205" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+        <text x="217" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+        <circle id="v2-b6"  cx="247" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+        <text x="247" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <rect   id="v2-b7"  x="265" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+        <text x="277" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Mi</text>
+        <circle id="v2-b8"  cx="307" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+        <text x="307" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <!-- C3 -->
+        <rect   id="v2-b9"  x="323" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+        <text x="335" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+        <circle id="v2-b10" cx="365" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+        <text x="365" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <rect   id="v2-b11" x="383" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+        <text x="395" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Mi</text>
+        <circle id="v2-b12" cx="425" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+        <text x="425" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <!-- C4 -->
+        <rect   id="v2-b13" x="442" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+        <text x="454" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+        <circle id="v2-b14" cx="484" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+        <text x="484" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        <rect   id="v2-b15" x="502" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+        <text x="514" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Mi</text>
+        <circle id="v2-b16" cx="544" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+        <text x="544" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+      </g>
+      <!-- Dedilhado ME stave 1 -->
+      <g fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle" stroke="#1a1618" stroke-width="2.5" paint-order="stroke">
+        <text x="99"  y="218">4</text><text x="129" y="218">3</text><text x="159" y="218">4</text><text x="189" y="218">3</text>
+        <text x="217" y="218">4</text><text x="247" y="218">3</text><text x="277" y="218">4</text><text x="307" y="218">3</text>
+        <text x="335" y="218">4</text><text x="365" y="218">3</text><text x="395" y="218">4</text><text x="425" y="218">3</text>
+        <text x="454" y="218">4</text><text x="484" y="218">3</text><text x="514" y="218">4</text><text x="544" y="218">3</text>
+      </g>
+      <!-- Barras de compasso stave 1 -->
+      <g stroke="#e0d8c0" stroke-width="1.5">
+        <line x1="203" y1="50" x2="203" y2="200"/>
+        <line x1="321" y1="50" x2="321" y2="200"/>
+        <line x1="440" y1="50" x2="440" y2="200"/>
+        <line x1="558" y1="50" x2="558" y2="200"/>
+      </g>
+
+      <!-- ============ STAVE 2 (compassos 5-8) — Frase B ============ -->
+      <g transform="translate(0, 240)">
+        <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+          <line x1="20" y1="50" x2="560" y2="50"/><line x1="20" y1="65" x2="560" y2="65"/>
+          <line x1="20" y1="80" x2="560" y2="80"/><line x1="20" y1="95" x2="560" y2="95"/>
+          <line x1="20" y1="110" x2="560" y2="110"/>
+        </g>
+        <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+
+        <!-- FRASE B — C5: Mi-Sol-Mi-Ré (eco invertido)  C6: Mi-Ré-Mi-Fá (bordadura)
+                      C7: Sol-Fá-Mi-Ré (escala desc novamente)  C8: Mi-Ré (sem) + Dó (mín 2t) -->
+        <g>
+          <!-- C5 -->
+          <ellipse id="v2-16" cx="99"  cy="110" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="v2-17" cx="129" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="v2-18" cx="159" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="v2-19" cx="189" cy="117" rx="6" ry="4" fill="var(--gold)"/>
+          <!-- C6 -->
+          <ellipse id="v2-20" cx="217" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="v2-21" cx="247" cy="117" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="v2-22" cx="277" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="v2-23" cx="307" cy="102" rx="6" ry="4" fill="var(--gold)"/>
+          <!-- C7 — escala descendente final -->
+          <ellipse id="v2-24" cx="335" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="v2-25" cx="365" cy="102" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="v2-26" cx="395" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="v2-27" cx="425" cy="117" rx="6" ry="4" fill="var(--gold)"/>
+          <!-- C8 — Mi-Ré (sem) + Dó (mín 2t, com linha suplementar abaixo) -->
+          <ellipse id="v2-28" cx="454" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+          <ellipse id="v2-29" cx="484" cy="117" rx="6" ry="4" fill="var(--gold)"/>
+          <line x1="519" y1="125" x2="539" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+          <ellipse id="v2-30" cx="529" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        </g>
+        <g fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle" stroke="#1a1618" stroke-width="2.5" paint-order="stroke">
+          <text x="99"  y="30">3</text><text x="129" y="30">5</text><text x="159" y="30">3</text><text x="189" y="30">2</text>
+          <text x="217" y="30">3</text><text x="247" y="30">2</text><text x="277" y="30">3</text><text x="307" y="30">4</text>
+          <text x="335" y="30">5</text><text x="365" y="30">4</text><text x="395" y="30">3</text><text x="425" y="30">2</text>
+          <text x="454" y="30">3</text><text x="484" y="30">2</text><text x="529" y="30">1</text>
+        </g>
+
+        <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+          <line x1="20" y1="140" x2="560" y2="140"/><line x1="20" y1="155" x2="560" y2="155"/>
+          <line x1="20" y1="170" x2="560" y2="170"/><line x1="20" y1="185" x2="560" y2="185"/>
+          <line x1="20" y1="200" x2="560" y2="200"/>
+        </g>
+        <text x="35" y="172" font-size="42" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>
+        <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
+
+        <!-- BAIXOS frase B — triângulo continua nos 4 compassos -->
+        <g font-family="sans-serif">
+          <rect   id="v2-b17" x="87"  y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+          <text x="99"  y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+          <circle id="v2-b18" cx="129" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+          <text x="129" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <rect   id="v2-b19" x="147" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+          <text x="159" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Mi</text>
+          <circle id="v2-b20" cx="189" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+          <text x="189" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <rect   id="v2-b21" x="205" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+          <text x="217" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+          <circle id="v2-b22" cx="247" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+          <text x="247" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <rect   id="v2-b23" x="265" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+          <text x="277" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Mi</text>
+          <circle id="v2-b24" cx="307" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+          <text x="307" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <rect   id="v2-b25" x="323" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+          <text x="335" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+          <circle id="v2-b26" cx="365" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+          <text x="365" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <rect   id="v2-b27" x="383" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+          <text x="395" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Mi</text>
+          <circle id="v2-b28" cx="425" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+          <text x="425" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <rect   id="v2-b29" x="442" y="158" width="24" height="22" rx="4" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+          <text x="454" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Dó</text>
+          <circle id="v2-b30" cx="484" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+          <text x="484" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+          <rect   id="v2-b31" x="502" y="158" width="24" height="22" rx="4" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+          <text x="514" y="175" fill="#1a1618" font-size="10" font-weight="700" text-anchor="middle">Mi</text>
+          <circle id="v2-b32" cx="544" cy="170" r="10" fill="none" stroke="#e0d8c0" stroke-width="1.8"/>
+          <text x="544" y="174" fill="#e0d8c0" font-size="10" font-weight="700" text-anchor="middle">M</text>
+        </g>
+        <g fill="var(--gold)" font-size="10" font-weight="700" text-anchor="middle" stroke="#1a1618" stroke-width="2.5" paint-order="stroke">
+          <text x="99"  y="218">4</text><text x="129" y="218">3</text><text x="159" y="218">4</text><text x="189" y="218">3</text>
+          <text x="217" y="218">4</text><text x="247" y="218">3</text><text x="277" y="218">4</text><text x="307" y="218">3</text>
+          <text x="335" y="218">4</text><text x="365" y="218">3</text><text x="395" y="218">4</text><text x="425" y="218">3</text>
+          <text x="454" y="218">4</text><text x="484" y="218">3</text><text x="514" y="218">4</text><text x="544" y="218">3</text>
+        </g>
+        <g stroke="#e0d8c0" stroke-width="1.5">
+          <line x1="203" y1="50" x2="203" y2="200"/>
+          <line x1="321" y1="50" x2="321" y2="200"/>
+          <line x1="440" y1="50" x2="440" y2="200"/>
+          <line x1="558" y1="50" x2="558" y2="200" stroke-width="3"/>
+        </g>
+      </g>
+    </svg>
+    <figcaption>
+      <strong>Forma A-B intermediária:</strong> usa só notas Dó-Sol (sem passagem do polegar), mas com
+      saltos mais ousados, escala desc Sol-Fá-Mi-Ré e mínimas resolutivas no fim de cada frase.
+      O triângulo Dó-DóM-Mi-DóM continua igual nos 8 compassos — a complexidade fica na MD.
+    </figcaption>
+    <div class="score-play-wrap"><button id="btn-v2" class="score-play-btn">▶ Ouvir intermediário (145 BPM)</button></div>
+  </figure>
+
+  <h2>4. Como praticar</h2>
   <ol>
     <li><strong>Mão esquerda primeiro:</strong> triângulo Dó-DóM-Mi-DóM, 4 compassos seguidos, 100 BPM. Decore o pulso até virar automático.</li>
-    <li><strong>Mão direita só a frase A</strong> (linha 1, compassos 1-4), 80 BPM. Repare a escala descendente do compasso 3 (Sol-Fá-Mi-Ré).</li>
-    <li><strong>Mão direita só a frase B</strong> (linha 2, compassos 5-8), 80 BPM. C5 ecoa C1 — mãos lembram o gesto.</li>
-    <li><strong>Mãos juntas, 90 BPM.</strong> Faça frase A 3 vezes seguidas sem erro antes de tentar a B. Depois junte tudo.</li>
-    <li>Quando ficar fluido, sobe pra 110 e 130 BPM — vanerão é animado.</li>
+    <li><strong>Comece pelo exemplo simples (item 2)</strong>, frase A 80 BPM, depois frase B, depois mãos juntas até fluir a 130 BPM.</li>
+    <li><strong>Quando o exemplo simples ficar fácil, suba pro intermediário (item 3).</strong> Atenção especial à <em>escala descendente</em> (Sol-Fá-Mi-Ré) que aparece em C2 e C7 — é a marca registrada gaúcha.</li>
+    <li>As <strong>mínimas</strong> nos compassos 4 e 8 do exemplo intermediário são pra você <em>respirar</em> — não acelere ali, o ouvido pede a pausa.</li>
+    <li>Quando ficar fluido, sobe pra 145 BPM — vanerão é animado.</li>
   </ol>
 
   <div class="callout callout-info">
     O <strong>vanerão</strong> tem origem na vanera europeia (do "vanaräo", dança polonesa) trazida pra o sul do Brasil. Hoje é um dos ritmos preferidos dos acordeonistas gaúchos.
   </div>
 
-  <h2>4. 🎧 Pra ouvir vanerão de verdade</h2>
+  <h2>5. 🎧 Pra ouvir vanerão de verdade</h2>
   <p>
-    O exemplo da partitura é uma vanerinha didática — pra <em>sentir</em> o ritmo na pele,
-    clique nos links abaixo e escute alguns vanerões clássicos do repertório gaúcho:
+    Os exemplos da partitura são vanerinhas didáticas — pra <em>sentir</em> o ritmo na pele
+    e ver até onde ele pode chegar nas mãos de mestres, clique nos links abaixo e escute:
   </p>
   <ul style="line-height:1.9">
+    <li>🎵 <a href="https://www.youtube.com/results?search_query=Vaner%C3%A3o+Lascado+Valdir+Santos" target="_blank" rel="noopener"><strong>Vanerão Lascado — Valdir Santos</strong></a> — vanerão virtuose em Sol Maior (modula pra Ré), 60 compassos com seções A-B-A. <em>Esta é a peça de referência avançada</em>: ouça depois de dominar nossos exemplos pra ver onde dá pra chegar.</li>
     <li>🎵 <a href="https://www.youtube.com/results?search_query=Renato+Borghetti+gaita+ponto+vaner%C3%A3o" target="_blank" rel="noopener"><strong>Renato Borghetti</strong></a> — primeiro disco de ouro instrumental brasileiro (1984). É o maior nome vivo da gaita-ponto gaúcha.</li>
     <li>🎵 <a href="https://www.youtube.com/results?search_query=S%C3%A9tima+do+Pontal+Renato+Borghetti" target="_blank" rel="noopener"><strong>Sétima do Pontal</strong></a> — Renato Borghetti com Veco Marques. Vanerão refinado, mostra como o ritmo pode ir além do baile.</li>
     <li>🎵 <a href="https://www.youtube.com/results?search_query=Os+Serranos+Estrad%C3%A3o+vaner%C3%A3o" target="_blank" rel="noopener"><strong>Os Serranos — Estradão / Bagual</strong></a> — grupo tradicionalista gaúcho com dezenas de vanerões clássicos.</li>
@@ -340,6 +563,50 @@
     }
   }
   attachScorePlayer({ playBtnId:'btn-v', bpm:130, beatsPerBar:4, notes: all });
+
+  // ========================================================================
+  // EXEMPLO 2 — Vanerão intermediário (8 compassos, original, em Dó Maior)
+  // Composição educacional original. Saltos amplos + escala descendente +
+  // variação rítmica (mínimas em C4 e C8). NÃO usa passagem do polegar.
+  // ========================================================================
+  const md2 = [
+    // Frase A — saltos e escala descendente
+    {midi:55,el:'#v2-1'},  {midi:52,el:'#v2-2'},  {midi:55,el:'#v2-3'},  {midi:50,el:'#v2-4'},   // C1: Sol-Mi-Sol-Ré
+    {midi:55,el:'#v2-5'},  {midi:53,el:'#v2-6'},  {midi:52,el:'#v2-7'},  {midi:50,el:'#v2-8'},   // C2: Sol-Fá-Mi-Ré
+    {midi:52,el:'#v2-9'},  {midi:55,el:'#v2-10'}, {midi:52,el:'#v2-11'}, {midi:55,el:'#v2-12'},  // C3: Mi-Sol-Mi-Sol
+    {midi:55,el:'#v2-13'}, {midi:52,el:'#v2-14'},                                                // C4: Sol-Mi (sem)
+    {midi:55,el:'#v2-15',beats:2,articulation:0.95},                                             // C4: Sol mín 2t
+    // Frase B — eco invertido + escala desc + final
+    {midi:52,el:'#v2-16'}, {midi:55,el:'#v2-17'}, {midi:52,el:'#v2-18'}, {midi:50,el:'#v2-19'},  // C5: Mi-Sol-Mi-Ré
+    {midi:52,el:'#v2-20'}, {midi:50,el:'#v2-21'}, {midi:52,el:'#v2-22'}, {midi:53,el:'#v2-23'},  // C6: Mi-Ré-Mi-Fá
+    {midi:55,el:'#v2-24'}, {midi:53,el:'#v2-25'}, {midi:52,el:'#v2-26'}, {midi:50,el:'#v2-27'},  // C7: Sol-Fá-Mi-Ré
+    {midi:52,el:'#v2-28'}, {midi:50,el:'#v2-29'},                                                // C8: Mi-Ré (sem)
+    {midi:48,el:'#v2-30',beats:2,articulation:0.95}                                              // C8: Dó mín 2t
+  ];
+  // ME: triângulo Dó-DóM-Mi-DóM × 8 compassos = 32 baixos (IDs v2-b1..v2-b32)
+  const all2 = [];
+  let mi2 = 0;
+  for (let c = 0; c < 8; c++) {
+    const t0 = c*4;
+    if (c === 3 || c === 7) {
+      // C4 e C8: 2 semínimas + 1 mínima (2t)
+      all2.push({...md2[mi2], beats:1, articulation:MEL, startBeat:t0});   mi2++;
+      all2.push({...md2[mi2], beats:1, articulation:MEL, startBeat:t0+1}); mi2++;
+      all2.push({...md2[mi2], startBeat:t0+2});                            mi2++;
+    } else {
+      // 4 semínimas
+      for (let t = 0; t < 4; t++) {
+        all2.push({...md2[mi2], beats:1, articulation:MEL, startBeat:t0+t});
+        mi2++;
+      }
+    }
+    // Triângulo do baixo paralelo
+    for (let t = 0; t < 4; t++) {
+      const bassEl = `#v2-b${c*4 + t + 1}`;
+      all2.push({midi:meCell[t].midi,beats:1,isBass:true,articulation:meCell[t].art,startBeat:t0+t,el:bassEl});
+    }
+  }
+  attachScorePlayer({ playBtnId:'btn-v2', bpm:145, beatsPerBar:4, notes: all2 });
 </script>
 <script src="js/accessibility.js"></script>
 </body></html>
