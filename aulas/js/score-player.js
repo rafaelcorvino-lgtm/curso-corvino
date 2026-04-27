@@ -1,0 +1,407 @@
+// score-player.js — Player de partitura sincronizado com o iframe do app.
+//
+// Uso típico em uma aula:
+//
+//   import { attachScorePlayer } from './js/score-player.js';
+//   attachScorePlayer({
+//     playBtnId: 'btn-ex1',          // botão "▶ Ouvir"
+//     bpm: 80,
+//     beatsPerBar: 4,                // (opcional) 2, 3 ou 4 — marca tempo forte no 1
+//     notes: [
+//       { midi: 48, beats: 4, el: '#ex1-n1' },
+//       { midi: 50, beats: 2, el: '#ex1-n2' },
+//       ...
+//     ]
+//   });
+//
+// - midi         = nota MIDI a tocar (48 = Dó, etc)
+// - beats        = tempo que a nota OCUPA no grid rítmico (1 = 1 tempo)
+// - el           = seletor CSS do elemento SVG (ellipse da nota) pra destacar
+// - isBass       = (opcional, default false) se é nota do baixo
+// - articulation = (opcional, default 0.92) fração do slot em que a nota SOA:
+//                  0.92 = legato (padrão), 0.5 = tenuto médio, 0.28 = staccato
+// - startBeat    = (opcional) tempo ABSOLUTO em beats onde a nota começa.
+//                  Se omitido, a nota entra em sequência (cursor sequencial).
+//                  Usar pra tocar 2 mãos simultâneas — ambas as mãos
+//                  começam em startBeat 0, 1, 2... sem depender da outra.
+//
+// O player:
+//   - Aguarda o iframe do app sinalizar 'corvino:ready' antes de habilitar.
+//   - Manda 'corvino:noteOn' via postMessage, agenda 'corvino:noteOff'.
+//   - Adiciona classe .score-note-active no el enquanto soar.
+//   - Toca um click de metrônomo a cada tempo (Web Audio, precisão ~1ms).
+//     Primeira batida de cada compasso (se beatsPerBar definido) é mais aguda.
+
+const READY_CLASS = 'score-player-ready';
+let appReady = false;
+const readyListeners = [];
+
+// ---------------------------------------------------------------------------
+// AUTO-SCROLL — rola a página pra acompanhar a nota que está soando.
+// Útil em partituras longas que não cabem na tela toda.
+// ---------------------------------------------------------------------------
+let lastScrollAt = 0;
+const SCROLL_THROTTLE_MS = 600;     // não scrolla 2x dentro desse intervalo
+const SCROLL_TOP_MARGIN = 130;      // header sticky + folga
+const SCROLL_BOTTOM_MARGIN = 140;   // folga inferior
+let userScrolledAt = 0;             // timestamp da última rolagem manual
+const USER_SCROLL_PAUSE_MS = 2500;  // pausa o auto-scroll após ação manual
+
+// Detecta rolagem manual do usuário pra não brigar com ele.
+// (Auto-scroll programado também dispara 'scroll', então usamos um sinal:
+//  qualquer scroll que chega DEPOIS de SCROLL_THROTTLE_MS do nosso é manual.)
+window.addEventListener('scroll', () => {
+  const now = Date.now();
+  if (now - lastScrollAt > SCROLL_THROTTLE_MS + 50) {
+    userScrolledAt = now;
+  }
+}, { passive: true });
+
+// Roteia a partitura: se a nota estiver fora do viewport, suaviza scroll
+// pra centralizá-la. Se já estiver visível, não faz nada.
+function scrollNoteIntoView(el) {
+  if (!el) return;
+  const now = Date.now();
+  // Throttle: evita 2 scrolls seguidos (MD + baixo no mesmo beat)
+  if (now - lastScrollAt < SCROLL_THROTTLE_MS) return;
+  // Respeita o usuário: se ele rolou manualmente há pouco, deixa quieto
+  if (now - userScrolledAt < USER_SCROLL_PAUSE_MS) return;
+
+  const rect = el.getBoundingClientRect();
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+
+  // Já está visível com folga? Não faz nada.
+  const visible = rect.top >= SCROLL_TOP_MARGIN
+               && rect.bottom <= (vh - SCROLL_BOTTOM_MARGIN);
+  if (visible) return;
+
+  lastScrollAt = now;
+  // Respeita preferência de movimento reduzido (idosos com sensibilidade)
+  const reduced = window.matchMedia
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  try {
+    el.scrollIntoView({
+      behavior: reduced ? 'auto' : 'smooth',
+      block: 'center',
+      inline: 'nearest',
+    });
+  } catch (_e) {
+    // Fallback pra navegadores antigos
+    el.scrollIntoView();
+  }
+}
+
+// Web Audio local pro metrônomo (clicks precisos, sem depender do app)
+let audioCtx = null;
+function ensureAudioCtx() {
+  if (!audioCtx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (AC) audioCtx = new AC();
+  }
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+// Agenda um click no momento certo. Retorna o oscillator pra poder parar.
+function scheduleClick(offsetSeconds, strong) {
+  const ctx = ensureAudioCtx();
+  if (!ctx) return null;
+  const t0 = ctx.currentTime + offsetSeconds;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  // triangle em vez de sine: mais harmônicos → percebido como mais alto
+  osc.type = 'triangle';
+  osc.frequency.value = strong ? 1800 : 1000;
+  // envelope curto e ALTO
+  gain.gain.setValueAtTime(0.0001, t0);
+  gain.gain.exponentialRampToValueAtTime(strong ? 2.5 : 2.0, t0 + 0.002);
+  gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.06);
+  osc.connect(gain).connect(ctx.destination);
+  osc.start(t0);
+  osc.stop(t0 + 0.07);
+  return osc;
+}
+
+function findAppFrame() {
+  return document.querySelector('iframe.app-frame');
+}
+
+function postToApp(msg) {
+  const frame = findAppFrame();
+  if (!frame || !frame.contentWindow) return;
+  frame.contentWindow.postMessage(msg, '*');
+}
+
+// Listener global — app avisa quando está pronto
+window.addEventListener('message', (ev) => {
+  const d = ev.data;
+  if (!d || typeof d !== 'object') return;
+  if (d.type === 'corvino:ready' || d.type === 'corvino:pong') {
+    appReady = true;
+    document.body.classList.add(READY_CLASS);
+    readyListeners.forEach(fn => { try { fn(); } catch (e) { console.error(e); } });
+    readyListeners.length = 0;
+  }
+});
+
+// Ping reativo pra casos em que a página carrega depois do app
+function pingApp() {
+  postToApp({ type: 'corvino:ping' });
+}
+// Polling leve até conseguir resposta
+let pingTimer = null;
+function startPinging() {
+  if (appReady) return;
+  if (pingTimer) return;
+  pingTimer = setInterval(() => {
+    if (appReady) { clearInterval(pingTimer); pingTimer = null; return; }
+    pingApp();
+  }, 1500);
+  setTimeout(pingApp, 500); // primeira tentativa rápida
+}
+
+function onReady(fn) {
+  if (appReady) fn();
+  else readyListeners.push(fn);
+}
+
+// ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// CONSTRUÇÃO DA TOOLBAR (play + BPM control) — injetada no TOPO da figure
+// ---------------------------------------------------------------------------
+// Pra cada attachScorePlayer, geramos uma "row" dentro de uma toolbar única
+// na <figure class="score-figure"> ancestral do botão original. O botão
+// original do HTML é escondido — interagimos com os controles novos.
+function buildPlayerUI(playBtnId, defaultBpm, defaultLabel) {
+  const oldBtn = document.getElementById(playBtnId);
+  if (!oldBtn) {
+    console.warn('[score-player] botão não encontrado:', playBtnId);
+    return null;
+  }
+
+  // Pega o label custom do botão original ("Ouvir devagar (60 BPM)" → "Ouvir devagar")
+  const origText = (oldBtn.textContent || '').trim();
+  const labelClean = origText
+    .replace(/\(\s*\d+\s*BPM\s*\)/i, '')
+    .replace(/^[▶■\s]+/, '')
+    .trim() || defaultLabel || 'Ouvir';
+
+  const figure = oldBtn.closest('.score-figure');
+
+  // Sem figure (caso raro) — mantém o botão antigo, sem toolbar nem BPM controls
+  if (!figure) {
+    return { playBtn: oldBtn, bpmDisplay: null, bpmDecBtn: null, bpmIncBtn: null,
+             oldBtn, label: labelClean, hasUI: false };
+  }
+
+  // Esconde o botão original (e seu wrapper) — substituímos pela toolbar
+  oldBtn.style.display = 'none';
+  const oldWrap = oldBtn.closest('.score-play-wrap');
+  if (oldWrap) oldWrap.style.display = 'none';
+
+  // Toolbar única por figure (compartilhada entre múltiplos players)
+  let toolbar = figure.querySelector('.score-toolbar');
+  if (!toolbar) {
+    toolbar = document.createElement('div');
+    toolbar.className = 'score-toolbar';
+    figure.insertBefore(toolbar, figure.firstChild);
+  }
+
+  // Row deste player
+  const row = document.createElement('div');
+  row.className = 'score-toolbar-row';
+  row.innerHTML = `
+    <button class="score-play-btn score-play-main" type="button" disabled>▶ ${labelClean}</button>
+    <div class="score-bpm" role="group" aria-label="Andamento (BPM)">
+      <span class="score-bpm-label">BPM</span>
+      <button class="score-bpm-btn" data-act="dec" type="button" aria-label="Diminuir BPM">−</button>
+      <button class="score-bpm-display" type="button" title="Voltar ao BPM recomendado (${defaultBpm})">${defaultBpm}</button>
+      <button class="score-bpm-btn" data-act="inc" type="button" aria-label="Aumentar BPM">+</button>
+    </div>
+  `;
+  toolbar.appendChild(row);
+
+  return {
+    playBtn: row.querySelector('.score-play-main'),
+    bpmDisplay: row.querySelector('.score-bpm-display'),
+    bpmDecBtn: row.querySelector('[data-act="dec"]'),
+    bpmIncBtn: row.querySelector('[data-act="inc"]'),
+    oldBtn,
+    label: labelClean,
+    hasUI: true
+  };
+}
+
+export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, notes = [], countIn = true }) {
+  startPinging();
+
+  const ui = buildPlayerUI(playBtnId, bpm, 'Ouvir');
+  if (!ui) return;
+
+  const btn = ui.playBtn;
+  btn.classList.add('score-play-btn');
+  btn.disabled = true;
+  btn.title = 'Carregando áudio do acordeon...';
+
+  onReady(() => {
+    btn.disabled = false;
+    btn.title = 'Ouvir esse exemplo';
+  });
+
+  // BPM ajustável — começa no recomendado, aluno acelera/desacelera
+  const BPM_MIN = 40;
+  const BPM_MAX = 200;
+  const BPM_STEP = 5;
+  let currentBpm = bpm;
+
+  let playing = false;
+  let timeouts = [];
+  let scheduledOscs = [];
+  let activeEls = [];
+
+  function setBpm(newBpm) {
+    newBpm = Math.max(BPM_MIN, Math.min(BPM_MAX, Math.round(newBpm)));
+    currentBpm = newBpm;
+    if (ui.bpmDisplay) {
+      ui.bpmDisplay.textContent = newBpm;
+      ui.bpmDisplay.classList.toggle('modified', newBpm !== bpm);
+    }
+  }
+
+  if (ui.hasUI) {
+    ui.bpmDecBtn.addEventListener('click', () => { if (!playing) setBpm(currentBpm - BPM_STEP); });
+    ui.bpmIncBtn.addEventListener('click', () => { if (!playing) setBpm(currentBpm + BPM_STEP); });
+    ui.bpmDisplay.addEventListener('click', () => { if (!playing) setBpm(bpm); });
+  }
+
+  function setBpmControlsDisabled(disabled) {
+    if (!ui.hasUI) return;
+    ui.bpmDecBtn.disabled = disabled;
+    ui.bpmIncBtn.disabled = disabled;
+    ui.bpmDisplay.disabled = disabled;
+  }
+
+  function stop() {
+    timeouts.forEach(clearTimeout);
+    timeouts = [];
+    scheduledOscs.forEach(osc => { try { osc.stop(); } catch (e) {} });
+    scheduledOscs = [];
+    postToApp({ type: 'corvino:allOff' });
+    activeEls.forEach(el => el.classList.remove('score-note-active'));
+    activeEls = [];
+    playing = false;
+    btn.textContent = `▶ ${ui.label}`;
+    btn.classList.remove('playing', 'count-in');
+    setBpmControlsDisabled(false);
+  }
+
+  btn.addEventListener('click', () => {
+    if (playing) { stop(); return; }
+    if (!appReady) return;
+
+    // Garante AudioContext ativo (gesto do usuário)
+    ensureAudioCtx();
+
+    playing = true;
+    setBpmControlsDisabled(true);
+    const beatMs = 60000 / currentBpm;
+    const beatSec = 60 / currentBpm;
+
+    // Count-in: 1 compasso de clicks pra preparar o aluno antes da música
+    // (só faz sentido se beatsPerBar estiver definido)
+    const countInBeats = (countIn && beatsPerBar) ? beatsPerBar : 0;
+
+    if (countInBeats > 0) {
+      btn.textContent = '■ Preparando…';
+      btn.classList.add('playing', 'count-in');
+      // troca pra "■ Parar" assim que a música real começa
+      timeouts.push(setTimeout(() => {
+        btn.textContent = '■ Parar';
+        btn.classList.remove('count-in');
+      }, countInBeats * beatMs));
+    } else {
+      btn.textContent = '■ Parar';
+      btn.classList.add('playing');
+    }
+
+    // Pré-calcula o startBeat e endBeat de cada nota (pra descobrir a duração total do exercício)
+    let seqCursor = 0; // cursor em BEATS pro modo sequencial
+    const scheduled = notes.map(note => {
+      const hasExplicitStart = typeof note.startBeat === 'number';
+      const startBeats = hasExplicitStart ? note.startBeat : seqCursor;
+      if (!hasExplicitStart) seqCursor += (note.beats || 0);
+      return { note, startBeats, endBeats: startBeats + (note.beats || 0) };
+    });
+
+    // Duração total da música em beats
+    const musicBeats = Math.ceil(
+      scheduled.reduce((max, s) => Math.max(max, s.endBeats), 0)
+    );
+    const totalBeats = countInBeats + musicBeats;
+
+    // Agenda clicks do metrônomo — count-in + música inteira
+    for (let beat = 0; beat < totalBeats; beat++) {
+      const isStrong = beatsPerBar && (beat % beatsPerBar) === 0;
+      const osc = scheduleClick(beat * beatSec, isStrong);
+      if (osc) scheduledOscs.push(osc);
+    }
+
+    // Agenda notas (atrasadas por countInBeats)
+    for (const { note, startBeats } of scheduled) {
+      // Pausa (rest): só ocupa espaço, não toca nem acende.
+      if (note.rest || note.midi == null) continue;
+
+      const startMs = (startBeats + countInBeats) * beatMs;
+      const slotMs = (note.beats || 0) * beatMs;
+      const artic = typeof note.articulation === 'number'
+        ? Math.max(0.05, Math.min(1, note.articulation))
+        : 0.92;
+      const soundMs = Math.max(50, slotMs * artic);
+      const isBass = !!note.isBass;
+
+      // noteOn
+      timeouts.push(setTimeout(() => {
+        postToApp({ type: 'corvino:noteOn', midi: note.midi, isBass });
+        if (note.el) {
+          const el = typeof note.el === 'string'
+            ? document.querySelector(note.el)
+            : note.el;
+          if (el) {
+            el.classList.add('score-note-active');
+            activeEls.push(el);
+            // Rola a página pra trazer a nota à vista, se necessário.
+            // Só roteia em notas da MD (não baixos) — evita pular pra outro
+            // pentagrama em peças com 2 staves; baixo geralmente está perto.
+            if (!isBass) scrollNoteIntoView(el);
+          }
+        }
+      }, startMs));
+
+      // noteOff
+      timeouts.push(setTimeout(() => {
+        postToApp({ type: 'corvino:noteOff', midi: note.midi, isBass });
+        if (note.el) {
+          const el = typeof note.el === 'string'
+            ? document.querySelector(note.el)
+            : note.el;
+          if (el) {
+            el.classList.remove('score-note-active');
+            activeEls = activeEls.filter(x => x !== el);
+          }
+        }
+      }, startMs + soundMs));
+    }
+
+    // auto-reset depois que acabar (totalBeats em ms + folga)
+    timeouts.push(setTimeout(stop, totalBeats * beatMs + 200));
+  });
+
+  // clean-up se a aula for fechada
+  window.addEventListener('beforeunload', stop);
+}
+
+// Pausa se o aluno trocar de aba (evita notas presas)
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) postToApp({ type: 'corvino:allOff' });
+});

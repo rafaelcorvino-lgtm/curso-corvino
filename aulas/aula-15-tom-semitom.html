@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 7 — Tom e semitom | Curso Corvino</title>
+  <link rel="icon" href="../assets/img/corvo_favicon_130x130.png">
+  <link rel="stylesheet" href="../css/course.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="../index.html" class="logo">
+        <img src="../assets/img/corvo_logo_completo.png" alt="Corvino">
+        <div>
+          <div class="title">CORVINO</div>
+          <div class="subtitle">CURSO DE ACORDEON MIDI</div>
+        </div>
+      </a>
+      <nav>
+        <a href="../index.html">Módulos</a>
+        <a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="lesson-layout">
+
+    <article class="lesson-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Curso</a> › Módulo 3 › Aula 7
+      </div>
+      <h1>Tom e semitom</h1>
+      <p class="subtitle">Módulo 3 · Aula 7 de 8 · ~6 minutos</p>
+
+      <p>
+        Você já sabe identificar qual <strong>nota</strong> tocar e
+        <strong>por quanto tempo</strong>. Agora vai descobrir a
+        <strong>distância</strong> entre notas — o que faz uma escala
+        ser "maior" ou "menor", alegre ou melancólica.
+      </p>
+
+      <h2>1. Semitom — a menor distância</h2>
+      <p>
+        <strong>Semitom</strong> é o "degrau" mínimo no teclado: a
+        distância de uma tecla pra <strong>tecla vizinha</strong>, seja
+        branca ou preta. Cada sustenido ou bemol sobe/desce <strong>1
+        semitom</strong>.
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 560 170" class="score-svg">
+          <!-- "teclado" simplificado: desenha 8 teclas brancas + pretas -->
+          <!-- Brancas (Dó Ré Mi Fá Sol Lá Si Dó) -->
+          <g fill="#f4ecd8" stroke="#1a1618" stroke-width="1">
+            <rect x="50"  y="40" width="50" height="100" rx="3"/>
+            <rect x="102" y="40" width="50" height="100" rx="3"/>
+            <rect x="154" y="40" width="50" height="100" rx="3"/>
+            <rect x="206" y="40" width="50" height="100" rx="3"/>
+            <rect x="258" y="40" width="50" height="100" rx="3"/>
+            <rect x="310" y="40" width="50" height="100" rx="3"/>
+            <rect x="362" y="40" width="50" height="100" rx="3"/>
+            <rect x="414" y="40" width="50" height="100" rx="3"/>
+          </g>
+          <!-- Pretas — Dó#, Ré#, (nada Mi-Fá), Fá#, Sol#, Lá# -->
+          <g fill="#1a1618" stroke="#1a1618">
+            <rect x="85"  y="40" width="30" height="62" rx="2"/>
+            <rect x="137" y="40" width="30" height="62" rx="2"/>
+            <rect x="241" y="40" width="30" height="62" rx="2"/>
+            <rect x="293" y="40" width="30" height="62" rx="2"/>
+            <rect x="345" y="40" width="30" height="62" rx="2"/>
+          </g>
+
+          <!-- Nomes das brancas -->
+          <g fill="#1a1618" font-size="12" font-weight="700" text-anchor="middle" font-family="sans-serif">
+            <text x="75"  y="132">Dó</text>
+            <text x="127" y="132">Ré</text>
+            <text x="179" y="132">Mi</text>
+            <text x="231" y="132">Fá</text>
+            <text x="283" y="132">Sol</text>
+            <text x="335" y="132">Lá</text>
+            <text x="387" y="132">Si</text>
+            <text x="439" y="132">Dó</text>
+          </g>
+
+          <!-- Destaca os DOIS semitons naturais (Mi-Fá e Si-Dó) com arcos laranjas -->
+          <path d="M 179 25 Q 205 10 231 25" stroke="#ff9060" stroke-width="2.5" fill="none"/>
+          <text x="205" y="18" fill="#ff9060" font-size="11" font-weight="700" text-anchor="middle"
+                stroke="#1a1618" stroke-width="2.5" paint-order="stroke">semitom</text>
+          <path d="M 387 25 Q 413 10 439 25" stroke="#ff9060" stroke-width="2.5" fill="none"/>
+          <text x="413" y="18" fill="#ff9060" font-size="11" font-weight="700" text-anchor="middle"
+                stroke="#1a1618" stroke-width="2.5" paint-order="stroke">semitom</text>
+
+          <!-- Legenda embaixo -->
+          <text x="280" y="160" fill="#d4c9a8" font-size="11" text-anchor="middle">
+            Entre <tspan fill="var(--gold)" font-weight="700">Mi-Fá</tspan> e
+            <tspan fill="var(--gold)" font-weight="700">Si-Dó</tspan>
+            não há tecla preta — são semitons "naturais".
+          </text>
+        </svg>
+        <figcaption>
+          Um teclado de 8 teclas brancas. Onde tem tecla preta, a
+          distância entre duas brancas é um <strong>tom</strong>
+          (pula a preta). Onde não tem, é um <strong>semitom natural</strong>:
+          Mi–Fá e Si–Dó.
+        </figcaption>
+      </figure>
+
+      <h2>2. Tom = dois semitons</h2>
+      <p>
+        Um <strong>tom</strong> é a soma de dois semitons. Pra ir do
+        <strong>Dó ao Ré</strong> (branca → branca com uma preta no
+        meio), você sobe 2 semitons = 1 tom. Mesma coisa de Ré pra Mi,
+        Fá pra Sol, etc.
+      </p>
+
+      <div class="callout callout-info">
+        <strong>Regra de ouro pra iniciante:</strong>
+        <ul style="margin:6px 0 0 0; padding-left:20px">
+          <li><strong>Entre brancas com preta no meio</strong> = 1 tom (ex: Dó-Ré, Fá-Sol).</li>
+          <li><strong>Entre brancas sem preta no meio</strong> = ½ tom (ex: Mi-Fá, Si-Dó).</li>
+          <li><strong>De uma branca pra preta vizinha</strong> = ½ tom.</li>
+          <li><strong>De uma preta pra preta vizinha</strong> = 1 tom (tem uma branca entre elas).</li>
+        </ul>
+      </div>
+
+      <h2>3. A escala maior — o padrão T-T-S-T-T-T-S</h2>
+      <p>
+        A escala de Dó Maior — aquela que você tocou na Aula 1 desse
+        módulo — tem um padrão de distâncias <strong>fixo</strong>:
+        dois tons, um semitom, três tons, um semitom. É isso que define
+        "escala maior" em qualquer tom, não só em Dó.
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 560 180" class="score-svg">
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="50" x2="540" y2="50"/>
+            <line x1="20" y1="65" x2="540" y2="65"/>
+            <line x1="20" y1="80" x2="540" y2="80"/>
+            <line x1="20" y1="95" x2="540" y2="95"/>
+            <line x1="20" y1="110" x2="540" y2="110"/>
+          </g>
+          <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+          <line x1="538" y1="50" x2="538" y2="110" stroke="#e0d8c0" stroke-width="3"/>
+
+          <!-- Escala Dó-Ré-Mi-Fá-Sol-Lá-Si-Dó ascendente -->
+          <!-- Dó (linha supl abaixo) -->
+          <line x1="92" y1="115" x2="112" y2="115" stroke="#e0d8c0" stroke-width="1.5"/>
+          <ellipse id="ex15-n1" cx="102" cy="115" rx="7" ry="5" fill="var(--gold)"/>
+          <text x="102" y="30" font-size="12" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">1</text>
+          <!-- Ré -->
+          <ellipse id="ex15-n2" cx="150" cy="107" rx="7" ry="5" fill="var(--gold)"/>
+          <text x="150" y="30" font-size="12" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">2</text>
+          <!-- Mi -->
+          <ellipse id="ex15-n3" cx="198" cy="100" rx="7" ry="5" fill="var(--gold)"/>
+          <text x="198" y="30" font-size="12" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">3</text>
+          <!-- Fá -->
+          <ellipse id="ex15-n4" cx="246" cy="92" rx="7" ry="5" fill="var(--gold)"/>
+          <text x="246" y="30" font-size="12" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">1</text>
+          <!-- Sol -->
+          <ellipse id="ex15-n5" cx="294" cy="85" rx="7" ry="5" fill="var(--gold)"/>
+          <text x="294" y="30" font-size="12" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">2</text>
+          <!-- Lá -->
+          <ellipse id="ex15-n6" cx="342" cy="77" rx="7" ry="5" fill="var(--gold)"/>
+          <text x="342" y="30" font-size="12" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">3</text>
+          <!-- Si -->
+          <ellipse id="ex15-n7" cx="390" cy="70" rx="7" ry="5" fill="var(--gold)"/>
+          <text x="390" y="30" font-size="12" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">4</text>
+          <!-- Dó (1 oitava acima) -->
+          <ellipse id="ex15-n8" cx="440" cy="62" rx="7" ry="5" fill="var(--gold)"/>
+          <text x="440" y="30" font-size="12" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">5</text>
+
+          <!-- Marcadores de intervalo — entre PARES de notas, com setinhas conectando -->
+          <!-- Setinhas curvas indicando o intervalo (nota i → nota i+1) -->
+          <g stroke="#d4c9a8" stroke-width="1.2" fill="none" opacity="0.7">
+            <path d="M 109 130 Q 126 145 143 130" marker-end="url(#arrow)"/>
+            <path d="M 157 130 Q 174 145 191 130" marker-end="url(#arrow)"/>
+            <path d="M 205 130 Q 222 145 239 130" stroke="#ff9060" marker-end="url(#arrow-orange)"/>
+            <path d="M 253 130 Q 270 145 287 130" marker-end="url(#arrow)"/>
+            <path d="M 301 130 Q 318 145 335 130" marker-end="url(#arrow)"/>
+            <path d="M 349 130 Q 366 145 383 130" marker-end="url(#arrow)"/>
+            <path d="M 397 130 Q 415 145 433 130" stroke="#ff9060" marker-end="url(#arrow-orange)"/>
+          </g>
+
+          <!-- Markers de seta -->
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#d4c9a8"/>
+            </marker>
+            <marker id="arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff9060"/>
+            </marker>
+          </defs>
+
+          <!-- T/½ no centro de cada arco (CIMA do arco — entre 2 notas) -->
+          <g font-size="13" font-weight="800" text-anchor="middle" font-family="monospace"
+             stroke="#1a1618" stroke-width="2.5" paint-order="stroke">
+            <text x="126" y="148" fill="#d4c9a8">T</text>
+            <text x="174" y="148" fill="#d4c9a8">T</text>
+            <text x="222" y="148" fill="#ff9060">½</text>
+            <text x="270" y="148" fill="#d4c9a8">T</text>
+            <text x="318" y="148" fill="#d4c9a8">T</text>
+            <text x="366" y="148" fill="#d4c9a8">T</text>
+            <text x="415" y="148" fill="#ff9060">½</text>
+          </g>
+
+          <!-- Legenda -->
+          <text x="280" y="172" fill="#d4c9a8" font-size="11" text-anchor="middle">
+            <tspan font-weight="700">T</tspan> = tom ·
+            <tspan fill="#ff9060" font-weight="700">½</tspan> = semitom · cada label = intervalo entre 2 notas vizinhas
+          </text>
+        </svg>
+        <figcaption>
+          A escala de Dó Maior na clave de Sol, dedilhado
+          <strong>1-2-3-1-2-3-4-5</strong>. Abaixo, os intervalos: entre
+          Mi-Fá (notas 3-4) e Si-Dó (7-8) há só <strong>semitom</strong> —
+          é onde a escala "fecha a volta".
+        </figcaption>
+        <div class="score-play-wrap">
+          <button id="btn-ex15-escala" class="score-play-btn">▶ Ouvir Dó Maior</button>
+        </div>
+      </figure>
+
+      <h2>4. Exemplo sonoro — tom vs semitom</h2>
+      <p>
+        Três pares de notas pra comparar a distância:
+      </p>
+      <ol>
+        <li><strong>Dó → Ré</strong> = <strong>1 tom</strong> (soa aberto)</li>
+        <li><strong>Mi → Fá</strong> = <strong>1 semitom</strong> (soa apertadinho, quase a mesma nota)</li>
+        <li><strong>Dó → Dó#</strong> = <strong>1 semitom</strong> (confirma: meio tom sempre soa assim)</li>
+      </ol>
+      <div class="score-play-wrap">
+        <button id="btn-ex15-tom-semi" class="score-play-btn">▶ Ouvir os três pares</button>
+      </div>
+
+      <div class="callout callout-warning">
+        <strong>Treina o ouvido:</strong> feche os olhos e peça pra
+        alguém tocar dois Dós consecutivos, depois Dó-Ré, depois Dó-Dó#.
+        Com prática, você reconhece se é tom ou semitom <em>só de
+        ouvir</em>, sem olhar o teclado.
+      </div>
+
+      <h2>5. Pratique</h2>
+      <ul>
+        <li>
+          <strong>No Corvino físico:</strong> toque Dó e Ré (1 tom),
+          depois Mi e Fá (semitom). Sinta a diferença.
+        </li>
+        <li>
+          <strong>Pelo teclado do computador:</strong> com o botão
+          <strong>🎹</strong> ativo, aperte <strong>H → J</strong>
+          (Dó → Ré = tom), depois <strong>K → L</strong> (Mi → Fá =
+          semitom).
+        </li>
+      </ul>
+
+      <div class="lesson-nav">
+        <a href="aula-14-pausa.html">← Aula anterior: Pausa</a>
+        <a href="aula-16-leitura-partitura.html">Próxima: Lendo sua 1ª partitura →</a>
+      </div>
+    </article>
+
+    <aside class="app-panel">
+      <div class="panel-title">App Corvino</div>
+      <iframe class="app-frame" src="../app/?embed=1" title="App Corvino Acordeon Digital" allow="midi; autoplay"></iframe>
+    </aside>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Corvino Acordeon MIDI — primeiro acordeon MIDI fabricado no Brasil. Botucatu-SP.</p>
+    <p>© 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p>
+  </footer>
+
+  <script type="module">
+    import { attachScorePlayer } from './js/score-player.js';
+
+    const MEL = 0.85;
+
+    // Escala de Dó Maior completa
+    attachScorePlayer({
+      playBtnId: 'btn-ex15-escala',
+      bpm: 90,
+      beatsPerBar: 4,
+      notes: [
+        { midi: 48, beats: 1, el: '#ex15-n1', articulation: MEL },
+        { midi: 50, beats: 1, el: '#ex15-n2', articulation: MEL },
+        { midi: 52, beats: 1, el: '#ex15-n3', articulation: MEL },
+        { midi: 53, beats: 1, el: '#ex15-n4', articulation: MEL },
+        { midi: 55, beats: 1, el: '#ex15-n5', articulation: MEL },
+        { midi: 57, beats: 1, el: '#ex15-n6', articulation: MEL },
+        { midi: 59, beats: 1, el: '#ex15-n7', articulation: MEL },
+        { midi: 60, beats: 1, el: '#ex15-n8', articulation: 0.95 },
+      ],
+    });
+
+    // Comparação tom vs semitom (3 pares)
+    attachScorePlayer({
+      playBtnId: 'btn-ex15-tom-semi',
+      bpm: 70,
+      beatsPerBar: 4,
+      notes: [
+        // Par 1: Dó → Ré (1 tom)
+        { midi: 48, beats: 1, articulation: 0.9 },
+        { midi: 50, beats: 1, articulation: 0.9 },
+        { rest: true, beats: 2 },
+        // Par 2: Mi → Fá (1 semitom)
+        { midi: 52, beats: 1, articulation: 0.9 },
+        { midi: 53, beats: 1, articulation: 0.9 },
+        { rest: true, beats: 2 },
+        // Par 3: Dó → Dó# (1 semitom)
+        { midi: 48, beats: 1, articulation: 0.9 },
+        { midi: 49, beats: 1, articulation: 0.9 },
+        { rest: true, beats: 2 },
+      ],
+    });
+  </script>
+<script src="js/accessibility.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duas Mãos Amigas — Pequena Valsa | Curso Corvino</title>
+<link rel="icon" href="../assets/img/corvo_favicon_130x130.png"><link rel="stylesheet" href="../css/course.css"></head>
+<body>
+<header class="site-header"><div class="wrap">
+  <a href="../index.html" class="logo"><img src="../assets/img/corvo_logo_completo.png" alt="Corvino">
+    <div><div class="title">CORVINO</div><div class="subtitle">CURSO DE ACORDEON MIDI</div></div></a>
+  <nav><a href="../index.html">Módulos</a><a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a></nav>
+</div></header>
+<main class="lesson-layout"><article class="lesson-content">
+  <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 6 › Aula 1</div>
+  <h1>Duas Mãos Amigas — Pequena Valsa</h1>
+  <p class="subtitle">Módulo 6 · Aula 1 de 2 · ~15 minutos</p>
+
+  <p>
+    Página 15 do método <strong>Mário Mascarenhas</strong>. É a <em>primeira peça</em> do método em que MD e ME tocam juntas durante toda a peça. Você usa as 5 notas (Dó-Sol) e os baixos Dó M e Sol M. <strong>15 compassos + final tied</strong> em 3/4.
+  </p>
+
+  <h2>1. A peça completa</h2>
+  <p>
+    Cópia fiel do Mascarenhas (p.15). Cada nota da MD vale o compasso inteiro (mínima pontuada). Há uma ligadura nos compassos 7-8 (dois Mi tied) e na cadência final (15-16, dois Dó tied).
+  </p>
+
+  <figure class="score-figure">
+    <svg id="masc-pv" viewBox="0 0 600 720" class="score-svg" preserveAspectRatio="xMidYMid meet"></svg>
+    <figcaption>
+      <strong>Duas Mãos Amigas — Pequena Valsa</strong> · Mascarenhas (p.15) · 15 compassos + final ligado em 3/4. Linhas em leque indicam que a MD sustenta os 3 tempos enquanto a ME toca bum-tchim-tchim.
+    </figcaption>
+    <div class="score-play-wrap"><button id="btn-pv-lento" class="score-play-btn">▶ Ouvir devagar (60 BPM)</button></div>
+    <div class="score-play-wrap" style="margin-top:8px"><button id="btn-pv-normal" class="score-play-btn">▶ Ouvir no andamento (90 BPM)</button></div>
+  </figure>
+
+  <h2>2. Como aprender</h2>
+  <ol>
+    <li>Ouça devagar 3x sem tocar.</li>
+    <li><strong>MD sozinha</strong>, 60 BPM: cada nota dura 3 tempos (conte 1-2-3). Decore linha por linha.</li>
+    <li><strong>ME sozinha</strong>, 60 BPM: trocas Dó↔Sol acontecem nos compassos 3, 5-6 (volta), 7 (volta), 11-13 (Sol), 14 (volta). Pratique transições.</li>
+    <li><strong>Mãos juntas</strong>, 60 BPM. 3x sem errar antes de subir o BPM.</li>
+    <li>Ligadura compassos 7-8: toque o Mi uma vez só, deixe soar pelos 6 tempos (2 compassos × 3 tempos).</li>
+  </ol>
+
+  <div class="callout callout-info">
+    <strong>Sobre a peça:</strong> Mascarenhas chama de "Duas Mãos Amigas" (com o desenho de duas mãos se cumprimentando) porque é o ponto onde o aluno integra as duas mãos. O subtítulo "Pequena Valsa" indica que é uma peça curta e introdutória.
+  </div>
+
+  <div class="lesson-nav">
+    <a href="aula-26-expressao-corvino.html">← Aula anterior: Expressão sem fole</a>
+    <a href="aula-28-relogio-3-horas.html">Próxima: O Relógio Bateu 3 Horas →</a>
+  </div>
+</article>
+<aside class="app-panel"><div class="panel-title">App Corvino</div>
+  <iframe class="app-frame" src="../app/?embed=1" title="App Corvino" allow="midi; autoplay"></iframe></aside>
+</main>
+<footer class="site-footer"><p>Corvino Acordeon MIDI · © 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p></footer>
+
+<script type="module">
+  import { attachScorePlayer } from './js/score-player.js';
+
+  // ===== PEQUENA VALSA — Mascarenhas p.15 =====
+  // 15 compassos + 1 final ligado. Uma mín pontuada por compasso. ME bum-tchim-tchim.
+  const compassos = [
+    // Linha 1: Dó-Mi-Ré-Fá-Sol  | ME Dó-Dó-Sol-Sol-Sol
+    {note:'Dó',  dedo:1, bass:'Dó'},   // C1
+    {note:'Mi',  dedo:3, bass:'Dó'},   // C2
+    {note:'Ré',  dedo:2, bass:'Sol'},  // C3
+    {note:'Fá',  dedo:4, bass:'Sol'},  // C4
+    {note:'Sol', dedo:5, bass:'Sol'},  // C5
+    // Linha 2: Ré - Mi(tied) Mi - Dó - Mi  | ME Sol-Dó-Dó-Dó-Dó
+    {note:'Ré',  dedo:2, bass:'Sol'},  // C6
+    {note:'Mi',  dedo:3, bass:'Dó', tieStart:true},  // C7
+    {note:'Mi',  dedo:3, bass:'Dó', tieEnd:true},    // C8
+    {note:'Dó',  dedo:1, bass:'Dó'},   // C9
+    {note:'Mi',  dedo:3, bass:'Dó'},   // C10
+    // Linha 3: Ré-Fá-Sol-Ré-Dó(tied)  | ME Sol-Sol-Sol-Sol-Dó
+    {note:'Ré',  dedo:2, bass:'Sol'},  // C11
+    {note:'Fá',  dedo:4, bass:'Sol'},  // C12
+    {note:'Sol', dedo:5, bass:'Sol'},  // C13
+    {note:'Ré',  dedo:2, bass:'Sol'},  // C14
+    {note:'Dó',  dedo:1, bass:'Dó', tieStart:true},  // C15
+    // Final: Dó tied (sustentado)
+    {note:'Dó',  dedo:1, bass:'Dó', tieEnd:true, isFinal:true}  // C16
+  ];
+
+  // ===== RENDERIZAÇÃO =====
+  const NOTE_LETTER = {'Dó':'C','Ré':'D','Mi':'E','Fá':'F','Sol':'G','Lá':'A'};
+  const NOTE_Y = {'Dó':80,'Ré':75,'Mi':70,'Fá':65,'Sol':60,'Lá':55};
+  const COMPASS_W = 96;
+  const STAVE_HEIGHT = 175;
+
+  // 4 staves (5+5+5+1)
+  const STAVES = [
+    {comps:[0,1,2,3,4],   y:0,             isFirst:true},
+    {comps:[5,6,7,8,9],   y:STAVE_HEIGHT,  isFirst:false},
+    {comps:[10,11,12,13,14], y:STAVE_HEIGHT*2, isFirst:false},
+    {comps:[15],          y:STAVE_HEIGHT*3, isFirst:false}
+  ];
+
+  function renderStave(stave) {
+    const sy = stave.y;
+    const numComps = stave.comps.length;
+    let s = `<g transform="translate(0, ${sy})">`;
+    s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
+    for (let i = 0; i < 5; i++) s += `<line x1="20" y1="${30+i*10}" x2="560" y2="${30+i*10}"/>`;
+    s += '</g><text x="22" y="76" font-size="55" font-family="serif" fill="#e0d8c0">𝄞</text>';
+    if (stave.isFirst) s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0"><text x="65" y="55" font-size="16">3</text><text x="65" y="73" font-size="16">4</text></g>';
+    s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
+    for (let i = 0; i < 5; i++) s += `<line x1="20" y1="${100+i*10}" x2="560" y2="${100+i*10}"/>`;
+    s += '</g><text x="35" y="123" font-size="28" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>';
+    if (stave.isFirst) s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0"><text x="65" y="118" font-size="16">3</text><text x="65" y="136" font-size="16">4</text></g>';
+    s += `<line x1="20" y1="30" x2="20" y2="140" stroke="#e0d8c0" stroke-width="1.5"/>`;
+
+    const startX = 80;
+    const usableW = 480;
+    const actualW = numComps === 1 ? 200 : usableW / numComps;
+    for (let i = 0; i < numComps; i++) {
+      const compIdx = stave.comps[i];
+      const xStart = startX + i * actualW;
+      s += renderCompass(xStart, actualW, compassos[compIdx], compIdx);
+      const barX = xStart + actualW;
+      const isLast = compIdx === compassos.length - 1;
+      s += `<line x1="${barX}" y1="30" x2="${barX}" y2="140" stroke="#e0d8c0" stroke-width="${isLast?3:1.5}"/>`;
+    }
+    s += '</g>';
+    return s;
+  }
+
+  function renderCompass(xStart, width, comp, compIdx) {
+    const cx = xStart + width/6 + 8; // alinhado com bass Dó
+    const cy = NOTE_Y[comp.note];
+    const letter = NOTE_LETTER[comp.note];
+    let s = '';
+    s += `<text x="${cx}" y="20" font-size="11" font-style="italic" fill="#e0d8c0" text-anchor="middle">${letter}</text>`;
+    s += `<text x="${cx}" y="32" font-size="9" font-weight="700" fill="var(--gold)" text-anchor="middle">${comp.dedo}</text>`;
+    if (comp.note === 'Dó') s += `<line x1="${cx-9}" y1="${cy}" x2="${cx+9}" y2="${cy}" stroke="#e0d8c0" stroke-width="1.5"/>`;
+
+    // Mín pontuada
+    s += `<ellipse id="pv-md-${compIdx}" cx="${cx}" cy="${cy}" rx="7" ry="5" fill="none" stroke="var(--gold)" stroke-width="2"/>`;
+    s += `<line x1="${cx+7}" y1="${cy}" x2="${cx+7}" y2="${cy-25}" stroke="var(--gold)" stroke-width="1.5"/>`;
+    s += `<circle cx="${cx+13}" cy="${cy}" r="2" fill="var(--gold)"/>`;
+
+    // Posições x das 3 batidas da ME
+    const beat0X = xStart + width/6 + 8;  // bass
+    const beat1X = xStart + width/2;
+    const beat2X = xStart + 5*width/6;
+
+    // Linhas em leque (MD → cada elemento ME)
+    [beat0X, beat1X, beat2X].forEach((bx) => {
+      s += `<line x1="${cx}" y1="${cy+7}" x2="${bx}" y2="113" stroke="var(--gold)" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.35"/>`;
+    });
+
+    // Ligadura (tie) — para C7-8 e C15-16
+    if (comp.tieStart) {
+      const nextCx = xStart + width + (compIdx === 14 ? 100 : width/6 + 8); // C15 → C16 final tem largura diferente
+      const yTie = cy + 10;
+      s += `<path d="M ${cx+5} ${yTie} Q ${(cx+nextCx)/2} ${yTie+8} ${nextCx-5} ${yTie}" stroke="var(--gold)" stroke-width="1.5" fill="none"/>`;
+    }
+
+    // ===== Baixo (ME) =====
+    const bassColor = comp.bass === 'Dó' ? 'var(--gold)' : '#d94a4a';
+    const mStroke = comp.bass === 'Dó' ? '#e0d8c0' : '#d94a4a';
+    s += `<rect id="pv-me-${compIdx}-1" x="${beat0X-12}" y="115" width="24" height="20" rx="3" fill="${bassColor}" stroke="#1a1618" stroke-width="2"/>`;
+    s += `<text x="${beat0X}" y="128" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">${comp.bass}</text>`;
+    if (!comp.isFinal) {
+      s += `<circle id="pv-me-${compIdx}-2" cx="${beat1X}" cy="125" r="9" fill="none" stroke="${mStroke}" stroke-width="1.5"/>`;
+      s += `<text x="${beat1X}" y="129" fill="${mStroke}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
+      s += `<circle id="pv-me-${compIdx}-3" cx="${beat2X}" cy="125" r="9" fill="none" stroke="${mStroke}" stroke-width="1.5"/>`;
+      s += `<text x="${beat2X}" y="129" fill="${mStroke}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
+    } else {
+      // Final: M empilhado abaixo do Dó
+      s += `<text x="${beat0X}" y="148" fill="${mStroke}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
+    }
+
+    // Dedilhado ME (4-3-3) só primeira stave
+    if (compIdx < 5) {
+      s += `<text x="${beat0X}" y="155" font-size="8" fill="var(--fg-dim)" text-anchor="middle">4</text>`;
+      if (!comp.isFinal) {
+        s += `<text x="${beat1X}" y="155" font-size="8" fill="var(--fg-dim)" text-anchor="middle">3</text>`;
+        s += `<text x="${beat2X}" y="155" font-size="8" fill="var(--fg-dim)" text-anchor="middle">3</text>`;
+      }
+    }
+    return s;
+  }
+
+  const svgEl = document.getElementById('masc-pv');
+  svgEl.innerHTML = STAVES.map(renderStave).join('');
+
+  // ===== ÁUDIO =====
+  const SUST=0.85, STAC=0.28;
+  const ME_MIDIS = {'Dó':{fund:24,acord:25}, 'Sol':{fund:31,acord:32}};
+  const MD_MIDIS = {'Dó':48,'Ré':50,'Mi':52,'Fá':53,'Sol':55};
+
+  function buildPlayer(bpm, btnId) {
+    const notes = [];
+    let beat = 0;
+    compassos.forEach((c, i) => {
+      notes.push({midi:MD_MIDIS[c.note], beats:3, el:`#pv-md-${i}`, articulation:0.95, startBeat:beat});
+      const me = ME_MIDIS[c.bass];
+      notes.push({midi:me.fund, beats:1, isBass:true, articulation:SUST, el:`#pv-me-${i}-1`, startBeat:beat});
+      if (!c.isFinal) {
+        notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#pv-me-${i}-2`, startBeat:beat+1});
+        notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#pv-me-${i}-3`, startBeat:beat+2});
+      }
+      beat += 3;
+    });
+    attachScorePlayer({playBtnId:btnId, bpm, beatsPerBar:3, notes});
+  }
+  buildPlayer(60, 'btn-pv-lento');
+  buildPlayer(90, 'btn-pv-normal');
+</script>
+<script src="js/accessibility.js"></script>
+</body></html>

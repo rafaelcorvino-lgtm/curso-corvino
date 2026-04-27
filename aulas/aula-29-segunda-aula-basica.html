@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 1 — 2ª Aula Básica | Curso Corvino</title>
+  <link rel="icon" href="../assets/img/corvo_favicon_130x130.png">
+  <link rel="stylesheet" href="../css/course.css">
+</head>
+<body>
+  <header class="site-header"><div class="wrap">
+    <a href="../index.html" class="logo"><img src="../assets/img/corvo_logo_completo.png" alt="Corvino">
+      <div><div class="title">CORVINO</div><div class="subtitle">CURSO DE ACORDEON MIDI</div></div></a>
+    <nav><a href="../index.html">Módulos</a><a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a></nav>
+  </div></header>
+  <main class="lesson-layout">
+    <article class="lesson-content">
+      <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 7 › Aula 1</div>
+      <h1>Escala de Dó Maior — 1 oitava completa</h1>
+      <p class="subtitle">Módulo 7 · Aula 1 de 8 · ~8 minutos</p>
+
+      <p>
+        Até agora você usou só 5 notas (Dó-Sol). Agora vamos pra escala
+        completa de <strong>8 notas</strong>: Dó-Ré-Mi-Fá-Sol-Lá-Si-Dó.
+        Pra alcançar Lá, Si e o Dó alto, você precisa de uma técnica
+        nova: <strong>passagem do polegar</strong>.
+      </p>
+
+      <h2>1. Passagem do polegar</h2>
+      <p>
+        Tem só 5 dedos, mas a escala tem 8 notas. A solução:
+      </p>
+      <ul>
+        <li>Dó (1) - Ré (2) - Mi (3) — 3 dedos.</li>
+        <li>No <strong>Fá</strong>: o polegar (1) <em>passa por baixo</em> dos outros dedos e ataca o Fá. A mão "anda" pra direita.</li>
+        <li>Fá (1) - Sol (2) - Lá (3) - Si (4) - Dó (5).</li>
+      </ul>
+      <p>
+        Na descida, o dedo 3 (médio) <strong>passa por cima</strong> do polegar pra continuar.
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 580 150" class="score-svg">
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="50" x2="560" y2="50"/><line x1="20" y1="65" x2="560" y2="65"/>
+            <line x1="20" y1="80" x2="560" y2="80"/><line x1="20" y1="95" x2="560" y2="95"/>
+            <line x1="20" y1="110" x2="560" y2="110"/>
+          </g>
+          <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+          <line x1="558" y1="50" x2="558" y2="110" stroke="#e0d8c0" stroke-width="3"/>
+          <!-- 8 notas Dó a Dó -->
+          <g>
+            <line x1="85" y1="125" x2="105" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse id="esc-1" cx="95" cy="125" rx="7" ry="5" fill="var(--gold)"/>
+            <ellipse id="esc-2" cx="150" cy="117" rx="7" ry="5" fill="var(--gold)"/>
+            <ellipse id="esc-3" cx="205" cy="110" rx="7" ry="5" fill="var(--gold)"/>
+            <ellipse id="esc-4" cx="260" cy="102" rx="7" ry="5" fill="var(--gold)"/>
+            <ellipse id="esc-5" cx="315" cy="95" rx="7" ry="5" fill="var(--gold)"/>
+            <ellipse id="esc-6" cx="370" cy="87" rx="7" ry="5" fill="var(--gold)"/>
+            <ellipse id="esc-7" cx="425" cy="80" rx="7" ry="5" fill="var(--gold)"/>
+            <ellipse id="esc-8" cx="480" cy="72" rx="7" ry="5" fill="var(--gold)"/>
+          </g>
+          <g fill="var(--gold)" font-size="13" font-weight="700" text-anchor="middle"
+             stroke="#1a1618" stroke-width="3" paint-order="stroke">
+            <text x="95" y="30">1</text>
+            <text x="150" y="30">2</text>
+            <text x="205" y="30">3</text>
+            <text x="260" y="30" fill="#ff9060">1</text>
+            <text x="315" y="30">2</text>
+            <text x="370" y="30">3</text>
+            <text x="425" y="30">4</text>
+            <text x="480" y="30">5</text>
+          </g>
+        </svg>
+        <figcaption>Dedilhado <strong>1-2-3-1-2-3-4-5</strong>. O <span style="color:#ff9060"><strong>1</strong></span> laranja é a passagem do polegar.</figcaption>
+        <div class="score-play-wrap"><button id="btn-esc" class="score-play-btn">▶ Ouvir escala</button></div>
+      </figure>
+
+      <!-- ============================================================
+           VISUALIZAÇÃO DA MÃO sobre o TECLADO — sincroniza com o player
+           ============================================================ -->
+      <style>
+        .hand-viz {
+          margin: 18px 0 28px;
+          padding: 16px;
+          background: var(--bg-soft);
+          border: 1px solid #3a3537;
+          border-radius: var(--radius);
+          text-align: center;
+        }
+        .hand-viz-svg { width: 100%; max-width: 560px; height: auto; display: block; margin: 0 auto; }
+        .hand-viz-caption {
+          margin-top: 10px;
+          color: var(--fg-dim);
+          font-size: 0.92rem;
+          font-style: italic;
+        }
+        /* Teclado */
+        .hv-key {
+          fill: #f5efe0;
+          stroke: #1a1618;
+          stroke-width: 1.5;
+          transition: fill 0.12s;
+        }
+        .hv-key.active { fill: #ff9060; }
+        .hv-key-label {
+          fill: #1a1618;
+          font-size: 13px;
+          font-weight: 700;
+          font-family: 'Segoe UI', system-ui, sans-serif;
+          pointer-events: none;
+        }
+
+        /* === MÃO ===
+           Estrutura: o POLEGAR fica FORA do "hand-body" pra poder
+           se mover independente — passa por baixo do dedo 3 enquanto
+           o resto da mão ainda não chegou na pos-b.
+           DOM order: polegar PRIMEIRO (atrás) → hand-body DEPOIS (na frente).
+           Resultado: visualmente o polegar atravessa por trás dos dedos 2-5. */
+
+        /* Hand-body: palma + dedos 2-5 deslizam juntos.
+           Usa @keyframes (não só transition) pra adicionar leve "leveza no salto":
+           a mão sobe -4px no meio do percurso e volta — como uma mão humana
+           naturalmente faz quando desloca (o peso passa, ela suaviza no ar). */
+        .hv-hand-body {
+          transition: transform 0.55s cubic-bezier(0.34, 0.0, 0.2, 1);
+        }
+        .hv-hand-body.pos-b {
+          animation: hand-slide 0.55s cubic-bezier(0.34, 0.0, 0.2, 1) 0.22s forwards;
+        }
+        @keyframes hand-slide {
+          0%   { transform: translate(0, 0); }
+          45%  { transform: translate(85px, 4px); }    /* meio do salto: mão se afasta levemente da tecla */
+          100% { transform: translate(180px, 0); }
+        }
+
+        /* Cores da palma e dos dedos (tom pele) */
+        .hv-palm,
+        .hv-finger > rect {
+          fill: #f4d4a4;
+          stroke: #6b4a2b;
+          stroke-width: 1.5;
+        }
+        .hv-finger { transition: transform 0.18s ease-out; }
+        .hv-finger-num {
+          fill: #6b4a2b;
+          font-size: 14px;
+          font-weight: 800;
+          font-family: 'Segoe UI', system-ui, sans-serif;
+          text-anchor: middle;
+          pointer-events: none;
+          transition: fill 0.12s;
+        }
+        /* Cor do dedo ativo (vale pra todos) */
+        .hv-finger.active > rect {
+          fill: #ff9060;
+          stroke: #1a1618;
+        }
+        .hv-finger.active .hv-finger-num { fill: #1a1618; }
+
+        /* Dedos 2-5 ativos: SOBEM 10px (entram na tecla, que está acima) */
+        #hv-finger-2.active,
+        #hv-finger-3.active,
+        #hv-finger-4.active,
+        #hv-finger-5.active {
+          transform: translateY(-10px);
+        }
+
+        /* === POLEGAR (movimento independente) ===
+           Estados:
+             default → posição inicial (sobre Dó)
+             .active → afunda no Dó (toca a tecla)
+             .passing → animação keyframes: arco descendente passando POR BAIXO
+                        do dedo 3 e emergindo no Fá
+             .at-b → posição final (sobre Fá), translateX 180
+             .at-b.active → afundado no Fá */
+        #hv-finger-1 {
+          transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        #hv-finger-1.active {
+          transform: translateY(-10px);    /* sobe pra dentro da tecla */
+        }
+        #hv-finger-1.at-b {
+          transform: translateX(180px);
+        }
+        #hv-finger-1.at-b.active {
+          transform: translateX(180px) translateY(-10px);
+        }
+        /* Animação keyframes — passa POR BAIXO do dedo 3 */
+        #hv-finger-1.passing {
+          animation: thumb-pass 0.62s cubic-bezier(0.45, 0.0, 0.35, 1) forwards;
+        }
+        #hv-finger-1.passing > rect {
+          fill: #ff9060;
+          stroke: #1a1618;
+        }
+        #hv-finger-1.passing .hv-finger-num { fill: #1a1618; }
+
+        @keyframes thumb-pass {
+          /* início: polegar sobre o Dó (encostando na tecla) */
+          0%   { transform: translate(0, 0)         rotate(0deg);   }
+          /* desce PRA DENTRO da palma (Y positivo = se afasta da tecla, vai pro
+             centro da mão). Começa a girar pra entrar embaixo dos dedos 2 e 3 */
+          18%  { transform: translate(30px, 35px)   rotate(-15deg); }
+          /* metade — BEM DENTRO da palma, atrás dos dedos 2 e 3 */
+          48%  { transform: translate(100px, 45px)  rotate(-25deg); }
+          /* emergindo entre dedos 3 e 4, voltando pra cima */
+          72%  { transform: translate(150px, 25px)  rotate(-10deg); }
+          /* posição final: pousa no Fá já afundado (active) */
+          100% { transform: translate(180px, -10px) rotate(0deg);   }
+        }
+
+        /* Sombra acompanha a hand-body (com o mesmo delay) */
+        .hv-shadow {
+          fill: rgba(0, 0, 0, 0.35);
+          transition: transform 0.55s cubic-bezier(0.34, 0.0, 0.2, 1);
+        }
+        .hv-shadow.pos-b {
+          transform: translateX(180px);
+          transition-delay: 0.22s;
+        }
+
+        /* Acessibilidade: respeita movimento reduzido — corta animação fancy */
+        @media (prefers-reduced-motion: reduce) {
+          .hv-hand-body, .hv-shadow,
+          .hv-finger, #hv-finger-1 { transition-duration: 0.15s; transition-delay: 0s; }
+          #hv-finger-1.passing { animation-duration: 0.2s; }
+          @keyframes thumb-pass {
+            0%   { transform: translate(0, 0); }
+            100% { transform: translate(180px, -10px); }
+          }
+        }
+      </style>
+
+      <div class="hand-viz" aria-hidden="true">
+        <svg viewBox="0 0 580 340" class="hand-viz-svg">
+          <!-- ============================================================
+               LAYOUT (igual ao Corvino físico no peito do tocador):
+                 - TECLADO em cima (y=20-120)
+                 - MÃO embaixo (palma y=200-300, dedos sobem até a tecla)
+                 - O tocador olha de cima — vê o instrumento e a mão dele
+               ============================================================ -->
+
+          <!-- Teclado: 8 teclas brancas no TOPO -->
+          <g class="hv-keys">
+            <rect class="hv-key" id="hv-key-1" x="37"  y="20" width="58" height="100" rx="3"/>
+            <rect class="hv-key" id="hv-key-2" x="97"  y="20" width="58" height="100" rx="3"/>
+            <rect class="hv-key" id="hv-key-3" x="157" y="20" width="58" height="100" rx="3"/>
+            <rect class="hv-key" id="hv-key-4" x="217" y="20" width="58" height="100" rx="3"/>
+            <rect class="hv-key" id="hv-key-5" x="277" y="20" width="58" height="100" rx="3"/>
+            <rect class="hv-key" id="hv-key-6" x="337" y="20" width="58" height="100" rx="3"/>
+            <rect class="hv-key" id="hv-key-7" x="397" y="20" width="58" height="100" rx="3"/>
+            <rect class="hv-key" id="hv-key-8" x="457" y="20" width="58" height="100" rx="3"/>
+          </g>
+
+          <!-- Nomes das notas — na parte superior das teclas (longe do tocador) -->
+          <g>
+            <text class="hv-key-label" x="66"  y="65" text-anchor="middle">Dó</text>
+            <text class="hv-key-label" x="126" y="65" text-anchor="middle">Ré</text>
+            <text class="hv-key-label" x="186" y="65" text-anchor="middle">Mi</text>
+            <text class="hv-key-label" x="246" y="65" text-anchor="middle">Fá</text>
+            <text class="hv-key-label" x="306" y="65" text-anchor="middle">Sol</text>
+            <text class="hv-key-label" x="366" y="65" text-anchor="middle">Lá</text>
+            <text class="hv-key-label" x="426" y="65" text-anchor="middle">Si</text>
+            <text class="hv-key-label" x="486" y="65" text-anchor="middle">Dó</text>
+          </g>
+
+          <!-- Sombra projetada NA BASE das teclas (entre teclado e mão) -->
+          <ellipse id="hv-shadow" class="hv-shadow" cx="186" cy="130" rx="160" ry="5" opacity="0.55"/>
+
+          <!-- ============================================================
+               MÃO — POLEGAR vem ANTES da hand-body no DOM
+               pra renderizar ATRÁS dos dedos 2-5 (passar por baixo deles).
+               Mão posicionada EMBAIXO do teclado, dedos SOBEM em direção
+               à tecla (na perspectiva do tocador segurando o Corvino).
+               ============================================================ -->
+
+          <!-- Polegar (dedo 1) — angulado, sobe da palma pra encostar no Dó.
+               Centro x=66 (alinhado com Dó). Quando vai pro Fá, soma 180px. -->
+          <g class="hv-finger" id="hv-finger-1">
+            <rect x="15" y="129" width="58" height="22" rx="11"
+                  transform="rotate(-25 44 140)"/>
+            <text class="hv-finger-num" x="44" y="146"
+                  transform="rotate(-25 44 140)">1</text>
+          </g>
+
+          <!-- Hand-body: palma + dedos 2-5. Dedos SAEM da palma (y=200)
+               e SOBEM até encostar na base das teclas (y=120).
+               Ordem do DOM: PALMA primeiro (atrás) → dedos depois (na frente),
+               pra dedos parecerem "saindo" da palma como na anatomia real. -->
+          <g class="hv-hand-body pos-a" id="hv-hand-body">
+            <!-- Palma — abraça a base dos dedos e desce até o pulso.
+                 Topo reto na junção dos dedos (y=200), arredondada embaixo (lado pulso). -->
+            <path class="hv-palm"
+                  d="M 88 200 L 314 200 L 314 235 Q 324 280 290 305 L 112 305 Q 78 280 88 235 Z"/>
+            <!-- Indicador (dedo 2) — sobe da palma até a tecla Ré -->
+            <g class="hv-finger" id="hv-finger-2">
+              <rect x="113" y="120" width="26" height="92" rx="13"/>
+              <text class="hv-finger-num" x="126" y="138">2</text>
+            </g>
+            <!-- Médio (dedo 3) — mais comprido -->
+            <g class="hv-finger" id="hv-finger-3">
+              <rect x="173" y="115" width="26" height="100" rx="13"/>
+              <text class="hv-finger-num" x="186" y="135">3</text>
+            </g>
+            <!-- Anular (dedo 4) -->
+            <g class="hv-finger" id="hv-finger-4">
+              <rect x="233" y="120" width="26" height="92" rx="13"/>
+              <text class="hv-finger-num" x="246" y="138">4</text>
+            </g>
+            <!-- Mindinho (dedo 5) — mais curto -->
+            <g class="hv-finger" id="hv-finger-5">
+              <rect x="293" y="130" width="26" height="80" rx="13"/>
+              <text class="hv-finger-num" x="306" y="148">5</text>
+            </g>
+          </g>
+        </svg>
+        <div class="hand-viz-caption">
+          A mão acompanha cada nota: o dedo correto se acende e afunda na tecla.<br>
+          No <strong>Fá</strong> (4ª nota), repare: o <strong>polegar atravessa por baixo</strong>
+          dos dedos 2 e 3, faz um arco e emerge no Fá — só então a mão se
+          reposiciona pra frente. Esse é exatamente o movimento que você precisa replicar.
+        </div>
+      </div>
+
+      <h2>2. Como praticar</h2>
+      <ol>
+        <li>Posicione a mão com dedo 1 no Dó.</li>
+        <li>Toque 1-2-3. <strong>Pare</strong>. Sem soltar a mão, deslize o polegar por baixo até embaixo do dedo 3.</li>
+        <li>Toque 1 (Fá) - 2 (Sol) - 3 (Lá) - 4 (Si) - 5 (Dó alto).</li>
+        <li>Faça subindo. Depois descendo (espelho).</li>
+        <li>Metrônomo a 60 BPM. Quando ficar fluido, sobe.</li>
+      </ol>
+
+      <div class="callout callout-info">
+        <strong>Os dois modos:</strong> Corvino físico (ideal pra
+        sentir a passagem do polegar) ou teclado PC (escala não tem
+        mapeamento total — use o app pra praticar visualmente).
+      </div>
+
+      <div class="lesson-nav">
+        <a href="aula-28-relogio-3-horas.html">← Aula anterior: Relógio Bateu 3 Horas</a>
+        <a href="aula-30-velhinho-realejo.html">Próxima: Velhinho do Realejo →</a>
+      </div>
+    </article>
+    <aside class="app-panel"><div class="panel-title">App Corvino</div>
+      <iframe class="app-frame" src="../app/?embed=1" title="App Corvino" allow="midi; autoplay"></iframe></aside>
+  </main>
+  <footer class="site-footer">
+    <p>Corvino Acordeon MIDI · © 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p>
+  </footer>
+  <script type="module">
+    import { attachScorePlayer } from './js/score-player.js';
+    const MEL = 0.85;
+    attachScorePlayer({
+      playBtnId: 'btn-esc', bpm: 80, beatsPerBar: 4,
+      notes: [48,50,52,53,55,57,59,60].map((midi, i) => ({
+        midi, beats: 1, el: `#esc-${i+1}`, articulation: i===7 ? 0.95 : MEL,
+      })),
+    });
+
+    // ============================================================
+    // Sincroniza a MÃO VIRTUAL com a partitura.
+    // - hand-body (palma + dedos 2-5) desliza com leve atraso
+    // - polegar tem movimento PRÓPRIO: passa POR BAIXO do dedo 3
+    //   via animação keyframes (arco descendente)
+    // ============================================================
+    const FINGERING = [1, 2, 3, 1, 2, 3, 4, 5]; // step (1-8) → dedo (1-5)
+    const handBody = document.getElementById('hv-hand-body');
+    const shadow   = document.getElementById('hv-shadow');
+    const thumb    = document.getElementById('hv-finger-1');
+    const fingers  = [1,2,3,4,5].map(i => document.getElementById(`hv-finger-${i}`));
+    const keys     = [1,2,3,4,5,6,7,8].map(i => document.getElementById(`hv-key-${i}`));
+
+    let passingTimer = null;
+    let cleanupTimer = null;
+
+    function clearHighlight() {
+      fingers.forEach(f => f && f.classList.remove('active'));
+      keys.forEach(k => k && k.classList.remove('active'));
+    }
+    function resetHand() {
+      clearHighlight();
+      if (handBody) { handBody.classList.remove('pos-b'); handBody.classList.add('pos-a'); }
+      if (shadow)   { shadow.classList.remove('pos-b'); }
+      if (thumb)    { thumb.classList.remove('passing', 'at-b'); }
+      if (passingTimer) { clearTimeout(passingTimer); passingTimer = null; }
+    }
+    function highlightStep(step) {
+      const wasPosA = handBody && handBody.classList.contains('pos-a');
+      clearHighlight();
+      const finger = FINGERING[step - 1];
+      const goB = step >= 4;
+
+      // Hand-body (palma + dedos 2-5)
+      if (handBody) {
+        handBody.classList.toggle('pos-b', goB);
+        handBody.classList.toggle('pos-a', !goB);
+      }
+      if (shadow) shadow.classList.toggle('pos-b', goB);
+
+      // POLEGAR: cruzou de pos-a pra pos-b? Anima a passagem por baixo
+      if (thumb) {
+        if (goB && wasPosA && step === 4) {
+          // Inicia animação de passagem (Dó → arco descendente → Fá)
+          thumb.classList.remove('at-b', 'passing');
+          // força reflow pra animação reiniciar do zero
+          void thumb.getBoundingClientRect();
+          thumb.classList.add('passing');
+          if (passingTimer) clearTimeout(passingTimer);
+          // Quando termina (~620ms), troca passing → at-b (estado mantido)
+          passingTimer = setTimeout(() => {
+            if (!thumb) return;
+            thumb.classList.remove('passing');
+            thumb.classList.add('at-b');
+          }, 620);
+        } else if (goB) {
+          // Já estava em pos-b (steps 5-8): polegar fixo no Fá
+          thumb.classList.remove('passing');
+          thumb.classList.add('at-b');
+        } else {
+          // Voltou pra pos-a (raro durante reprodução)
+          thumb.classList.remove('passing', 'at-b');
+        }
+      }
+
+      // Destaque do dedo + tecla
+      if (fingers[finger - 1]) fingers[finger - 1].classList.add('active');
+      if (keys[step - 1])      keys[step - 1].classList.add('active');
+    }
+
+    // Observa cada nota da partitura: quando ganhar a classe
+    // .score-note-active, atualiza a mão.
+    [1,2,3,4,5,6,7,8].forEach(i => {
+      const note = document.getElementById(`esc-${i}`);
+      if (!note) return;
+      new MutationObserver(() => {
+        if (note.classList.contains('score-note-active')) {
+          highlightStep(i);
+          if (cleanupTimer) clearTimeout(cleanupTimer);
+          // 1.5s sem nota ativa → volta pra posição inicial
+          cleanupTimer = setTimeout(resetHand, 1500);
+        }
+      }).observe(note, { attributes: true, attributeFilter: ['class'] });
+    });
+  </script>
+<script src="js/accessibility.js"></script>
+</body>
+</html>

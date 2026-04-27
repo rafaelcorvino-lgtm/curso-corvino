@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 1 — Articulação | Curso Corvino</title>
+  <link rel="icon" href="../assets/img/corvo_favicon_130x130.png">
+  <link rel="stylesheet" href="../css/course.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a href="../index.html" class="logo">
+        <img src="../assets/img/corvo_logo_completo.png" alt="Corvino">
+        <div><div class="title">CORVINO</div><div class="subtitle">CURSO DE ACORDEON MIDI</div></div>
+      </a>
+      <nav>
+        <a href="../index.html">Módulos</a>
+        <a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="lesson-layout">
+    <article class="lesson-content">
+      <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 5 › Aula 1</div>
+      <h1>Articulação — staccato e legato</h1>
+      <p class="subtitle">Módulo 5 · Aula 1 de 4 · ~6 minutos</p>
+
+      <p>
+        Tocar a nota certa não basta. <strong>Como</strong> você toca
+        muda completamente a sensação. As duas formas mais importantes
+        são o <strong>legato</strong> (notas ligadas) e o
+        <strong>staccato</strong> (notas curtinhas). Como o Corvino não
+        tem fole, a articulação é <strong>tudo</strong> que você tem
+        pra dar expressão.
+      </p>
+
+      <h2>1. Legato (notas ligadas)</h2>
+      <p>
+        Cada nota dura <em>quase</em> todo o tempo, fluindo pra próxima.
+        Soa "cantado", contínuo. Ideal pra melodias românticas, valsas
+        suaves.
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 560 130" class="score-svg">
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="50" x2="540" y2="50"/><line x1="20" y1="65" x2="540" y2="65"/>
+            <line x1="20" y1="80" x2="540" y2="80"/><line x1="20" y1="95" x2="540" y2="95"/>
+            <line x1="20" y1="110" x2="540" y2="110"/>
+          </g>
+          <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+          <line x1="538" y1="50" x2="538" y2="110" stroke="#e0d8c0" stroke-width="3"/>
+          <line x1="115" y1="125" x2="135" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+          <ellipse id="leg1" cx="125" cy="125" rx="7" ry="5" fill="var(--gold)"/>
+          <ellipse id="leg2" cx="180" cy="117" rx="7" ry="5" fill="var(--gold)"/>
+          <ellipse id="leg3" cx="235" cy="110" rx="7" ry="5" fill="var(--gold)"/>
+          <ellipse id="leg4" cx="290" cy="102" rx="7" ry="5" fill="var(--gold)"/>
+          <ellipse id="leg5" cx="345" cy="95" rx="7" ry="5" fill="var(--gold)"/>
+          <!-- arco de ligadura unindo todas -->
+          <path d="M 125 140 Q 235 165 345 140" stroke="var(--gold)" stroke-width="2" fill="none"/>
+          <text x="235" y="35" font-size="13" fill="#d4c9a8" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">legato — soa "cantado"</text>
+        </svg>
+        <figcaption>Cinco notas em legato. A curva inferior indica que devem fluir uma na outra.</figcaption>
+        <div class="score-play-wrap"><button id="btn-leg" class="score-play-btn">▶ Ouvir legato</button></div>
+      </figure>
+
+      <h2>2. Staccato (notas destacadas)</h2>
+      <p>
+        Cada nota soa rapidinho e <em>solta</em>, com silêncio entre
+        elas. Soa "marcado", quicado. Ideal pra ritmos animados (xote,
+        polca) e pra dar contraste numa frase.
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 560 130" class="score-svg">
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="50" x2="540" y2="50"/><line x1="20" y1="65" x2="540" y2="65"/>
+            <line x1="20" y1="80" x2="540" y2="80"/><line x1="20" y1="95" x2="540" y2="95"/>
+            <line x1="20" y1="110" x2="540" y2="110"/>
+          </g>
+          <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+          <line x1="538" y1="50" x2="538" y2="110" stroke="#e0d8c0" stroke-width="3"/>
+          <line x1="115" y1="125" x2="135" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+          <ellipse id="stc1" cx="125" cy="125" rx="7" ry="5" fill="var(--gold)"/>
+          <circle cx="125" cy="140" r="2" fill="var(--gold)"/>
+          <ellipse id="stc2" cx="180" cy="117" rx="7" ry="5" fill="var(--gold)"/>
+          <circle cx="180" cy="135" r="2" fill="var(--gold)"/>
+          <ellipse id="stc3" cx="235" cy="110" rx="7" ry="5" fill="var(--gold)"/>
+          <circle cx="235" cy="130" r="2" fill="var(--gold)"/>
+          <ellipse id="stc4" cx="290" cy="102" rx="7" ry="5" fill="var(--gold)"/>
+          <circle cx="290" cy="125" r="2" fill="var(--gold)"/>
+          <ellipse id="stc5" cx="345" cy="95" rx="7" ry="5" fill="var(--gold)"/>
+          <circle cx="345" cy="118" r="2" fill="var(--gold)"/>
+          <text x="235" y="35" font-size="13" fill="#d4c9a8" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">staccato — pontinhos = notas curtas</text>
+        </svg>
+        <figcaption>Cinco notas em staccato. Os pontinhos abaixo das cabeças indicam articulação curta.</figcaption>
+        <div class="score-play-wrap"><button id="btn-stc" class="score-play-btn">▶ Ouvir staccato</button></div>
+      </figure>
+
+      <div class="callout callout-info">
+        <strong>No Corvino, articulação é técnica de dedo:</strong>
+        <ul style="margin:6px 0 0 0; padding-left:20px">
+          <li><strong>Legato:</strong> só solta a tecla anterior <em>quando</em> a próxima descer. Sobreposição mínima de 50ms.</li>
+          <li><strong>Staccato:</strong> levanta o dedo na metade do tempo. A nota dura uma fração e fica silêncio até a próxima.</li>
+        </ul>
+      </div>
+
+      <h2>3. Mesmo motivo, articulações diferentes</h2>
+      <p>
+        Ouça os dois exemplos acima. <strong>São as mesmas 5 notas</strong>,
+        mesmo BPM. Mas soam totalmente diferente — a articulação é o que
+        muda.
+      </p>
+
+      <ul>
+        <li><strong>No Corvino físico:</strong> pratique uma escala duas vezes — primeira em legato (mantenha a tecla até a próxima), segunda em staccato (solte logo).</li>
+        <li><strong>Pelo teclado do PC:</strong> mesma escala (H J K L Ç). No staccato, segure só uma fração de segundo.</li>
+      </ul>
+
+      <div class="callout callout-warning">
+        <strong>Dica Mascarenhas:</strong> uma frase musical normalmente
+        usa <em>os dois</em>. Comece legato, termine staccato pra dar
+        "ponto final". Articulação é como pontuação na fala.
+      </div>
+
+      <div class="lesson-nav">
+        <a href="aula-22-minha-primeira-valsa.html">← Aula anterior: Minha Primeira Valsa</a>
+        <a href="aula-24-escolha-timbre.html">Próxima: Escolha de timbre →</a>
+      </div>
+    </article>
+    <aside class="app-panel">
+      <div class="panel-title">App Corvino</div>
+      <iframe class="app-frame" src="../app/?embed=1" title="App Corvino" allow="midi; autoplay"></iframe>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <p>Corvino Acordeon MIDI — primeiro acordeon MIDI fabricado no Brasil. Botucatu-SP.</p>
+    <p>© 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p>
+  </footer>
+
+  <script type="module">
+    import { attachScorePlayer } from './js/score-player.js';
+    const escala = ['#leg','#stc'].map((p,i) => ({
+      playBtnId: i===0 ? 'btn-leg' : 'btn-stc',
+      bpm: 80, beatsPerBar: 4,
+      notes: [48,50,52,53,55].map((midi,n) => ({
+        midi, beats:1, el:`${p}${n+1}`, articulation: i===0 ? 0.95 : 0.28,
+      }))
+    }));
+    escala.forEach(cfg => attachScorePlayer(cfg));
+  </script>
+<script src="js/accessibility.js"></script>
+</body>
+</html>

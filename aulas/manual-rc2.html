@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual do Corvino RC2 | Curso Corvino</title>
+  <link rel="icon" href="../assets/img/corvo_favicon_130x130.png">
+  <link rel="stylesheet" href="../css/course.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="../index.html" class="logo">
+        <img src="../assets/img/corvo_logo_completo.png" alt="Corvino">
+        <div>
+          <div class="title">CORVINO</div>
+          <div class="subtitle">CURSO DE ACORDEON MIDI</div>
+        </div>
+      </a>
+      <nav>
+        <a href="../index.html">Módulos</a>
+        <a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="lesson-layout">
+
+    <article class="lesson-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Curso</a> › Manuais e ajuda › <a href="aula-08-controles.html">Qual é o meu modelo?</a> › Manual RC2
+      </div>
+      <h1>Manual do Corvino RC2</h1>
+      <p class="subtitle">Referência completa dos controles do painel · ~6 minutos</p>
+
+      <div class="callout callout-info">
+        <strong>Não tem certeza do seu modelo?</strong> O RC2 tem um
+        <strong>display numérico</strong> (mostra números como 127, 64, etc)
+        e 8 botões quadrados. Se o seu tem <strong>4 LEDs vermelhos</strong>
+        embaixo dos botões de oitava, é o RC1 —
+        <a href="manual-rc1.html">abra o manual RC1</a>.
+      </div>
+
+      <figure class="manual-figure">
+        <img src="../assets/img/manual/rc2-painel.png" alt="Painel de controle do Corvino RC2" class="manual-panel">
+        <figcaption>O painel do RC2: knob, display numérico e 8 botões de função.</figcaption>
+      </figure>
+
+      <h2>Antes de tudo — a chave de liga/desliga</h2>
+      <div class="control-block">
+        <div class="control-name">Chavinha de power</div>
+        <p>
+          O RC2 tem <strong>bateria interna</strong> (pra funcionar sem
+          cabo via Bluetooth), então tem uma <strong>chavinha física de
+          liga/desliga</strong>. Sem ela ligada, o Corvino fica apagado
+          <strong>mesmo com o cabo USB conectado</strong>.
+        </p>
+        <p>
+          <strong>Vire a chavinha para cima</strong> — o display acende e
+          mostra o volume atual. Pra desligar ao final do estudo, vire pra
+          baixo (economiza bateria se for usar sem cabo depois).
+        </p>
+      </div>
+
+      <h2>Os controles, um por um</h2>
+
+      <!-- KNOB -->
+      <div class="control-block">
+        <div class="control-name">Knob rotativo (círculo grande no topo)</div>
+        <p>
+          Um <strong>encoder</strong> giratório 360° sem limite.
+        </p>
+        <p>
+          <strong>No curso, esse knob não é usado</strong>. O volume, os
+          timbres e o transpose você ajusta pelos controles do próprio
+          app Corvino (na tela).
+        </p>
+        <p class="control-tip">
+          💡 Girar o knob só envia comandos MIDI (CC) — isso tem função
+          em <strong>softwares avançados</strong> (DAWs como FL Studio,
+          Ableton), onde você pode mapeá-lo pra qualquer parâmetro. Pro
+          curso, pode ignorar.
+        </p>
+      </div>
+
+      <!-- DISPLAY -->
+      <div class="control-block">
+        <div class="control-name">Display de 3 dígitos</div>
+        <p>
+          Mostra o <strong>valor interno do encoder</strong> (0 a 127) por
+          padrão, e o valor do parâmetro que você está editando quando
+          aperta outros botões. Exemplos:
+        </p>
+        <ul>
+          <li><strong>127</strong> (ou outro valor 0–127): valor atual do knob (é um número MIDI, não é o volume real do app do curso).</li>
+          <li><strong>-5, -4, 0, +4, +5</strong>: número de oitavas ou semitons acima/abaixo do padrão, ao apertar OC± ou o combo de transpose.</li>
+        </ul>
+        <p class="control-tip">
+          💡 O display desliga sozinho depois de alguns segundos sem mexer.
+          Toque qualquer botão pra reacender.
+        </p>
+      </div>
+
+      <!-- PITCH -->
+      <div class="control-block">
+        <div class="control-name">PITCH - / PITCH +</div>
+        <p>
+          Dois botões que deslizam a afinação da nota:
+        </p>
+        <ul>
+          <li><strong>PITCH -:</strong> afina pra baixo enquanto você segura</li>
+          <li><strong>PITCH +:</strong> afina pra cima enquanto você segura</li>
+        </ul>
+        <p>
+          Solta, a afinação volta sozinha. Mesma ideia da alavanca whammy de
+          guitarra — use pontual pra dar emoção em notas longas, como no
+          final de uma frase.
+        </p>
+      </div>
+
+      <!-- MOD -->
+      <div class="control-block">
+        <div class="control-name">MOD (Modulation)</div>
+        <p>
+          Liga um <strong>vibrato</strong> (ondulação da afinação) nas notas
+          tocadas. Aperte uma vez pra ligar; aperte de novo pra desligar.
+          Útil em acordes longos pra dar respiração ao som.
+        </p>
+      </div>
+
+      <!-- SUS -->
+      <div class="control-block">
+        <div class="control-name">SUS (Sustain)</div>
+        <p>
+          Funciona como o <strong>pedal de piano</strong>: enquanto SUS está
+          aceso, todas as notas que você tocar continuam soando mesmo depois
+          de soltar a tecla. Aperte SUS de novo pra desligar.
+        </p>
+        <div class="callout callout-warning">
+          <strong>Cuidado:</strong> com SUS ligado, tocar várias notas
+          seguidas deixa tudo somando (meio borrão). Use só em passagens
+          longas, como uma nota final que precisa ecoar.
+        </div>
+      </div>
+
+      <!-- ARP -->
+      <div class="control-block">
+        <div class="control-name">ARP (Arpeggiator)</div>
+        <p>
+          Você segura um acorde no teclado, e o Corvino toca as notas desse
+          acorde <strong>automaticamente em sequência</strong>, criando um
+          arpejo rítmico.
+        </p>
+        <div class="callout callout-warning">
+          <strong>Não usamos no curso.</strong> Arpejador é recurso avançado
+          de música eletrônica. Deixe <strong>desligado</strong>. Se apertar
+          sem querer, aperte ARP de novo pra desligar.
+        </div>
+      </div>
+
+      <!-- SC/CH -->
+      <div class="control-block">
+        <div class="control-name">SC/CH (Smart Scale/Chord)</div>
+        <p>
+          Modo <strong>"escala inteligente"</strong>: você escolhe uma
+          escala (Dó maior, Lá menor, Blues, etc) e o teclado passa a
+          tocar <strong>apenas notas dessa escala</strong> — não tem como
+          errar uma nota "fora".
+        </p>
+        <div class="callout callout-warning">
+          <strong>Deixe desligado no curso.</strong> A graça de aprender
+          acordeon é justamente você treinar seu ouvido e seus dedos a
+          acharem as notas certas — o SC/CH faz isso por você e atrapalha o
+          aprendizado.
+        </div>
+      </div>
+
+      <!-- OCTAVE -->
+      <div class="control-block">
+        <div class="control-name">OC- / OC+</div>
+        <p>
+          Muda a faixa de notas do teclado sem você trocar de tecla. Cada
+          toque em <strong>OC+</strong> sobe uma oitava. Cada toque em
+          <strong>OC-</strong> desce uma oitava. O display mostra o número
+          atual (-3, -2, -1, 0, +1, +2, +3).
+        </p>
+        <p>
+          Pressione <strong>OC- e OC+ juntos</strong> pra voltar direto pra
+          oitava padrão (display mostra 0).
+        </p>
+      </div>
+
+      <!-- BT -->
+      <div class="control-block">
+        <div class="control-name">BT (Bluetooth)</div>
+        <div class="callout callout-warning">
+          <strong>No curso, não usamos Bluetooth.</strong> O BT só
+          transmite o <strong>teclado da mão direita</strong> — os 40
+          baixos (mão esquerda) continuam precisando do cabo USB. Como o
+          curso usa as duas mãos, <strong>conecte sempre pelo cabo
+          USB</strong>.
+        </div>
+        <p>
+          O BT existe pra <strong>uso avançado</strong>: conectar só o
+          teclado MIDI do Corvino a um celular, tablet ou DAW sem fio.
+          Serve pra improvisar melodia, gravar linhas de teclado em
+          estúdio, ou tocar em um app de piano no tablet.
+        </p>
+        <p><strong>Como parear (uso avançado):</strong></p>
+        <ol>
+          <li>Ligue o Bluetooth do celular/tablet/computador.</li>
+          <li>No Corvino, <strong>segure o botão BT</strong> por 2 segundos até o display piscar.</li>
+          <li>No dispositivo, na lista de Bluetooth, escolha <strong>SMK-25</strong> (ou nome similar).</li>
+          <li>Pronto — o teclado já transmite sem fio. Baixo continua pelo USB (ou desconectado, se você só for usar o teclado).</li>
+        </ol>
+      </div>
+
+      <h2>Conectando ao computador</h2>
+      <div class="control-block">
+        <div class="control-name">USB — única conexão pro curso</div>
+        <p>
+          No curso (e no app Corvino em geral), <strong>use sempre o cabo
+          USB tipo C</strong>. Liga direto no computador, <strong>sem
+          driver</strong>, sem atraso perceptível, e transmite as duas
+          mãos — teclado e baixo.
+        </p>
+        <p>
+          <strong>Teste rápido:</strong> o app Corvino já está aberto
+          nesta página. Se aparecer um <strong>ponto verde</strong> na
+          marca "MIDI" (lateral esquerda do app, mais ao centro), tá
+          conectado.
+        </p>
+        <div class="callout callout-warning">
+          O Bluetooth do RC2 só transmite o teclado da mão direita —
+          <strong>não serve pro curso</strong>. Detalhes na seção
+          <a href="#bt">BT (Bluetooth)</a> acima. O RC2 também
+          <strong>não tem</strong> entrada pra pedal nem saída MIDI DIN.
+        </div>
+      </div>
+
+      <h2>Problemas comuns</h2>
+
+      <div class="howto-step" style="padding-left:74px">
+        <div class="howto-num">!</div>
+        <h2>"Não sai som / nada acende"</h2>
+        <ol>
+          <li><strong>A chavinha de liga/desliga está pra cima?</strong> É a causa mais comum de "RC2 não liga com o cabo".</li>
+          <li>O display acende? Se não, troque o cabo USB.</li>
+          <li>No app do curso, aparece ponto verde em MIDI? Se não, desconecte e reconecte.</li>
+          <li>Gire o <strong>knob</strong> pra direita pra subir o volume — o display deve mostrar o valor subir.</li>
+          <li>Confira o Mixer de Volume do Windows — o app Corvino pode estar mudo.</li>
+        </ol>
+      </div>
+
+      <div class="howto-step" style="padding-left:74px">
+        <div class="howto-num">!</div>
+        <h2>"Teclas tocam no tom errado / só algumas notas"</h2>
+        <ol>
+          <li><strong>SC/CH aceso?</strong> Aperte pra desligar — está travando nas notas de uma escala.</li>
+          <li><strong>ARP aceso?</strong> Aperte pra desligar — está arpejando o acorde.</li>
+          <li>Verifique o display — se mostrar um valor de oitava diferente de 0, pressione <strong>OC-</strong> e <strong>OC+</strong> juntos pra resetar.</li>
+        </ol>
+      </div>
+
+      <div class="howto-step" style="padding-left:74px">
+        <div class="howto-num">!</div>
+        <h2>"Notas seguem tocando depois de soltar"</h2>
+        <ol>
+          <li><strong>SUS aceso?</strong> Aperte pra desligar.</li>
+        </ol>
+      </div>
+
+      <div class="howto-step" style="padding-left:74px">
+        <div class="howto-num">!</div>
+        <h2>"Som com atraso"</h2>
+        <p>
+          Não é do Corvino — é do computador. Faça a
+          <a href="otimizacao-latencia.html">aula Extra de Otimização</a>.
+        </p>
+      </div>
+
+      <div class="nav-links">
+        <a href="aula-08-controles.html" class="btn-secondary">← Trocar de modelo</a>
+        <a href="../index.html" class="btn-secondary">Voltar ao curso →</a>
+      </div>
+    </article>
+
+    <aside class="app-panel">
+      <div class="panel-title">App Corvino</div>
+      <iframe class="app-frame" src="../app/?embed=1" title="App Corvino Acordeon Digital" allow="midi; autoplay"></iframe>
+    </aside>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Corvino Acordeon MIDI — primeiro acordeon MIDI fabricado no Brasil. Botucatu-SP.</p>
+    <p>© 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p>
+  </footer>
+
+<script src="js/accessibility.js"></script>
+</body>
+</html>

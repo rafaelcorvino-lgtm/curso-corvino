@@ -1,0 +1,73 @@
+# =============================================================================
+# .gitignore — Curso Corvino Acordeon MIDI
+# Salva código + curso, ignora assets pesados (binários que podem ser
+# baixados separado) e arquivos temporários.
+# =============================================================================
+
+# --- ASSETS PESADOS (.sf2 soundfonts e grooves de áudio/MIDI) ---
+# Esses arquivos são grandes (>100MB) e o GitHub não recomenda versioná-los.
+# Mantenha-os locais ou faça backup separado (OneDrive, S3, etc).
+app/assets/soundfonts/
+app/assets/grooves/
+
+# --- BUILDS COMPILADOS ---
+# Builds gerados — sempre podem ser recriados a partir do código fonte
+desktop/
+*/build/
+*/dist/
+*/target/
+*.exe
+*.msi
+*.dll
+*.so
+*.dylib
+
+# --- DEPENDÊNCIAS / CACHES ---
+node_modules/
+.pnp/
+.pnp.js
+.yarn/
+.npm/
+.cache/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# --- IDEs e EDITORES ---
+.idea/
+.vscode/
+.fleet/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- LOGS E TEMPORÁRIOS ---
+*.log
+*.tmp
+*.bak
+*.old
+*~
+bash.exe.stackdump
+
+# --- CREDENCIAIS / SECRETS ---
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+
+# --- ZIPS E BACKUPS ANTIGOS ---
+*.zip
+*.rar
+*.7z
+*_backup/
+*_old/
+_extracted/
+_extracted_original/
+_workspace/
+
+# --- ARQUIVOS DE TESTE DE LATÊNCIA (gerados, não-essenciais) ---
+latency_test/

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Corvino Acordeão Digital</title>
+  <link rel="stylesheet" href="css/main.css">
+  <!-- FluidSynth WASM for SF2 SoundFont playback -->
+  <script src="https://cdn.jsdelivr.net/npm/js-synthesizer@1.11.0/externals/libfluidsynth-2.4.6.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-synthesizer@1.11.0/dist/js-synthesizer.min.js"></script>
+  <script>
+    // Embed mode: when loaded as iframe on the course page (?embed=1),
+    // skip portrait warning (iframe size may be portrait-ish but the course is landscape)
+    if (new URLSearchParams(location.search).has('embed')) {
+      document.documentElement.classList.add('embedded');
+    }
+    // Labels visíveis por padrão (pode alternar via botão da barra central)
+    document.documentElement.classList.add('show-labels');
+  </script>
+</head>
+<body>
+  <!-- Splash Screen -->
+  <div id="splash">
+    <img src="assets/images/logo-cropped.png" alt="Corvino Logo" id="splash-logo">
+    <div id="splash-text">ACORDEÃO DIGITAL</div>
+  </div>
+
+  <!-- Portrait Warning -->
+  <div id="rotate-warning">
+    <div class="rotate-icon">📱↔️</div>
+    <p>Gire o dispositivo para modo paisagem</p>
+  </div>
+
+  <!-- Main App -->
+  <div id="app" class="hidden">
+
+    <!-- Bass Section -->
+    <div id="bass-section">
+      <!-- HUD: Baixo (canto superior esquerdo) -->
+      <div class="hud hud-tl">
+        <!-- Volume baixo -->
+        <div class="hud-row">
+          <button class="mini-btn" id="bs-vol-down" title="Baixar volume baixo">−</button>
+          <span class="hud-icon">🔔</span>
+          <span class="hud-value" id="bs-vol-val">100</span>
+          <button class="mini-btn" id="bs-vol-up" title="Subir volume baixo">+</button>
+        </div>
+        <!-- Transpose baixo -->
+        <div class="hud-row">
+          <button class="mini-btn" id="bs-tr-down" title="Transpor baixo abaixo">−</button>
+          <span class="hud-icon">♪</span>
+          <span class="hud-value" id="bs-tr-val">0</span>
+          <button class="mini-btn" id="bs-tr-up" title="Transpor baixo acima">+</button>
+        </div>
+      </div>
+      <!-- HUD: Volume + Transpose do TECLADO (canto superior direito) -->
+      <div class="hud hud-tr">
+        <div class="hud-row">
+          <button class="mini-btn" id="kb-vol-down" title="Baixar volume teclado">−</button>
+          <span class="hud-icon">🔔</span>
+          <span class="hud-value" id="kb-vol-val">100</span>
+          <button class="mini-btn" id="kb-vol-up" title="Subir volume teclado">+</button>
+        </div>
+        <div class="hud-row">
+          <button class="mini-btn" id="kb-tr-down" title="Transpor teclado abaixo">−</button>
+          <span class="hud-icon">♪</span>
+          <span class="hud-value" id="kb-tr-val">0</span>
+          <button class="mini-btn" id="kb-tr-up" title="Transpor teclado acima">+</button>
+        </div>
+      </div>
+      <!-- HUD: Ritmo + Metrônomo (canto inferior esquerdo, empilhados) -->
+      <div class="hud hud-bl">
+        <!-- Seletor de Ritmo + Play/Stop -->
+        <div class="hud-row">
+          <div class="rhythm-selector" id="rhythm-selector" title="Trocar Ritmo">
+            <span class="rhythm-icon">♫</span>
+            <span class="rhythm-name" id="rhythm-name">Guarânia</span>
+            <span class="rhythm-chevron">▼</span>
+          </div>
+          <button class="rhythm-play" id="rhythm-play" title="Tocar / Parar ritmo">▶</button>
+        </div>
+        <!-- Velocidade do Ritmo -->
+        <div class="hud-row">
+          <button class="mini-btn" id="rhythm-speed-down" title="Velocidade −">−</button>
+          <span class="hud-icon">⏱</span>
+          <span class="hud-value" id="rhythm-speed-val">1.0×</span>
+          <button class="mini-btn" id="rhythm-speed-up" title="Velocidade +">+</button>
+        </div>
+        <!-- Volume do Ritmo -->
+        <div class="hud-row">
+          <button class="mini-btn" id="rhythm-vol-down" title="Volume do ritmo −">−</button>
+          <span class="hud-icon">🔔</span>
+          <span class="hud-value" id="rhythm-vol-val">60</span>
+          <button class="mini-btn" id="rhythm-vol-up" title="Volume do ritmo +">+</button>
+        </div>
+        <!-- Metrônomo (abaixo dos comandos do ritmo) -->
+        <div class="hud-row">
+          <button class="mini-btn" id="metro-down" title="Diminuir BPM">−</button>
+          <span class="hud-value" id="metro-bpm">120</span>
+          <button class="mini-btn" id="metro-up" title="Aumentar BPM">+</button>
+          <button class="mini-btn" id="metro-toggle" title="Ligar/desligar metrônomo">▶</button>
+        </div>
+      </div>
+      <!-- Zoom controls (A-, ⟲, A+) — canto inferior direito, horizontal -->
+      <div class="zoom-controls">
+        <button class="zoom-btn" id="zoom-down" title="Diminuir UI">A−</button>
+        <button class="zoom-btn" id="zoom-reset" title="Resetar zoom">⟲</button>
+        <button class="zoom-btn" id="zoom-up" title="Aumentar UI">A+</button>
+      </div>
+      <div id="scale-feedback"></div>
+      <div id="bass-grid"></div>
+    </div>
+
+    <!-- Fole decorativo (separador entre baixos e teclado) -->
+    <div id="bellows-bar"></div>
+
+    <!-- Barra Central: indicadores de conexão + Ritmo + tabs de timbre + toggle labels -->
+    <div id="registers-bar">
+      <div class="conn-indicator" id="conn-bass">
+        <span class="conn-dot"></span>
+        <span class="conn-label">Baixo</span>
+      </div>
+      <div class="conn-indicator" id="conn-keyboard">
+        <span class="conn-dot"></span>
+        <span class="conn-label">Teclado</span>
+      </div>
+      <div class="register-tabs" id="register-tabs"></div>
+      <button class="label-toggle" id="kbd-toggle" title="Tocar com teclado do computador (H=Dó, J=Ré, K=Mi, L=Fá, Ç=Sol)">🎹</button>
+      <button class="label-toggle on" id="label-toggle" title="Mostrar/ocultar nomes das notas">🏷️</button>
+    </div>
+
+    <!-- Piano Section -->
+    <div id="piano-section">
+      <div id="piano-container"></div>
+    </div>
+  </div>
+
+  <!-- Timbre Panel (dropdown) -->
+  <div id="timbre-panel" class="panel hidden">
+    <div class="panel-header">
+      <h3>Timbres</h3>
+      <button class="panel-close" data-close="timbre-panel">&times;</button>
+    </div>
+    <div id="timbre-list" class="panel-body"></div>
+  </div>
+
+  <!-- Groove Panel -->
+  <div id="groove-panel" class="panel hidden">
+    <div class="panel-header">
+      <h3>Grooves</h3>
+      <button class="panel-close" data-close="groove-panel">&times;</button>
+    </div>
+    <div id="groove-list" class="panel-body"></div>
+  </div>
+
+  <!-- Lesson Panel -->
+  <div id="lesson-panel" class="panel hidden">
+    <div class="panel-header">
+      <h3>Lições</h3>
+      <button class="panel-close" data-close="lesson-panel">&times;</button>
+    </div>
+    <div id="lesson-list" class="panel-body"></div>
+  </div>
+
+  <!-- Settings Dialog -->
+  <dialog id="settings-dialog">
+    <div class="dialog-header">
+      <h2>MIDI</h2>
+      <button id="btn-close-dialog">&times;</button>
+    </div>
+    <div id="device-list">
+      <p class="no-devices">Buscando dispositivos MIDI...</p>
+    </div>
+    <div id="midi-status"></div>
+  </dialog>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

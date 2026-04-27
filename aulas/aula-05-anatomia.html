@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 1 — Anatomia do Corvino | Curso Corvino</title>
+  <link rel="icon" href="../assets/img/corvo_favicon_130x130.png">
+  <link rel="stylesheet" href="../css/course.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="../index.html" class="logo">
+        <img src="../assets/img/corvo_logo_completo.png" alt="Corvino">
+        <div>
+          <div class="title">CORVINO</div>
+          <div class="subtitle">CURSO DE ACORDEON MIDI</div>
+        </div>
+      </a>
+      <nav>
+        <a href="../index.html">Módulos</a>
+        <a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="lesson-layout">
+
+    <article class="lesson-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Curso</a> › Módulo 2 › Aula 2
+      </div>
+      <h1>Anatomia do seu Corvino</h1>
+      <p class="subtitle">Módulo 2 · Aula 2 de 5 · ~5 minutos</p>
+
+      <p>
+        Antes de tocar, vamos mapear o que cada parte do Corvino faz. Um
+        acordeon tradicional tem dezenas de peças móveis, palhetas, fole. O
+        seu Corvino tem <strong>três partes simples</strong>: mão direita,
+        mão esquerda e painel de controle. O som vem do computador ou
+        celular conectado.
+      </p>
+
+      <div class="callout callout-info">
+        <strong>Ainda não tem o Corvino?</strong> Ative o botão
+        <strong>🎹</strong> no app ao lado e acompanhe essa aula usando
+        o teclado do computador — a disposição das duas mãos é idêntica.
+        Mapeamento: <strong>H J K L Ç</strong> = Dó Ré Mi Fá Sol (mão
+        direita) · <strong>Q W E R</strong> = baixos fundamentais Fá Dó
+        Sol Ré (mão esquerda).
+      </div>
+
+      <h2>1. Mão direita — o teclado</h2>
+      <p>
+        Do seu lado direito você tem <strong>25 teclas</strong> — brancas e
+        pretas, iguais às de um piano. Vão de <strong>Dó até Dó</strong>,
+        cobrindo exatamente 2 oitavas completas. É nessas teclas que você
+        vai tocar a <strong>melodia</strong> das músicas: a parte que a
+        gente canta junto.
+      </p>
+      <p>
+        Você toca com os 5 dedos da mão direita. No começo do curso só vamos
+        usar 3 ou 4 dedos — o dedo mindinho entra nas peças mais avançadas.
+      </p>
+
+      <h2>2. Mão esquerda — os 40 baixos</h2>
+      <p>
+        Do seu lado esquerdo estão <strong>40 botões redondos</strong>
+        organizados em 5 fileiras verticais. Eles cobrem as notas de
+        <strong>Fá até Fá#</strong> e tocam duas coisas:
+      </p>
+      <ul>
+        <li>
+          <strong>Baixos fundamentais</strong> (as 2 fileiras mais próximas
+          de você): cada botão toca uma <strong>nota grave</strong>. É
+          equivalente ao pé esquerdo do pianista.
+        </li>
+        <li>
+          <strong>Acordes</strong> (as 3 fileiras mais afastadas): cada
+          botão toca um <strong>acorde inteiro</strong> — 3 ou 4 notas
+          juntas. Maior, menor, 7ª e 7ª diminuta, cada fileira tem um tipo.
+        </li>
+      </ul>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 600 240" class="score-svg bass-layout-svg">
+          <defs>
+            <radialGradient id="pearl05" cx="0.3" cy="0.3" r="0.7">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="100%" stop-color="#C8C8CE"/>
+            </radialGradient>
+          </defs>
+
+          <text x="300" y="20" fill="var(--gold)" font-size="13" font-weight="700" text-anchor="middle"
+                stroke="#1a1618" stroke-width="2.5" paint-order="stroke">As 5 fileiras do baixo (matriz Stradella)</text>
+
+          <!-- Função de cada fileira -->
+          <g font-size="11" font-family="monospace">
+            <text x="50" y="52" fill="var(--fg-dim)" text-anchor="end">7ª</text>
+            <text x="50" y="92" fill="var(--fg-dim)" text-anchor="end">menor</text>
+            <text x="50" y="132" fill="var(--fg-dim)" text-anchor="end">maior</text>
+            <text x="50" y="172" fill="var(--gold)" font-weight="700" text-anchor="end">FUND.</text>
+            <text x="50" y="212" fill="var(--fg-dim)" text-anchor="end">contra</text>
+          </g>
+
+          <!-- Brackets visuais -->
+          <g stroke="var(--gold)" stroke-width="1.5" fill="none">
+            <path d="M 555 38 L 565 38 L 565 138 L 555 138" stroke-dasharray="3,2"/>
+            <path d="M 555 158 L 565 158 L 565 218 L 555 218" stroke-dasharray="3,2"/>
+          </g>
+          <text x="575" y="92" fill="var(--gold)" font-size="10" text-anchor="start" font-family="monospace" transform="rotate(0 575 92)">3 fileiras</text>
+          <text x="575" y="105" fill="var(--gold)" font-size="10" text-anchor="start" font-family="monospace">de acordes</text>
+          <text x="575" y="190" fill="var(--gold)" font-size="10" text-anchor="start" font-family="monospace">2 fileiras</text>
+          <text x="575" y="203" fill="var(--gold)" font-size="10" text-anchor="start" font-family="monospace">de baixos</text>
+
+          <!-- 5 rows × 8 botões em cascata diagonal -->
+          <g font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">
+            <!-- Row 0 — 7ª (offset 0) -->
+            <g>
+              <circle cx="80" cy="50" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="80" y="54" fill="#1a1a1a">7</text>
+              <circle cx="118" cy="50" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="118" y="54" fill="#1a1a1a">7</text>
+              <circle cx="156" cy="50" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="156" y="54" fill="#1a1a1a">7</text>
+              <circle cx="194" cy="50" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="194" y="54" fill="#1a1a1a">7</text>
+              <circle cx="232" cy="50" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="232" y="54" fill="#1a1a1a">7</text>
+              <circle cx="270" cy="50" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="270" y="54" fill="#1a1a1a">7</text>
+              <circle cx="308" cy="50" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="308" y="54" fill="#1a1a1a">7</text>
+              <circle cx="346" cy="50" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="346" y="54" fill="#1a1a1a">7</text>
+            </g>
+            <!-- Row 1 — m (offset 10) -->
+            <g>
+              <circle cx="90" cy="90" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="90" y="94" fill="#1a1a1a">m</text>
+              <circle cx="128" cy="90" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="128" y="94" fill="#1a1a1a">m</text>
+              <circle cx="166" cy="90" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="166" y="94" fill="#1a1a1a">m</text>
+              <circle cx="204" cy="90" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="204" y="94" fill="#1a1a1a">m</text>
+              <circle cx="242" cy="90" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="242" y="94" fill="#1a1a1a">m</text>
+              <circle cx="280" cy="90" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="280" y="94" fill="#1a1a1a">m</text>
+              <circle cx="318" cy="90" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="318" y="94" fill="#1a1a1a">m</text>
+              <circle cx="356" cy="90" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="356" y="94" fill="#1a1a1a">m</text>
+            </g>
+            <!-- Row 2 — M (offset 20) -->
+            <g>
+              <circle cx="100" cy="130" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="100" y="134" fill="#1a1a1a">M</text>
+              <circle cx="138" cy="130" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="138" y="134" fill="#1a1a1a">M</text>
+              <circle cx="176" cy="130" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="176" y="134" fill="#1a1a1a">M</text>
+              <circle cx="214" cy="130" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="214" y="134" fill="#1a1a1a">M</text>
+              <circle cx="252" cy="130" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="252" y="134" fill="#1a1a1a">M</text>
+              <circle cx="290" cy="130" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="290" y="134" fill="#1a1a1a">M</text>
+              <circle cx="328" cy="130" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="328" y="134" fill="#1a1a1a">M</text>
+              <circle cx="366" cy="130" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="366" y="134" fill="#1a1a1a">M</text>
+            </g>
+            <!-- Row 3 — fundamentais (offset 30) -->
+            <g>
+              <circle cx="110" cy="170" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="110" y="174" fill="#1a1a1a">F#</text>
+              <circle cx="148" cy="170" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="148" y="174" fill="#1a1a1a">B</text>
+              <circle cx="186" cy="170" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="186" y="174" fill="#1a1a1a">E</text>
+              <circle cx="186" cy="184" r="2.5" fill="#d32f2f"/>
+              <circle cx="224" cy="170" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="224" y="174" fill="#1a1a1a">A</text>
+              <circle cx="262" cy="170" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="262" y="174" fill="#1a1a1a">D</text>
+              <circle cx="300" cy="170" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="300" y="174" fill="#1a1a1a">G</text>
+              <circle cx="338" cy="170" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="338" y="174" fill="#1a1a1a">C</text>
+              <circle cx="338" cy="184" r="2.5" fill="#d32f2f"/>
+              <circle cx="376" cy="170" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="376" y="174" fill="#1a1a1a">F</text>
+            </g>
+            <!-- Row 4 — contra (offset 40) -->
+            <g>
+              <circle cx="120" cy="210" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="120" y="214" fill="#1a1a1a">G#</text>
+              <circle cx="158" cy="210" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="158" y="214" fill="#1a1a1a">D#</text>
+              <circle cx="196" cy="210" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="196" y="214" fill="#1a1a1a">G#</text>
+              <circle cx="234" cy="210" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="234" y="214" fill="#1a1a1a">C#</text>
+              <circle cx="272" cy="210" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="272" y="214" fill="#1a1a1a">F#</text>
+              <circle cx="310" cy="210" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="310" y="214" fill="#1a1a1a">B</text>
+              <circle cx="348" cy="210" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="348" y="214" fill="#1a1a1a">E</text>
+              <circle cx="386" cy="210" r="13" fill="url(#pearl05)" stroke="#666" stroke-width="0.5"/><text x="386" y="214" fill="#1a1a1a">A</text>
+            </g>
+          </g>
+        </svg>
+        <figcaption>
+          As <strong>5 fileiras</strong> do baixo do Corvino — exatamente como aparecem no app. Bolinhas vermelhas = marcas táteis (Dó e Mi) que você sente sem olhar.
+        </figcaption>
+      </figure>
+      <p>
+        A mão esquerda faz o <strong>acompanhamento</strong>: é o que
+        sustenta o ritmo e a harmonia da música enquanto a mão direita
+        canta.
+      </p>
+      <div class="callout callout-info">
+        <strong>Detalhe importante:</strong> os 40 botões do baixo usam
+        um <strong>timbre próprio de baixo de acordeon</strong>, gravado
+        pra soar grave e firme. Esse timbre é <strong>fixo</strong> — só
+        o teclado da mão direita permite troca de timbre
+        (<strong>Basson, Giulietti, Oboé, Organ, Violin e Accordion</strong>
+        — 6 timbres no total).
+      </div>
+
+      <h2>3. Painel de controle</h2>
+      <p>
+        Entre as duas mãos, no topo do instrumento, fica o <strong>painel
+        de controle</strong>: um conjunto de botões e knob que permite
+        mudar oitava, afinação, modulação e ligar o Bluetooth (no RC2).
+      </p>
+      <p>
+        O painel <strong>muda entre os modelos RC1 e RC2</strong>. Cada um
+        tem seu manual dedicado com foto e explicação de cada botão:
+      </p>
+      <p style="margin-top:16px">
+        <a href="aula-08-controles.html" class="btn-secondary">Ver manual do meu modelo →</a>
+      </p>
+
+      <h2>4. Conector</h2>
+      <p>
+        Na lateral (ou embaixo) do instrumento tem <strong>um único
+        conector USB</strong>. É por ele que passa toda a informação das
+        teclas e botões pro computador.
+      </p>
+      <ul>
+        <li>No <strong>RC1</strong>: USB tipo A (conector retangular comum, igual a pen-drive).</li>
+        <li>No <strong>RC2</strong>: USB tipo C (conector oval reversível).</li>
+      </ul>
+      <p>
+        <strong>Não tem pedal nem saída MIDI DIN.</strong> O cabo
+        USB alimenta e transmite — um cabo só, uma ponta.
+      </p>
+      <p>
+        <strong>Bateria:</strong> só o <strong>RC2</strong> tem bateria interna
+        (alimenta apenas o teclado da mão direita, pra uso por Bluetooth ou avulso).
+        Os baixos da mão esquerda sempre exigem USB. O <strong>RC1</strong> não tem
+        bateria — funciona 100% pela alimentação USB.
+      </p>
+
+      <h2>5. Alças (ombro e baixo)</h2>
+      <p>
+        O Corvino vem com <strong>alça de ombro e alça do baixo</strong> —
+        a mesma configuração de um <strong>acordeon tradicional</strong>.
+        Com elas, você toca exatamente como num instrumento de fole:
+        instrumento apoiado no peito, mão esquerda firme nos baixos,
+        mão direita livre no teclado. Como o RC2 pesa só 1,6 kg, é muito
+        mais leve que um acordeon acústico (4 a 6 kg) — toca por horas sem cansar.
+      </p>
+
+      <h2>Fixando o conhecimento</h2>
+      <p>
+        Olhe pro app Corvino aqui ao lado:
+      </p>
+      <ol>
+        <li>Clique em algumas teclas da <strong>parte de cima</strong> da tela — esse é o <strong>teclado da mão direita</strong>.</li>
+        <li>Clique em alguns botões redondos da <strong>parte de baixo</strong> — esses são os <strong>40 baixos</strong>.</li>
+        <li>Observe que as teclas tocam notas individuais; os baixos tocam acordes inteiros ou notas graves.</li>
+      </ol>
+      <p>
+        Na próxima aula vamos olhar a mão direita em detalhe: onde fica o
+        Dó central, quais dedos usar em cada nota, e você vai tocar sua
+        primeira escala.
+      </p>
+
+      <div class="lesson-nav">
+        <a href="aula-04-conectando.html">← Aula anterior: Conectando</a>
+        <a href="aula-06-mao-direita.html">Próxima: A mão direita →</a>
+      </div>
+    </article>
+
+    <aside class="app-panel">
+      <div class="panel-title">App Corvino</div>
+      <iframe class="app-frame" src="../app/?embed=1" title="App Corvino Acordeon Digital" allow="midi; autoplay"></iframe>
+    </aside>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Corvino Acordeon MIDI — primeiro acordeon MIDI fabricado no Brasil. Botucatu-SP.</p>
+    <p>© 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p>
+  </footer>
+
+<script src="js/accessibility.js"></script>
+</body>
+</html>

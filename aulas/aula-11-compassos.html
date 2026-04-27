@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 3 — Compassos e acentos | Curso Corvino</title>
+  <link rel="icon" href="../assets/img/corvo_favicon_130x130.png">
+  <link rel="stylesheet" href="../css/course.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="../index.html" class="logo">
+        <img src="../assets/img/corvo_logo_completo.png" alt="Corvino">
+        <div>
+          <div class="title">CORVINO</div>
+          <div class="subtitle">CURSO DE ACORDEON MIDI</div>
+        </div>
+      </a>
+      <nav>
+        <a href="../index.html">Módulos</a>
+        <a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="lesson-layout">
+
+    <article class="lesson-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Curso</a> › Módulo 3 › Aula 3
+      </div>
+      <h1>Compassos e acentos</h1>
+      <p class="subtitle">Módulo 3 · Aula 3 de 8 · ~8 minutos</p>
+
+      <p>
+        Música não é só sequência de notas — é sequência <strong>agrupada
+        em ciclos</strong>. Toda valsa tem ciclos de 3 tempos. Todo baião
+        tem ciclos de 4. Cada ciclo se chama <strong>compasso</strong>,
+        e é separado por uma linha vertical na pauta (a
+        <strong>barra de compasso</strong>).
+      </p>
+
+      <h2>1. A fórmula de compasso</h2>
+      <p>
+        Logo depois da clave, no começo da música, aparecem dois
+        números um em cima do outro. É a <strong>fórmula de
+        compasso</strong>:
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 580 140" class="score-svg">
+          <!-- Pauta -->
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="40" x2="560" y2="40"/>
+            <line x1="20" y1="55" x2="560" y2="55"/>
+            <line x1="20" y1="70" x2="560" y2="70"/>
+            <line x1="20" y1="85" x2="560" y2="85"/>
+            <line x1="20" y1="100" x2="560" y2="100"/>
+          </g>
+          <text x="28" y="96" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+
+          <!-- Fórmula 3/4 destacada -->
+          <g font-family="serif" font-weight="700" text-anchor="middle">
+            <text x="120" y="68" fill="var(--gold)" font-size="26">3</text>
+            <text x="120" y="100" fill="var(--gold)" font-size="26">4</text>
+          </g>
+
+          <!-- Setas/explicação ao lado -->
+          <line x1="145" y1="62" x2="225" y2="45" stroke="var(--gold)" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="145" y1="92" x2="225" y2="118" stroke="var(--gold)" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="230" y="48" fill="#d4c9a8" font-size="12" font-family="sans-serif"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">quantos tempos em cada compasso (3)</text>
+          <text x="230" y="121" fill="#d4c9a8" font-size="12" font-family="sans-serif"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">qual figura vale 1 tempo (4 = semínima)</text>
+        </svg>
+        <figcaption>Fórmula <strong>3/4</strong>: cada compasso tem 3 tempos, cada tempo vale uma semínima.</figcaption>
+      </figure>
+
+      <div class="callout callout-info">
+        <strong>Leia assim:</strong> "três por quatro", "dois por quatro",
+        "quatro por quatro". O de cima é <em>quantos</em>; o de baixo é
+        <em>de quê</em> (sempre 4 = semínima nas músicas desse curso).
+      </div>
+
+      <h2>2. Os três compassos que você mais vai encontrar</h2>
+
+      <div class="compass-grid">
+        <div class="compass-card">
+          <div class="compass-num">
+            <span class="n-top">2</span>
+            <span class="n-bot">4</span>
+          </div>
+          <h3>2/4</h3>
+          <p class="compass-beat"><strong>Forte</strong> – fraco</p>
+          <p>Marchas, polca, frevo. Um pé direito, um pé esquerdo.</p>
+          <button id="btn-c24" class="score-play-btn">▶ Ouvir no baixo</button>
+        </div>
+
+        <div class="compass-card">
+          <div class="compass-num">
+            <span class="n-top">3</span>
+            <span class="n-bot">4</span>
+          </div>
+          <h3>3/4</h3>
+          <p class="compass-beat"><strong>Forte</strong> – fraco – fraco</p>
+          <p>A <strong>valsa</strong>. "Bum – tchim – tchim". É aqui que começa o repertório do acordeonista brasileiro.</p>
+          <button id="btn-c34" class="score-play-btn">▶ Ouvir no baixo</button>
+        </div>
+
+        <div class="compass-card">
+          <div class="compass-num">
+            <span class="n-top">4</span>
+            <span class="n-bot">4</span>
+          </div>
+          <h3>4/4</h3>
+          <p class="compass-beat"><strong>Forte</strong> – fraco – <strong>meio-forte</strong> – fraco</p>
+          <p>Xote, baião, bolero, samba, quase toda música popular. É o compasso mais comum do mundo.</p>
+          <button id="btn-c44" class="score-play-btn">▶ Ouvir no baixo</button>
+        </div>
+      </div>
+
+      <p style="text-align:center; color:var(--fg-dim); font-size:0.9rem; margin-top:-8px">
+        Cada botão toca 4 compassos no baixo do acordeon (Dó + Dó maior) pra você sentir o acento rítmico.
+      </p>
+
+      <h2>3. Acentos — onde cai o peso</h2>
+      <p>
+        Todo compasso tem um <strong>tempo forte</strong> (o primeiro) e
+        um ou mais <strong>tempos fracos</strong>. É isso que dá identidade
+        rítmica a cada estilo. Uma valsa soa diferente de uma marcha
+        porque o peso cai em tempos diferentes.
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 560 110" class="score-svg">
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="30" x2="540" y2="30"/>
+            <line x1="20" y1="45" x2="540" y2="45"/>
+            <line x1="20" y1="60" x2="540" y2="60"/>
+            <line x1="20" y1="75" x2="540" y2="75"/>
+            <line x1="20" y1="90" x2="540" y2="90"/>
+          </g>
+          <text x="25" y="86" font-size="60" font-family="serif" fill="#e0d8c0">𝄞</text>
+          <!-- fórmula 3/4 -->
+          <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
+            <text x="85" y="55" font-size="22">3</text>
+            <text x="85" y="82" font-size="22">4</text>
+          </g>
+          <!-- Barras de compasso -->
+          <g stroke="#e0d8c0" stroke-width="1.5">
+            <line x1="250" y1="30" x2="250" y2="90"/>
+            <line x1="400" y1="30" x2="400" y2="90"/>
+            <line x1="538" y1="30" x2="538" y2="90" stroke-width="3"/>
+          </g>
+
+          <!-- Compasso 1: Dó (linha supl abaixo) -->
+          <g>
+            <line x1="130" y1="105" x2="152" y2="105" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse cx="141" cy="105" rx="7" ry="5" fill="var(--gold)"/>
+            <line x1="148" y1="105" x2="148" y2="68" stroke="var(--gold)" stroke-width="1.5"/>
+            <ellipse cx="180" cy="105" rx="7" ry="5" fill="var(--gold)"/>
+            <line x1="187" y1="105" x2="187" y2="68" stroke="var(--gold)" stroke-width="1.5"/>
+            <line x1="210" y1="105" x2="232" y2="105" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse cx="221" cy="105" rx="7" ry="5" fill="var(--gold)"/>
+            <line x1="228" y1="105" x2="228" y2="68" stroke="var(--gold)" stroke-width="1.5"/>
+          </g>
+          <!-- acentos compasso 1 -->
+          <text x="141" y="18" font-size="13" font-weight="700" fill="#ff9060"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle">&gt;</text>
+          <text x="141" y="105" font-size="10" fill="#ff9060" stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle" dy="-18">1</text>
+          <text x="180" y="105" font-size="10" fill="var(--fg-dim)" stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle" dy="-18">2</text>
+          <text x="221" y="105" font-size="10" fill="var(--fg-dim)" stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle" dy="-18">3</text>
+
+          <!-- Compasso 2 -->
+          <g>
+            <line x1="280" y1="105" x2="302" y2="105" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse cx="291" cy="105" rx="7" ry="5" fill="var(--gold)"/>
+            <line x1="298" y1="105" x2="298" y2="68" stroke="var(--gold)" stroke-width="1.5"/>
+            <ellipse cx="330" cy="105" rx="7" ry="5" fill="var(--gold)"/>
+            <line x1="337" y1="105" x2="337" y2="68" stroke="var(--gold)" stroke-width="1.5"/>
+            <line x1="360" y1="105" x2="382" y2="105" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse cx="371" cy="105" rx="7" ry="5" fill="var(--gold)"/>
+            <line x1="378" y1="105" x2="378" y2="68" stroke="var(--gold)" stroke-width="1.5"/>
+          </g>
+          <text x="291" y="18" font-size="13" font-weight="700" fill="#ff9060"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle">&gt;</text>
+          <text x="291" y="105" font-size="10" fill="#ff9060" stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle" dy="-18">1</text>
+          <text x="330" y="105" font-size="10" fill="var(--fg-dim)" stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle" dy="-18">2</text>
+          <text x="371" y="105" font-size="10" fill="var(--fg-dim)" stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle" dy="-18">3</text>
+
+          <!-- Compasso 3 -->
+          <g>
+            <line x1="430" y1="105" x2="452" y2="105" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse cx="441" cy="105" rx="7" ry="5" fill="var(--gold)"/>
+            <line x1="448" y1="105" x2="448" y2="68" stroke="var(--gold)" stroke-width="1.5"/>
+            <ellipse cx="480" cy="105" rx="7" ry="5" fill="var(--gold)"/>
+            <line x1="487" y1="105" x2="487" y2="68" stroke="var(--gold)" stroke-width="1.5"/>
+            <line x1="500" y1="105" x2="522" y2="105" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse cx="511" cy="105" rx="7" ry="5" fill="var(--gold)"/>
+            <line x1="518" y1="105" x2="518" y2="68" stroke="var(--gold)" stroke-width="1.5"/>
+          </g>
+          <text x="441" y="18" font-size="13" font-weight="700" fill="#ff9060"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle">&gt;</text>
+          <text x="441" y="105" font-size="10" fill="#ff9060" stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle" dy="-18">1</text>
+          <text x="480" y="105" font-size="10" fill="var(--fg-dim)" stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle" dy="-18">2</text>
+          <text x="511" y="105" font-size="10" fill="var(--fg-dim)" stroke="#1a1618" stroke-width="3" paint-order="stroke" text-anchor="middle" dy="-18">3</text>
+        </svg>
+        <figcaption>
+          Valsa em 3/4, todas as notas Dó. O <span style="color:#ff9060"><strong>&gt;</strong></span>
+          marca o tempo forte (primeira nota de cada compasso). O peso
+          cai <strong>no 1</strong>; o 2 e o 3 são leves.
+        </figcaption>
+      </figure>
+
+      <h2>4. Exercício — Valsa em Dó, dedilhado 1-2-3</h2>
+      <p>
+        Agora você vai tocar uma valsa simples em 3/4 usando as 3 primeiras
+        notas (<strong>Dó-Ré-Mi</strong>) com os dedos <strong>1-2-3</strong>
+        da mão direita. Repare no número <strong>dourado acima</strong>
+        de cada nota — é o dedo que você usa:
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 560 140" class="score-svg">
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="50" x2="540" y2="50"/>
+            <line x1="20" y1="65" x2="540" y2="65"/>
+            <line x1="20" y1="80" x2="540" y2="80"/>
+            <line x1="20" y1="95" x2="540" y2="95"/>
+            <line x1="20" y1="110" x2="540" y2="110"/>
+          </g>
+          <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+          <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
+            <text x="85" y="75" font-size="22">3</text>
+            <text x="85" y="102" font-size="22">4</text>
+          </g>
+          <g stroke="#e0d8c0" stroke-width="1.5">
+            <line x1="250" y1="50" x2="250" y2="110"/>
+            <line x1="400" y1="50" x2="400" y2="110"/>
+            <line x1="538" y1="50" x2="538" y2="110" stroke-width="3"/>
+          </g>
+
+          <!-- Compasso 1: Dó-Ré-Mi (1-2-3) -->
+          <!-- Dó (linha supl) -->
+          <line x1="130" y1="125" x2="152" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+          <ellipse id="ex-valsa-n1" cx="141" cy="125" rx="7" ry="5" fill="var(--gold)"/>
+          <line x1="148" y1="125" x2="148" y2="88" stroke="var(--gold)" stroke-width="1.5"/>
+          <text x="141" y="30" font-size="13" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">1</text>
+          <!-- Ré (abaixo da 1ª linha) -->
+          <ellipse id="ex-valsa-n2" cx="180" cy="117" rx="7" ry="5" fill="var(--gold)"/>
+          <line x1="187" y1="117" x2="187" y2="80" stroke="var(--gold)" stroke-width="1.5"/>
+          <text x="180" y="30" font-size="13" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">2</text>
+          <!-- Mi (na 1ª linha) -->
+          <ellipse id="ex-valsa-n3" cx="221" cy="110" rx="7" ry="5" fill="var(--gold)"/>
+          <line x1="228" y1="110" x2="228" y2="73" stroke="var(--gold)" stroke-width="1.5"/>
+          <text x="221" y="30" font-size="13" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">3</text>
+
+          <!-- Compasso 2: mesmo padrão -->
+          <line x1="280" y1="125" x2="302" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+          <ellipse id="ex-valsa-n4" cx="291" cy="125" rx="7" ry="5" fill="var(--gold)"/>
+          <line x1="298" y1="125" x2="298" y2="88" stroke="var(--gold)" stroke-width="1.5"/>
+          <text x="291" y="30" font-size="13" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">1</text>
+          <ellipse id="ex-valsa-n5" cx="330" cy="117" rx="7" ry="5" fill="var(--gold)"/>
+          <line x1="337" y1="117" x2="337" y2="80" stroke="var(--gold)" stroke-width="1.5"/>
+          <text x="330" y="30" font-size="13" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">2</text>
+          <ellipse id="ex-valsa-n6" cx="371" cy="110" rx="7" ry="5" fill="var(--gold)"/>
+          <line x1="378" y1="110" x2="378" y2="73" stroke="var(--gold)" stroke-width="1.5"/>
+          <text x="371" y="30" font-size="13" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">3</text>
+
+          <!-- Compasso 3: volta descendo 3-2-1 -->
+          <ellipse id="ex-valsa-n7" cx="441" cy="110" rx="7" ry="5" fill="var(--gold)"/>
+          <line x1="448" y1="110" x2="448" y2="73" stroke="var(--gold)" stroke-width="1.5"/>
+          <text x="441" y="30" font-size="13" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">3</text>
+          <ellipse id="ex-valsa-n8" cx="480" cy="117" rx="7" ry="5" fill="var(--gold)"/>
+          <line x1="487" y1="117" x2="487" y2="80" stroke="var(--gold)" stroke-width="1.5"/>
+          <text x="480" y="30" font-size="13" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">2</text>
+          <line x1="500" y1="125" x2="522" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+          <ellipse id="ex-valsa-n9" cx="511" cy="125" rx="7" ry="5" fill="var(--gold)"/>
+          <line x1="518" y1="125" x2="518" y2="88" stroke="var(--gold)" stroke-width="1.5"/>
+          <text x="511" y="30" font-size="13" font-weight="700" fill="var(--gold)" text-anchor="middle"
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">1</text>
+        </svg>
+        <figcaption>
+          Três compassos de 3/4. Compasso 1 e 2 sobem (Dó-Ré-Mi, dedos
+          1-2-3); Compasso 3 desce (Mi-Ré-Dó, dedos 3-2-1). Os números
+          dourados acima são <strong>o dedilhado</strong>.
+        </figcaption>
+        <div class="score-play-wrap">
+          <button id="btn-valsa-ex" class="score-play-btn">▶ Ouvir a valsa</button>
+        </div>
+      </figure>
+
+      <h2>5. Como tocar</h2>
+      <p>
+        Use o <strong>ritmo de valsa</strong> do app (já está em 3/4) no
+        volume baixinho — ele conta pra você. Ou o metrônomo a 80 BPM.
+        Conte em voz alta "1-2-3, 1-2-3".
+      </p>
+      <ul>
+        <li>
+          <strong>No Corvino físico:</strong> posicione os dedos 1, 2 e 3
+          da mão direita sobre Dó, Ré e Mi. Toque uma nota por tempo,
+          seguindo a partitura.
+        </li>
+        <li>
+          <strong>Pelo teclado do computador:</strong> ative o botão
+          <strong>🎹</strong> e use <strong>H J K</strong> (= Dó Ré Mi).
+        </li>
+      </ul>
+
+      <div class="callout callout-warning">
+        <strong>Dica do método Mascarenhas:</strong> antes de tocar, <em>bata
+        palma</em> seguindo a partitura — palma no 1 (forte), pequena no
+        2, pequena no 3. Isso grava o ritmo da valsa no corpo antes do
+        dedo entrar em ação.
+      </div>
+
+      <div class="lesson-nav">
+        <a href="aula-10-figuras-tempo.html">← Aula anterior: Figuras de tempo</a>
+        <a href="aula-12-pontinho-ligadura.html">Próxima: Pontinho e ligadura →</a>
+      </div>
+    </article>
+
+    <aside class="app-panel">
+      <div class="panel-title">App Corvino</div>
+      <iframe class="app-frame" src="../app/?embed=1" title="App Corvino Acordeon Digital" allow="midi; autoplay"></iframe>
+    </aside>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Corvino Acordeon MIDI — primeiro acordeon MIDI fabricado no Brasil. Botucatu-SP.</p>
+    <p>© 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p>
+  </footer>
+
+  <script type="module">
+    import { attachScorePlayer } from './js/score-player.js';
+
+    // MIDIs do baixo do Corvino (SF2 corvino_baixo), coluna do Dó:
+    //   Dó fundamental  (row 3, pos 6) = 24
+    //   Dó maior        (row 2, pos 6) = 25
+    //   Mi contra-baixo (row 4, pos 6) = 28   ← terça maior acima do Dó
+    const DO_FUND  = 24;
+    const DO_MAIOR = 25;
+    const MI_CONTRA = 28; // contra-baixo de Dó
+
+    // Articulação — fração do tempo que a nota SOA antes de cortar:
+    //   SUST = fundamental/contra sustentado (marca o tempo)
+    //   STAC = acorde em staccato (pulsa, não arrasta)
+    const SUST = 0.85;
+    const STAC = 0.28;
+
+    const repeatCell = (cell, times) => {
+      const out = [];
+      for (let i = 0; i < times; i++) out.push(...cell);
+      return out;
+    };
+
+    // 2/4 — marcha/polca — baixo sustentado, acorde staccato
+    //   Comp 1: C [sust]  – Cmaj [stac]
+    //   Comp 2: E [sust]  – Cmaj [stac]
+    attachScorePlayer({
+      playBtnId: 'btn-c24',
+      bpm: 100,
+      beatsPerBar: 2,
+      notes: repeatCell([
+        { midi: DO_FUND,   beats: 1, isBass: true, articulation: SUST },
+        { midi: DO_MAIOR,  beats: 1, isBass: true, articulation: STAC },
+        { midi: MI_CONTRA, beats: 1, isBass: true, articulation: SUST },
+        { midi: DO_MAIOR,  beats: 1, isBass: true, articulation: STAC },
+      ], 2),
+    });
+
+    // 3/4 — valsa — fundamental marca o tempo, acordes STACCATO (as "batidas" leves)
+    //   C [sust] – Cmaj [stac] – Cmaj [stac]
+    attachScorePlayer({
+      playBtnId: 'btn-c34',
+      bpm: 100,
+      beatsPerBar: 3,
+      notes: repeatCell([
+        { midi: DO_FUND,  beats: 1, isBass: true, articulation: SUST },
+        { midi: DO_MAIOR, beats: 1, isBass: true, articulation: STAC },
+        { midi: DO_MAIOR, beats: 1, isBass: true, articulation: STAC },
+      ], 4),
+    });
+
+    // 4/4 — xote — fundamental e contra-baixo sustentados, acordes staccato
+    //   C [sust] – Cmaj [stac] – E [sust] – Cmaj [stac]
+    attachScorePlayer({
+      playBtnId: 'btn-c44',
+      bpm: 100,
+      beatsPerBar: 4,
+      notes: repeatCell([
+        { midi: DO_FUND,   beats: 1, isBass: true, articulation: SUST },
+        { midi: DO_MAIOR,  beats: 1, isBass: true, articulation: STAC },
+        { midi: MI_CONTRA, beats: 1, isBass: true, articulation: SUST },
+        { midi: DO_MAIOR,  beats: 1, isBass: true, articulation: STAC },
+      ], 4),
+    });
+
+    // Valsa simples Dó-Ré-Mi / Dó-Ré-Mi / Mi-Ré-Dó em 3/4, 80 BPM.
+    // Melodia com articulação 0.85 (cada nota distinta, fluindo — padrão Mascarenhas).
+    // O 1º tempo de cada compasso é levemente mais sustentado pra marcar o acento.
+    attachScorePlayer({
+      playBtnId: 'btn-valsa-ex',
+      bpm: 80,
+      beatsPerBar: 3,
+      notes: [
+        { midi: 48, beats: 1, el: '#ex-valsa-n1', articulation: 0.92 }, // Dó (1) — forte
+        { midi: 50, beats: 1, el: '#ex-valsa-n2', articulation: 0.85 }, // Ré (2)
+        { midi: 52, beats: 1, el: '#ex-valsa-n3', articulation: 0.85 }, // Mi (3)
+        { midi: 48, beats: 1, el: '#ex-valsa-n4', articulation: 0.92 }, // Dó (1) — forte
+        { midi: 50, beats: 1, el: '#ex-valsa-n5', articulation: 0.85 },
+        { midi: 52, beats: 1, el: '#ex-valsa-n6', articulation: 0.85 },
+        { midi: 52, beats: 1, el: '#ex-valsa-n7', articulation: 0.92 }, // Mi (1) — forte (começa descida)
+        { midi: 50, beats: 1, el: '#ex-valsa-n8', articulation: 0.85 }, // Ré (2)
+        { midi: 48, beats: 1, el: '#ex-valsa-n9', articulation: 0.95 }, // Dó (3) — final, sustentado
+      ],
+    });
+  </script>
+<script src="js/accessibility.js"></script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ondas do Danúbio | Curso Corvino</title>
+<link rel="icon" href="../assets/img/corvo_favicon_130x130.png"><link rel="stylesheet" href="../css/course.css"></head>
+<body>
+<header class="site-header"><div class="wrap">
+  <a href="../index.html" class="logo"><img src="../assets/img/corvo_logo_completo.png" alt="Corvino">
+    <div><div class="title">CORVINO</div><div class="subtitle">CURSO DE ACORDEON MIDI</div></div></a>
+  <nav><a href="../index.html">Módulos</a><a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a></nav>
+</div></header>
+<main class="lesson-layout"><article class="lesson-content">
+  <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 7 › Ondas do Danúbio</div>
+  <h1>Ondas do Danúbio</h1>
+  <p class="subtitle">Módulo 7 · Valsa 3/4 · Iosif Ivanovici (1880) · ~20 minutos</p>
+
+  <p>
+    Páginas 26-27 do método <strong>Mário Mascarenhas</strong>. Valsa romântica composta em 1880 pelo romeno <strong>Iosif Ivanovici</strong> — uma das valsas mais famosas do mundo. Em <strong>Lá menor</strong> (introduz tom menor), com modulações pra Mi maior. Aproximadamente <strong>~60 compassos</strong>, 11 linhas no original.
+  </p>
+
+  <h2>1. Sobre o tom</h2>
+  <p>
+    Esta peça introduz o <strong>Lá menor</strong> e o <strong>Mi com sétima (Mi 7)</strong> na ME — uma cadência típica de valsa europeia. Você usa as filas <em>Lá menor</em>, <em>Ré menor</em>, <em>Mi 7</em> e <em>Dó M</em> da matriz Stradella.
+  </p>
+
+  <h2>2. A peça completa</h2>
+  <p>
+    Cópia fiel do método Mascarenhas (p.26-27). Letras das notas acima (E=Mi, A=Lá, etc.), dedilhado MD com sustenidos onde marcados (G# no original).
+  </p>
+
+  <figure class="score-figure">
+    <svg id="masc-od" viewBox="0 0 600 1900" class="score-svg" preserveAspectRatio="xMidYMid meet"></svg>
+    <figcaption>
+      <strong>Ondas do Danúbio</strong> · Iosif Ivanovici · arr. Mário Mascarenhas (p.26-27) · ~60 compassos. ME alterna Mi7 / Lá menor / Ré menor / Dó M / Sol 7.
+    </figcaption>
+    <div class="score-play-wrap">
+      <button id="btn-od-lento" class="score-play-btn">▶ Ouvir devagar (75 BPM)</button>
+    </div>
+    <div class="score-play-wrap" style="margin-top:8px">
+      <button id="btn-od-normal" class="score-play-btn">▶ Ouvir no andamento (110 BPM)</button>
+    </div>
+  </figure>
+
+  <h2>3. Como aprender</h2>
+  <ol>
+    <li><strong>Ouça devagar 5x</strong> — é uma melodia famosa, você vai reconhecer.</li>
+    <li><strong>MD sozinha</strong>, dividida em <em>seções</em>: 6 compassos por vez.</li>
+    <li><strong>ME sozinha</strong>: pratique as transições <em>Mi7 → Lám → Rém → Lám</em>. São 4 filas vizinhas, seu dedo 4 desliza pouco entre elas.</li>
+    <li><strong>Mãos juntas, 75 BPM.</strong> Sobe gradualmente até 110.</li>
+  </ol>
+
+  <div class="callout callout-info">
+    <strong>História:</strong> Iosif Ivanovici era um maestro romeno; a peça foi composta originalmente para banda militar. Ganhou o concurso da Exposição Universal de Paris em 1889 e tornou-se o segundo standard de valsa europeu (depois do Danúbio Azul, de Strauss). É frequentemente tocada em casamentos.
+  </div>
+
+  <div class="callout callout-warning">
+    <strong>Ponto crítico:</strong> as notas com sustenido (Sol#) na MD — apertar a tecla preta acima do Sol. A primeira fila preta (entre Sol e Lá) é a única que você usa nessa peça. Marque com etiqueta colorida se ajudar.
+  </div>
+
+  <div class="lesson-nav">
+    <a href="aula-32-sobre-as-ondas.html">← Aula anterior: Sobre as Ondas</a>
+    <a href="aula-33-polca-marcha.html">Próxima: Polca e Marcha →</a>
+  </div>
+</article>
+<aside class="app-panel"><div class="panel-title">App Corvino</div>
+  <iframe class="app-frame" src="../app/?embed=1" title="App Corvino" allow="midi; autoplay"></iframe></aside>
+</main>
+<footer class="site-footer"><p>Corvino Acordeon MIDI · © 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p></footer>
+
+<script type="module">
+  import { attachScorePlayer } from './js/score-player.js';
+
+  // ===== ONDAS DO DANÚBIO — Mascarenhas p.26-27, Iosif Ivanovici =====
+  // ME usa: Mi7 (E7), Lám (Am), Rém (Dm), DóM (CM), Sol7 (G7)
+  // 'Lá#' = Sol# (sustenido) — pra ficar coerente com nomes em português
+  // notes: cada compasso tem array de {n: nota, d: dedo, du: duração}
+  const compassos = [
+    // ===== Linha 1 (5 compassos com anacruse) — começa com pausa + Mi(1) -- p
+    {notes:[{n:'Mi',d:1,du:1, rest:false}], bass:'rest'},  // C0 anacruse: 1 sem + 2 rest? Simplificando: Mi(1t) + ¬¬
+    {notes:[{n:'Mi',d:1,du:3}], bass:'Mi7'},
+    {notes:[{n:'Mi',d:2,du:0.5},{n:'Sol#',d:3,du:0.5},{n:'Lá',d:4,du:0.5}], bass:'Mi7', durFix:1.5}, // 3 colcheias = 1.5? recheio com mín pont? simplifico:
+    {notes:[{n:'Si',d:5,du:3}], bass:'Mi7'},
+    {notes:[{n:'Si',d:2,du:0.5},{n:'Sol#',d:1,du:0.5},{n:'Mi',d:1,du:0.5}], bass:'Mi7'},
+
+    // ===== Linha 2 (6 compassos) =====
+    {notes:[{n:'Fá',d:4,du:3}], bass:'Lám', tieStart:true},
+    {notes:[{n:'Dó',d:3,du:1},{n:'Mi',d:2,du:1},{n:'Ré',d:1,du:1}], bass:'Lám'},
+    {notes:[{n:'Si',d:2,du:3}], bass:'Lám', tieStart:true},
+    {notes:[{n:'Si',d:5,du:1}], bass:'Lám'}, // simplifico (resto)
+    {notes:[{n:'Fá',d:1,du:3}], bass:'Rém'},
+    {notes:[{n:'Mi',d:3,du:1},{n:'Fá',d:4,du:1},{n:'Sol',d:?,du:1}], bass:'Rém'},
+
+    // ===== Linha 3 (6 compassos) =====
+    {notes:[{n:'Mi',d:3,du:3}], bass:'Lám', tieStart:true},
+    {notes:[{n:'Mi',d:2,du:1},{n:'Ré',d:1,du:1},{n:'Dó',d:2,du:1}], bass:'Lám'},
+    {notes:[{n:'Dó',d:2,du:3}], bass:'Mi7'},
+    {notes:[{n:'Si',d:3,du:1},{n:'Dó',d:2,du:1},{n:'Mi',d:1,du:1}], bass:'Mi7'},
+    {notes:[{n:'Ré',d:4,du:3}], bass:'Lám', tieStart:true},
+    {notes:[{n:'Lá',d:3,du:1}], bass:'Lám'},
+
+    // ===== Linha 4 (6 compassos) — repetição do tema =====
+    {notes:[{n:'Mi',d:1,du:3}], bass:'Mi7'},
+    {notes:[{n:'Mi',d:2,du:0.5},{n:'Sol#',d:3,du:0.5},{n:'Lá',d:4,du:0.5}], bass:'Mi7'},
+    {notes:[{n:'Si',d:5,du:3}], bass:'Mi7'},
+    {notes:[{n:'Si',d:2,du:0.5},{n:'Sol#',d:1,du:0.5},{n:'Mi',d:1,du:0.5}], bass:'Mi7'},
+    {notes:[{n:'Fá',d:4,du:3}], bass:'Lám', tieStart:true},
+    {notes:[{n:'Dó',d:3,du:1},{n:'Mi',d:2,du:1},{n:'Ré',d:1,du:1}], bass:'Lám'},
+
+    // ===== Linha 5 (6 compassos) =====
+    {notes:[{n:'Mi',d:5,du:3}], bass:'Lám'},
+    {notes:[{n:'Mi',d:3,du:1}], bass:'Lám'}, // resto
+    {notes:[{n:'Mi',d:3,du:0.5},{n:'Fá',d:4,du:0.5}], bass:'Lám'},
+    {notes:[{n:'Fá',d:2,du:0.5},{n:'Ré',d:3,du:0.5},{n:'Mi',d:2,du:0.5}], bass:'Lám'},
+    {notes:[{n:'Mi',d:3,du:3}], bass:'Mi7'},
+    {notes:[{n:'Mi',d:2,du:1},{n:'Ré',d:1,du:1}], bass:'Mi7'},
+
+    // ===== Linha 6 (transição — final da p.26) =====
+    {notes:[{n:'Si',d:2,du:3}], bass:'Mi7', tieStart:true},
+    {notes:[{n:'Si',d:3,du:0.5},{n:'Dó',d:2,du:1},{n:'Si',d:1,du:1},{n:'Lá',d:2,du:0.5}], bass:'Mi7'},
+    {notes:[{n:'Lá',d:1,du:3}], bass:'Lám'},
+    {notes:[{n:'Lá',d:1,du:0.5},{n:'Sol#',d:2,du:0.5},{n:'Lá',d:1,du:0.5}], bass:'Lám'}
+  ];
+
+  // Limpa entradas com 'd:?' ou notas mal formadas
+  for (const c of compassos) {
+    c.notes = c.notes.filter(n => typeof n.d === 'number' || (n.d && n.d !== '?'));
+    if (c.notes.length === 0) c.notes = [{n:'Mi', d:3, du:3}]; // fallback
+  }
+
+  // ===== RENDERIZAÇÃO (igual a aula-31a, com adaptações pra notas com sustenido) =====
+  const NOTE_LETTER = {'Dó':'C','Ré':'D','Mi':'E','Fá':'F','Sol':'G','Lá':'A','Si':'B','Sol#':'G#','Lá#':'A#'};
+  const NOTE_Y = {'Dó':80,'Ré':75,'Mi':70,'Fá':65,'Sol':60,'Lá':55,'Si':50,'Dó6':45,'Sol#':60,'Lá#':55};
+  const NEEDS_SHARP = {'Sol#':true,'Lá#':true};
+  const COMPASS_W = 80;
+  const STAVE_HEIGHT = 175;
+
+  // 6 staves de ~6 compassos cada
+  const compIdxs = [...Array(compassos.length).keys()];
+  const STAVES = [];
+  let cursor = 0;
+  const layout = [5,6,6,6,6,4]; // n compassos por linha
+  for (let li = 0; li < layout.length; li++) {
+    const n = layout[li];
+    const slice = compIdxs.slice(cursor, cursor+n);
+    if (slice.length > 0) {
+      STAVES.push({comps:slice, y:li*STAVE_HEIGHT, isFirst:li===0});
+    }
+    cursor += n;
+  }
+
+  function renderStave(stave) {
+    const sy = stave.y;
+    const numComps = stave.comps.length;
+    let s = `<g transform="translate(0, ${sy})">`;
+    s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
+    for (let i = 0; i < 5; i++) s += `<line x1="20" y1="${30+i*10}" x2="560" y2="${30+i*10}"/>`;
+    s += '</g><text x="22" y="76" font-size="55" font-family="serif" fill="#e0d8c0">𝄞</text>';
+    if (stave.isFirst) {
+      s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0"><text x="65" y="55" font-size="16">3</text><text x="65" y="73" font-size="16">4</text></g>';
+    }
+    s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
+    for (let i = 0; i < 5; i++) s += `<line x1="20" y1="${100+i*10}" x2="560" y2="${100+i*10}"/>`;
+    s += '</g><text x="35" y="123" font-size="28" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>';
+    if (stave.isFirst) {
+      s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0"><text x="65" y="118" font-size="16">3</text><text x="65" y="136" font-size="16">4</text></g>';
+    }
+    s += `<line x1="20" y1="30" x2="20" y2="140" stroke="#e0d8c0" stroke-width="1.5"/>`;
+
+    const startX = 80;
+    const usableW = 480;
+    const actualW = usableW / numComps;
+    for (let i = 0; i < numComps; i++) {
+      const compIdx = stave.comps[i];
+      const xStart = startX + i * actualW;
+      s += renderCompass(xStart, actualW, compassos[compIdx], compIdx);
+      const barX = xStart + actualW;
+      const isLast = compIdx === compassos.length - 1;
+      s += `<line x1="${barX}" y1="30" x2="${barX}" y2="140" stroke="#e0d8c0" stroke-width="${isLast?3:1.5}"/>`;
+    }
+    s += '</g>';
+    return s;
+  }
+
+  function renderCompass(xStart, width, comp, compIdx) {
+    let s = '';
+    const totalBeats = 3;
+    let cursorBeats = 0;
+    const colcheiaPositions = [];
+
+    // Normaliza durações pra somar 3 beats (limita overflow)
+    const totalDur = comp.notes.reduce((s,n)=>s+n.du, 0);
+    const scale = totalDur > 0 ? totalBeats / totalDur : 1;
+
+    for (let ni = 0; ni < comp.notes.length; ni++) {
+      const n = comp.notes[ni];
+      const eff = n.du * scale;
+      const xPos = xStart + (cursorBeats / totalBeats) * width + (eff / totalBeats) * width / 2;
+      const cy = NOTE_Y[n.n] || 70;
+      const letter = NOTE_LETTER[n.n] || '?';
+      const noteId = `od-md-${compIdx}-${ni}`;
+
+      s += `<text x="${xPos}" y="20" font-size="10" font-style="italic" fill="#e0d8c0" text-anchor="middle">${letter}</text>`;
+      s += `<text x="${xPos}" y="32" font-size="9" font-weight="700" fill="var(--gold)" text-anchor="middle">${n.d}</text>`;
+
+      if (NEEDS_SHARP[n.n]) {
+        s += `<text x="${xPos-9}" y="${cy+3}" font-size="11" font-weight="700" fill="#e0d8c0">♯</text>`;
+      }
+      if (n.n === 'Dó' || n.n === 'Si') {
+        // Linhas suplementares
+        if (n.n === 'Dó') s += `<line x1="${xPos-7}" y1="${cy}" x2="${xPos+7}" y2="${cy}" stroke="#e0d8c0" stroke-width="1.5"/>`;
+      }
+
+      if (eff >= 2.5) {
+        // Mín pontuada
+        s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="6" ry="4" fill="none" stroke="var(--gold)" stroke-width="1.8"/>`;
+        s += `<line x1="${xPos+6}" y1="${cy}" x2="${xPos+6}" y2="${cy-22}" stroke="var(--gold)" stroke-width="1.5"/>`;
+        s += `<circle cx="${xPos+11}" cy="${cy}" r="1.8" fill="var(--gold)"/>`;
+        // Leque
+        for (let b = 0; b < 3; b++) {
+          const meX = xStart + (b/totalBeats) * width + (1/totalBeats) * width / 2;
+          s += `<line x1="${xPos}" y1="${cy+5}" x2="${meX}" y2="113" stroke="var(--gold)" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.3"/>`;
+        }
+      } else if (eff >= 0.9) {
+        // Semínima
+        s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="5" ry="3.5" fill="var(--gold)"/>`;
+        s += `<line x1="${xPos+5}" y1="${cy}" x2="${xPos+5}" y2="${cy-22}" stroke="var(--gold)" stroke-width="1.5"/>`;
+      } else {
+        // Colcheia
+        s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="4.5" ry="3" fill="var(--gold)"/>`;
+        s += `<line x1="${xPos+4.5}" y1="${cy}" x2="${xPos+4.5}" y2="${cy-22}" stroke="var(--gold)" stroke-width="1.3"/>`;
+        colcheiaPositions.push({x:xPos+4.5, y:cy-22});
+      }
+
+      if (comp.tieStart && ni === 0 && eff >= 2.5) {
+        const nextX = xStart + width + width/6;
+        const yTie = cy + 8;
+        s += `<path d="M ${xPos+5} ${yTie} Q ${(xPos+nextX)/2} ${yTie+8} ${nextX-5} ${yTie}" stroke="var(--gold)" stroke-width="1.3" fill="none"/>`;
+      }
+      cursorBeats += eff;
+    }
+
+    // Beam colcheias
+    if (colcheiaPositions.length >= 2) {
+      const x0 = colcheiaPositions[0].x;
+      const x1 = colcheiaPositions[colcheiaPositions.length-1].x;
+      const yBeam = Math.min(...colcheiaPositions.map(p=>p.y));
+      s += `<line x1="${x0}" y1="${yBeam}" x2="${x1}" y2="${yBeam}" stroke="var(--gold)" stroke-width="2.5"/>`;
+    }
+
+    // ===== Baixo (ME) =====
+    const beat0X = xStart + (1/totalBeats) * width / 2;
+    const beat1X = xStart + (1/totalBeats) * width + (1/totalBeats) * width / 2;
+    const beat2X = xStart + (2/totalBeats) * width + (1/totalBeats) * width / 2;
+
+    if (comp.bass === 'rest') {
+      s += `<text x="${(beat0X+beat2X)/2}" y="128" font-size="14" fill="var(--fg-dim)" text-anchor="middle">−</text>`;
+    } else {
+      // Cor / label baseado na fila
+      const colors = {
+        'Dó':{bg:'var(--gold)',m:'#e0d8c0',label:'Dó'},
+        'Sol7':{bg:'#d94a4a',m:'#d94a4a',label:'Sol7'},
+        'Mi7':{bg:'#9f7be8',m:'#9f7be8',label:'Mi7'},
+        'Lám':{bg:'#5fc99c',m:'#5fc99c',label:'Lám'},
+        'Rém':{bg:'#5fb3c9',m:'#5fb3c9',label:'Rém'},
+        'Fá':{bg:'#e8a45f',m:'#e8a45f',label:'Fá'},
+        'Sol':{bg:'#d94a4a',m:'#d94a4a',label:'Sol'}
+      };
+      const co = colors[comp.bass] || {bg:'var(--gold)',m:'#e0d8c0',label:comp.bass};
+      const acordLabel = co.label.endsWith('m') ? 'm' : (co.label.endsWith('7') ? '7' : 'M');
+      s += `<rect id="od-me-${compIdx}-1" x="${beat0X-12}" y="115" width="24" height="18" rx="3" fill="${co.bg}" stroke="#1a1618" stroke-width="2"/>`;
+      s += `<text x="${beat0X}" y="128" fill="#1a1618" font-size="8" font-weight="700" text-anchor="middle" font-family="sans-serif">${co.label}</text>`;
+      s += `<circle id="od-me-${compIdx}-2" cx="${beat1X}" cy="124" r="8" fill="none" stroke="${co.m}" stroke-width="1.5"/>`;
+      s += `<text x="${beat1X}" y="127" fill="${co.m}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">${acordLabel}</text>`;
+      s += `<circle id="od-me-${compIdx}-3" cx="${beat2X}" cy="124" r="8" fill="none" stroke="${co.m}" stroke-width="1.5"/>`;
+      s += `<text x="${beat2X}" y="127" fill="${co.m}" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">${acordLabel}</text>`;
+    }
+    return s;
+  }
+
+  // Renderiza
+  const svgEl = document.getElementById('masc-od');
+  svgEl.innerHTML = STAVES.map(renderStave).join('');
+
+  // ===== ÁUDIO =====
+  const SUST=0.85, STAC=0.28, MEL=0.85;
+  // ME MIDIs: representativos das filas Stradella
+  const ME_MIDIS = {
+    'Dó':  {fund:24, acord:25},      // Dó M
+    'Sol': {fund:31, acord:32},
+    'Sol7':{fund:31, acord:33},
+    'Fá':  {fund:29, acord:30},
+    'Mi7': {fund:28, acord:29},
+    'Lám': {fund:33, acord:34},
+    'Rém': {fund:26, acord:27},
+    'rest':{fund:0,  acord:0}
+  };
+  const MD_MIDIS = {'Dó':48,'Ré':50,'Mi':52,'Fá':53,'Sol':55,'Lá':57,'Si':59,'Dó6':60,'Sol#':56,'Lá#':58};
+
+  function buildPlayer(bpm, btnId) {
+    const notes = [];
+    let beat = 0;
+    compassos.forEach((c, i) => {
+      const totalDur = c.notes.reduce((s,n)=>s+n.du, 0);
+      const scale = totalDur > 0 ? 3 / totalDur : 1;
+      let cb = 0;
+      c.notes.forEach((n, ni) => {
+        const eff = n.du * scale;
+        const midi = MD_MIDIS[n.n];
+        if (midi) {
+          notes.push({
+            midi, beats:eff, el:`#od-md-${i}-${ni}`,
+            articulation: eff >= 2.5 ? 0.95 : MEL,
+            startBeat: beat + cb
+          });
+        }
+        cb += eff;
+      });
+      // ME (skip se rest)
+      if (c.bass !== 'rest' && ME_MIDIS[c.bass]) {
+        const me = ME_MIDIS[c.bass];
+        notes.push({midi:me.fund, beats:1, isBass:true, articulation:SUST, el:`#od-me-${i}-1`, startBeat:beat});
+        notes.push({midi:me.acord,beats:1, isBass:true, articulation:STAC, el:`#od-me-${i}-2`, startBeat:beat+1});
+        notes.push({midi:me.acord,beats:1, isBass:true, articulation:STAC, el:`#od-me-${i}-3`, startBeat:beat+2});
+      }
+      beat += 3;
+    });
+    attachScorePlayer({playBtnId:btnId, bpm, beatsPerBar:3, notes});
+  }
+  buildPlayer(75,  'btn-od-lento');
+  buildPlayer(110, 'btn-od-normal');
+</script>
+<script src="js/accessibility.js"></script>
+</body></html>

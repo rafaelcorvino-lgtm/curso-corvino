@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 1 — A pauta e a clave de Sol | Curso Corvino</title>
+  <link rel="icon" href="../assets/img/corvo_favicon_130x130.png">
+  <link rel="stylesheet" href="../css/course.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="../index.html" class="logo">
+        <img src="../assets/img/corvo_logo_completo.png" alt="Corvino">
+        <div>
+          <div class="title">CORVINO</div>
+          <div class="subtitle">CURSO DE ACORDEON MIDI</div>
+        </div>
+      </a>
+      <nav>
+        <a href="../index.html">Módulos</a>
+        <a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="lesson-layout">
+
+    <article class="lesson-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Curso</a> › Módulo 3 › Aula 1
+      </div>
+      <h1>A pauta e a clave de Sol</h1>
+      <p class="subtitle">Módulo 3 · Aula 1 de 8 · ~8 minutos</p>
+
+      <p>
+        Até agora você tocou por tato — seja apertando uma tecla do
+        Corvino físico ou uma tecla do teclado do computador (H = Dó,
+        por exemplo). A partir dessa aula você vai aprender a <strong>ler
+        o que os compositores escreveram</strong>. Isso abre o mundo
+        inteiro das partituras — Mario Mascarenhas, músicas populares,
+        hinos, valsas.
+      </p>
+
+      <p>
+        A boa notícia: em 8 minutos você já sai sabendo identificar as
+        <strong>5 notas que você já toca</strong> (Dó, Ré, Mi, Fá, Sol)
+        em uma partitura real.
+      </p>
+
+      <h2>1. A pauta — 5 linhas e 4 espaços</h2>
+      <p>
+        Toda partitura é escrita numa <strong>pauta</strong> (também
+        chamada de <strong>pentagrama</strong>): 5 linhas horizontais
+        paralelas, que criam 4 espaços entre elas.
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 400 120" class="score-svg">
+          <!-- pauta básica -->
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="40" x2="380" y2="40"/>
+            <line x1="20" y1="55" x2="380" y2="55"/>
+            <line x1="20" y1="70" x2="380" y2="70"/>
+            <line x1="20" y1="85" x2="380" y2="85"/>
+            <line x1="20" y1="100" x2="380" y2="100"/>
+          </g>
+          <!-- números das linhas (fora da pauta, à esquerda) -->
+          <g fill="var(--gold)" font-size="11" font-family="monospace"
+             stroke="#1a1618" stroke-width="3.5" paint-order="stroke">
+            <text x="5" y="43">5</text>
+            <text x="5" y="58">4</text>
+            <text x="5" y="73">3</text>
+            <text x="5" y="88">2</text>
+            <text x="5" y="103">1</text>
+          </g>
+          <!-- marcadores de espaços (centro da pauta, com halo escuro atrás) -->
+          <g fill="#d4c9a8" font-size="10" font-family="monospace"
+             stroke="#1a1618" stroke-width="3.5" paint-order="stroke">
+            <text x="200" y="51">espaço 4</text>
+            <text x="200" y="66">espaço 3</text>
+            <text x="200" y="81">espaço 2</text>
+            <text x="200" y="96">espaço 1</text>
+          </g>
+        </svg>
+        <figcaption>A pauta é numerada <strong>de baixo pra cima</strong>: linha 1 embaixo, linha 5 em cima.</figcaption>
+      </figure>
+
+      <h2>2. A clave de Sol</h2>
+      <p>
+        Cada nota mora em uma linha ou espaço específico da pauta — mas
+        precisa de uma <strong>clave</strong> no início pra dizer qual nota
+        é qual. A clave usada pra <strong>mão direita</strong> do acordeon
+        (e pro piano agudo) é a <strong>clave de Sol</strong>:
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 400 120" class="score-svg">
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="40" x2="380" y2="40"/>
+            <line x1="20" y1="55" x2="380" y2="55"/>
+            <line x1="20" y1="70" x2="380" y2="70"/>
+            <line x1="20" y1="85" x2="380" y2="85"/>
+            <line x1="20" y1="100" x2="380" y2="100"/>
+          </g>
+          <!-- clave de sol (unicode glyph) -->
+          <text x="30" y="96" font-size="88" font-family="serif" fill="#e0d8c0">𝄞</text>
+          <!-- nota Sol na 2ª linha -->
+          <ellipse cx="110" cy="85" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 110 85)"/>
+          <line x1="117" y1="85" x2="117" y2="45" stroke="var(--gold)" stroke-width="1.5"/>
+          <!-- textos com halo escuro (paint-order) pra sobrepor as linhas -->
+          <text x="135" y="90" fill="var(--gold)" font-size="14" font-weight="700"
+                stroke="#1a1618" stroke-width="4" paint-order="stroke">= Sol</text>
+          <text x="220" y="60" fill="#d4c9a8" font-size="11" font-family="sans-serif"
+                stroke="#1a1618" stroke-width="3.5" paint-order="stroke">a espiral da clave gira em torno</text>
+          <text x="220" y="75" fill="#d4c9a8" font-size="11" font-family="sans-serif"
+                stroke="#1a1618" stroke-width="3.5" paint-order="stroke">da 2ª linha — essa é a nota Sol</text>
+        </svg>
+        <figcaption>A clave de Sol (𝄞) "aponta" pra 2ª linha. Essa linha passa a ser a nota <strong>Sol</strong>.</figcaption>
+      </figure>
+
+      <h2>3. Onde mora cada nota</h2>
+      <p>
+        Depois de estabelecer que a 2ª linha é o Sol, o resto vem em
+        sequência: cada linha ou espaço pra cima é a <strong>próxima
+        nota</strong>. Cada linha ou espaço pra baixo é a <strong>anterior</strong>.
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 500 130" class="score-svg">
+          <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+            <line x1="20" y1="40" x2="480" y2="40"/>
+            <line x1="20" y1="55" x2="480" y2="55"/>
+            <line x1="20" y1="70" x2="480" y2="70"/>
+            <line x1="20" y1="85" x2="480" y2="85"/>
+            <line x1="20" y1="100" x2="480" y2="100"/>
+          </g>
+          <text x="30" y="96" font-size="88" font-family="serif" fill="#e0d8c0">𝄞</text>
+
+          <!-- Dó (abaixo da pauta, linha suplementar) -->
+          <line x1="102" y1="115" x2="126" y2="115" stroke="#e0d8c0" stroke-width="1.5"/>
+          <ellipse id="ex9-do" cx="114" cy="115" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 114 115)"/>
+          <text x="107" y="128" fill="var(--gold)" font-size="10" font-weight="700">Dó</text>
+
+          <!-- Ré (abaixo da 1ª linha) -->
+          <ellipse id="ex9-re" cx="160" cy="107" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 160 107)"/>
+          <text x="153" y="125" fill="var(--gold)" font-size="10" font-weight="700">Ré</text>
+
+          <!-- Mi (na 1ª linha) -->
+          <ellipse id="ex9-mi" cx="210" cy="100" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 210 100)"/>
+          <text x="203" y="118" fill="var(--gold)" font-size="10" font-weight="700">Mi</text>
+
+          <!-- Fá (no 1º espaço) -->
+          <ellipse id="ex9-fa" cx="260" cy="92" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 260 92)"/>
+          <text x="253" y="118" fill="var(--gold)" font-size="10" font-weight="700">Fá</text>
+
+          <!-- Sol (na 2ª linha) -->
+          <ellipse id="ex9-sol" cx="310" cy="85" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 310 85)"/>
+          <text x="302" y="118" fill="var(--gold)" font-size="10" font-weight="700">Sol</text>
+
+          <!-- Lá (no 2º espaço) -->
+          <ellipse id="ex9-la" cx="360" cy="77" rx="7" ry="5" fill="#887a50" transform="rotate(-20 360 77)"/>
+          <text x="354" y="118" fill="#887a50" font-size="10">Lá</text>
+
+          <!-- Si (na 3ª linha) -->
+          <ellipse id="ex9-si" cx="410" cy="70" rx="7" ry="5" fill="#887a50" transform="rotate(-20 410 70)"/>
+          <text x="405" y="118" fill="#887a50" font-size="10">Si</text>
+        </svg>
+        <figcaption>As notas dessa aula em <span style="color:var(--gold)"><strong>dourado</strong></span> (Dó a Sol — que você já toca com H J K L Ç). As próximas (Lá, Si) aparecem em cinza como prévia.</figcaption>
+        <div class="score-play-wrap">
+          <button id="btn-ex9-escala" class="score-play-btn">▶ Ouvir a escala</button>
+        </div>
+      </figure>
+
+      <div class="callout callout-info">
+        <strong>Regra prática:</strong> cada "degrau" pra cima na pauta
+        (linha → espaço → linha → espaço…) é a próxima nota. Não pula.
+        Dó-Ré-Mi-Fá-Sol-Lá-Si-Dó e recomeça.
+      </div>
+
+      <h2>4. Truque pra memorizar</h2>
+      <p>
+        As cinco linhas da pauta (de baixo pra cima) guardam as notas
+        <strong>Mi – Sol – Si – Ré – Fá</strong>. Um jeito de decorar é a
+        frase:
+      </p>
+      <div class="mnemonic">
+        <span class="m-word">Mi</span>nhas
+        <span class="m-word">Sol</span>as
+        <span class="m-word">Si</span>mples
+        <span class="m-word">Ré</span>m
+        <span class="m-word">Fá</span>cil
+      </div>
+      <p>
+        E os quatro espaços (de baixo pra cima) são <strong>Fá – Lá –
+        Dó – Mi</strong> — que por sorte soletram a palavra
+        "<strong>FALÁDOMI</strong>" ou, mais fácil ainda, a palavra
+        em inglês "<strong>FACE</strong>" (F-A-C-E = Fá-Lá-Dó-Mi).
+      </p>
+
+      <h2>5. Pratique no app ao lado</h2>
+      <p>
+        Olhe a partitura, identifique a nota, toque. Duas formas de
+        tocar, use a que tiver à mão:
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 580 320" class="score-svg">
+          <!-- ===== SEÇÃO 1: CORVINO KEYBOARD ===== -->
+          <text x="290" y="14" font-size="12" fill="var(--gold)" text-anchor="middle" font-weight="700">🎹 No Corvino — 5 primeiras notas (Dó a Sol)</text>
+
+          <!-- Dedilhado acima das teclas -->
+          <g font-size="13" font-weight="800" fill="var(--gold)" text-anchor="middle">
+            <text x="65" y="32">1</text>
+            <text x="115" y="32">2</text>
+            <text x="165" y="32">3</text>
+            <text x="215" y="32">4</text>
+            <text x="265" y="32">5</text>
+          </g>
+
+          <!-- Bracket agrupando os 5 dedos -->
+          <line x1="50" y1="38" x2="280" y2="38" stroke="var(--gold)" stroke-width="1.5"/>
+
+          <!-- Teclas brancas (8 = 1 oitava + Dó) — primeiras 5 destacadas -->
+          <g stroke="#1a1618" stroke-width="1.3">
+            <rect x="40" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
+            <rect x="90" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
+            <rect x="140" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
+            <rect x="190" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
+            <rect x="240" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
+            <rect x="290" y="42" width="50" height="120" fill="#f4f0e6"/>
+            <rect x="340" y="42" width="50" height="120" fill="#f4f0e6"/>
+            <rect x="390" y="42" width="50" height="120" fill="#f4f0e6"/>
+          </g>
+
+          <!-- Teclas pretas -->
+          <g fill="#1a1618" stroke="#666" stroke-width="0.5">
+            <rect x="76" y="42" width="28" height="75"/>
+            <rect x="126" y="42" width="28" height="75"/>
+            <rect x="226" y="42" width="28" height="75"/>
+            <rect x="276" y="42" width="28" height="75"/>
+            <rect x="326" y="42" width="28" height="75"/>
+            <rect x="376" y="42" width="28" height="75"/>
+          </g>
+
+          <!-- Labels das teclas brancas -->
+          <g font-size="14" font-weight="700" text-anchor="middle">
+            <text x="65" y="150" fill="#a07000">Dó</text>
+            <text x="115" y="150" fill="#a07000">Ré</text>
+            <text x="165" y="150" fill="#a07000">Mi</text>
+            <text x="215" y="150" fill="#a07000">Fá</text>
+            <text x="265" y="150" fill="#a07000">Sol</text>
+            <text x="315" y="150" fill="#5a5a5a">Lá</text>
+            <text x="365" y="150" fill="#5a5a5a">Si</text>
+            <text x="415" y="150" fill="#5a5a5a">Dó</text>
+          </g>
+
+          <!-- Linhas tracejadas conectando Corvino → teclado computador -->
+          <g stroke="rgba(218,165,32,0.4)" stroke-width="1" stroke-dasharray="3,3">
+            <line x1="65" y1="172" x2="297" y2="240"/>
+            <line x1="115" y1="172" x2="337" y2="240"/>
+            <line x1="165" y1="172" x2="377" y2="240"/>
+            <line x1="215" y1="172" x2="417" y2="240"/>
+            <line x1="265" y1="172" x2="457" y2="240"/>
+          </g>
+
+          <!-- ===== SEÇÃO 2: TECLADO DO COMPUTADOR ===== -->
+          <text x="290" y="195" font-size="12" fill="var(--gold)" text-anchor="middle" font-weight="700">⌨ Pelo teclado do computador (H J K L Ç na fileira central)</text>
+
+          <!-- Linha QWERTY (Q W E R T Y U I O P) -->
+          <g font-family="monospace" text-anchor="middle">
+            <rect x="60" y="208" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="77" y="226" font-size="11" fill="#a8a29a">Q</text>
+            <rect x="100" y="208" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="117" y="226" font-size="11" fill="#a8a29a">W</text>
+            <rect x="140" y="208" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="157" y="226" font-size="11" fill="#a8a29a">E</text>
+            <rect x="180" y="208" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="197" y="226" font-size="11" fill="#a8a29a">R</text>
+            <rect x="220" y="208" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="237" y="226" font-size="11" fill="#a8a29a">T</text>
+            <rect x="260" y="208" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="277" y="226" font-size="11" fill="#a8a29a">Y</text>
+            <rect x="300" y="208" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="317" y="226" font-size="11" fill="#a8a29a">U</text>
+            <rect x="340" y="208" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="357" y="226" font-size="11" fill="#a8a29a">I</text>
+            <rect x="380" y="208" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="397" y="226" font-size="11" fill="#a8a29a">O</text>
+            <rect x="420" y="208" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="437" y="226" font-size="11" fill="#a8a29a">P</text>
+          </g>
+
+          <!-- Linha ASDF...HJKLÇ (H J K L Ç destacados) -->
+          <g font-family="monospace" text-anchor="middle">
+            <rect x="80" y="240" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="97" y="258" font-size="11" fill="#a8a29a">A</text>
+            <rect x="120" y="240" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="137" y="258" font-size="11" fill="#a8a29a">S</text>
+            <rect x="160" y="240" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="177" y="258" font-size="11" fill="#a8a29a">D</text>
+            <rect x="200" y="240" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="217" y="258" font-size="11" fill="#a8a29a">F</text>
+            <rect x="240" y="240" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="257" y="258" font-size="11" fill="#a8a29a">G</text>
+            <!-- H (Dó) destacado -->
+            <rect x="280" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="297" y="259" font-size="12" font-weight="700" fill="var(--gold)">H</text>
+            <rect x="320" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="337" y="259" font-size="12" font-weight="700" fill="var(--gold)">J</text>
+            <rect x="360" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="377" y="259" font-size="12" font-weight="700" fill="var(--gold)">K</text>
+            <rect x="400" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="417" y="259" font-size="12" font-weight="700" fill="var(--gold)">L</text>
+            <rect x="440" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="457" y="259" font-size="12" font-weight="700" fill="var(--gold)">Ç</text>
+          </g>
+
+          <!-- Linha ZXC -->
+          <g font-family="monospace" text-anchor="middle">
+            <rect x="100" y="272" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="117" y="290" font-size="11" fill="#a8a29a">Z</text>
+            <rect x="140" y="272" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="157" y="290" font-size="11" fill="#a8a29a">X</text>
+            <rect x="180" y="272" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="197" y="290" font-size="11" fill="#a8a29a">C</text>
+            <rect x="220" y="272" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="237" y="290" font-size="11" fill="#a8a29a">V</text>
+            <rect x="260" y="272" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="277" y="290" font-size="11" fill="#a8a29a">B</text>
+            <rect x="300" y="272" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="317" y="290" font-size="11" fill="#a8a29a">N</text>
+            <rect x="340" y="272" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="357" y="290" font-size="11" fill="#a8a29a">M</text>
+          </g>
+
+          <!-- Notas mapeadas embaixo das teclas H-Ç -->
+          <g font-size="10" font-weight="700" text-anchor="middle" fill="var(--gold)">
+            <text x="297" y="313">Dó</text>
+            <text x="337" y="313">Ré</text>
+            <text x="377" y="313">Mi</text>
+            <text x="417" y="313">Fá</text>
+            <text x="457" y="313">Sol</text>
+          </g>
+        </svg>
+        <figcaption>
+          As 5 primeiras notas (Dó-Ré-Mi-Fá-Sol) são tocadas com os <strong>5 dedos da mão direita</strong> no Corvino, ou no teclado do computador pela <strong>fileira central</strong> (H J K L Ç). O dedilhado é o mesmo: dedo 1 = Dó, dedo 2 = Ré, e assim por diante. As linhas pontilhadas mostram a equivalência tecla → nota.
+        </figcaption>
+      </figure>
+
+      <ul>
+        <li>
+          <strong>No Corvino físico:</strong> toque as teclas brancas
+          correspondentes (Dó, Ré, Mi, Fá, Sol — as 5 primeiras notas a
+          partir do primeiro Dó do teclado).
+        </li>
+        <li>
+          <strong>Pelo teclado do computador:</strong> ative o botão
+          <strong>🎹</strong> no topo do app e use:
+        </li>
+      </ul>
+      <div class="fingering">
+        <div><span class="fnum">H</span> Dó</div>
+        <div><span class="fnum">J</span> Ré</div>
+        <div><span class="fnum">K</span> Mi</div>
+        <div><span class="fnum">L</span> Fá</div>
+        <div><span class="fnum">Ç</span> Sol</div>
+      </div>
+      <p>
+        Repita até o olho reconhecer a nota na pauta <strong>sem precisar
+        contar linhas</strong>.
+      </p>
+
+      <div class="callout callout-warning">
+        <strong>Dica:</strong> não tente decorar todas as notas de uma
+        vez. Fixe <strong>Dó e Sol</strong> primeiro — são as duas
+        "âncoras": Dó embaixo da pauta, Sol na 2ª linha. Qualquer outra
+        nota você deduz por proximidade.
+      </div>
+
+      <div class="lesson-nav">
+        <a href="aula-07-mao-esquerda.html">← Aula anterior: A mão esquerda</a>
+        <a href="aula-10-figuras-tempo.html">Próxima: Figuras de tempo →</a>
+      </div>
+    </article>
+
+    <aside class="app-panel">
+      <div class="panel-title">App Corvino</div>
+      <iframe class="app-frame" src="../app/?embed=1" title="App Corvino Acordeon Digital" allow="midi; autoplay"></iframe>
+    </aside>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Corvino Acordeon MIDI — primeiro acordeon MIDI fabricado no Brasil. Botucatu-SP.</p>
+    <p>© 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p>
+  </footer>
+
+  <script type="module">
+    import { attachScorePlayer } from './js/score-player.js';
+
+    // Escala Dó-Ré-Mi-Fá-Sol-Lá-Si, semínimas a 80 BPM, compasso 4/4.
+    // articulation 0.85 = melodia fluida mas cada nota distinta (padrão Mascarenhas)
+    const MEL = 0.85;
+    attachScorePlayer({
+      playBtnId: 'btn-ex9-escala',
+      bpm: 80,
+      beatsPerBar: 4,
+      notes: [
+        { midi: 48, beats: 1, el: '#ex9-do',  articulation: MEL },
+        { midi: 50, beats: 1, el: '#ex9-re',  articulation: MEL },
+        { midi: 52, beats: 1, el: '#ex9-mi',  articulation: MEL },
+        { midi: 53, beats: 1, el: '#ex9-fa',  articulation: MEL },
+        { midi: 55, beats: 1, el: '#ex9-sol', articulation: MEL },
+        { midi: 57, beats: 1, el: '#ex9-la',  articulation: MEL },
+        { midi: 59, beats: 1, el: '#ex9-si',  articulation: MEL },
+        { midi: 60, beats: 1,                 articulation: 0.95 }, // Dó final um pouco mais longo
+      ],
+    });
+  </script>
+<script src="js/accessibility.js"></script>
+</body>
+</html>

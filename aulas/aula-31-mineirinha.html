@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mineirinha | Curso Corvino</title>
+<link rel="icon" href="../assets/img/corvo_favicon_130x130.png"><link rel="stylesheet" href="../css/course.css"></head>
+<body>
+<header class="site-header"><div class="wrap">
+  <a href="../index.html" class="logo"><img src="../assets/img/corvo_logo_completo.png" alt="Corvino">
+    <div><div class="title">CORVINO</div><div class="subtitle">CURSO DE ACORDEON MIDI</div></div></a>
+  <nav><a href="../index.html">Módulos</a><a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a></nav>
+</div></header>
+<main class="lesson-layout"><article class="lesson-content">
+  <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 7 › Mineirinha</div>
+  <h1>Mineirinha</h1>
+  <p class="subtitle">Módulo 7 · Rancheira 3/4 · Mascarenhas (p.22) · ~20 minutos</p>
+
+  <p>
+    Página 22 do método. <strong>Rancheira</strong> em 3/4 com colcheias rápidas descendentes (G-F-E-D-C-D) — o motivo principal aparece várias vezes, lembrando uma "mineira" descendo a serra. <strong>~36 compassos</strong>, 6 linhas no original.
+  </p>
+
+  <h2>1. A peça completa</h2>
+
+  <figure class="score-figure">
+    <svg id="masc-mi" viewBox="0 0 600 1100" class="score-svg" preserveAspectRatio="xMidYMid meet"></svg>
+    <figcaption>
+      <strong>Mineirinha</strong> · Mascarenhas (p.22) · ~36 compassos. Motivo principal: G-F-E-D-C-D (5-4-3-2-1-2) em colcheias.
+    </figcaption>
+    <div class="score-play-wrap"><button id="btn-mi-lento" class="score-play-btn">▶ Ouvir devagar (70 BPM)</button></div>
+    <div class="score-play-wrap" style="margin-top:8px"><button id="btn-mi-normal" class="score-play-btn">▶ Ouvir no andamento (110 BPM)</button></div>
+  </figure>
+
+  <h2>2. Como aprender</h2>
+  <ol>
+    <li>Ouça devagar 3x sem tocar.</li>
+    <li><strong>MD sozinha</strong>, 60 BPM: pratique o motivo G-F-E-D-C-D <em>isolado</em> até sair fluido. É o "cavalo de batalha" da peça.</li>
+    <li><strong>ME sozinha</strong>, 90 BPM: alternâncias Dó-Sol-Fá-Dó. Pratique transições.</li>
+    <li><strong>Mãos juntas</strong>, 70 BPM. Sobe gradualmente até 110.</li>
+  </ol>
+
+  <div class="callout callout-info">
+    <strong>Sobre o ritmo:</strong> rancheira é gênero gaúcho/argentino derivado da mazurka, dança a dois. Mascarenhas usa o ritmo aqui mas com motivos brasileiros típicos (escalas descendentes em terças).
+  </div>
+
+  <div class="lesson-nav">
+    <a href="aula-30-velhinho-realejo.html">← Aula anterior: Velhinho do Realejo</a>
+    <a href="aula-31a-baratinha-tonta.html">Próxima: A Baratinha Tonta →</a>
+  </div>
+</article>
+<aside class="app-panel"><div class="panel-title">App Corvino</div>
+  <iframe class="app-frame" src="../app/?embed=1" title="App Corvino" allow="midi; autoplay"></iframe></aside>
+</main>
+<footer class="site-footer"><p>Corvino Acordeon MIDI · © 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p></footer>
+
+<script type="module">
+  import { attachScorePlayer } from './js/score-player.js';
+
+  // ===== MINEIRINHA — Mascarenhas p.22 =====
+  // 36 compassos em 3/4. Motivo principal: G-F-E-D-C-D em colcheias.
+  // M = motivo (5-4-3-2-1-2), MR = motivo recorrente
+  const M = [{n:'Sol',d:5,du:0.5},{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Dó',d:1,du:0.5},{n:'Ré',d:2,du:0.5}];
+  const M_E = {n:'Mi',d:3,du:3}; // Mi mín pont
+  const compassos = [
+    // ===== Linha 1 (6) — tema principal =====
+    {notes:M, bass:'Dó'},
+    {notes:[M_E], bass:'Dó'},
+    {notes:M, bass:'Dó'},
+    {notes:[M_E], bass:'Sol'},
+    {notes:[{n:'Ré',d:2,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Dó',d:1,du:0.5}], bass:'Sol'},
+    {notes:[{n:'Ré',d:2,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Mi',d:3,du:0.5}], bass:'Sol'},
+    // ===== Linha 2 (6) =====
+    {notes:[{n:'Fá',d:4,du:3}], bass:'Sol'},
+    {notes:[{n:'Ré',d:2,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Mi',d:3,du:0.5}], bass:'Sol'},
+    {notes:[{n:'Fá',d:4,du:3}], bass:'Dó'},
+    {notes:M, bass:'Dó'},
+    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},
+    {notes:M, bass:'Dó'},
+    // ===== Linha 3 (6) =====
+    {notes:[{n:'Fá',d:4,du:3}], bass:'Fá'},
+    {notes:[{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Dó',d:1,du:0.5}], bass:'Fá'},
+    {notes:[{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Fá',d:4,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Dó',d:1,du:0.5}], bass:'Dó'},
+    {notes:[{n:'Ré',d:2,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Sol',d:5,du:0.5}], bass:'Sol'},
+    {notes:[{n:'Dó',d:1,du:3}], bass:'Dó'},
+    {notes:[{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},
+    // ===== Linha 4 (6) =====
+    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},
+    {notes:[{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5}], bass:'Dó'},
+    {notes:[{n:'Ré',d:2,du:3}], bass:'Sol'},
+    {notes:[{n:'Fá',d:4,du:3}], bass:'Sol'},
+    {notes:[{n:'Sol',d:5,du:3}], bass:'Sol'},
+    {notes:[{n:'Ré',d:2,du:3}], bass:'Sol'},
+    // ===== Linha 5 (6) =====
+    {notes:[{n:'Ré',d:2,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Sol',d:5,du:0.5}], bass:'Sol'},
+    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},
+    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},
+    {notes:[{n:'Sol',d:5,du:1},{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1}], bass:'Dó'},
+    {notes:[{n:'Sol',d:5,du:1},{n:'Mi',d:3,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},
+    {notes:[{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5}], bass:'Dó'},
+    // ===== Linha 6 (6, final) =====
+    {notes:[{n:'Lá',d:5,du:3}], bass:'Fá'},
+    {notes:[{n:'Fá',d:3,du:0.5},{n:'Lá',d:5,du:0.5},{n:'Fá',d:3,du:0.5},{n:'Lá',d:5,du:0.5},{n:'Fá',d:3,du:0.5},{n:'Lá',d:5,du:0.5}], bass:'Fá'},
+    {notes:[{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Mi',d:3,du:0.5},{n:'Sol',d:5,du:0.5}], bass:'Dó'},
+    {notes:[{n:'Ré',d:2,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Sol',d:5,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Sol',d:5,du:0.5}], bass:'Sol'},
+    {notes:[{n:'Dó',d:1,du:3}], bass:'Dó', isFinal:true}
+  ];
+
+  const NOTE_LETTER = {'Dó':'C','Ré':'D','Mi':'E','Fá':'F','Sol':'G','Lá':'A'};
+  const NOTE_Y = {'Dó':80,'Ré':75,'Mi':70,'Fá':65,'Sol':60,'Lá':55};
+  const STAVE_HEIGHT = 175;
+  const STAVES = [
+    {comps:[0,1,2,3,4,5],   y:0,             isFirst:true},
+    {comps:[6,7,8,9,10,11], y:STAVE_HEIGHT,  isFirst:false},
+    {comps:[12,13,14,15,16,17], y:STAVE_HEIGHT*2, isFirst:false},
+    {comps:[18,19,20,21,22,23], y:STAVE_HEIGHT*3, isFirst:false},
+    {comps:[24,25,26,27,28,29], y:STAVE_HEIGHT*4, isFirst:false},
+    {comps:[30,31,32,33,34],   y:STAVE_HEIGHT*5, isFirst:false}
+  ];
+
+  function renderStave(stave) {
+    const sy = stave.y;
+    const numComps = stave.comps.length;
+    let s = `<g transform="translate(0, ${sy})">`;
+    s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
+    for (let i = 0; i < 5; i++) s += `<line x1="20" y1="${30+i*10}" x2="560" y2="${30+i*10}"/>`;
+    s += '</g><text x="22" y="76" font-size="55" font-family="serif" fill="#e0d8c0">𝄞</text>';
+    if (stave.isFirst) s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0"><text x="65" y="55" font-size="16">3</text><text x="65" y="73" font-size="16">4</text></g>';
+    s += '<g stroke="#e0d8c0" stroke-width="1.5" fill="none">';
+    for (let i = 0; i < 5; i++) s += `<line x1="20" y1="${100+i*10}" x2="560" y2="${100+i*10}"/>`;
+    s += '</g><text x="35" y="123" font-size="28" font-family="serif" fill="#e0d8c0" text-anchor="middle">𝄢</text>';
+    if (stave.isFirst) s += '<g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0"><text x="65" y="118" font-size="16">3</text><text x="65" y="136" font-size="16">4</text></g>';
+    s += `<line x1="20" y1="30" x2="20" y2="140" stroke="#e0d8c0" stroke-width="1.5"/>`;
+
+    const startX = 80;
+    const usableW = 480;
+    const actualW = usableW / numComps;
+    for (let i = 0; i < numComps; i++) {
+      const compIdx = stave.comps[i];
+      const xStart = startX + i * actualW;
+      s += renderCompass(xStart, actualW, compassos[compIdx], compIdx);
+      const barX = xStart + actualW;
+      const isLast = compIdx === compassos.length - 1;
+      s += `<line x1="${barX}" y1="30" x2="${barX}" y2="140" stroke="#e0d8c0" stroke-width="${isLast?3:1.5}"/>`;
+    }
+    s += '</g>';
+    return s;
+  }
+
+  function renderCompass(xStart, width, comp, compIdx) {
+    let s = '';
+    const totalBeats = 3;
+    let cursorBeats = 0;
+    const colcheiaPositions = [];
+    const totalDur = comp.notes.reduce((s,n)=>s+n.du, 0);
+    const scale = totalDur > 0 ? totalBeats / totalDur : 1;
+
+    for (let ni = 0; ni < comp.notes.length; ni++) {
+      const n = comp.notes[ni];
+      const eff = n.du * scale;
+      const xPos = xStart + (cursorBeats / totalBeats) * width + (eff / totalBeats) * width / 2;
+      const cy = NOTE_Y[n.n];
+      const letter = NOTE_LETTER[n.n];
+      const noteId = `mi-md-${compIdx}-${ni}`;
+
+      s += `<text x="${xPos}" y="20" font-size="9" font-style="italic" fill="#e0d8c0" text-anchor="middle">${letter}</text>`;
+      s += `<text x="${xPos}" y="32" font-size="8" font-weight="700" fill="var(--gold)" text-anchor="middle">${n.d}</text>`;
+      if (n.n === 'Dó') s += `<line x1="${xPos-7}" y1="${cy}" x2="${xPos+7}" y2="${cy}" stroke="#e0d8c0" stroke-width="1.5"/>`;
+
+      if (eff >= 2.5) {
+        s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="6" ry="4" fill="none" stroke="var(--gold)" stroke-width="1.8"/>`;
+        s += `<line x1="${xPos+6}" y1="${cy}" x2="${xPos+6}" y2="${cy-22}" stroke="var(--gold)" stroke-width="1.5"/>`;
+        s += `<circle cx="${xPos+11}" cy="${cy}" r="1.8" fill="var(--gold)"/>`;
+        for (let b = 0; b < 3; b++) {
+          const meX = xStart + (b/totalBeats) * width + (1/totalBeats) * width / 2;
+          s += `<line x1="${xPos}" y1="${cy+5}" x2="${meX}" y2="113" stroke="var(--gold)" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.3"/>`;
+        }
+      } else if (eff >= 0.9) {
+        s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="4.5" ry="3.5" fill="var(--gold)"/>`;
+        s += `<line x1="${xPos+4.5}" y1="${cy}" x2="${xPos+4.5}" y2="${cy-22}" stroke="var(--gold)" stroke-width="1.4"/>`;
+      } else {
+        s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="4" ry="3" fill="var(--gold)"/>`;
+        s += `<line x1="${xPos+4}" y1="${cy}" x2="${xPos+4}" y2="${cy-22}" stroke="var(--gold)" stroke-width="1.2"/>`;
+        colcheiaPositions.push({x:xPos+4, y:cy-22});
+      }
+      cursorBeats += eff;
+    }
+
+    if (colcheiaPositions.length >= 2) {
+      const x0 = colcheiaPositions[0].x;
+      const x1 = colcheiaPositions[colcheiaPositions.length-1].x;
+      const yBeam = Math.min(...colcheiaPositions.map(p=>p.y));
+      s += `<line x1="${x0}" y1="${yBeam}" x2="${x1}" y2="${yBeam}" stroke="var(--gold)" stroke-width="2.2"/>`;
+    }
+
+    const colors = {'Dó':{bg:'var(--gold)',m:'#e0d8c0'},'Sol':{bg:'#d94a4a',m:'#d94a4a'},'Fá':{bg:'#e8a45f',m:'#e8a45f'}};
+    const co = colors[comp.bass] || {bg:'var(--gold)',m:'#e0d8c0'};
+    const beat0X = xStart + (1/totalBeats) * width / 2;
+    const beat1X = xStart + (1/totalBeats) * width + (1/totalBeats) * width / 2;
+    const beat2X = xStart + (2/totalBeats) * width + (1/totalBeats) * width / 2;
+
+    s += `<rect id="mi-me-${compIdx}-1" x="${beat0X-12}" y="115" width="22" height="18" rx="3" fill="${co.bg}" stroke="#1a1618" stroke-width="2"/>`;
+    s += `<text x="${beat0X-1}" y="128" fill="#1a1618" font-size="8" font-weight="700" text-anchor="middle" font-family="sans-serif">${comp.bass}</text>`;
+    if (!comp.isFinal) {
+      s += `<circle id="mi-me-${compIdx}-2" cx="${beat1X}" cy="124" r="7" fill="none" stroke="${co.m}" stroke-width="1.5"/>`;
+      s += `<text x="${beat1X}" y="127" fill="${co.m}" font-size="8" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
+      s += `<circle id="mi-me-${compIdx}-3" cx="${beat2X}" cy="124" r="7" fill="none" stroke="${co.m}" stroke-width="1.5"/>`;
+      s += `<text x="${beat2X}" y="127" fill="${co.m}" font-size="8" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
+    } else {
+      s += `<text x="${beat0X-1}" y="148" fill="${co.m}" font-size="8" font-weight="700" text-anchor="middle" font-family="sans-serif">M</text>`;
+    }
+    return s;
+  }
+
+  document.getElementById('masc-mi').innerHTML = STAVES.map(renderStave).join('');
+
+  const SUST=0.85, STAC=0.28, MEL=0.85;
+  const ME_MIDIS = {'Dó':{fund:24,acord:25},'Sol':{fund:31,acord:32},'Fá':{fund:29,acord:30}};
+  const MD_MIDIS = {'Dó':48,'Ré':50,'Mi':52,'Fá':53,'Sol':55,'Lá':57};
+
+  function buildPlayer(bpm, btnId) {
+    const notes = [];
+    let beat = 0;
+    compassos.forEach((c, i) => {
+      const totalDur = c.notes.reduce((s,n)=>s+n.du, 0);
+      const scale = totalDur > 0 ? 3 / totalDur : 1;
+      let cb = 0;
+      c.notes.forEach((n, ni) => {
+        const eff = n.du * scale;
+        notes.push({midi:MD_MIDIS[n.n], beats:eff, el:`#mi-md-${i}-${ni}`,
+                    articulation: eff >= 2.5 ? 0.95 : MEL, startBeat: beat + cb});
+        cb += eff;
+      });
+      const me = ME_MIDIS[c.bass];
+      notes.push({midi:me.fund, beats:1, isBass:true, articulation:SUST, el:`#mi-me-${i}-1`, startBeat:beat});
+      if (!c.isFinal) {
+        notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#mi-me-${i}-2`, startBeat:beat+1});
+        notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#mi-me-${i}-3`, startBeat:beat+2});
+      }
+      beat += 3;
+    });
+    attachScorePlayer({playBtnId:btnId, bpm, beatsPerBar:3, notes});
+  }
+  buildPlayer(70,  'btn-mi-lento');
+  buildPlayer(110, 'btn-mi-normal');
+</script>
+<script src="js/accessibility.js"></script>
+</body></html>

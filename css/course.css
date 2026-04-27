@@ -1,0 +1,1485 @@
+/* Curso Corvino — paleta inspirada no app Flutter */
+:root {
+  --bg: #231f20;
+  --bg-soft: #2c2729;
+  --fg: #f4f0e6;
+  --fg-dim: #a8a29a;
+  --gold: #daa520;
+  --gold-light: #f0c247;
+  --metal: #c9c4ba;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  /* Tamanho-base aumentado pra melhor legibilidade (idosos / leitura confortável).
+     accessibility.js sobrescreve com zoom personalizado quando ativo. */
+  font-size: 18px;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+  min-height: 100vh;
+  line-height: 1.75;
+}
+
+/* Parágrafos do conteúdo da aula com mais respiro */
+.lesson-content p,
+.lesson-content li {
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+a { color: var(--gold); text-decoration: none; }
+a:hover { color: var(--gold-light); text-decoration: underline; }
+
+/* === HEADER === */
+.site-header {
+  background: linear-gradient(180deg, #1a1718 0%, var(--bg) 100%);
+  border-bottom: 2px solid var(--gold);
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+
+.site-header .wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.site-header .logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+}
+
+.site-header .logo img {
+  height: 64px;
+  width: auto;
+}
+
+.site-header .logo .title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.site-header .logo .subtitle {
+  font-size: 0.85rem;
+  color: var(--fg-dim);
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+.site-header nav { display: flex; gap: 24px; }
+.site-header nav a {
+  color: var(--fg);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/* === HERO === */
+.hero {
+  position: relative;
+  max-width: 1280px;
+  margin: 32px auto;
+  padding: 0 24px;
+}
+
+.hero-banner {
+  width: 100%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: #000;
+  aspect-ratio: 16/6;
+  position: relative;
+}
+
+.hero-banner video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-banner .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 70%);
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+}
+
+.hero-text h1 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  color: var(--gold);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.hero-text p {
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  color: var(--fg);
+  max-width: 600px;
+}
+
+.hero-text .cta {
+  display: inline-block;
+  margin-top: 24px;
+  background: var(--gold);
+  color: var(--bg);
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hero-text .cta:hover {
+  background: var(--gold-light);
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(218, 165, 32, 0.4);
+}
+
+/* === SECTION INTRO === */
+.intro {
+  max-width: 980px;
+  margin: 48px auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.intro h2 {
+  color: var(--gold);
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+}
+
+.intro p {
+  color: var(--fg-dim);
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+
+/* === MODULES GRID === */
+.modules {
+  max-width: 1280px;
+  margin: 48px auto;
+  padding: 0 24px;
+}
+
+.modules h2 {
+  color: var(--gold);
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.modules-section {
+  margin-bottom: 40px;
+}
+
+.modules-section h3 {
+  color: var(--metal);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-left: 3px solid var(--gold);
+  padding-left: 12px;
+  margin-bottom: 16px;
+}
+
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.module-card {
+  background: var(--bg-soft);
+  border: 1px solid #3a3537;
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+}
+
+.module-card .num {
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.module-card .title {
+  color: var(--fg);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.module-card .desc {
+  color: var(--fg-dim);
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.module-card .lessons {
+  color: var(--metal);
+  font-size: 0.8rem;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #3a3537;
+}
+
+/* Help card — troubleshooting, aparência distinta (não faz parte do curso) */
+.module-card.help-card {
+  border-color: #6b5a1a;
+  background: linear-gradient(135deg, var(--bg-soft) 0%, #2d2818 100%);
+}
+.module-card.help-card .num {
+  color: #e0b84f;
+}
+.module-card.help-card:hover {
+  border-color: #e0b84f;
+}
+
+/* === FOOTER === */
+.site-footer {
+  background: #1a1718;
+  border-top: 2px solid var(--gold);
+  padding: 32px 24px;
+  margin-top: 64px;
+  text-align: center;
+  color: var(--fg-dim);
+  font-size: 0.9rem;
+}
+
+.site-footer a { color: var(--gold); }
+
+/* === LESSON PAGE === */
+.lesson-layout {
+  max-width: 1400px;
+  margin: 24px auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 1100px) {
+  /* Layout 70/30 — mais espaço pro conteúdo da aula, app mais compacto */
+  .lesson-layout { grid-template-columns: minmax(0, 1fr) 460px; }
+}
+
+/* === MODO "APP OCULTO" === */
+/* Quando o usuário clica em "Ocultar app", body recebe class app-hidden.
+   O app some e o conteúdo ocupa toda a largura. */
+body.app-hidden .lesson-layout {
+  grid-template-columns: 1fr !important;
+}
+body.app-hidden .app-panel {
+  display: none;
+}
+
+/* === SPLITTER (divisor arrastável entre aula e app) === */
+/* JS injeta <div class="layout-splitter"> entre lesson-content e app-panel,
+   formando uma terceira coluna no grid. Em telas <1100px ou com app oculto,
+   o splitter fica escondido. */
+.layout-splitter {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  /* Reduzir column-gap — splitter ocupa o meio visualmente */
+  .lesson-layout {
+    column-gap: 8px;
+  }
+
+  .layout-splitter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: col-resize;
+    background: rgba(218, 165, 32, 0.06);
+    border-radius: 6px;
+    user-select: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+
+  .layout-splitter:hover,
+  body.layout-dragging .layout-splitter {
+    background: rgba(218, 165, 32, 0.28);
+    box-shadow: 0 0 0 1px rgba(218, 165, 32, 0.4);
+  }
+
+  .layout-splitter-handle {
+    color: #7a7577;
+    font-size: 16px;
+    line-height: 0.7;
+    pointer-events: none;
+    transition: color 0.2s;
+    letter-spacing: -3px;
+    font-weight: 900;
+    user-select: none;
+  }
+
+  .layout-splitter:hover .layout-splitter-handle,
+  body.layout-dragging .layout-splitter-handle {
+    color: var(--gold);
+  }
+}
+
+/* Durante o arraste — cursor col-resize em toda a página + bloqueia seleção */
+body.layout-dragging,
+body.layout-dragging * {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
+
+/* Quando o app está oculto, splitter não faz sentido */
+body.app-hidden .layout-splitter {
+  display: none;
+}
+
+.lesson-content {
+  background: var(--bg-soft);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+}
+
+.lesson-content .breadcrumb {
+  color: var(--fg-dim);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.lesson-content .breadcrumb a { color: var(--metal); }
+
+.lesson-content h1 {
+  color: var(--gold);
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.lesson-content .subtitle {
+  color: var(--fg-dim);
+  font-size: 1rem;
+  margin-bottom: 24px;
+}
+
+.lesson-content h2 {
+  color: var(--gold-light);
+  font-size: 1.3rem;
+  margin: 24px 0 12px;
+  border-left: 3px solid var(--gold);
+  padding-left: 12px;
+}
+
+.lesson-content p { margin-bottom: 16px; }
+
+.lesson-content blockquote {
+  border-left: 3px solid var(--gold);
+  background: rgba(218, 165, 32, 0.06);
+  padding: 12px 18px;
+  margin: 18px 0;
+  font-style: italic;
+  color: var(--fg);
+}
+
+.lesson-content ul, .lesson-content ol {
+  margin: 12px 0 18px 24px;
+}
+
+.lesson-content li { margin-bottom: 8px; }
+
+/* Linha do tempo — cada etapa histórica */
+.timeline-step {
+  border-left: 3px solid var(--gold);
+  padding: 16px 0 16px 20px;
+  margin: 24px 0;
+  position: relative;
+}
+
+.timeline-step::before {
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: 20px;
+  width: 15px;
+  height: 15px;
+  background: var(--gold);
+  border: 3px solid var(--bg-soft);
+  border-radius: 50%;
+}
+
+.timeline-year {
+  display: inline-block;
+  color: var(--bg);
+  background: var(--gold);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.timeline-step h2 {
+  color: var(--gold-light);
+  border-left: none;
+  padding-left: 0;
+  margin: 4px 0 12px;
+}
+
+/* Bloco "Tente agora" — convite à ação */
+.try-now {
+  margin-top: 16px;
+  background: rgba(218, 165, 32, 0.08);
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.try-now-title {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.try-now ol {
+  margin: 0 0 0 20px;
+  padding: 0;
+}
+
+.try-now li {
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+
+.lesson-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #3a3537;
+}
+
+.lesson-nav a {
+  background: var(--bg);
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid #3a3537;
+}
+
+.lesson-nav a:hover {
+  border-color: var(--gold);
+  text-decoration: none;
+}
+
+/* === APP EMBED === */
+.app-panel {
+  position: sticky;
+  top: 110px;
+  align-self: start;
+}
+
+.app-panel .panel-title {
+  color: var(--metal);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-panel .panel-title::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+.app-frame {
+  width: 100%;
+  height: 540px;
+  border: 2px solid #3a3537;
+  border-radius: var(--radius);
+  background: #000;
+  display: block;
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 1099px) {
+  .app-frame { height: 480px; }
+}
+
+/* === HOWTO STEPS (aula de otimização) === */
+.howto-step {
+  margin: 32px 0;
+  padding: 24px 28px 20px 74px;
+  background: var(--bg-soft);
+  border: 1px solid #3a3537;
+  border-radius: var(--radius);
+  position: relative;
+}
+.howto-step .howto-num {
+  position: absolute;
+  left: 20px;
+  top: 24px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #1a1618;
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.howto-step h2 {
+  margin: 0 0 12px 0;
+  font-size: 1.35rem;
+  color: var(--gold);
+}
+.howto-step p { margin: 10px 0; }
+.howto-step ol {
+  margin: 12px 0;
+  padding-left: 22px;
+  color: var(--fg-dim);
+}
+.howto-step ol li { margin: 6px 0; }
+.howto-step .howto-result {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: rgba(60, 120, 60, 0.12);
+  border-left: 3px solid #4a8a4a;
+  color: #a8d8a8;
+  border-radius: 4px;
+  font-size: 0.92rem;
+}
+
+/* === CALLOUTS === */
+.callout {
+  margin: 20px 0;
+  padding: 14px 18px;
+  border-radius: 6px;
+  border-left: 3px solid var(--gold);
+  background: var(--bg-soft);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.callout-warning {
+  border-left-color: #c78b2a;
+  background: rgba(199, 139, 42, 0.08);
+}
+.callout-info {
+  border-left-color: #5b8bb5;
+  background: rgba(91, 139, 181, 0.08);
+}
+.callout a { color: var(--gold); }
+
+/* === kbd === */
+kbd {
+  display: inline-block;
+  padding: 1px 7px;
+  margin: 0 2px;
+  border: 1px solid #4a4245;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: #252022;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.82rem;
+  color: #d4c9a8;
+}
+
+/* === MANUAL — blocos de controle === */
+.control-block {
+  margin: 20px 0;
+  padding: 18px 22px;
+  background: var(--bg-soft);
+  border: 1px solid #3a3537;
+  border-radius: var(--radius);
+}
+.control-block .control-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+.control-block p { margin: 8px 0; }
+.control-block ul, .control-block ol {
+  margin: 8px 0;
+  padding-left: 22px;
+  color: var(--fg-dim);
+}
+.control-block ul li, .control-block ol li { margin: 4px 0; }
+.control-block .control-tip {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(224, 184, 79, 0.08);
+  border-left: 3px solid var(--gold);
+  color: #d4c9a8;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* Figura com foto do painel */
+.manual-figure {
+  margin: 24px 0;
+  text-align: center;
+}
+.manual-figure .manual-panel {
+  max-width: 360px;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #3a3537;
+  background: #1a1618;
+}
+.manual-figure figcaption {
+  margin-top: 10px;
+  color: var(--fg-dim);
+  font-size: 0.88rem;
+  font-style: italic;
+}
+
+/* === Página de seleção de modelo (Aula 5) === */
+.lesson-layout--full {
+  grid-template-columns: 1fr !important;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.model-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 32px 0;
+}
+@media (max-width: 720px) {
+  .model-grid { grid-template-columns: 1fr; }
+}
+.model-card {
+  background: var(--bg-soft);
+  border: 1px solid #3a3537;
+  border-radius: var(--radius);
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.model-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+}
+.model-card h2 {
+  margin: 0;
+  color: var(--gold);
+  font-size: 1.6rem;
+}
+.model-img-wrap {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1618;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.model-img-wrap img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  z-index: 2;
+  position: relative;
+}
+.model-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 4px;
+  opacity: 0.3;
+  z-index: 1;
+}
+.model-hint {
+  color: var(--fg-dim);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.model-feats {
+  margin: 4px 0;
+  padding-left: 20px;
+  color: var(--fg-dim);
+  font-size: 0.88rem;
+}
+.model-feats li { margin: 3px 0; }
+.model-cta {
+  margin-top: auto;
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding-top: 8px;
+  border-top: 1px solid #3a3537;
+}
+
+/* === Notação musical (aula mão direita / esquerda) === */
+.note-grid {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+  justify-content: center;
+}
+.note {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  padding: 10px 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  font-weight: 700;
+  color: var(--gold);
+  font-size: 1.05rem;
+}
+
+.fingering {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+  justify-content: center;
+}
+.fingering > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--bg-soft);
+  border-radius: 6px;
+  border: 1px solid #3a3537;
+  font-size: 0.95rem;
+}
+.fnum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: var(--gold);
+  color: #1a1618;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.scale-box {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(224, 184, 79, 0.05);
+  border: 1px dashed var(--gold);
+  border-radius: 8px;
+}
+.scale-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.scale-step .note { min-width: 58px; font-size: 1.15rem; padding: 12px; }
+
+/* === Fileiras de baixo (aula mão esquerda) === */
+.bass-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+.bass-row-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--bg-soft);
+  border: 1px solid #3a3537;
+  border-radius: 8px;
+}
+.bass-row-info p { margin: 4px 0 0 0; color: var(--fg-dim); font-size: 0.92rem; }
+.bass-row-info strong { color: var(--gold); }
+.row-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #1a1618;
+  font-weight: 800;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.bass-row-bass .row-badge { background: #d94a4a; color: #fff; }
+
+/* Padrão rítmico (bum-tchim-tchim) */
+.pattern-box {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.pattern-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 18px;
+  background: rgba(224, 184, 79, 0.06);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  min-width: 130px;
+}
+.pattern-step .beat {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #1a1618;
+  font-weight: 800;
+}
+.pattern-step .action {
+  color: var(--fg);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* === Foto do autor (Quem sou eu) === */
+.author-photo {
+  float: right;
+  margin: 0 0 16px 24px;
+  width: 220px;
+  text-align: center;
+}
+.author-photo img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--gold);
+  display: block;
+}
+.author-photo .author-placeholder {
+  display: none;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 3px solid var(--gold);
+  background: var(--bg-soft);
+  color: var(--gold);
+  font-weight: 800;
+  font-size: 3.5rem;
+  letter-spacing: 2px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.author-photo.no-img img { display: none; }
+.author-photo.no-img .author-placeholder { display: flex; }
+.author-photo figcaption {
+  margin-top: 8px;
+  color: var(--fg-dim);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+@media (max-width: 720px) {
+  .author-photo { float: none; margin: 16px auto; }
+}
+
+/* === Partitura (SVG) === */
+.score-figure {
+  margin: 24px 0;
+  text-align: center;
+}
+.score-svg {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  background: #1a1618;
+  border: 1px solid #3a3537;
+  border-radius: 8px;
+  padding: 8px;
+}
+.score-figure figcaption {
+  margin-top: 10px;
+  color: var(--fg-dim);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Mnemônico — frases pra decorar notas */
+.mnemonic {
+  margin: 16px 0;
+  padding: 14px 20px;
+  background: rgba(224, 184, 79, 0.08);
+  border: 1px dashed var(--gold);
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--fg-dim);
+}
+.mnemonic .m-word {
+  color: var(--gold);
+  font-weight: 700;
+  background: rgba(224, 184, 79, 0.15);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+/* === Compass cards (2/4, 3/4, 4/4) === */
+.compass-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+@media (max-width: 720px) {
+  .compass-grid { grid-template-columns: 1fr; }
+}
+.compass-card {
+  padding: 18px;
+  background: var(--bg-soft);
+  border: 1px solid #3a3537;
+  border-radius: 8px;
+  text-align: center;
+}
+.compass-card h3 {
+  margin: 8px 0 4px 0;
+  color: var(--gold);
+  font-size: 1.3rem;
+}
+.compass-card p {
+  margin: 6px 0;
+  color: var(--fg-dim);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.compass-card .compass-beat {
+  color: var(--fg);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #3a3537;
+}
+.compass-num {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.9;
+  color: var(--gold);
+  font-family: 'Times New Roman', serif;
+  font-weight: 800;
+  font-size: 2rem;
+}
+.compass-num .n-top { border-bottom: 2px solid var(--gold); padding: 0 8px; }
+.compass-num .n-bot { padding: 0 8px; }
+
+/* === Score player (botão ouvir + highlight da nota ativa) === */
+.score-play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 12px auto 0;
+  padding: 8px 18px;
+  background: var(--gold);
+  color: #1a1618;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.score-play-btn:hover:not(:disabled) { transform: translateY(-1px); }
+.score-play-btn:disabled {
+  opacity: 0.4;
+  cursor: wait;
+  background: #887a50;
+}
+.score-play-btn.playing {
+  background: #ff9060;
+  color: #1a1618;
+}
+.score-play-wrap {
+  text-align: center;
+  margin: 8px 0 20px;
+}
+
+/* Destaque na nota quando está soando */
+.score-note-active {
+  fill: #ff9060 !important;
+  stroke: #ff9060 !important;
+  filter: drop-shadow(0 0 6px rgba(255, 144, 96, 0.8));
+  transition: fill 0.05s, stroke 0.05s;
+}
+
+/* === Toolbar do player (topo da partitura) === */
+/* JS injeta como primeiro filho de .score-figure: play + BPM control.
+   Cada attachScorePlayer adiciona uma row. */
+.score-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 0 14px 0;
+  padding: 12px 14px;
+  background: rgba(218, 165, 32, 0.06);
+  border: 1px solid rgba(218, 165, 32, 0.25);
+  border-radius: 10px;
+}
+
+.score-toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Play maior e mais legível dentro da toolbar */
+.score-toolbar .score-play-main {
+  margin: 0;
+  padding: 10px 22px;
+  font-size: 1rem;
+  min-height: 42px;
+  flex: 1 1 auto;
+}
+
+.score-toolbar .score-play-main.count-in {
+  background: #d4a740;
+  animation: count-in-pulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes count-in-pulse {
+  from { opacity: 0.85; }
+  to { opacity: 1; transform: scale(1.02); }
+}
+
+/* Grupo BPM */
+.score-bpm {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid #3a3537;
+  border-radius: 999px;
+  padding: 4px 6px;
+}
+
+.score-bpm-label {
+  color: var(--fg-dim);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 0 6px 0 8px;
+  text-transform: uppercase;
+}
+
+.score-bpm-btn {
+  background: transparent;
+  border: 1px solid #3a3537;
+  color: var(--gold);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+.score-bpm-btn:hover:not(:disabled) {
+  background: rgba(218, 165, 32, 0.2);
+  border-color: var(--gold);
+}
+.score-bpm-btn:active:not(:disabled) { transform: translateY(1px); }
+.score-bpm-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.score-bpm-display {
+  background: transparent;
+  border: none;
+  color: var(--fg);
+  font-size: 1.1rem;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  min-width: 44px;
+  text-align: center;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+.score-bpm-display:hover:not(:disabled) {
+  background: rgba(218, 165, 32, 0.15);
+}
+/* Indica visualmente quando o aluno mudou o BPM do padrão */
+.score-bpm-display.modified {
+  color: var(--gold);
+}
+.score-bpm-display.modified::after {
+  content: ' ↻';
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+.score-bpm-display:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Em telas estreitas, empilha play + bpm */
+@media (max-width: 720px) {
+  .score-toolbar-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .score-toolbar .score-play-main {
+    width: 100%;
+  }
+  .score-bpm {
+    align-self: center;
+  }
+}
+
+/* === Quiz interativo (mini-check de fim de módulo) === */
+.quiz {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 24px 0;
+}
+.quiz-q {
+  padding: 18px 20px;
+  background: var(--bg-soft);
+  border: 1px solid #3a3537;
+  border-radius: 8px;
+}
+.quiz-question {
+  margin: 0 0 12px 0;
+  color: var(--fg);
+  font-size: 1.02rem;
+  line-height: 1.4;
+}
+.quiz-alt {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  margin: 6px 0;
+  background: #1a1618;
+  color: var(--fg);
+  border: 1px solid #3a3537;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  font-family: inherit;
+}
+.quiz-alt:hover:not(:disabled) {
+  background: #252022;
+  border-color: var(--gold);
+}
+.quiz-alt:disabled { cursor: default; }
+.quiz-alt.alt-correct {
+  background: rgba(90, 180, 90, 0.18);
+  border-color: #5ab45a;
+  color: #b8e8b8;
+}
+.quiz-alt.alt-wrong {
+  background: rgba(217, 74, 74, 0.18);
+  border-color: #d94a4a;
+  color: #f0b8b8;
+}
+.quiz-feedback {
+  margin-top: 10px;
+  padding: 0;
+  color: var(--fg-dim);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.quiz-feedback .fb-ok { color: #6bd06b; font-weight: 700; }
+.quiz-feedback .fb-err { color: #ff7f7f; font-weight: 700; }
+.quiz-score {
+  padding: 10px 14px;
+  text-align: center;
+  color: var(--gold);
+  font-weight: 700;
+  border-top: 1px dashed #3a3537;
+  margin-top: 8px;
+}
+
+/* === nav-links (fim de aula) === */
+.nav-links {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #3a3537;
+  display: flex;
+  gap: 12px;
+}
+.btn-secondary {
+  padding: 10px 18px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: background 0.2s;
+}
+.btn-secondary:hover {
+  background: rgba(224, 184, 79, 0.1);
+  text-decoration: none;
+}
+
+/* === REPERTÓRIO GRID (Módulo 9) === */
+.repertorio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+.rep-card {
+  display: block;
+  padding: 14px 16px;
+  background: var(--bg-soft);
+  border: 1px solid #3a3537;
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--fg);
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+}
+.rep-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.rep-num {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  color: var(--gold);
+  font-size: 1.4rem;
+  font-weight: 700;
+  opacity: 0.6;
+}
+.rep-title {
+  color: var(--gold);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  padding-right: 28px;
+}
+.rep-meta {
+  color: var(--fg-dim);
+  font-size: 0.78rem;
+  margin-bottom: 6px;
+  font-style: italic;
+}
+.rep-desc {
+  color: var(--fg);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+/* ============================================ */
+/* === PAINEL DE ACESSIBILIDADE (a11y-panel) === */
+/* ============================================ */
+/* Painel colapsado: aparece como botão pequeno (ícone ⚙) no canto. */
+/* Click → expande os controles. Click fora → colapsa. */
+#a11y-panel {
+  position: fixed;
+  top: 130px;            /* abaixo do header sticky */
+  right: 14px;
+  z-index: 999;          /* abaixo do header (z=100) só quando overlap, mas visível */
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* O ícone ⚙ — sempre visível */
+.a11y-toggle-icon {
+  background: rgba(35, 31, 32, 0.92);
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.15s, background 0.15s;
+  font-family: inherit;
+}
+.a11y-toggle-icon:hover {
+  background: var(--gold);
+  color: #1a1618;
+  transform: rotate(60deg);
+}
+
+/* O painel de controles — escondido por padrão */
+.a11y-content {
+  display: none;
+  background: rgba(35, 31, 32, 0.95);
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  padding: 10px 12px;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  margin-top: 6px;
+  min-width: 180px;
+}
+
+#a11y-panel.a11y-open .a11y-content {
+  display: flex;
+}
+#a11y-panel.a11y-open .a11y-toggle-icon {
+  background: var(--gold);
+  color: #1a1618;
+}
+
+.a11y-section {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.a11y-section-label {
+  font-size: 0.7rem;
+  color: var(--fg-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.a11y-btn {
+  background: var(--bg-soft);
+  border: 1px solid #3a3537;
+  color: var(--fg);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: background 0.15s, border-color 0.15s;
+  min-height: 36px;
+  min-width: 36px;
+  font-family: inherit;
+}
+.a11y-btn:hover {
+  background: rgba(218, 165, 32, 0.15);
+  border-color: var(--gold);
+}
+.a11y-btn:active {
+  transform: translateY(1px);
+}
+
+.a11y-zoom {
+  font-weight: 700;
+}
+.a11y-zoom-plus {
+  font-size: 0.95rem;
+}
+
+.a11y-toggle-app {
+  font-size: 0.78rem;
+  width: 100%;
+  text-align: center;
+  padding: 8px 10px;
+}
+
+/* Em telas pequenas, painel vai pro rodapé direito */
+@media (max-width: 700px) {
+  #a11y-panel {
+    top: auto;
+    bottom: 14px;
+    right: 8px;
+  }
+  .a11y-content {
+    min-width: 160px;
+  }
+  .a11y-btn { padding: 4px 8px; font-size: 0.75rem; min-height: 32px; }
+}

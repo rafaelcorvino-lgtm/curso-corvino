@@ -1,0 +1,32 @@
+{
+  "name": "Baião Básico",
+  "category": "Baião",
+  "bpm": 110,
+  "difficulty": 2,
+  "notes": [
+    {"midi": 60, "startBeat": 0, "duration": 0.5, "channel": 0},
+    {"midi": 24, "startBeat": 0, "duration": 0.5, "channel": 1},
+    {"midi": 64, "startBeat": 0.5, "duration": 0.5, "channel": 0},
+    {"midi": 67, "startBeat": 1, "duration": 0.5, "channel": 0},
+    {"midi": 31, "startBeat": 1, "duration": 0.5, "channel": 1},
+    {"midi": 64, "startBeat": 1.5, "duration": 0.5, "channel": 0},
+    {"midi": 60, "startBeat": 2, "duration": 0.5, "channel": 0},
+    {"midi": 24, "startBeat": 2, "duration": 0.5, "channel": 1},
+    {"midi": 64, "startBeat": 2.5, "duration": 0.5, "channel": 0},
+    {"midi": 67, "startBeat": 3, "duration": 0.5, "channel": 0},
+    {"midi": 31, "startBeat": 3, "duration": 0.5, "channel": 1},
+    {"midi": 64, "startBeat": 3.5, "duration": 0.5, "channel": 0},
+
+    {"midi": 65, "startBeat": 4, "duration": 0.5, "channel": 0},
+    {"midi": 29, "startBeat": 4, "duration": 0.5, "channel": 1},
+    {"midi": 69, "startBeat": 4.5, "duration": 0.5, "channel": 0},
+    {"midi": 72, "startBeat": 5, "duration": 0.5, "channel": 0},
+    {"midi": 36, "startBeat": 5, "duration": 0.5, "channel": 1},
+    {"midi": 69, "startBeat": 5.5, "duration": 0.5, "channel": 0},
+    {"midi": 65, "startBeat": 6, "duration": 0.5, "channel": 0},
+    {"midi": 29, "startBeat": 6, "duration": 0.5, "channel": 1},
+    {"midi": 69, "startBeat": 6.5, "duration": 0.5, "channel": 0},
+    {"midi": 67, "startBeat": 7, "duration": 1, "channel": 0},
+    {"midi": 31, "startBeat": 7, "duration": 1, "channel": 1}
+  ]
+}

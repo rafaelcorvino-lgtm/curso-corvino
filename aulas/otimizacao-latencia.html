@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Otimizando o computador — sem atraso | Curso Corvino</title>
+  <link rel="icon" href="../assets/img/corvo_favicon_130x130.png">
+  <link rel="stylesheet" href="../css/course.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="../index.html" class="logo">
+        <img src="../assets/img/corvo_logo_completo.png" alt="Corvino">
+        <div>
+          <div class="title">CORVINO</div>
+          <div class="subtitle">CURSO DE ACORDEON MIDI</div>
+        </div>
+      </a>
+      <nav>
+        <a href="../index.html">Módulos</a>
+        <a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="lesson-layout">
+
+    <article class="lesson-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Curso</a> › Extra › Otimização de latência
+      </div>
+      <h1>Tirando o atraso do seu Windows</h1>
+      <p class="subtitle">Extra · 5 passos · ~3 minutos</p>
+
+      <p>
+        Se ao tocar no Corvino você sente que o som sai uma fração de segundo
+        <strong>depois</strong> da tecla, o problema está no computador — não
+        no acordeon. O Windows coloca várias camadas entre a tecla e o
+        alto-falante, e algumas delas atrasam o som sem necessidade.
+      </p>
+
+      <p>
+        Esses 5 passos desligam o que atrasa. Faça na ordem, testando depois
+        de cada um. Na maioria dos computadores, o <strong>passo 1 sozinho</strong>
+        já resolve.
+      </p>
+
+      <div class="callout callout-warning">
+        <strong>Antes de começar:</strong> feche o app Corvino, o navegador de
+        aulas e qualquer coisa que esteja tocando som (YouTube, Spotify,
+        Discord, Zoom, Teams). Abra só o essencial.
+      </div>
+
+      <!-- ======= PASSO 1 ======= -->
+      <div class="howto-step">
+        <div class="howto-num">1</div>
+        <h2>Desligar "Melhorias de áudio"</h2>
+        <p>
+          Esse é o passo que traz o maior ganho. "Melhorias" são efeitos
+          automáticos do Windows (equalização, baixo reforçado, virtualização)
+          que <strong>adicionam atraso</strong> toda vez que o som passa por
+          eles. Pra tocar instrumento ao vivo, ninguém quer isso.
+        </p>
+        <ol>
+          <li>Pressione <kbd>Win</kbd> + <kbd>R</kbd>, digite <code>mmsys.cpl</code> e dê Enter.</li>
+          <li>Na aba <strong>Reprodução</strong>, clique em <strong>Alto-falantes</strong> (o dispositivo marcado como padrão) e depois em <strong>Propriedades</strong>.</li>
+          <li>Vá na aba <strong>Avançado</strong>.</li>
+          <li><strong>Desmarque</strong> "Habilitar melhorias de áudio".</li>
+          <li>Clique em <strong>Aplicar</strong> e <strong>OK</strong>.</li>
+        </ol>
+        <p class="howto-result">
+          ✓ Teste agora: abra o app Corvino e toque uma nota ao mesmo tempo
+          que a valsa. Deve estar melhor.
+        </p>
+      </div>
+
+      <!-- ======= PASSO 2 ======= -->
+      <div class="howto-step">
+        <div class="howto-num">2</div>
+        <h2>Ajustar o formato do áudio</h2>
+        <p>
+          Ainda na aba <strong>Avançado</strong> da mesma janela, há um menu
+          "Formato padrão" com várias opções de qualidade. Para tocar ao vivo,
+          o melhor é o formato mais próximo do hardware.
+        </p>
+        <ol>
+          <li>Em <strong>Formato padrão</strong>, troque para <strong>16 bit(s), 48000 Hz</strong> (Qualidade de CD).</li>
+          <li>Clique em <strong>Aplicar</strong>.</li>
+        </ol>
+        <p class="howto-result">
+          ✓ Esse formato é o que o seu chip de áudio toca nativamente —
+          elimina uma conversão interna e, em muitos drivers, libera o modo
+          de baixa latência.
+        </p>
+      </div>
+
+      <!-- ======= PASSO 3 ======= -->
+      <div class="howto-step">
+        <div class="howto-num">3</div>
+        <h2>Permitir modo exclusivo</h2>
+        <p>
+          Só faça esse passo se ainda perceber atraso depois dos anteriores.
+          "Modo exclusivo" deixa o app Corvino pegar o controle direto do
+          alto-falante, <strong>pulando o misturador do Windows</strong> — é
+          o caminho mais curto entre a tecla e o som.
+        </p>
+        <ol>
+          <li>Na mesma janela (Alto-falantes → Propriedades → Avançado):</li>
+          <li><strong>Marque</strong> "Permitir que aplicativos assumam controle exclusivo deste dispositivo".</li>
+          <li><strong>Marque</strong> "Dar prioridade a aplicativos em modo exclusivo".</li>
+          <li>Clique em <strong>Aplicar</strong> e <strong>OK</strong>.</li>
+        </ol>
+        <div class="callout callout-info">
+          <strong>Efeito colateral:</strong> enquanto o app Corvino estiver
+          aberto e tocando, outros apps (YouTube, Spotify) podem ficar mudos.
+          Isso é normal — basta fechar o app Corvino pra voltar ao normal.
+        </div>
+      </div>
+
+      <!-- ======= PASSO 4 ======= -->
+      <div class="howto-step">
+        <div class="howto-num">4</div>
+        <h2>Feche apps que usam microfone</h2>
+        <p>
+          <strong>Discord, Zoom, Teams, OBS, Skype</strong> — qualquer app de
+          comunicação em tempo real força o Windows a manter o áudio sempre
+          disponível, o que impede o modo de baixa latência. Feche (não só
+          minimize) todos enquanto estuda.
+        </p>
+        <ol>
+          <li>Clique com o botão direito em cada ícone desses apps na barra do sistema (ao lado do relógio).</li>
+          <li>Escolha <strong>Sair</strong> / <strong>Fechar</strong> / <strong>Quit</strong>.</li>
+        </ol>
+      </div>
+
+      <!-- ======= PASSO 5 ======= -->
+      <div class="howto-step">
+        <div class="howto-num">5</div>
+        <h2>Não use fone Bluetooth</h2>
+        <p>
+          Fone sem fio é ótimo pra ouvir música, mas <strong>ruim pra tocar
+          instrumento</strong>. O Bluetooth adiciona entre 100ms e 300ms de
+          atraso que <strong>nenhum ajuste do Windows resolve</strong> — é
+          limitação do protocolo.
+        </p>
+        <ol>
+          <li>Use o fone pela entrada P2 (cabo) do computador.</li>
+          <li>Ou use o alto-falante do computador mesmo.</li>
+        </ol>
+        <p class="howto-result">
+          ✓ Para estudo silencioso, um fone de R$ 30 com cabo bate qualquer
+          Bluetooth premium.
+        </p>
+      </div>
+
+      <!-- ======= CONCLUSÃO ======= -->
+      <h2 style="margin-top:60px">Testando o resultado</h2>
+      <p>
+        Abra o app Corvino, carregue a <strong>Valsa</strong> no ritmo e
+        aperte Play. Toque junto com o Corvino. Você deve sentir que tecla e
+        som saem <strong>ao mesmo tempo</strong>. Se ainda houver diferença
+        audível, repita os passos com o computador recém-reiniciado — às
+        vezes alguma atualização do Windows remarca as "Melhorias".
+      </p>
+
+      <div class="callout callout-info">
+        <strong>Ainda com problema?</strong> Abra o
+        <a href="https://www.corvino.com.br/" target="_blank">suporte no site Corvino</a>
+        informando modelo do computador, versão do Windows (<kbd>Win</kbd> + <kbd>R</kbd>,
+        digite <code>winver</code>) e o modelo da placa de som (Realtek, Conexant, etc).
+      </div>
+
+      <div class="nav-links">
+        <a href="../index.html" class="btn-secondary">← Voltar ao curso</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Corvino Acordeon MIDI — primeiro acordeon MIDI fabricado no Brasil. Botucatu-SP.</p>
+    <p>© 2026 Rafael Salim Corvino · <a href="https://www.corvino.com.br/" target="_blank">corvino.com.br</a></p>
+  </footer>
+
+<script src="js/accessibility.js"></script>
+</body>
+</html>
