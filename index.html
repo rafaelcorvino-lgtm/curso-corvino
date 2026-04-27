@@ -28,7 +28,9 @@
 
   <section class="hero">
     <div class="hero-banner">
-      <video autoplay muted loop playsinline>
+      <!-- preload="metadata" — só baixa o necessário pra começar a tocar (não o vídeo inteiro upfront).
+           poster pode ser adicionado no futuro pra mostrar uma imagem instantânea enquanto carrega. -->
+      <video autoplay muted loop playsinline preload="metadata">
         <source src="assets/video/corvo_banner_web.mp4" type="video/mp4">
       </video>
       <div class="overlay">

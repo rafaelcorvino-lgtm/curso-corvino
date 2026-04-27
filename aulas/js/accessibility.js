@@ -178,10 +178,46 @@
     document.addEventListener('touchend', onMouseUp);
   }
 
+  // ===== APP LOADING PLACEHOLDER =====
+  // Mostra "Carregando app Corvino…" enquanto o iframe não termina de baixar.
+  // Sem isso o aluno olha pra um quadrado vazio e não sabe se quebrou.
+  function injectAppLoader() {
+    const iframe = document.querySelector('iframe.app-frame');
+    if (!iframe) return;
+    const wrapper = iframe.parentElement;
+    if (!wrapper || wrapper.querySelector('.app-loading')) return;
+
+    const loader = document.createElement('div');
+    loader.className = 'app-loading';
+    loader.innerHTML = `
+      <div class="app-loading-icon">🪗</div>
+      <div class="app-loading-text">Carregando app Corvino…</div>
+      <div class="app-loading-hint">~5 segundos na primeira vez</div>
+    `;
+    wrapper.style.position = 'relative';
+    wrapper.appendChild(loader);
+
+    // Some quando iframe avisar que carregou
+    iframe.addEventListener('load', () => {
+      loader.classList.add('app-loading--hidden');
+      // Remove do DOM depois da transição (libera memória)
+      setTimeout(() => loader.remove(), 600);
+    }, { once: true });
+
+    // Fallback de segurança: some após 30s mesmo se load não disparar
+    setTimeout(() => {
+      if (loader.isConnected) {
+        loader.classList.add('app-loading--hidden');
+        setTimeout(() => loader.remove(), 600);
+      }
+    }, 30000);
+  }
+
   // ===== INIT =====
   function init() {
     injectControls();
     injectSplitter();
+    injectAppLoader();
     applyState();
   }
   if (document.readyState === 'loading') {
