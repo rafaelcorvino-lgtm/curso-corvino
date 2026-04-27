@@ -95,8 +95,68 @@
           </g>
           <line x1="20" y1="50" x2="20" y2="200" stroke="#e0d8c0" stroke-width="2.5"/>
 
-          <!-- Indicador "ME: bum-tchim-tchim" debaixo da pauta -->
-          <text x="290" y="220" font-size="10" font-style="italic" fill="var(--fg-dim)" text-anchor="middle">ME: bum-tchim-tchim em cada compasso (acompanhamento padrão de valsa)</text>
+          <!-- BAIXOS — 8 compassos × 3 tempos (bum-tchim-tchim) = 24 elementos visuais.
+               Cadência: Dó-Sol-Dó-Dó-Sol-Dó-Sol7-Dó (1 bloco fund + 2 círculos acorde por compasso). -->
+          <g font-family="sans-serif">
+            <!-- C1: Dó-DóM-DóM (centros: 110, 130, 150) -->
+            <rect   id="mpv-b1"  x="98"  y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+            <text x="108" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
+            <circle id="mpv-b2"  cx="130" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="130" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <circle id="mpv-b3"  cx="150" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="150" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <!-- C2: Sol-SolM-SolM (170, 190, 210) -->
+            <rect   id="mpv-b4"  x="156" y="160" width="20" height="18" rx="3" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+            <text x="166" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Sol</text>
+            <circle id="mpv-b5"  cx="190" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
+            <text x="190" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <circle id="mpv-b6"  cx="210" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
+            <text x="210" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <!-- C3: Dó-DóM-DóM -->
+            <rect   id="mpv-b7"  x="218" y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+            <text x="228" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
+            <circle id="mpv-b8"  cx="250" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="250" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <circle id="mpv-b9"  cx="270" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="270" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <!-- C4: Dó-DóM-DóM -->
+            <rect   id="mpv-b10" x="278" y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+            <text x="288" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
+            <circle id="mpv-b11" cx="310" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="310" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <circle id="mpv-b12" cx="330" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="330" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <!-- C5: Sol-SolM-SolM -->
+            <rect   id="mpv-b13" x="338" y="160" width="20" height="18" rx="3" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+            <text x="348" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Sol</text>
+            <circle id="mpv-b14" cx="367" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
+            <text x="367" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <circle id="mpv-b15" cx="385" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
+            <text x="385" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <!-- C6: Dó-DóM-DóM -->
+            <rect   id="mpv-b16" x="393" y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+            <text x="403" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
+            <circle id="mpv-b17" cx="422" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="422" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <circle id="mpv-b18" cx="440" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="440" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <!-- C7: Sol-Sol7-Sol7 (preparação dominante 7ª) -->
+            <rect   id="mpv-b19" x="448" y="160" width="20" height="18" rx="3" fill="#d94a4a" stroke="#1a1618" stroke-width="2"/>
+            <text x="458" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Sol</text>
+            <circle id="mpv-b20" cx="477" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
+            <text x="477" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">7</text>
+            <circle id="mpv-b21" cx="495" cy="170" r="7" fill="none" stroke="#d94a4a" stroke-width="1.5"/>
+            <text x="495" y="173" fill="#d94a4a" font-size="8" font-weight="700" text-anchor="middle">7</text>
+            <!-- C8: Dó-DóM-DóM (cadência final V-I) -->
+            <rect   id="mpv-b22" x="503" y="160" width="20" height="18" rx="3" fill="var(--gold)" stroke="#1a1618" stroke-width="2"/>
+            <text x="513" y="174" fill="#1a1618" font-size="9" font-weight="700" text-anchor="middle">Dó</text>
+            <circle id="mpv-b23" cx="531" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="531" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
+            <circle id="mpv-b24" cx="548" cy="170" r="7" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="548" y="173" fill="var(--gold)" font-size="8" font-weight="700" text-anchor="middle">M</text>
+          </g>
+          <!-- Indicador da função: bum-tchim-tchim -->
+          <text x="290" y="220" font-size="10" font-style="italic" fill="var(--fg-dim)" text-anchor="middle">ME: bum-tchim-tchim · Cadência <tspan fill="var(--gold)">Dó</tspan>-<tspan fill="#d94a4a">Sol</tspan>-Dó-Dó-Sol-Dó-Sol7-Dó</text>
 
           <!-- Barras de compasso (8 compassos uniformes) -->
           <g stroke="#e0d8c0" stroke-width="1.5">
@@ -190,10 +250,13 @@
         const t0 = c*3;
         // MD: 1 mín pontuada por compasso
         all.push({...md[c], startBeat:t0});
-        // ME: 3 baixos por compasso (bum-tchim-tchim)
-        all.push({midi:meSeq[c][0], beats:1, isBass:true, articulation:SUST, startBeat:t0});
-        all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+1});
-        all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+2});
+        // ME: 3 baixos por compasso (bum-tchim-tchim) com IDs mpv-b1..mpv-b24
+        const fundEl    = `#mpv-b${c*3 + 1}`;
+        const acordeEl1 = `#mpv-b${c*3 + 2}`;
+        const acordeEl2 = `#mpv-b${c*3 + 3}`;
+        all.push({midi:meSeq[c][0], beats:1, isBass:true, articulation:SUST, startBeat:t0,   el:fundEl});
+        all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+1, el:acordeEl1});
+        all.push({midi:meSeq[c][1], beats:1, isBass:true, articulation:STAC, startBeat:t0+2, el:acordeEl2});
       }
       attachScorePlayer({ playBtnId: btnId, bpm, beatsPerBar:3, notes: all });
     }
