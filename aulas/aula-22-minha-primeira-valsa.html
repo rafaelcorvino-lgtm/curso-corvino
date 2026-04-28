@@ -257,13 +257,15 @@
           <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
             <text x="85" y="75" font-size="22">3</text><text x="85" y="102" font-size="22">4</text>
           </g>
-          <!-- C1: Dó5 (espaço 3, cy=72)  C2: Mi5 (espaço 4, cy=58)
-               C3: Sol5 (acima, cy=42)   C4: Mi5 (espaço 4, cy=58) -->
+          <!-- C1: Dó4 (linha supl, cy=125)  C2: Mi4 (linha 1, cy=110)
+               C3: Sol4 (linha 2, cy=95)    C4: Mi4 (linha 1, cy=110)
+               Transposto 1 oitava abaixo p/ caber no teclado de 25 teclas (MIDI 48-72) -->
           <g>
-            <ellipse id="pvd-1" cx="105" cy="72" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-            <ellipse id="pvd-2" cx="223" cy="58" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-            <ellipse id="pvd-3" cx="341" cy="42" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-            <ellipse id="pvd-4" cx="459" cy="58" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="95" y1="125" x2="115" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse id="pvd-1" cx="105" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <ellipse id="pvd-2" cx="223" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <ellipse id="pvd-3" cx="341" cy="95" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            <ellipse id="pvd-4" cx="459" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
           </g>
           <g font-family="serif" font-style="italic" font-size="11" text-anchor="middle" fill="#d4c9a8">
             <text x="105" y="22">Dó</text><text x="223" y="22">Mi</text>
@@ -310,12 +312,14 @@
               <line x1="20" y1="110" x2="560" y2="110"/>
             </g>
             <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
-            <!-- C5: Sol5 (cy=42)  C6: Fá5 (linha 5, cy=50)  C7: Mi5 (cy=58)  C8: Dó5 (cy=72) -->
+            <!-- C5: Sol4 (linha 2, cy=95)  C6: Fá4 (esp 1, cy=102)
+                 C7: Mi4 (linha 1, cy=110)  C8: Dó4 (linha supl, cy=125) -->
             <g>
-              <ellipse id="pvd-5" cx="105" cy="42" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-6" cx="223" cy="50" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-7" cx="341" cy="58" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-8" cx="459" cy="72" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-5" cx="105" cy="95" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-6" cx="223" cy="102" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-7" cx="341" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <line x1="449" y1="125" x2="469" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+              <ellipse id="pvd-8" cx="459" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
             </g>
             <g font-family="serif" font-style="italic" font-size="11" text-anchor="middle" fill="#d4c9a8">
               <text x="105" y="22">Sol</text><text x="223" y="22">Fá</text>
@@ -360,17 +364,18 @@
               <line x1="20" y1="110" x2="560" y2="110"/>
             </g>
             <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
-            <!-- C9: Dó5 sem (cx=105, cy=72) + Mi5 mín (cx=144, cy=58)
-                 C10: Mi5 sem + Sol5 mín | C11: Fá5 sem + Sol5 mín | C12: Mi5 sem + Sol5 mín -->
+            <!-- C9: Dó4 sem (cy=125, linha supl) + Mi4 mín (cy=110)
+                 C10: Mi4 sem + Sol4 mín | C11: Fá4 sem + Sol4 mín | C12: Mi4 sem + Sol4 mín -->
             <g>
-              <ellipse id="pvd-9"  cx="105" cy="72" rx="6" ry="4" fill="var(--gold)"/>
-              <ellipse id="pvd-10" cx="144" cy="58" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-11" cx="223" cy="58" rx="6" ry="4" fill="var(--gold)"/>
-              <ellipse id="pvd-12" cx="262" cy="42" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-13" cx="341" cy="50" rx="6" ry="4" fill="var(--gold)"/>
-              <ellipse id="pvd-14" cx="380" cy="42" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-15" cx="459" cy="58" rx="6" ry="4" fill="var(--gold)"/>
-              <ellipse id="pvd-16" cx="498" cy="42" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <line x1="95" y1="125" x2="115" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+              <ellipse id="pvd-9"  cx="105" cy="125" rx="6" ry="4" fill="var(--gold)"/>
+              <ellipse id="pvd-10" cx="144" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-11" cx="223" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+              <ellipse id="pvd-12" cx="262" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-13" cx="341" cy="102" rx="6" ry="4" fill="var(--gold)"/>
+              <ellipse id="pvd-14" cx="380" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-15" cx="459" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+              <ellipse id="pvd-16" cx="498" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
             </g>
             <g font-family="serif" font-style="italic" font-size="10" text-anchor="middle" fill="#d4c9a8">
               <text x="125" y="22">Dó-Mi</text><text x="243" y="22">Mi-Sol</text>
@@ -415,19 +420,18 @@
               <line x1="20" y1="110" x2="560" y2="110"/>
             </g>
             <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
-            <!-- C13: Sol5 sem + Mi5 mín | C14: Lá5 sem (linha supl!) + Sol5 mín
-                 C15: Sol5 sem + Fá5 mín | C16: Mi5 sem + Dó5 mín -->
+            <!-- C13: Sol4 sem + Mi4 mín | C14: Lá4 sem (esp 2) + Sol4 mín
+                 C15: Sol4 sem + Fá4 mín | C16: Mi4 sem + Dó4 mín (linha supl) -->
             <g>
-              <ellipse id="pvd-17" cx="105" cy="42" rx="6" ry="4" fill="var(--gold)"/>
-              <ellipse id="pvd-18" cx="144" cy="58" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <!-- Lá5 precisa linha suplementar acima da pauta -->
-              <line x1="213" y1="35" x2="233" y2="35" stroke="#e0d8c0" stroke-width="1.5"/>
-              <ellipse id="pvd-19" cx="223" cy="35" rx="6" ry="4" fill="var(--gold)"/>
-              <ellipse id="pvd-20" cx="262" cy="42" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-21" cx="341" cy="42" rx="6" ry="4" fill="var(--gold)"/>
-              <ellipse id="pvd-22" cx="380" cy="50" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-23" cx="459" cy="58" rx="6" ry="4" fill="var(--gold)"/>
-              <ellipse id="pvd-24" cx="498" cy="72" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-17" cx="105" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+              <ellipse id="pvd-18" cx="144" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-19" cx="223" cy="87"  rx="6" ry="4" fill="var(--gold)"/>
+              <ellipse id="pvd-20" cx="262" cy="95"  rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-21" cx="341" cy="95"  rx="6" ry="4" fill="var(--gold)"/>
+              <ellipse id="pvd-22" cx="380" cy="102" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-23" cx="459" cy="110" rx="6" ry="4" fill="var(--gold)"/>
+              <line x1="488" y1="125" x2="508" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+              <ellipse id="pvd-24" cx="498" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
             </g>
             <g font-family="serif" font-style="italic" font-size="10" text-anchor="middle" fill="#d4c9a8">
               <text x="125" y="22">Sol-Mi</text><text x="243" y="22">Lá-Sol</text>
@@ -472,12 +476,13 @@
               <line x1="20" y1="110" x2="560" y2="110"/>
             </g>
             <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
-            <!-- C17: Dó5  C18: Mi5  C19: Sol5  C20: Mi5 (igual C1-C4 do tema) -->
+            <!-- C17: Dó4 (linha supl)  C18: Mi4  C19: Sol4  C20: Mi4 (igual C1-C4 do tema) -->
             <g>
-              <ellipse id="pvd-25" cx="105" cy="72" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-26" cx="223" cy="58" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-27" cx="341" cy="42" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-28" cx="459" cy="58" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <line x1="95" y1="125" x2="115" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+              <ellipse id="pvd-25" cx="105" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-26" cx="223" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-27" cx="341" cy="95" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-28" cx="459" cy="110" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
             </g>
             <g font-family="serif" font-style="italic" font-size="11" text-anchor="middle" fill="#d4c9a8">
               <text x="105" y="22">Dó</text><text x="223" y="22">Mi</text>
@@ -522,17 +527,18 @@
               <line x1="20" y1="110" x2="560" y2="110"/>
             </g>
             <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
-            <!-- C21: Lá5 mín (linha supl!) | C22: Sol5 sem + Fá5 mín
-                 C23: Ré5 sem + Si4 mín     | C24: Dó5 mín (final) -->
+            <!-- C21: Lá4 mín (esp 2)   | C22: Sol4 sem + Fá4 mín
+                 C23: Ré4 sem + Si3 mín | C24: Dó4 mín (linha supl, final) -->
             <g>
-              <!-- Lá5 com linha suplementar acima da pauta -->
-              <line x1="95" y1="35" x2="115" y2="35" stroke="#e0d8c0" stroke-width="1.5"/>
-              <ellipse id="pvd-29" cx="105" cy="35" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-30" cx="223" cy="42" rx="6" ry="4" fill="var(--gold)"/>
-              <ellipse id="pvd-31" cx="262" cy="50" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-32" cx="341" cy="65" rx="6" ry="4" fill="var(--gold)"/>
-              <ellipse id="pvd-33" cx="380" cy="80" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
-              <ellipse id="pvd-34" cx="459" cy="72" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-29" cx="105" cy="87" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-30" cx="223" cy="95" rx="6" ry="4" fill="var(--gold)"/>
+              <ellipse id="pvd-31" cx="262" cy="102" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <ellipse id="pvd-32" cx="341" cy="117" rx="6" ry="4" fill="var(--gold)"/>
+              <!-- Si3 fica abaixo da linha supl do Dó central — precisa da linha supl pra ler -->
+              <line x1="370" y1="125" x2="390" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+              <ellipse id="pvd-33" cx="380" cy="132" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
+              <line x1="449" y1="125" x2="469" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+              <ellipse id="pvd-34" cx="459" cy="125" rx="9" ry="6" fill="none" stroke="var(--gold)" stroke-width="2"/>
             </g>
             <g font-family="serif" font-style="italic" font-size="10" text-anchor="middle" fill="#d4c9a8">
               <text x="105" y="22" fill="var(--gold)" font-weight="700">Lá</text>
@@ -678,38 +684,39 @@
     // ============================================================
     // ============ Primeira Valsa em Dó (24 compassos, A-B-A) =====
     // ============================================================
-    // MIDIs MD: Dó5=72, Ré5=74, Mi5=76, Fá5=77, Sol5=79, Lá5=81, Si4=71
+    // MIDIs MD (oitava 4 — cabe nas 25 teclas do Corvino, MIDI 48-72):
+    //   Dó4=60, Ré4=62, Mi4=64, Fá4=65, Sol4=67, Lá4=69, Si3=59
     // ME (Stradella): Dó=24, DóM=25, Fá=29, FáM=30, Sol=31, SolM=32, Sol7=44
 
     // 34 notas MD totais. Layout por compasso: 'min' (1 mín pontuada 3t) ou 'sem-min' (1 sem 1t + 1 mín 2t)
     const pvdMD = [
       // Tema A (C1-C8): só mín pontuadas
-      {midi:72, el:'#pvd-1',  beats:3, articulation:0.95},  // C1 Dó5
-      {midi:76, el:'#pvd-2',  beats:3, articulation:0.95},  // C2 Mi5
-      {midi:79, el:'#pvd-3',  beats:3, articulation:0.95},  // C3 Sol5
-      {midi:76, el:'#pvd-4',  beats:3, articulation:0.95},  // C4 Mi5
-      {midi:79, el:'#pvd-5',  beats:3, articulation:0.95},  // C5 Sol5
-      {midi:77, el:'#pvd-6',  beats:3, articulation:0.95},  // C6 Fá5
-      {midi:76, el:'#pvd-7',  beats:3, articulation:0.95},  // C7 Mi5
-      {midi:72, el:'#pvd-8',  beats:3, articulation:0.95},  // C8 Dó5
+      {midi:60, el:'#pvd-1',  beats:3, articulation:0.95},  // C1 Dó4
+      {midi:64, el:'#pvd-2',  beats:3, articulation:0.95},  // C2 Mi4
+      {midi:67, el:'#pvd-3',  beats:3, articulation:0.95},  // C3 Sol4
+      {midi:64, el:'#pvd-4',  beats:3, articulation:0.95},  // C4 Mi4
+      {midi:67, el:'#pvd-5',  beats:3, articulation:0.95},  // C5 Sol4
+      {midi:65, el:'#pvd-6',  beats:3, articulation:0.95},  // C6 Fá4
+      {midi:64, el:'#pvd-7',  beats:3, articulation:0.95},  // C7 Mi4
+      {midi:60, el:'#pvd-8',  beats:3, articulation:0.95},  // C8 Dó4
       // Variação B (C9-C16): sem (1t) + mín (2t)
-      {midi:72, el:'#pvd-9' }, {midi:76, el:'#pvd-10', beats:2, articulation:0.95},  // C9  Dó-Mi
-      {midi:76, el:'#pvd-11'}, {midi:79, el:'#pvd-12', beats:2, articulation:0.95},  // C10 Mi-Sol
-      {midi:77, el:'#pvd-13'}, {midi:79, el:'#pvd-14', beats:2, articulation:0.95},  // C11 Fá-Sol
-      {midi:76, el:'#pvd-15'}, {midi:79, el:'#pvd-16', beats:2, articulation:0.95},  // C12 Mi-Sol
-      {midi:79, el:'#pvd-17'}, {midi:76, el:'#pvd-18', beats:2, articulation:0.95},  // C13 Sol-Mi
-      {midi:81, el:'#pvd-19'}, {midi:79, el:'#pvd-20', beats:2, articulation:0.95},  // C14 Lá-Sol
-      {midi:79, el:'#pvd-21'}, {midi:77, el:'#pvd-22', beats:2, articulation:0.95},  // C15 Sol-Fá
-      {midi:76, el:'#pvd-23'}, {midi:72, el:'#pvd-24', beats:2, articulation:0.95},  // C16 Mi-Dó
+      {midi:60, el:'#pvd-9' }, {midi:64, el:'#pvd-10', beats:2, articulation:0.95},  // C9  Dó-Mi
+      {midi:64, el:'#pvd-11'}, {midi:67, el:'#pvd-12', beats:2, articulation:0.95},  // C10 Mi-Sol
+      {midi:65, el:'#pvd-13'}, {midi:67, el:'#pvd-14', beats:2, articulation:0.95},  // C11 Fá-Sol
+      {midi:64, el:'#pvd-15'}, {midi:67, el:'#pvd-16', beats:2, articulation:0.95},  // C12 Mi-Sol
+      {midi:67, el:'#pvd-17'}, {midi:64, el:'#pvd-18', beats:2, articulation:0.95},  // C13 Sol-Mi
+      {midi:69, el:'#pvd-19'}, {midi:67, el:'#pvd-20', beats:2, articulation:0.95},  // C14 Lá-Sol
+      {midi:67, el:'#pvd-21'}, {midi:65, el:'#pvd-22', beats:2, articulation:0.95},  // C15 Sol-Fá
+      {midi:64, el:'#pvd-23'}, {midi:60, el:'#pvd-24', beats:2, articulation:0.95},  // C16 Mi-Dó
       // Recapitulação A (C17-C24)
-      {midi:72, el:'#pvd-25', beats:3, articulation:0.95},  // C17 Dó5
-      {midi:76, el:'#pvd-26', beats:3, articulation:0.95},  // C18 Mi5
-      {midi:79, el:'#pvd-27', beats:3, articulation:0.95},  // C19 Sol5
-      {midi:76, el:'#pvd-28', beats:3, articulation:0.95},  // C20 Mi5
-      {midi:81, el:'#pvd-29', beats:3, articulation:0.95},  // C21 Lá5 (mín)
-      {midi:79, el:'#pvd-30'}, {midi:77, el:'#pvd-31', beats:2, articulation:0.95},  // C22 Sol-Fá
-      {midi:74, el:'#pvd-32'}, {midi:71, el:'#pvd-33', beats:2, articulation:0.95},  // C23 Ré-Si
-      {midi:72, el:'#pvd-34', beats:3, articulation:0.95},  // C24 Dó5 (final)
+      {midi:60, el:'#pvd-25', beats:3, articulation:0.95},  // C17 Dó4
+      {midi:64, el:'#pvd-26', beats:3, articulation:0.95},  // C18 Mi4
+      {midi:67, el:'#pvd-27', beats:3, articulation:0.95},  // C19 Sol4
+      {midi:64, el:'#pvd-28', beats:3, articulation:0.95},  // C20 Mi4
+      {midi:69, el:'#pvd-29', beats:3, articulation:0.95},  // C21 Lá4 (mín)
+      {midi:67, el:'#pvd-30'}, {midi:65, el:'#pvd-31', beats:2, articulation:0.95},  // C22 Sol-Fá
+      {midi:62, el:'#pvd-32'}, {midi:59, el:'#pvd-33', beats:2, articulation:0.95},  // C23 Ré-Si3
+      {midi:60, el:'#pvd-34', beats:3, articulation:0.95},  // C24 Dó4 (final)
     ];
 
     // ME por compasso [fundamental, acorde]
