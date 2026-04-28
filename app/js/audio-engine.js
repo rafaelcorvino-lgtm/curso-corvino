@@ -260,6 +260,12 @@ async function loadTimbreSf2(timbreId) {
   console.log('[CorvinoAudio] Loaded timbre:', timbre.name, 'SF ID:', keyboardSfId);
 }
 
+// Mutex pra trocar timbre — evita race condition se usuário clica em
+// vários tabs em sequência (ex: durante download de basson 59MB que
+// demora muito). Se já tá trocando, ignora pedido novo.
+let timbreChangeInProgress = false;
+export function isChangingTimbre() { return timbreChangeInProgress; }
+
 export function resume() {
   if (audioCtx && audioCtx.state === 'suspended') {
     audioCtx.resume();
@@ -270,15 +276,36 @@ export async function setTimbre(timbreId) {
   if (timbreId === currentTimbre) return;
   const timbre = TIMBRES.find(t => t.id === timbreId);
   if (!timbre) return;
-  currentTimbre = timbreId;
-  if (IS_TAURI) {
-    try {
-      await tauriInvoke('audio_switch_keyboard_timbre', { file: timbre.file });
-    } catch (e) { console.error('Troca de timbre (Tauri) falhou:', e); }
-    return;
+
+  // Bloqueia trocas paralelas — evita corromper o synth se o usuário
+  // clica num tab enquanto outro tá baixando. Erro lançado é capturado
+  // no chamador (ui-controls.js) que reverte o tab visual.
+  if (timbreChangeInProgress) {
+    throw new Error('Aguarde o timbre atual terminar de carregar.');
   }
-  if (ready && synth) {
-    await loadTimbreSf2(timbreId);
+  timbreChangeInProgress = true;
+
+  // currentTimbre só atualiza APÓS sucesso — se loadTimbreSf2 falhar,
+  // o estado interno bate com o que tá tocando de verdade.
+  const previousTimbre = currentTimbre;
+
+  try {
+    if (IS_TAURI) {
+      await tauriInvoke('audio_switch_keyboard_timbre', { file: timbre.file });
+      currentTimbre = timbreId;
+      return;
+    }
+    if (ready && synth) {
+      await loadTimbreSf2(timbreId);
+      currentTimbre = timbreId;
+    }
+  } catch (e) {
+    console.error('[CorvinoAudio] Troca de timbre falhou, mantendo timbre anterior:', e);
+    currentTimbre = previousTimbre; // garante consistência
+    emitLoading(null);
+    throw e; // propaga pro UI poder reverter o tab visual
+  } finally {
+    timbreChangeInProgress = false;
   }
 }
 

@@ -211,12 +211,41 @@ async function setupRegisterTabs() {
     }
     tab.appendChild(dots);
     tab.addEventListener('click', async () => {
-      container.querySelectorAll('.register-tab').forEach(el => el.classList.remove('selected'));
-      tab.classList.add('selected');
-      try { await audio.setTimbre(t.id); } catch (e) { console.error(e); }
-      // atualiza label da toolbar antiga (se existir)
-      const tl = document.getElementById('timbre-label');
-      if (tl) tl.textContent = t.name;
+      // Já tá no timbre selecionado — não faz nada
+      if (tab.classList.contains('selected')) return;
+      // Já está trocando outro timbre — ignora pra evitar race condition
+      if (audio.isChangingTimbre()) {
+        console.warn('[Corvino] Aguarde o timbre anterior terminar de carregar.');
+        return;
+      }
+
+      // Salva o tab que estava selecionado antes (pra reverter em caso de erro)
+      const previousTab = container.querySelector('.register-tab.selected');
+
+      // Atualiza UI: marca o novo como selected + loading; desabilita os outros
+      container.querySelectorAll('.register-tab').forEach(el => {
+        el.classList.remove('selected');
+        el.classList.add('disabled');
+      });
+      tab.classList.remove('disabled');
+      tab.classList.add('selected', 'loading');
+
+      try {
+        await audio.setTimbre(t.id);
+        // Sucesso: atualiza label da toolbar antiga (se existir)
+        const tl = document.getElementById('timbre-label');
+        if (tl) tl.textContent = t.name;
+      } catch (e) {
+        console.error('[Corvino] Falha ao trocar timbre:', e);
+        // Reverte UI: tira selected do novo, devolve pro anterior
+        tab.classList.remove('selected');
+        if (previousTab) previousTab.classList.add('selected');
+      } finally {
+        // Reabilita todos os tabs e tira loading
+        container.querySelectorAll('.register-tab').forEach(el => {
+          el.classList.remove('disabled', 'loading');
+        });
+      }
     });
     container.appendChild(tab);
   });

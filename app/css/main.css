@@ -626,6 +626,29 @@ html.embedded #app, html.embedded #splash { display: flex !important; }
   border-color: rgba(0,0,0,0.4);
 }
 
+/* Estado "carregando" — feedback visual enquanto o soundfont baixa
+   (importante pra basson de 59MB). Pulsa pra indicar atividade. */
+.register-tab.loading {
+  animation: register-tab-pulse 1.2s ease-in-out infinite;
+  cursor: wait;
+}
+.register-tab.loading::after {
+  content: '⏳';
+  font-size: 9px;
+  margin-top: 1px;
+}
+@keyframes register-tab-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+
+/* Estado "desabilitado" — outros tabs não clicáveis enquanto um carrega */
+.register-tab.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .label-toggle {
   margin-left: auto;
   width: 28px;
