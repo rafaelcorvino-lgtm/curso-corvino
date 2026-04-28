@@ -77,6 +77,68 @@ function midiToKey(midi) {
     default: return '?';
   }
 }
+// --- Mapeamento BAIXOS (event.code → MIDI). Mesma layout do
+// keyboard-input.js da app. Dá pro aluno tocar ME no teclado quando
+// quer estudar a esquerda em modo wait.
+function keyCodeToBassMidi(code) {
+  switch (code) {
+    // Coluna Dó
+    case 'Digit2': return 28; // contrabaixo
+    case 'KeyW':   return 24; // fundamental
+    case 'KeyS':   return 25; // maior
+    case 'KeyX':   return 36; // menor
+    // Coluna Fá
+    case 'Digit1': return 33;
+    case 'KeyQ':   return 29;
+    case 'KeyA':   return 30;
+    case 'KeyZ':   return 41;
+    // Coluna Sol
+    case 'Digit3': return 35;
+    case 'KeyE':   return 31;
+    case 'KeyD':   return 32;
+    case 'KeyC':   return 43;
+    // Coluna Ré
+    case 'Digit4': return 54;
+    case 'KeyR':   return 26;
+    case 'KeyF':   return 27;
+    case 'KeyV':   return 38;
+    default: return null;
+  }
+}
+// Nome do baixo (pra mostrar dentro da bolinha)
+function midiToBassName(midi) {
+  switch (midi) {
+    case 24: case 28: return 'Dó';
+    case 25:          return 'DóM';
+    case 36:          return 'Dóm';
+    case 29: case 33: return 'Fá';
+    case 30:          return 'FáM';
+    case 41:          return 'Fám';
+    case 31: case 35: return 'Sol';
+    case 32:          return 'SolM';
+    case 44:          return 'Sol7';
+    case 43:          return 'Solm';
+    case 26: case 54: return 'Ré';
+    case 27:          return 'RéM';
+    case 38:          return 'Rém';
+    default: return '?';
+  }
+}
+// Tecla do baixo (pra mostrar acima da bolinha)
+function midiToBassKey(midi) {
+  switch (midi) {
+    case 24: return 'W';  case 25: return 'S';
+    case 28: return '2';  case 36: return 'X';
+    case 29: return 'Q';  case 30: return 'A';
+    case 33: return '1';  case 41: return 'Z';
+    case 31: return 'E';  case 32: return 'D';
+    case 35: return '3';  case 43: return 'C';
+    case 26: return 'R';  case 27: return 'F';
+    case 54: return '4';  case 38: return 'V';
+    case 44: return 'C';  // Sol7 → coluna Sol acordes
+    default: return '?';
+  }
+}
 
 // --- Coords absolutas no SVG (lê translates dos parents) ---
 function getViewBoxPos(el) {
@@ -114,44 +176,55 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     return (figure && figure._handState) || { md: true, me: true };
   }
 
-  const mdNotes = notes
-    .filter(n => !n.isBass && n.el && typeof n.midi === 'number')
+  // Lista UNIFICADA de notas (MD + ME), ordenada por startBeat. Cada nota
+  // ganha _state que migra: pending → preview (esperando aluno tocar) ou
+  // pending → hit (auto-tocada). Toggle 𝄞/𝄢 da toolbar decide auto vs wait
+  // POR NOTA, no momento que o cursor chega nela.
+  const allNotes = notes
+    .filter(n => typeof n.midi === 'number')
     .map(n => ({
       midi: n.midi,
       beats: n.beats || 1,
       startBeat: n.startBeat ?? 0,
       el: n.el,
+      isBass: !!n.isBass,
+      articulation: typeof n.articulation === 'number'
+        ? n.articulation
+        : (n.isBass ? 0.85 : 0.92),
       _state: 'pending',
     }))
     .sort((a, b) => a.startBeat - b.startBeat);
+
+  // Resolve DOM elements + posições no SVG (se el estiver presente)
+  allNotes.forEach(n => {
+    if (n.el) {
+      n._domEl = document.querySelector(n.el);
+      if (n._domEl) n._pos = getViewBoxPos(n._domEl);
+    }
+  });
+
+  // Sub-listas pra acesso rápido. mdNotes é usada pra posicionar o cursor
+  // (que segue só a melodia da MD através dos staves).
+  const mdNotes = allNotes.filter(n => !n.isBass && n._domEl);
+  const meNotes = allNotes.filter(n => n.isBass);
 
   if (mdNotes.length === 0) {
     console.warn('[synthesia] nenhuma nota MD compatível');
     return;
   }
 
-  const meNotes = notes.filter(n => n.isBass);
   console.log('[synthesia] MD=', mdNotes.length, 'ME=', meNotes.length,
     'primeira MD: midi=', mdNotes[0].midi, 'el=', mdNotes[0].el);
 
-  const firstEl = document.querySelector(mdNotes[0].el);
-  if (!firstEl) {
-    console.warn('[synthesia] el da primeira nota não achado:', mdNotes[0].el);
-    return;
-  }
-  const scoreSvg = firstEl.closest('svg');
+  const scoreSvg = mdNotes[0]._domEl.closest('svg');
   if (!scoreSvg) return;
-
-  mdNotes.forEach(n => { n._domEl = document.querySelector(n.el); });
-  mdNotes.forEach(n => { n._pos = getViewBoxPos(n._domEl); });
 
   const cursor = createCursor(scoreSvg);
   const ball = createBall(scoreSvg);
   const keyLabel = createKeyLabel(scoreSvg);
   const keyHint = createKeyHint(scoreSvg);
 
-  const totalBeats = Math.max(...mdNotes.map(n => n.startBeat + n.beats),
-                              ...meNotes.map(n => (n.startBeat ?? 0) + (n.beats || 1))) + 1;
+  const totalBeats = Math.max(...allNotes.map(n => n.startBeat + n.beats)) + 1;
 
   const HIT_WINDOW_BEATS = 0.45;
   // LOOKAHEAD = lead-in antes da 1ª nota. Se beatsPerBar setado, vira
@@ -166,13 +239,17 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
   let rafId = null;
   let meTimeouts = [];
   let scheduledClicks = [];   // oscillators do count-in pra cancelar no stop
-  const score = { hits: 0, missed: 0, total: mdNotes.length };
+  // Score dinâmico — total cresce conforme notas viram "preview"
+  // (esperam o aluno). hits contabiliza preview→hit. Em modo full-auto
+  // (ambas mãos ON) o total fica 0 e não mostramos placar.
+  const score = { hits: 0, total: 0 };
 
   const originalBtnText = triggerBtn.textContent;
   function updateBtn() {
-    triggerBtn.textContent = running
+    if (!running) { triggerBtn.textContent = originalBtnText; return; }
+    triggerBtn.textContent = score.total > 0
       ? `■ Parar (${score.hits}/${score.total})`
-      : originalBtnText;
+      : '■ Parar';
   }
 
   triggerBtn.addEventListener('click', () => {
@@ -204,18 +281,15 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       return;
     }
 
-    // Corvino MIDI físico (acordeon real). Só noteOn (não noteOff)
-    // — chegam direto na iframe pelo Web MIDI API e não disparam keydown.
+    // Corvino MIDI físico (acordeon real). Só noteOn — chegam direto
+    // na iframe pelo Web MIDI API e não disparam keydown. Passamos
+    // playSound=false porque o app já tocou via audio engine (evita
+    // som duplicado).
     if (d.type === 'corvino:midiInput' && d.evt === 'noteOn') {
       if (!running) return;
       dlog('midiInput (Corvino→parent) midi=', d.midi, 'isBass=', d.isBass);
-      // Synthesia hoje só checa MD (mão direita). Ignoramos baixos —
-      // o app já tocou o som direto, só não conta como acerto.
-      if (d.isBass) return;
       flashBtn();
-      // playSound=false: o iframe já tocou o som via audio engine,
-      // não precisa disparar de novo via postMessage (evita dobro).
-      handleHit(d.midi, false);
+      handleHit(d.midi, !!d.isBass, false);
     }
   }
 
@@ -226,10 +300,11 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     waiting = false;
     waitBeat = 0;
     score.hits = 0;
-    score.missed = 0;
-    mdNotes.forEach(n => {
+    score.total = 0;
+    allNotes.forEach(n => {
       n._state = 'pending';
-      resetNoteColor(n._domEl);
+      n._counted = false;
+      if (n._domEl) resetNoteColor(n._domEl);
     });
     triggerBtn.classList.add('playing');
     cursor.style.display = '';
@@ -268,7 +343,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       }, beatsPerBar * beatMs);
     }
 
-    scheduleMEFromBeat(0);
+    scheduleAutoStop();
     rafId = requestAnimationFrame(tick);
   }
 
@@ -298,43 +373,23 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     meTimeouts = [];
   }
 
-  // Agenda ME a partir de um beat específico (usado no start e no resume)
-  function scheduleMEFromBeat(fromBeat) {
-    clearAllMeTimeouts();
-    const startOffsetMs = (fromBeat === 0 ? LOOKAHEAD_BEATS : 0) * beatMs;
-    for (const note of meNotes) {
-      const noteStart = note.startBeat ?? 0;
-      // Pula notas que já passaram completamente
-      if (noteStart + (note.beats || 1) <= fromBeat) continue;
+  // Auto-play: toca a nota imediatamente e agenda noteOff.
+  // Usado quando o toggle correspondente (𝄞/𝄢) está LIGADO — a mão
+  // toca sozinha, sem esperar input do aluno.
+  function autoPlayNote(note) {
+    postToApp({ type: 'corvino:noteOn', midi: note.midi, isBass: note.isBass });
+    const slotMs = note.beats * beatMs;
+    const soundMs = Math.max(50, slotMs * note.articulation);
+    meTimeouts.push(setTimeout(() => {
+      postToApp({ type: 'corvino:noteOff', midi: note.midi, isBass: note.isBass });
+    }, soundMs));
+  }
 
-      const startTimeMs = startOffsetMs + Math.max(0, noteStart - fromBeat) * beatMs;
-      const slotMs = (note.beats || 1) * beatMs;
-      const artic = typeof note.articulation === 'number' ? note.articulation : 0.85;
-      const soundMs = Math.max(50, slotMs * artic);
-
-      // Captura se o noteOn foi emitido (respeitou o toggle ME) — pra
-      // noteOff só disparar se o som chegou a tocar. Evita "noteOff órfão"
-      // se aluno mutar a ME no meio do playback.
-      let onFired = false;
-      meTimeouts.push(setTimeout(() => {
-        if (!running || waiting) return;
-        // Toggle 𝄢 (ME) apagado → não toca som (mas notas seguem o cursor)
-        if (!getHandState().me) return;
-        postToApp({ type: 'corvino:noteOn', midi: note.midi, isBass: true });
-        onFired = true;
-      }, startTimeMs));
-      meTimeouts.push(setTimeout(() => {
-        if (!onFired) return;
-        postToApp({ type: 'corvino:noteOff', midi: note.midi, isBass: true });
-        onFired = false;
-      }, startTimeMs + soundMs));
-    }
-    // Auto-stop quando termina (só agenda no start, não em resumes)
-    if (fromBeat === 0) {
-      meTimeouts.push(setTimeout(() => {
-        if (running && !waiting) stop(true);
-      }, (totalBeats + LOOKAHEAD_BEATS) * beatMs + 500));
-    }
+  // Agenda o auto-stop final (chamado no start)
+  function scheduleAutoStop() {
+    meTimeouts.push(setTimeout(() => {
+      if (running && !waiting) stop(true);
+    }, (totalBeats + LOOKAHEAD_BEATS) * beatMs + 500));
   }
 
   // ----- Pausa o jogo (cursor para de avançar) -----
@@ -354,50 +409,66 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     // O cursor permanece visível na posição da nota target (ball pulsa)
   }
 
-  // ----- Retoma após o aluno tocar a nota correta -----
+  // ----- Retoma após o aluno tocar todas as notas pendentes -----
   function resume() {
     if (!waiting) return;
     waiting = false;
     // Ajusta startMs pra que elapsedBeats continue de waitBeat
     startMs = performance.now() - waitBeat * beatMs;
-    scheduleMEFromBeat(waitBeat);
     console.log('[synthesia] RESUME a partir de beat=', waitBeat);
     rafId = requestAnimationFrame(tick);
   }
 
   // ----- Loop principal -----
+  // Para cada nota cuja startBeat foi alcançada:
+  //   - Toggle da mão LIGADO  → auto-play (postNoteOn + agenda noteOff)
+  //   - Toggle da mão DESLIGADO → marca preview (espera aluno tocar)
+  // Se ALGUMA nota preview ficou para trás (cursor passou da hit window
+  // sem o aluno tocar) → PAUSA.
   function tick(now) {
     if (!running || waiting) return;
     const elapsedBeats = (now - startMs) / beatMs;
+    const handState = getHandState();
 
-    // Acha próxima nota pendente
-    let nextPending = null;
-    for (const n of mdNotes) {
-      if (n._state === 'hit' || n._state === 'miss') continue;
-      if (!nextPending) {
-        nextPending = n;
-        if (n._state !== 'preview') {
-          n._state = 'preview';
-          markNote(n._domEl, 'preview');
-        }
+    // 1) Processa notas cujo startBeat já foi alcançado
+    for (const note of allNotes) {
+      if (note._state !== 'pending') continue;
+      if (note.startBeat > elapsedBeats) break; // ordenadas: futuras
+      const auto = note.isBass ? handState.me : handState.md;
+      if (auto) {
+        autoPlayNote(note);
+        note._state = 'hit';
+        if (note._domEl && !note.isBass) markNote(note._domEl, 'hit');
+      } else {
+        note._state = 'preview';
+        if (!note._counted) { score.total++; note._counted = true; }
+        if (note._domEl) markNote(note._domEl, 'preview');
       }
     }
 
-    // Se cursor passou da hit zone da próxima sem ela ser tocada: PAUSA
-    if (nextPending && elapsedBeats > nextPending.startBeat + HIT_WINDOW_BEATS) {
-      pause(nextPending.startBeat, nextPending);
-      // Posiciona ball/cursor sobre a nota travada
-      const p = nextPending._pos;
-      placeBall(p, nextPending.midi);
-      cursor.setAttribute('x1', p.x);
-      cursor.setAttribute('x2', p.x);
-      cursor.setAttribute('y1', p.y - 75);
-      cursor.setAttribute('y2', p.y + 90);
-      scrollNoteIntoView(nextPending._domEl);
+    // 2) Pausa se ALGUMA nota em preview já passou da hit window
+    const stuck = allNotes.find(n =>
+      n._state === 'preview' && elapsedBeats > n.startBeat + HIT_WINDOW_BEATS
+    );
+    if (stuck) {
+      pause(stuck.startBeat, stuck);
+      // Posiciona ball/cursor na nota travada (preferindo MD se houver)
+      const stuckMd = mdNotes.find(n =>
+        n._state === 'preview' && elapsedBeats > n.startBeat + HIT_WINDOW_BEATS
+      );
+      const focus = stuckMd || stuck;
+      if (focus._pos) {
+        placeBall(focus._pos, focus.midi, focus.isBass);
+        cursor.setAttribute('x1', focus._pos.x);
+        cursor.setAttribute('x2', focus._pos.x);
+        cursor.setAttribute('y1', focus._pos.y - 75);
+        cursor.setAttribute('y2', focus._pos.y + 90);
+        scrollNoteIntoView(focus._domEl);
+      }
       return;
     }
 
-    // Posiciona cursor (linha vertical) baseado no tempo
+    // 3) Cursor avança com o tempo (segue posição da MD no SVG)
     const cursorPos = computeCursorPosition(elapsedBeats);
     if (cursorPos) {
       cursor.setAttribute('x1', cursorPos.x);
@@ -406,10 +477,14 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       cursor.setAttribute('y2', cursorPos.y + 90);
     }
 
-    // Posiciona bolinha + rótulo (sempre sobre a próxima pendente)
-    if (nextPending) {
-      placeBall(nextPending._pos, nextPending.midi);
-      scrollNoteIntoView(nextPending._domEl);
+    // 4) Bolinha + rótulo: aponta a próxima nota a tocar (preview).
+    //    Prefere MD; se só tem ME preview, usa ME.
+    const nextPreviewMd = mdNotes.find(n => n._state === 'preview');
+    const nextPreview = nextPreviewMd ||
+      allNotes.find(n => n._state === 'preview');
+    if (nextPreview && nextPreview._pos) {
+      placeBall(nextPreview._pos, nextPreview.midi, nextPreview.isBass);
+      scrollNoteIntoView(nextPreview._domEl);
     } else {
       ball.style.display = 'none';
       keyLabel.style.display = 'none';
@@ -425,18 +500,20 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
 
   // Helper: move ball + rótulo pra mesma posição da nota target.
   // Dentro da bolinha: nome da nota (Dó, Ré, Mi...) — bate com a partitura.
-  // Acima: tecla a apertar (G, H, J...) — diz como tocar.
-  function placeBall(p, midi) {
+  // Acima: tecla a apertar (G, H, J... ou Q W E pra baixos).
+  function placeBall(p, midi, isBass = false) {
     ball.setAttribute('cx', p.x);
     ball.setAttribute('cy', p.y);
-    // Nome da nota dentro da bolinha
     keyLabel.setAttribute('x', p.x);
     keyLabel.setAttribute('y', p.y);
-    keyLabel.textContent = midiToNoteName(midi);
-    // Hint da tecla acima da bolinha
+    keyLabel.textContent = isBass
+      ? midiToBassName(midi)
+      : midiToNoteName(midi);
     keyHint.setAttribute('x', p.x);
     keyHint.setAttribute('y', p.y - 22);
-    keyHint.textContent = '⌨ ' + midiToKeyLetter(midi);
+    keyHint.textContent = isBass
+      ? '⌨ ' + midiToBassKey(midi)
+      : '⌨ ' + midiToKeyLetter(midi);
   }
 
   // Interpolação linear entre prev e next, considerando pulos de stave
@@ -474,21 +551,21 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
   }
 
   // ----- Input -----
-  // Captura keydown na fase de CAPTURE pra rodar antes de qualquer
-  // outro listener (e.g. iframe) e dar feedback visual mesmo quando
-  // a tecla não bate com nota nenhuma.
+  // Captura keydown em CAPTURE pra rodar antes de qualquer outro listener.
+  // Mapeia teclas MD (G H J K L Ç ~ ]) e BAIXO (Q W E R + Digits + S D F).
   function onKey(e) {
-    const midi = keyCodeToMidi(e.code);
-    // Log SEMPRE — mesmo se !running ou tecla não-mapeada — pra
-    // sabermos se o evento chegou no parent (vs ficou no iframe)
-    dlog('keydown code=', e.code, 'midi=', midi,
+    const mdMidi = keyCodeToMidi(e.code);
+    const bassMidi = keyCodeToBassMidi(e.code);
+    const midi = mdMidi != null ? mdMidi : bassMidi;
+    const isBass = mdMidi == null && bassMidi != null;
+    dlog('keydown code=', e.code, 'midi=', midi, 'isBass=', isBass,
       'running=', running, 'waiting=', waiting);
     if (!running) return;
     if (midi == null) return;
     if (e.repeat) { e.preventDefault(); return; }
     e.preventDefault();
     flashBtn();
-    handleHit(midi);
+    handleHit(midi, isBass, true);
   }
 
   // Pisca o botão pra confirmar visualmente que a tecla foi capturada
@@ -497,47 +574,49 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     setTimeout(() => triggerBtn.classList.remove('synth-key-flash'), 120);
   }
 
-  // playSound=false quando o som já foi tocado pelo iframe (Corvino real
-  // ou kbd direto da app já em uso). Evita disparo duplicado.
-  function handleHit(midi, playSound = true) {
+  // Trata um hit do aluno (teclado do PC ou Corvino MIDI físico).
+  // Procura uma nota em PREVIEW que case com midi+isBass; se acertar:
+  //   - marca hit e som verde
+  //   - se não tem mais notas preview "stuck" (cursor passou), RESUME
+  // Se não tem target preview, só toca o som (feedback livre).
+  // playSound=false quando o som já foi tocado pelo iframe (Corvino real).
+  function handleHit(midi, isBass = false, playSound = true) {
+    // Procura nota preview que case (pode ter várias se ambas mãos OFF
+    // no mesmo beat — pega a primeira que bate; nas próximas chamadas
+    // o aluno toca a outra).
+    const target = allNotes.find(n =>
+      n._state === 'preview' && n.midi === midi && n.isBass === isBass
+    );
+    dlog('handleHit midi=', midi, 'isBass=', isBass,
+      'target?', !!target, 'state=', target && target._state);
+
     if (playSound) {
-      postToApp({ type: 'corvino:noteOn', midi, isBass: false });
-      setTimeout(() => postToApp({ type: 'corvino:noteOff', midi, isBass: false }), 250);
+      postToApp({ type: 'corvino:noteOn', midi, isBass });
+      setTimeout(() => postToApp({ type: 'corvino:noteOff', midi, isBass }), 250);
     }
 
-    const target = mdNotes.find(n => n._state === 'pending' || n._state === 'preview');
-    dlog('handleHit midi=', midi, 'target=', target && target.midi, 'state=', target && target._state);
     if (!target) return;
+    target._state = 'hit';
+    score.hits++;  // conta hits de qualquer mão (MD ou ME) que estavam waiting
+    if (target._domEl) markNote(target._domEl, 'hit');
+    updateBtn();
 
-    // Modo ESPERA: aceita o hit independente do tempo (cursor pausado)
+    // Se ainda há QUALQUER nota em preview, continua pausado (aluno
+    // precisa tocar todas antes de o cursor voltar). Senão, retoma.
     if (waiting) {
-      if (target.midi === midi) {
-        target._state = 'hit';
-        score.hits++;
-        markNote(target._domEl, 'hit');
-        updateBtn();
-        resume();
-      }
-      // Nota errada em wait: ignora (continua esperando)
-      return;
+      const stillWaiting = allNotes.some(n => n._state === 'preview');
+      if (!stillWaiting) resume();
     }
-
-    // Modo NORMAL: verifica janela de tempo
-    const elapsedBeats = (performance.now() - startMs) / beatMs;
-    const dt = Math.abs(elapsedBeats - target.startBeat);
-    dlog('  elapsed=', elapsedBeats.toFixed(2), 'targetBeat=', target.startBeat, 'dt=', dt.toFixed(2));
-    if (target.midi === midi && dt <= HIT_WINDOW_BEATS) {
-      target._state = 'hit';
-      score.hits++;
-      markNote(target._domEl, 'hit');
-      updateBtn();
-    }
-    // Nota errada / fora da janela: ignora; target continua pending
-    // (vai virar wait quando cursor passar)
   }
 
   function showFinalScore() {
-    const pct = Math.round((score.hits / Math.max(1, score.total)) * 100);
+    if (score.total === 0) {
+      // Modo full-auto (ambas mãos ON) — não há pontuação a mostrar
+      triggerBtn.textContent = '✓ Tocou!';
+      setTimeout(() => updateBtn(), 3000);
+      return;
+    }
+    const pct = Math.round((score.hits / score.total) * 100);
     let msg = '';
     if (pct === 100) msg = '🎉 Perfeito!';
     else if (pct >= 80) msg = '👏 Muito bom!';
