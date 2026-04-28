@@ -1,20 +1,25 @@
 // ===== Synthesia mode pro curso Corvino =====
-// Modo de prática gamificado SEM stage separado: usa a própria partitura SVG
-// como tela. Uma "bolinha" se move entre as notas indicando QUAL tocar e
-// QUANDO. Feedback colorido nas próprias notas:
-//   - cor padrão        = nota futura (ainda vai chegar)
-//   - amarelo (preview) = a próxima a tocar
-//   - verde             = aluno acertou
-//   - vermelho          = aluno perdeu (passou sem tocar)
+// Modo de prática gamificado direto na partitura SVG: uma LINHA VERTICAL
+// (cursor de tempo) avança continuamente da esquerda pra direita conforme o
+// tempo passa, indicando QUANDO tocar. As próprias notas mudam de cor:
+//   - cor padrão (dourado)  = futura
+//   - amarelo                = a próxima a tocar (nota que o cursor está chegando)
+//   - verde                  = aluno acertou
+//   - vermelho               = passou sem tocar
+//
+// MD (mão direita): aluno toca G H J K L Ç ~ pra disparar Dó-Ré-Mi-Fá-Sol-Lá-Si.
+// ME (baixos): toca em background como acompanhamento — não precisa tocar.
 //
 // Uso:
 //   import { attachSynthesia } from './js/synthesia.js';
 //   attachSynthesia({
 //     triggerBtnId: 'btn-pvd-syn',
 //     bpm: 60,
-//     notes: [...],   // mesmo formato do score-player (com `el` apontando pras
-//                     //   ellipses da partitura)
+//     notes: [...],
 //   });
+
+const DEBUG = false;  // mudar pra true se precisar de logs detalhados no console
+function dlog(...args) { if (DEBUG) console.log('[synthesia]', ...args); }
 
 // --- postMessage pro app (mesma estratégia do score-player) ---
 function findAppFrame() {
@@ -22,37 +27,36 @@ function findAppFrame() {
 }
 function postToApp(msg) {
   const frame = findAppFrame();
-  if (!frame || !frame.contentWindow) return;
+  if (!frame || !frame.contentWindow) {
+    console.warn('[synthesia] iframe.app-frame não encontrado — som não vai sair');
+    return false;
+  }
   frame.contentWindow.postMessage(msg, '*');
+  return true;
 }
 
 // --- Mapeamento event.code → MIDI (oitava 4 — onde a Primeira Valsa está) ---
-// Reescrito específico pro Synthesia: as teclas mapeiam Dó4 (60) em diante,
-// pra alinhar com as peças que estão no register MIDI 60-72.
 function keyCodeToMidi(code) {
   switch (code) {
-    case 'KeyG':         return 60; // Dó
-    case 'KeyH':         return 62; // Ré
-    case 'KeyJ':         return 64; // Mi
-    case 'KeyK':         return 65; // Fá
-    case 'KeyL':         return 67; // Sol
-    case 'Semicolon':    return 69; // Lá
-    case 'Quote':        return 71; // Si
+    case 'KeyG':         return 60;
+    case 'KeyH':         return 62;
+    case 'KeyJ':         return 64;
+    case 'KeyK':         return 65;
+    case 'KeyL':         return 67;
+    case 'Semicolon':    return 69;
+    case 'Quote':        return 71;
     case 'Backslash':
-    case 'BracketRight': return 72; // Dó (8va)
-    // pretas
-    case 'KeyY':         return 61; // Dó#
-    case 'KeyU':         return 63; // Ré#
-    case 'KeyO':         return 66; // Fá#
-    case 'KeyP':         return 68; // Sol#
-    case 'BracketLeft':  return 70; // Lá#
+    case 'BracketRight': return 72;
+    case 'KeyY':         return 61;
+    case 'KeyU':         return 63;
+    case 'KeyO':         return 66;
+    case 'KeyP':         return 68;
+    case 'BracketLeft':  return 70;
     default: return null;
   }
 }
 
-// --- Pega coords (x, y) de um elemento dentro do SVG, levando em conta os
-//     transforms de translate dos parents (suficiente pra partituras com
-//     múltiplas staves usando <g transform="translate(0, Y)">) ---
+// --- Coords (x, y) absolutas no SVG (lê translate dos parents) ---
 function getViewBoxPos(el) {
   const cx = parseFloat(el.getAttribute('cx') || el.getAttribute('x') || 0);
   const cy = parseFloat(el.getAttribute('cy') || el.getAttribute('y') || 0);
@@ -77,7 +81,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     return;
   }
 
-  // Filtra MD que tenha `el` (referência visual na partitura) e ordena por tempo
+  // Filtra MD com `el` na partitura, ordena por tempo
   const mdNotes = notes
     .filter(n => !n.isBass && n.el && typeof n.midi === 'number')
     .map(n => ({
@@ -85,21 +89,21 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
       beats: n.beats || 1,
       startBeat: n.startBeat ?? 0,
       el: n.el,
-      _state: 'pending',  // 'pending' | 'preview' | 'hit' | 'miss'
+      _state: 'pending',
     }))
     .sort((a, b) => a.startBeat - b.startBeat);
 
   if (mdNotes.length === 0) {
-    console.warn('[synthesia] nenhuma nota MD com `el` na partitura');
+    console.warn('[synthesia] nenhuma nota MD com `el` encontrada');
     return;
   }
 
   const meNotes = notes.filter(n => n.isBass);
 
-  // Acha o SVG da partitura (a partir da primeira nota)
+  // Acha o SVG da partitura
   const firstEl = document.querySelector(mdNotes[0].el);
   if (!firstEl) {
-    console.warn('[synthesia] el da primeira nota não encontrado:', mdNotes[0].el);
+    console.warn('[synthesia] el da primeira nota não achada:', mdNotes[0].el);
     return;
   }
   const scoreSvg = firstEl.closest('svg');
@@ -108,19 +112,18 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     return;
   }
 
-  // Resolve elementos uma vez só (cache)
-  mdNotes.forEach(n => {
-    n._domEl = document.querySelector(n.el);
-  });
+  // Resolve elementos uma vez
+  mdNotes.forEach(n => { n._domEl = document.querySelector(n.el); });
+  // Pré-calcula coords absolutas das notas
+  mdNotes.forEach(n => { n._pos = getViewBoxPos(n._domEl); });
 
-  // Cria a bolinha (cursor visual)
-  const ball = createBall(scoreSvg);
+  const cursor = createCursor(scoreSvg);
 
-  // Total de beats (pra saber quando acaba)
   const totalBeats = Math.max(...mdNotes.map(n => n.startBeat + n.beats),
                               ...meNotes.map(n => (n.startBeat ?? 0) + (n.beats || 1))) + 1;
 
-  const HIT_WINDOW_BEATS = 0.45;  // ±45% do beat = janela tolerante (iniciante)
+  const HIT_WINDOW_BEATS = 0.45;
+  const LOOKAHEAD_BEATS = 1.5;
 
   // Estado
   let running = false;
@@ -130,14 +133,11 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   let meTimeouts = [];
   const score = { hits: 0, missed: 0, total: mdNotes.length };
 
-  // ----- UI / estado do botão -----
   const originalBtnText = triggerBtn.textContent;
   function updateBtn() {
-    if (running) {
-      triggerBtn.textContent = `■ Parar (${score.hits}/${score.total})`;
-    } else {
-      triggerBtn.textContent = originalBtnText;
-    }
+    triggerBtn.textContent = running
+      ? `■ Parar (${score.hits}/${score.total})`
+      : originalBtnText;
   }
 
   triggerBtn.addEventListener('click', () => {
@@ -146,7 +146,6 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
 
   window.addEventListener('keydown', onKey);
 
-  // ----- Start / Stop -----
   function start() {
     running = true;
     score.hits = 0;
@@ -156,12 +155,12 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
       resetNoteColor(n._domEl);
     });
     triggerBtn.classList.add('playing');
-    ball.style.display = '';
+    cursor.style.display = '';
     updateBtn();
     beatMs = 60000 / bpm;
-    // Lookahead de 1.5 beats pra ver o cursor antes da primeira nota
-    startMs = performance.now() + 1.5 * beatMs;
+    startMs = performance.now() + LOOKAHEAD_BEATS * beatMs;
     scheduleME();
+    dlog('start. bpm=', bpm, 'beatMs=', beatMs, 'totalBeats=', totalBeats, 'mdNotes=', mdNotes.length);
     rafId = requestAnimationFrame(tick);
   }
 
@@ -173,14 +172,14 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     meTimeouts = [];
     postToApp({ type: 'corvino:allOff' });
     triggerBtn.classList.remove('playing');
-    ball.style.display = 'none';
+    cursor.style.display = 'none';
     if (showFinal) showFinalScore();
     updateBtn();
   }
 
   function scheduleME() {
     for (const note of meNotes) {
-      const startBeats = (note.startBeat ?? 0) + 1.5; // +lookahead
+      const startBeats = (note.startBeat ?? 0) + LOOKAHEAD_BEATS;
       const startTimeMs = startBeats * beatMs;
       const slotMs = (note.beats || 1) * beatMs;
       const artic = typeof note.articulation === 'number' ? note.articulation : 0.85;
@@ -193,10 +192,9 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
         postToApp({ type: 'corvino:noteOff', midi: note.midi, isBass: true });
       }, startTimeMs + soundMs));
     }
-    // Auto-stop quando termina
     meTimeouts.push(setTimeout(() => {
       if (running) stop(true);
-    }, (totalBeats + 1.5) * beatMs + 500));
+    }, (totalBeats + LOOKAHEAD_BEATS) * beatMs + 500));
   }
 
   // ----- Loop principal -----
@@ -204,20 +202,18 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     if (!running) return;
     const elapsedBeats = (now - startMs) / beatMs;
 
-    // Atualiza estados
+    // Atualiza estados das notas
     let nextPending = null;
     for (const n of mdNotes) {
       if (n._state === 'hit' || n._state === 'miss') continue;
       const dt = elapsedBeats - n.startBeat;
       if (dt > HIT_WINDOW_BEATS) {
-        // Passou da janela sem ser tocada
         n._state = 'miss';
         score.missed++;
         markNote(n._domEl, 'miss');
         updateBtn();
       } else if (!nextPending) {
         nextPending = n;
-        // Marca como "preview" (amarelo) — está na vez
         if (n._state !== 'preview') {
           n._state = 'preview';
           markNote(n._domEl, 'preview');
@@ -225,18 +221,69 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
       }
     }
 
-    // Posiciona a bolinha sobre a nota pending atual
-    if (nextPending) {
-      const pos = getViewBoxPos(nextPending._domEl);
-      ball.setAttribute('cx', pos.x);
-      ball.setAttribute('cy', pos.y - 18);  // um pouco acima da nota
-      scrollNoteIntoView(nextPending._domEl);
+    // Posiciona o cursor (linha vertical) baseado no tempo
+    const pos = computeCursorPosition(elapsedBeats);
+    if (pos) {
+      cursor.setAttribute('x1', pos.x);
+      cursor.setAttribute('x2', pos.x);
+      cursor.setAttribute('y1', pos.y - 75);
+      cursor.setAttribute('y2', pos.y + 90);
     }
 
-    if (elapsedBeats < totalBeats + 1) {
+    // Auto-scroll pra acompanhar
+    if (nextPending) scrollNoteIntoView(nextPending._domEl);
+
+    if (elapsedBeats < totalBeats + LOOKAHEAD_BEATS) {
       rafId = requestAnimationFrame(tick);
     } else {
       stop(true);
+    }
+  }
+
+  // Calcula posição do cursor de tempo:
+  // - Antes da 1ª nota: cursor aproxima-se da 1ª nota
+  // - Entre 2 notas: interpola linearmente em x e y
+  // - Se mudou de stave entre prev e next (y diferente): salta no meio
+  function computeCursorPosition(elapsedBeats) {
+    let prev = null, next = null;
+    for (let i = 0; i < mdNotes.length; i++) {
+      if (mdNotes[i].startBeat <= elapsedBeats) prev = mdNotes[i];
+      else { next = mdNotes[i]; break; }
+    }
+
+    if (!prev) {
+      // Cursor "vindo de fora" pra primeira nota
+      next = mdNotes[0];
+      const p = next._pos;
+      const beatsBefore = next.startBeat - elapsedBeats;
+      const offsetX = Math.max(0, Math.min(80, beatsBefore * 30));
+      return { x: p.x - offsetX, y: p.y };
+    }
+    if (!next) {
+      return { ...prev._pos };
+    }
+
+    const segDur = next.startBeat - prev.startBeat;
+    const t = segDur > 0 ? (elapsedBeats - prev.startBeat) / segDur : 0;
+    const prevPos = prev._pos;
+    const nextPos = next._pos;
+
+    // Mesma stave? Interpolação direta.
+    if (Math.abs(prevPos.y - nextPos.y) < 30) {
+      return {
+        x: prevPos.x + (nextPos.x - prevPos.x) * t,
+        y: prevPos.y,
+      };
+    }
+
+    // Mudou de stave: 1ª metade do segmento → vai até a borda direita;
+    // 2ª metade → começa na borda esquerda da próxima stave.
+    if (t < 0.5) {
+      const tt = t * 2;
+      return { x: prevPos.x + (560 - prevPos.x) * tt, y: prevPos.y };
+    } else {
+      const tt = (t - 0.5) * 2;
+      return { x: 20 + (nextPos.x - 20) * tt, y: nextPos.y };
     }
   }
 
@@ -251,28 +298,25 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   }
 
   function handleHit(midi) {
-    // Toca o som independente do acerto (feedback auditivo imediato)
-    postToApp({ type: 'corvino:noteOn', midi, isBass: false });
+    // Toca o som imediatamente (feedback auditivo)
+    const sent = postToApp({ type: 'corvino:noteOn', midi, isBass: false });
+    if (DEBUG) dlog('handleHit midi=', midi, 'postSent=', sent);
     setTimeout(() => postToApp({ type: 'corvino:noteOff', midi, isBass: false }), 250);
 
-    // Pega a próxima nota pending
     const target = mdNotes.find(n => n._state === 'pending' || n._state === 'preview');
     if (!target) return;
 
     const elapsedBeats = (performance.now() - startMs) / beatMs;
     const dt = Math.abs(elapsedBeats - target.startBeat);
 
-    // Tocou nota CERTA dentro da janela?
     if (target.midi === midi && dt <= HIT_WINDOW_BEATS) {
       target._state = 'hit';
       score.hits++;
       markNote(target._domEl, 'hit');
       updateBtn();
     }
-    // Caso contrário (nota errada OU tempo errado): ignora — a nota target
-    // continua pending e vai virar miss se o tempo passar. Não penalizamos
-    // duas vezes (nem marcamos a nota como erro só porque o aluno tocou
-    // outra coisa fora do tempo).
+    // Caso tocou nota errada ou fora do tempo: ignora (target vira miss
+    // depois quando passar do tempo). Som ainda toca pra feedback.
   }
 
   function showFinalScore() {
@@ -287,26 +331,13 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   }
 }
 
-// --- Helpers de estado visual nas notas da partitura ---
-function markNote(el, state) {
-  if (!el) return;
-  el.classList.remove('synth-preview', 'synth-hit', 'synth-miss');
-  if (state === 'preview') el.classList.add('synth-preview');
-  else if (state === 'hit') el.classList.add('synth-hit');
-  else if (state === 'miss') el.classList.add('synth-miss');
-}
-function resetNoteColor(el) {
-  if (!el) return;
-  el.classList.remove('synth-preview', 'synth-hit', 'synth-miss');
-}
-
-// --- Auto-scroll: traz a nota atual à vista (com throttle pra não spammar) ---
+// --- Auto-scroll (acompanhar a stave atual) ---
 let _lastScrolledEl = null;
 let _lastScrollTs = 0;
 function scrollNoteIntoView(el) {
   if (!el || el === _lastScrolledEl) return;
   const now = performance.now();
-  if (now - _lastScrollTs < 400) return;  // throttle
+  if (now - _lastScrollTs < 400) return;
   _lastScrolledEl = el;
   _lastScrollTs = now;
   const reduced = window.matchMedia &&
@@ -320,20 +351,34 @@ function scrollNoteIntoView(el) {
   } catch (_) {}
 }
 
-// --- Cria a bolinha-cursor ---
-function createBall(svg) {
+// --- Helpers de estado visual nas notas ---
+function markNote(el, state) {
+  if (!el) return;
+  el.classList.remove('synth-preview', 'synth-hit', 'synth-miss');
+  if (state === 'preview') el.classList.add('synth-preview');
+  else if (state === 'hit') el.classList.add('synth-hit');
+  else if (state === 'miss') el.classList.add('synth-miss');
+}
+function resetNoteColor(el) {
+  if (!el) return;
+  el.classList.remove('synth-preview', 'synth-hit', 'synth-miss');
+}
+
+// --- Cria o cursor de tempo (linha vertical, estilo Yousician) ---
+function createCursor(svg) {
   const NS = 'http://www.w3.org/2000/svg';
-  const ball = document.createElementNS(NS, 'circle');
-  ball.setAttribute('class', 'synth-ball');
-  ball.setAttribute('r', '9');
-  ball.setAttribute('fill', '#ffd060');
-  ball.setAttribute('stroke', '#fff');
-  ball.setAttribute('stroke-width', '2');
-  ball.setAttribute('opacity', '0.95');
-  ball.style.display = 'none';
-  ball.style.filter = 'drop-shadow(0 0 6px rgba(255, 208, 96, 0.9))';
-  ball.style.pointerEvents = 'none';
-  ball.style.transition = 'cx 0.15s ease, cy 0.15s ease';
-  svg.appendChild(ball);
-  return ball;
+  const line = document.createElementNS(NS, 'line');
+  line.setAttribute('class', 'synth-cursor');
+  line.setAttribute('x1', '0');
+  line.setAttribute('x2', '0');
+  line.setAttribute('y1', '0');
+  line.setAttribute('y2', '0');
+  line.setAttribute('stroke', '#ffd060');
+  line.setAttribute('stroke-width', '2.5');
+  line.setAttribute('opacity', '0.85');
+  line.style.display = 'none';
+  line.style.filter = 'drop-shadow(0 0 6px rgba(255, 208, 96, 0.95))';
+  line.style.pointerEvents = 'none';
+  svg.appendChild(line);
+  return line;
 }

@@ -1172,14 +1172,14 @@ kbd {
    (cursor) indica qual nota tocar, e cada nota muda de cor conforme o
    aluno acerta/erra. Sem stage separado. */
 
-/* Bolinha cursor — circle injetado dinamicamente no SVG da partitura */
-.synth-ball {
-  /* anima quando muda de posição (transição suave entre notas) */
-  animation: synth-ball-pulse 0.6s ease-in-out infinite;
+/* Cursor de tempo — linha vertical estilo Yousician, injetada no SVG da
+   partitura. Move continuamente em X conforme o tempo passa. */
+.synth-cursor {
+  animation: synth-cursor-pulse 0.8s ease-in-out infinite;
 }
-@keyframes synth-ball-pulse {
-  0%, 100% { r: 9; opacity: 0.95; }
-  50%      { r: 11; opacity: 1; }
+@keyframes synth-cursor-pulse {
+  0%, 100% { opacity: 0.85; }
+  50%      { opacity: 1; }
 }
 
 /* Estados das notas durante o jogo (ellipses ganham essas classes via JS) */
