@@ -8,29 +8,27 @@ let onDeviceChangeCallback = null;
 
 export async function init() {
   if (!navigator.requestMIDIAccess) {
-    console.warn('Web MIDI API not supported in this browser');
+    midiDlog('Web MIDI API NÃO suportada neste navegador');
     return false;
   }
 
   try {
     midiAccess = await navigator.requestMIDIAccess({ sysex: false });
     midiAccess.onstatechange = handleStateChange;
-    // Log todos os dispositivos MIDI detectados (útil pra debug)
-    console.log('[MIDI] === Dispositivos MIDI detectados ===');
+    midiDlog('=== MIDI access OK; dispositivos input:', midiAccess.inputs.size, '===');
     for (const [id, input] of midiAccess.inputs) {
-      console.log('[MIDI] INPUT  →', JSON.stringify({
-        name: input.name,
-        manufacturer: input.manufacturer,
-        state: input.state,
-        classified: isBassDevice(input.name) ? 'BAIXO' : 'TECLADO'
-      }));
+      midiDlog('INPUT →', input.name, '|', input.manufacturer || '?',
+        '| state=', input.state,
+        '|', isBassDevice(input.name) ? 'BAIXO' : 'TECLADO');
     }
-    if (midiAccess.inputs.size === 0) console.log('[MIDI] Nenhum dispositivo input detectado.');
+    if (midiAccess.inputs.size === 0) {
+      midiDlog('Nenhum dispositivo input detectado. Plugar Corvino e recarregar.');
+    }
     // Auto-conectar TUDO que estiver plugado
     autoConnectAll();
     return true;
   } catch (err) {
-    console.error('MIDI access denied:', err);
+    midiDlog('MIDI access NEGADO:', err && err.message ? err.message : String(err));
     return false;
   }
 }
@@ -163,7 +161,10 @@ export function getDevices() {
 }
 
 export function connectDevice(device) {
-  if (!device.inputPort) return;
+  if (!device.inputPort) {
+    midiDlog('connectDevice ignorado (sem inputPort):', device.name);
+    return;
+  }
 
   // Pre-calcula se é baixo UMA vez (evita string check em cada nota tocada)
   device._isBass = isBassDevice(device.name);
@@ -173,7 +174,7 @@ export function connectDevice(device) {
   device._listener = listener;
   device.connected = true;
   state.addDevice(device.name, device);
-  console.log('[MIDI] Auto-conectado:', device.name, device._isBass ? '(BAIXO)' : '(TECLADO)');
+  midiDlog('Auto-conectado:', device.name, device._isBass ? '(BAIXO)' : '(TECLADO)');
   refreshConnectionFlags();
 }
 
@@ -187,9 +188,37 @@ export function disconnectDevice(device) {
   refreshConnectionFlags();
 }
 
+// DEBUG temporário: log de eventos MIDI relevantes (handshake, noteOn,
+// erros). Mensagens noteOn/Off são limitadas a N pra não estourar.
+let _midiHotBudget = 30;
+function midiDlog(...args) {
+  console.log('[midi]', ...args);
+  // Forward pro parent (curso) pra aparecer no botão 🐛
+  if (window.parent && window.parent !== window) {
+    try {
+      window.parent.postMessage({
+        type: 'corvino:log',
+        level: 'log',
+        text: '[midi/iframe] ' + args.map(a => {
+          try { return typeof a === 'string' ? a : JSON.stringify(a); }
+          catch (_) { return String(a); }
+        }).join(' '),
+      }, '*');
+    } catch (_) {}
+  }
+}
+function midiHotLog(...args) {
+  if (_midiHotBudget <= 0) return;
+  _midiHotBudget--;
+  midiDlog(...args);
+}
+
 function handleMidiMessage(event, device) {
   const data = event.data;
-  if (!data || data.length < 3) return;
+  if (!data || data.length < 3) {
+    midiHotLog('msg curto (ignorado), len=', data && data.length);
+    return;
+  }
 
   const status = data[0] & 0xF0;
   const note = data[1];
@@ -198,13 +227,17 @@ function handleMidiMessage(event, device) {
 
   // HOT PATH: áudio primeiro, state/UI depois (outros status são ignorados)
   if (status === 0x90 && velocity > 0) {
+    midiHotLog('noteOn dev=', device.name, 'midi=', note, 'vel=', velocity, 'isBass=', isBass);
     audio.noteOn(note, velocity, isBass);
     if (isBass) state.bassNoteOn(note); else state.pianoNoteOn(note);
     relayMidiToParent('noteOn', note, velocity, isBass);
   } else if (status === 0x80 || (status === 0x90 && velocity === 0)) {
+    midiHotLog('noteOff dev=', device.name, 'midi=', note, 'isBass=', isBass);
     audio.noteOff(note, isBass);
     if (isBass) state.bassNoteOff(note); else state.pianoNoteOff(note);
     relayMidiToParent('noteOff', note, 0, isBass);
+  } else {
+    midiHotLog('status outro=0x' + status.toString(16), 'data=', Array.from(data));
   }
 }
 
