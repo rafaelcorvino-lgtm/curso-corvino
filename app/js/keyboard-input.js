@@ -1,12 +1,12 @@
-// Teclado do computador → Corvino (mão direita 5 notas + baixo 4 colunas x 4 tipos)
+// Teclado do computador → Corvino (mão direita 1 oitava completa + baixo 4 colunas x 4 tipos)
 // Permite o aluno experimentar o curso sem ter o Corvino físico.
 //
 // Mapeamento por POSIÇÃO FÍSICA da tecla (event.code), funciona em qualquer
 // layout (ABNT, US, Dvorak). A exibição visual atualiza com event.key real.
 //
-// Mão direita (linha do meio):
-//   H  J  K  L  Ç
-//   Dó Ré Mi Fá Sol
+// Mão direita (linha do meio + cantos da linha de cima): 8 teclas brancas = 1 oitava
+//   G  H  J  K  L  Ç  ~/'  ]
+//   Dó Ré Mi Fá Sol Lá Si  Dó (oitava acima)
 //
 // Mão esquerda (matriz 4 linhas × 4 colunas, baseada na coluna vertical
 // do acordeon: contrabaixo, fundamental, maior, menor):
@@ -24,12 +24,15 @@ import { state } from './state.js';
 // row usa o MESMO índice do BASS_ROWS do midi-data.js:
 //   0 = acordes 7ª, 1 = menores, 2 = maiores, 3 = fund, 4 = contrabaixo
 const KEY_MAP = {
-  // --- Mão direita (piano) ---
-  KeyH:      { midi: 48, isBass: false },
-  KeyJ:      { midi: 50, isBass: false },
-  KeyK:      { midi: 52, isBass: false },
-  KeyL:      { midi: 53, isBass: false },
-  Semicolon: { midi: 55, isBass: false },
+  // --- Mão direita (piano) — escala de Dó completa (Dó central a Dó oitava acima) ---
+  KeyG:         { midi: 48, isBass: false }, // Dó (Dó central, MIDI 48)
+  KeyH:         { midi: 50, isBass: false }, // Ré
+  KeyJ:         { midi: 52, isBass: false }, // Mi
+  KeyK:         { midi: 53, isBass: false }, // Fá
+  KeyL:         { midi: 55, isBass: false }, // Sol
+  Semicolon:    { midi: 57, isBass: false }, // Lá (em ABNT2: Ç)
+  Quote:        { midi: 59, isBass: false }, // Si (em ABNT2: ~ ou ')
+  BracketRight: { midi: 60, isBass: false }, // Dó oitava acima (em ABNT2: ])
 
   // --- Mão esquerda (baixo) ---
   // Coluna Dó (pos 6)
@@ -54,9 +57,12 @@ const KEY_MAP = {
   KeyV:   { midi: 38, isBass: true, row: 1 },
 };
 
-// Labels padrão (ABNT) — ajustados via event.key no primeiro keypress
+// Labels padrão (ABNT2) — ajustados via event.key no primeiro keypress
 const DEFAULT_LABELS = {
-  KeyH: 'H',       KeyJ: 'J', KeyK: 'K', KeyL: 'L', Semicolon: 'Ç',
+  // Mão direita: G H J K L (linha do meio) + Ç + ~ (à direita do Ç) + ] (canto)
+  KeyG: 'G',       KeyH: 'H', KeyJ: 'J', KeyK: 'K', KeyL: 'L',
+  Semicolon: 'Ç', Quote: '~', BracketRight: ']',
+  // Mão esquerda
   Digit1: '1',     Digit2: '2', Digit3: '3', Digit4: '4',
   KeyQ: 'Q',       KeyW: 'W', KeyE: 'E', KeyR: 'R',
   KeyA: 'A',       KeyS: 'S', KeyD: 'D', KeyF: 'F',

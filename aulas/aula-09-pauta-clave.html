@@ -36,7 +36,7 @@
 
       <p>
         Até agora você tocou por tato — seja apertando uma tecla do
-        Corvino físico ou uma tecla do teclado do computador (H = Dó,
+        Corvino físico ou uma tecla do teclado do computador (G = Dó,
         por exemplo). A partir dessa aula você vai aprender a <strong>ler
         o que os compositores escreveram</strong>. Isso abre o mundo
         inteiro das partituras — Mario Mascarenhas, músicas populares,
@@ -167,7 +167,7 @@
           <ellipse id="ex9-si" cx="410" cy="70" rx="7" ry="5" fill="#887a50" transform="rotate(-20 410 70)"/>
           <text x="405" y="118" fill="#887a50" font-size="10">Si</text>
         </svg>
-        <figcaption>As notas dessa aula em <span style="color:var(--gold)"><strong>dourado</strong></span> (Dó a Sol — que você já toca com H J K L Ç). As próximas (Lá, Si) aparecem em cinza como prévia.</figcaption>
+        <figcaption>As notas dessa aula em <span style="color:var(--gold)"><strong>dourado</strong></span> (Dó a Sol — que você já toca com G H J K L). Lá e Si (em cinza) também já estão mapeadas pra Ç e ~ no teclado, pronto pra escala completa quando chegar nelas.</figcaption>
         <div class="score-play-wrap">
           <button id="btn-ex9-escala" class="score-play-btn">▶ Ouvir a escala</button>
         </div>
@@ -258,15 +258,15 @@
 
           <!-- Linhas tracejadas conectando Corvino → teclado computador -->
           <g stroke="rgba(218,165,32,0.4)" stroke-width="1" stroke-dasharray="3,3">
-            <line x1="65" y1="172" x2="297" y2="240"/>
-            <line x1="115" y1="172" x2="337" y2="240"/>
-            <line x1="165" y1="172" x2="377" y2="240"/>
-            <line x1="215" y1="172" x2="417" y2="240"/>
-            <line x1="265" y1="172" x2="457" y2="240"/>
+            <line x1="65" y1="172" x2="257" y2="240"/>
+            <line x1="115" y1="172" x2="297" y2="240"/>
+            <line x1="165" y1="172" x2="337" y2="240"/>
+            <line x1="215" y1="172" x2="377" y2="240"/>
+            <line x1="265" y1="172" x2="417" y2="240"/>
           </g>
 
           <!-- ===== SEÇÃO 2: TECLADO DO COMPUTADOR ===== -->
-          <text x="290" y="195" font-size="12" fill="var(--gold)" text-anchor="middle" font-weight="700">⌨ Pelo teclado do computador (H J K L Ç na fileira central)</text>
+          <text x="290" y="195" font-size="12" fill="var(--gold)" text-anchor="middle" font-weight="700">⌨ Pelo teclado do computador (G H J K L na fileira central)</text>
 
           <!-- Linha QWERTY (Q W E R T Y U I O P) -->
           <g font-family="monospace" text-anchor="middle">
@@ -292,7 +292,7 @@
             <text x="437" y="226" font-size="11" fill="#a8a29a">P</text>
           </g>
 
-          <!-- Linha ASDF...HJKLÇ (H J K L Ç destacados) -->
+          <!-- Linha ASDF...HJKLÇ (G H J K L destacados — novo mapeamento) -->
           <g font-family="monospace" text-anchor="middle">
             <rect x="80" y="240" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
             <text x="97" y="258" font-size="11" fill="#a8a29a">A</text>
@@ -302,9 +302,9 @@
             <text x="177" y="258" font-size="11" fill="#a8a29a">D</text>
             <rect x="200" y="240" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
             <text x="217" y="258" font-size="11" fill="#a8a29a">F</text>
-            <rect x="240" y="240" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
-            <text x="257" y="258" font-size="11" fill="#a8a29a">G</text>
-            <!-- H (Dó) destacado -->
+            <!-- G (Dó) destacado -->
+            <rect x="240" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="257" y="259" font-size="12" font-weight="700" fill="var(--gold)">G</text>
             <rect x="280" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
             <text x="297" y="259" font-size="12" font-weight="700" fill="var(--gold)">H</text>
             <rect x="320" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
@@ -313,8 +313,9 @@
             <text x="377" y="259" font-size="12" font-weight="700" fill="var(--gold)">K</text>
             <rect x="400" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
             <text x="417" y="259" font-size="12" font-weight="700" fill="var(--gold)">L</text>
-            <rect x="440" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
-            <text x="457" y="259" font-size="12" font-weight="700" fill="var(--gold)">Ç</text>
+            <!-- Ç (Lá) — mapeado mas cobre nota além do escopo dessa aula -->
+            <rect x="440" y="240" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
+            <text x="457" y="258" font-size="11" fill="#a8a29a">Ç</text>
           </g>
 
           <!-- Linha ZXC -->
@@ -335,17 +336,17 @@
             <text x="357" y="290" font-size="11" fill="#a8a29a">M</text>
           </g>
 
-          <!-- Notas mapeadas embaixo das teclas H-Ç -->
+          <!-- Notas mapeadas embaixo das teclas G-L -->
           <g font-size="10" font-weight="700" text-anchor="middle" fill="var(--gold)">
-            <text x="297" y="313">Dó</text>
-            <text x="337" y="313">Ré</text>
-            <text x="377" y="313">Mi</text>
-            <text x="417" y="313">Fá</text>
-            <text x="457" y="313">Sol</text>
+            <text x="257" y="313">Dó</text>
+            <text x="297" y="313">Ré</text>
+            <text x="337" y="313">Mi</text>
+            <text x="377" y="313">Fá</text>
+            <text x="417" y="313">Sol</text>
           </g>
         </svg>
         <figcaption>
-          As 5 primeiras notas (Dó-Ré-Mi-Fá-Sol) são tocadas com os <strong>5 dedos da mão direita</strong> no Corvino, ou no teclado do computador pela <strong>fileira central</strong> (H J K L Ç). O dedilhado é o mesmo: dedo 1 = Dó, dedo 2 = Ré, e assim por diante. As linhas pontilhadas mostram a equivalência tecla → nota.
+          As 5 primeiras notas (Dó-Ré-Mi-Fá-Sol) são tocadas com os <strong>5 dedos da mão direita</strong> no Corvino, ou no teclado do computador pela <strong>fileira central</strong> (G H J K L). O dedilhado é o mesmo: dedo 1 = Dó, dedo 2 = Ré, e assim por diante. As linhas pontilhadas mostram a equivalência tecla → nota. <em>Lá-Si-Dó (Ç ~ ]) também já estão mapeados, mas você só vai usar a partir do Módulo 7.</em>
         </figcaption>
       </figure>
 
@@ -361,11 +362,11 @@
         </li>
       </ul>
       <div class="fingering">
-        <div><span class="fnum">H</span> Dó</div>
-        <div><span class="fnum">J</span> Ré</div>
-        <div><span class="fnum">K</span> Mi</div>
-        <div><span class="fnum">L</span> Fá</div>
-        <div><span class="fnum">Ç</span> Sol</div>
+        <div><span class="fnum">G</span> Dó</div>
+        <div><span class="fnum">H</span> Ré</div>
+        <div><span class="fnum">J</span> Mi</div>
+        <div><span class="fnum">K</span> Fá</div>
+        <div><span class="fnum">L</span> Sol</div>
       </div>
       <p>
         Repita até o olho reconhecer a nota na pauta <strong>sem precisar
