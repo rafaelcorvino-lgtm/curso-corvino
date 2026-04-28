@@ -347,24 +347,24 @@ html.embedded #app, html.embedded #splash { display: flex !important; }
   bottom: 6px;
   display: flex;
   flex-direction: row;
-  gap: 4px;
+  gap: 3px;
   z-index: 5;
-  padding: 3px 6px;
+  padding: 2px 5px;
   background: rgba(10,10,14,0.55);
   border: 1px solid rgba(218,165,32,0.25);
-  border-radius: 6px;
+  border-radius: 5px;
   backdrop-filter: blur(4px);
 }
 
 .zoom-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
   background: rgba(10,10,14,0.7);
   border: 1px solid rgba(218,165,32,0.4);
   color: var(--gold);
   cursor: pointer;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
   display: flex;
   align-items: center;
