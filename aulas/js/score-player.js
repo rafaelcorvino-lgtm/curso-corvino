@@ -208,6 +208,20 @@ function buildPlayerUI(playBtnId, defaultBpm, defaultLabel) {
     figure.insertBefore(toolbar, figure.firstChild);
   }
 
+  // Absorve botão Synthesia (se existir) na toolbar.
+  // synthesia.js mantém referência via getElementById — só movemos no DOM.
+  const synthWrap = figure.querySelector('.synth-play-wrap');
+  if (synthWrap && !toolbar.querySelector('.synth-trigger')) {
+    const synthBtn = synthWrap.querySelector('.synth-trigger');
+    if (synthBtn) {
+      const synthRow = document.createElement('div');
+      synthRow.className = 'score-toolbar-row score-toolbar-synth';
+      synthRow.appendChild(synthBtn);
+      toolbar.appendChild(synthRow);
+      synthWrap.style.display = 'none';
+    }
+  }
+
   // Row deste player
   const row = document.createElement('div');
   row.className = 'score-toolbar-row';
@@ -222,12 +236,23 @@ function buildPlayerUI(playBtnId, defaultBpm, defaultLabel) {
     <div class="score-hands" role="group" aria-label="Mãos automáticas (clique pra mutar)">
       <span class="score-hands-label">Tocar:</span>
       <button class="score-hand-btn active" data-hand="md" type="button"
-              title="Mão direita automática — clique pra mutar (visual continua)">♪ MD</button>
+              title="Mão direita (clave de Sol) — clique pra mutar; partitura continua acendendo">
+        <span class="clef-glyph clef-treble" aria-hidden="true">𝄞</span>
+        <span class="visually-hidden">Mão direita</span>
+      </button>
       <button class="score-hand-btn active" data-hand="me" type="button"
-              title="Mão esquerda automática — clique pra mutar (visual continua)">♪ ME</button>
+              title="Mão esquerda (clave de Fá) — clique pra mutar; partitura continua acendendo">
+        <span class="clef-glyph clef-bass" aria-hidden="true">𝄢</span>
+        <span class="visually-hidden">Mão esquerda</span>
+      </button>
     </div>
   `;
   toolbar.appendChild(row);
+
+  // Garante que o row do Synthesia (se existe) fique sempre por último,
+  // depois de todas as play rows (Lento, Normal...)
+  const synthRow = toolbar.querySelector('.score-toolbar-synth');
+  if (synthRow) toolbar.appendChild(synthRow);
 
   return {
     playBtn: row.querySelector('.score-play-main'),
