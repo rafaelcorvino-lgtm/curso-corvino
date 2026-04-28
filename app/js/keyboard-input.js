@@ -32,7 +32,11 @@ const KEY_MAP = {
   KeyL:         { midi: 55, isBass: false }, // Sol
   Semicolon:    { midi: 57, isBass: false }, // Lá (em ABNT2: Ç)
   Quote:        { midi: 59, isBass: false }, // Si (em ABNT2: ~ ou ')
-  BracketRight: { midi: 60, isBass: false }, // Dó oitava acima (em ABNT2: ])
+  // Dó oitava acima: ] no ABNT2 brasileiro corresponde ao Backslash (event.code
+  // é POSICIONAL — em US a mesma posição é '\'). Mapeamos ambos pra cobrir
+  // layouts US e ABNT2/ABNT.
+  Backslash:    { midi: 60, isBass: false }, // Dó oitava acima — ABNT2: tecla ] (à direita do ~)
+  BracketRight: { midi: 60, isBass: false }, // Dó oitava acima — US: tecla ]
 
   // --- Mão esquerda (baixo) ---
   // Coluna Dó (pos 6)
@@ -61,7 +65,8 @@ const KEY_MAP = {
 const DEFAULT_LABELS = {
   // Mão direita: G H J K L (linha do meio) + Ç + ~ (à direita do Ç) + ] (canto)
   KeyG: 'G',       KeyH: 'H', KeyJ: 'J', KeyK: 'K', KeyL: 'L',
-  Semicolon: 'Ç', Quote: '~', BracketRight: ']',
+  Semicolon: 'Ç', Quote: '~',
+  Backslash: ']', BracketRight: ']',  // mesma nota (Dó 8va), 2 códigos diferentes (ABNT2 / US)
   // Mão esquerda
   Digit1: '1',     Digit2: '2', Digit3: '3', Digit4: '4',
   KeyQ: 'Q',       KeyW: 'W', KeyE: 'E', KeyR: 'R',
