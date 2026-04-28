@@ -136,6 +136,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   const cursor = createCursor(scoreSvg);
   const ball = createBall(scoreSvg);
   const keyLabel = createKeyLabel(scoreSvg);
+  const keyHint = createKeyHint(scoreSvg);
 
   const totalBeats = Math.max(...mdNotes.map(n => n.startBeat + n.beats),
                               ...meNotes.map(n => (n.startBeat ?? 0) + (n.beats || 1))) + 1;
@@ -200,6 +201,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     cursor.style.display = '';
     ball.style.display = '';
     keyLabel.style.display = '';
+    keyHint.style.display = '';
     updateBtn();
     // Foca o botão pra garantir que keydowns vão pro parent (não pra iframe)
     try { triggerBtn.focus({ preventScroll: true }); } catch (_) {}
@@ -226,6 +228,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     cursor.style.display = 'none';
     ball.style.display = 'none';
     keyLabel.style.display = 'none';
+    keyHint.style.display = 'none';
     if (showFinal) showFinalScore();
     updateBtn();
   }
@@ -341,6 +344,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     } else {
       ball.style.display = 'none';
       keyLabel.style.display = 'none';
+      keyHint.style.display = 'none';
     }
 
     if (elapsedBeats < totalBeats + LOOKAHEAD_BEATS) {
@@ -350,13 +354,20 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     }
   }
 
-  // Helper: move ball + rótulo pra mesma posição da nota target
+  // Helper: move ball + rótulo pra mesma posição da nota target.
+  // Dentro da bolinha: nome da nota (Dó, Ré, Mi...) — bate com a partitura.
+  // Acima: tecla a apertar (G, H, J...) — diz como tocar.
   function placeBall(p, midi) {
     ball.setAttribute('cx', p.x);
     ball.setAttribute('cy', p.y);
+    // Nome da nota dentro da bolinha
     keyLabel.setAttribute('x', p.x);
     keyLabel.setAttribute('y', p.y);
-    keyLabel.textContent = midiToKeyLetter(midi);
+    keyLabel.textContent = midiToNoteName(midi);
+    // Hint da tecla acima da bolinha
+    keyHint.setAttribute('x', p.x);
+    keyHint.setAttribute('y', p.y - 22);
+    keyHint.textContent = '⌨ ' + midiToKeyLetter(midi);
   }
 
   // Interpolação linear entre prev e next, considerando pulos de stave
@@ -527,16 +538,16 @@ function createBall(svg) {
   return circle;
 }
 
-// --- Rótulo da tecla (texto) — diz QUAL tecla apertar ---
-// Aparece dentro/sobre a bolinha quando pausado, ou logo abaixo dela
-// quando rolando. Sem ele o aluno tenta letras aleatórias até achar.
+// --- Rótulo dentro da bolinha — nome da nota (Dó, Ré, Mi...) ---
+// Bate com o nome da nota que aparece na partitura. Confirma pro aluno
+// "esta é a próxima nota a tocar".
 function createKeyLabel(svg) {
   const NS = 'http://www.w3.org/2000/svg';
   const text = document.createElementNS(NS, 'text');
   text.setAttribute('class', 'synth-key-label');
   text.setAttribute('text-anchor', 'middle');
   text.setAttribute('dominant-baseline', 'middle');
-  text.setAttribute('font-size', '11');
+  text.setAttribute('font-size', '9');
   text.setAttribute('font-weight', '700');
   text.setAttribute('fill', '#1a1618');
   text.style.display = 'none';
@@ -544,7 +555,46 @@ function createKeyLabel(svg) {
   svg.appendChild(text);
   return text;
 }
-// Pega a letra da tecla a partir do midi (p/ exibir no rótulo)
+
+// --- Hint da tecla (acima da bolinha) — diz QUAL tecla apertar ---
+// Posição: ~22px acima do centro da bolinha. Texto pequeno, claro
+// fundo escuro semi-transparente pra contrastar com qualquer fundo.
+function createKeyHint(svg) {
+  const NS = 'http://www.w3.org/2000/svg';
+  const text = document.createElementNS(NS, 'text');
+  text.setAttribute('class', 'synth-key-hint');
+  text.setAttribute('text-anchor', 'middle');
+  text.setAttribute('dominant-baseline', 'middle');
+  text.setAttribute('font-size', '11');
+  text.setAttribute('font-weight', '700');
+  text.setAttribute('fill', '#ffd060');
+  text.style.display = 'none';
+  text.style.pointerEvents = 'none';
+  svg.appendChild(text);
+  return text;
+}
+// Pega o nome da nota a partir do midi (p/ exibir dentro da bolinha)
+// Mostra Dó, Ré, Mi... — combina com o nome que o aluno vê na partitura.
+function midiToNoteName(midi) {
+  // Notação fixa Dó central (MIDI 60). Pretas usam o sustenido.
+  switch (midi) {
+    case 60: return 'Dó';
+    case 61: return 'Dó#';
+    case 62: return 'Ré';
+    case 63: return 'Ré#';
+    case 64: return 'Mi';
+    case 65: return 'Fá';
+    case 66: return 'Fá#';
+    case 67: return 'Sol';
+    case 68: return 'Sol#';
+    case 69: return 'Lá';
+    case 70: return 'Lá#';
+    case 71: return 'Si';
+    case 72: return 'Dó';
+    default: return '?';
+  }
+}
+// Letra da tecla (p/ exibir como hint pequeno acima da bolinha)
 function midiToKeyLetter(midi) {
   switch (midi) {
     case 60: return 'G';

@@ -1200,13 +1200,22 @@ kbd {
   }
 }
 
-/* Rótulo da tecla DENTRO da bolinha — diz QUAL tecla apertar.
-   Sem ele o aluno chuta letras aleatórias. Texto preto sobre amarelo. */
+/* Rótulo DENTRO da bolinha — nome da nota (Dó, Ré, Mi...).
+   Confirma qual nota o aluno deve tocar (bate com a partitura). */
 .synth-key-label {
-  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-family: inherit;
   paint-order: stroke;
   stroke: #ffd060;
-  stroke-width: 2;
+  stroke-width: 1.5;
+}
+/* Hint ACIMA da bolinha — letra da tecla (G, H, J...).
+   Diz como tocar (qual tecla do teclado apertar). */
+.synth-key-hint {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, 0.85);
+  stroke-width: 3;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
 }
 
 /* Estados das notas durante o jogo (ellipses ganham essas classes via JS) */
