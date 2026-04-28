@@ -45,16 +45,69 @@
       <p>
         Todo músico treinado <strong>lê a partitura antes</strong> de
         tocar. Isso se chama <em>solfejo visual</em>: olha, identifica
-        cada elemento, imagina o som. Faça assim nessa pecinha:
+        cada elemento, imagina o som. <strong>Role a página</strong> pra ver
+        a partitura abaixo (seção 2) e responda as 6 perguntas — cada uma
+        treina um elemento diferente da leitura.
       </p>
-      <ol>
-        <li><strong>Clave:</strong> qual é? (resposta: Sol)</li>
-        <li><strong>Fórmula de compasso:</strong> qual? (resposta: 3/4 — valsa)</li>
-        <li><strong>Quantos compassos?</strong> Conte as barras.</li>
-        <li><strong>Acidentes?</strong> Tem algum ♯, ♭, ♮?</li>
-        <li><strong>Figuras:</strong> reconhece semínima, mínima, pontuada, ligadura, pausa?</li>
-        <li><strong>Dedilhado:</strong> olhe os números dourados acima das notas.</li>
-      </ol>
+
+      <div class="quiz">
+        <div class="quiz-q" data-answer="0" data-explain="Clave de Sol — a curva 'gira' em torno da 2ª linha (a linha do Sol). É a clave usada pra escrever a melodia da mão direita.">
+          <p class="quiz-question"><strong>1. Clave:</strong> qual aparece no início da partitura?</p>
+          <button class="quiz-alt" data-idx="0">Clave de Sol (𝄞)</button>
+          <button class="quiz-alt" data-idx="1">Clave de Fá (𝄢)</button>
+          <button class="quiz-alt" data-idx="2">Clave de Dó (𝄡)</button>
+          <button class="quiz-alt" data-idx="3">Não tem clave</button>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-q" data-answer="1" data-explain="3/4 = 3 tempos por compasso, cada tempo vale uma semínima. É a fórmula da valsa — bum-tchim-tchim.">
+          <p class="quiz-question"><strong>2. Fórmula de compasso:</strong> qual é?</p>
+          <button class="quiz-alt" data-idx="0">2/4 (marcha/polca)</button>
+          <button class="quiz-alt" data-idx="1">3/4 (valsa)</button>
+          <button class="quiz-alt" data-idx="2">4/4 (xote/baião)</button>
+          <button class="quiz-alt" data-idx="3">6/8</button>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-q" data-answer="2" data-explain="A pecinha tem 4 compassos. Conte as 'casinhas' separadas pelas barras verticais — começa na clave e termina na barra dupla.">
+          <p class="quiz-question"><strong>3. Quantos compassos</strong> a peça tem? (conte as barras)</p>
+          <button class="quiz-alt" data-idx="0">2 compassos</button>
+          <button class="quiz-alt" data-idx="1">3 compassos</button>
+          <button class="quiz-alt" data-idx="2">4 compassos</button>
+          <button class="quiz-alt" data-idx="3">5 compassos</button>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-q" data-answer="3" data-explain="Não tem nenhum acidente — todas as notas são naturais. É a tonalidade de Dó Maior, que usa só teclas brancas.">
+          <p class="quiz-question"><strong>4. Acidentes:</strong> tem algum ♯ (sustenido), ♭ (bemol) ou ♮ (bequadro)?</p>
+          <button class="quiz-alt" data-idx="0">Tem 1 sustenido</button>
+          <button class="quiz-alt" data-idx="1">Tem 1 bemol</button>
+          <button class="quiz-alt" data-idx="2">Tem 1 bequadro</button>
+          <button class="quiz-alt" data-idx="3">Não tem nenhum</button>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-q" data-answer="2" data-explain="É uma mínima pontuada — cabeça vazada, haste e o pontinho ao lado. Vale 3 tempos (2 + 1), preenchendo o compasso inteiro de 3/4.">
+          <p class="quiz-question"><strong>5. Figura do último compasso:</strong> qual é o Dó final?</p>
+          <button class="quiz-alt" data-idx="0">Semínima (1 tempo)</button>
+          <button class="quiz-alt" data-idx="1">Mínima sem ponto (2 tempos)</button>
+          <button class="quiz-alt" data-idx="2">Mínima pontuada (3 tempos)</button>
+          <button class="quiz-alt" data-idx="3">Semibreve (4 tempos)</button>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-q" data-answer="0" data-explain="Compasso 1 = Dó-Ré-Mi com dedilhado 1-2-3 (polegar, indicador, médio). Os números dourados acima das notas mostram qual dedo usar.">
+          <p class="quiz-question"><strong>6. Dedilhado do 1º compasso:</strong> qual é a sequência de dedos? (olhe os números dourados)</p>
+          <button class="quiz-alt" data-idx="0">1-2-3</button>
+          <button class="quiz-alt" data-idx="1">3-2-1</button>
+          <button class="quiz-alt" data-idx="2">1-3-5</button>
+          <button class="quiz-alt" data-idx="3">4-3-2</button>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-score" data-success="🎼 Solfejo visual feito! Agora dá pra tocar com confiança."
+             data-fail="Reveja as que errou olhando direto na partitura abaixo."></div>
+      </div>
 
       <h2>2. A partitura</h2>
 
@@ -216,7 +269,8 @@
           <div class="quiz-feedback"></div>
         </div>
 
-        <div class="quiz-score" id="quiz-score"></div>
+        <div class="quiz-score" data-success="✓ Você dominou os símbolos. Pode partir pro Módulo 4."
+             data-fail="Revise as que errou antes de continuar."></div>
       </div>
 
       <p>
@@ -289,57 +343,65 @@
     attachScorePlayer(peca(80));
 
     // ===== Quiz interativo =====
-    (function initQuiz() {
-      const questions = document.querySelectorAll('.quiz-q');
-      const scoreEl = document.getElementById('quiz-score');
-      const answered = new Set();
+    // Suporta MÚLTIPLOS quizzes na mesma página. Cada <div class="quiz">
+    // é tratado de forma independente: tem suas próprias .quiz-q,
+    // seu próprio .quiz-score e seu próprio set "answered".
+    // Mensagens custom via data-success / data-fail no .quiz-score.
+    (function initQuizzes() {
+      document.querySelectorAll('.quiz').forEach((quizWrapper) => {
+        const questions = quizWrapper.querySelectorAll('.quiz-q');
+        const scoreEl = quizWrapper.querySelector('.quiz-score');
+        const answered = new Set();
 
-      function updateScore() {
-        let correct = 0;
-        for (const q of questions) {
-          if (q.classList.contains('correct')) correct++;
+        function updateScore() {
+          if (!scoreEl) return;
+          let correct = 0;
+          for (const q of questions) {
+            if (q.classList.contains('correct')) correct++;
+          }
+          const total = questions.length;
+          if (answered.size < total) {
+            scoreEl.textContent = `Respondidas: ${answered.size} de ${total}`;
+          } else {
+            const successMsg = scoreEl.dataset.success || 'Tudo certo! 🎉';
+            const failMsg    = scoreEl.dataset.fail    || 'Revise as que errou.';
+            scoreEl.textContent =
+              `Resultado: ${correct} de ${total} — ` +
+              (correct === total ? successMsg : failMsg);
+          }
         }
-        const total = questions.length;
-        if (answered.size < total) {
-          scoreEl.textContent = `Respondidas: ${answered.size} de ${total}`;
-        } else {
-          scoreEl.textContent =
-            `Resultado: ${correct} de ${total}` +
-            (correct === total ? ' — tudo certo! 🎉 Partiu Módulo 4.'
-                               : ' — revise as que errou antes de continuar.');
-        }
-      }
 
-      questions.forEach((q, qIdx) => {
-        const answer = parseInt(q.dataset.answer, 10);
-        const explain = q.dataset.explain || '';
-        const fb = q.querySelector('.quiz-feedback');
-        const alts = q.querySelectorAll('.quiz-alt');
+        questions.forEach((q, qIdx) => {
+          const answer = parseInt(q.dataset.answer, 10);
+          const explain = q.dataset.explain || '';
+          const fb = q.querySelector('.quiz-feedback');
+          const alts = q.querySelectorAll('.quiz-alt');
 
-        alts.forEach((btn) => {
-          btn.addEventListener('click', () => {
-            if (answered.has(qIdx)) return; // já respondeu
-            const chosen = parseInt(btn.dataset.idx, 10);
-            answered.add(qIdx);
+          alts.forEach((btn) => {
+            btn.addEventListener('click', () => {
+              if (answered.has(qIdx)) return; // já respondeu
+              const chosen = parseInt(btn.dataset.idx, 10);
+              answered.add(qIdx);
 
-            alts.forEach((b, i) => {
-              b.disabled = true;
-              if (i === answer) b.classList.add('alt-correct');
-              if (i === chosen && i !== answer) b.classList.add('alt-wrong');
+              alts.forEach((b, i) => {
+                b.disabled = true;
+                if (i === answer) b.classList.add('alt-correct');
+                if (i === chosen && i !== answer) b.classList.add('alt-wrong');
+              });
+
+              if (chosen === answer) {
+                q.classList.add('correct');
+                fb.innerHTML = '<span class="fb-ok">✓ Certo!</span> ' + explain;
+              } else {
+                q.classList.add('wrong');
+                fb.innerHTML = '<span class="fb-err">✗ Errou.</span> ' + explain;
+              }
+              updateScore();
             });
-
-            if (chosen === answer) {
-              q.classList.add('correct');
-              fb.innerHTML = '<span class="fb-ok">✓ Certo!</span> ' + explain;
-            } else {
-              q.classList.add('wrong');
-              fb.innerHTML = '<span class="fb-err">✗ Errou.</span> ' + explain;
-            }
-            updateScore();
           });
         });
+        updateScore();
       });
-      updateScore();
     })();
   </script>
 <script src="js/accessibility.js"></script>
