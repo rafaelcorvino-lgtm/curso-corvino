@@ -181,11 +181,40 @@
   // ===== APP LOADING PLACEHOLDER =====
   // Mostra "Carregando app Corvino…" enquanto o iframe não termina de baixar.
   // Sem isso o aluno olha pra um quadrado vazio e não sabe se quebrou.
+  //
+  // IMPORTANTE: o loader precisa de um pai com `position: relative` pra
+  // ficar absolutamente posicionado em cima do iframe. Mas NÃO podemos
+  // mexer no .app-panel (que tem `position: sticky` — sobrescrever isso
+  // quebra o "app fixo na tela durante scroll"). Solução: envolver o
+  // iframe num wrapper dedicado que recebe `position: relative` e fica
+  // dentro do .app-panel sem afetar a estrutura visível.
   function injectAppLoader() {
     const iframe = document.querySelector('iframe.app-frame');
     if (!iframe) return;
-    const wrapper = iframe.parentElement;
-    if (!wrapper || wrapper.querySelector('.app-loading')) return;
+    const appPanel = iframe.parentElement;
+    if (!appPanel) return;
+
+    // Se já tem wrapper, não duplica
+    let wrapper = iframe.previousElementSibling?.classList?.contains('app-frame-wrap')
+      ? iframe.previousElementSibling
+      : iframe.parentElement.classList.contains('app-frame-wrap')
+        ? iframe.parentElement
+        : null;
+
+    if (!wrapper) {
+      // Cria wrapper e move o iframe pra dentro
+      wrapper = document.createElement('div');
+      wrapper.className = 'app-frame-wrap';
+      wrapper.style.position = 'relative';
+      wrapper.style.flex = '1 1 auto'; // herda flex do .app-panel
+      wrapper.style.minHeight = '0';
+      wrapper.style.display = 'flex';
+      wrapper.style.flexDirection = 'column';
+      iframe.parentNode.insertBefore(wrapper, iframe);
+      wrapper.appendChild(iframe);
+    }
+
+    if (wrapper.querySelector('.app-loading')) return;
 
     const loader = document.createElement('div');
     loader.className = 'app-loading';
@@ -194,7 +223,6 @@
       <div class="app-loading-text">Carregando app Corvino…</div>
       <div class="app-loading-hint">~5 segundos na primeira vez</div>
     `;
-    wrapper.style.position = 'relative';
     wrapper.appendChild(loader);
 
     // Some quando iframe avisar que carregou
