@@ -1167,69 +1167,42 @@ kbd {
   transition: fill 0.05s, stroke 0.05s;
 }
 
-/* === SYNTHESIA MODE === */
-/* Stage onde as notas caem. SVG renderizado dinamicamente pelo synthesia.js */
-.synth-stage-wrap {
-  width: 100%;
-  margin: 14px 0;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #0a0808;
-  border: 2px solid var(--gold);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+/* === SYNTHESIA MODE — overlay direto na partitura === */
+/* O modo Synthesia atua sobre a partitura SVG existente: uma bolinha
+   (cursor) indica qual nota tocar, e cada nota muda de cor conforme o
+   aluno acerta/erra. Sem stage separado. */
+
+/* Bolinha cursor — circle injetado dinamicamente no SVG da partitura */
+.synth-ball {
+  /* anima quando muda de posição (transição suave entre notas) */
+  animation: synth-ball-pulse 0.6s ease-in-out infinite;
 }
-.synth-stage-svg {
-  display: block;
-  width: 100%;
-  height: auto;
+@keyframes synth-ball-pulse {
+  0%, 100% { r: 9; opacity: 0.95; }
+  50%      { r: 11; opacity: 1; }
 }
-/* Tecla "ativa" (sendo tocada agora pelo aluno) */
-.synth-key {
-  transition: fill 0.08s;
-}
-.synth-key-active {
+
+/* Estados das notas durante o jogo (ellipses ganham essas classes via JS) */
+.synth-preview {
   fill: #ffd060 !important;
-  filter: drop-shadow(0 0 6px rgba(255, 208, 96, 0.9));
+  stroke: #ffd060 !important;
+  filter: drop-shadow(0 0 5px rgba(255, 208, 96, 0.8));
+  transition: fill 0.1s, stroke 0.1s;
 }
-/* Score box (canto superior direito) */
-.synth-score-box {
-  background: rgba(0, 0, 0, 0.65);
-  border: 1px solid var(--gold);
-  border-radius: 6px;
-  padding: 4px 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: sans-serif;
-  font-size: 12px;
-  height: 26px;
+.synth-hit {
+  fill: #5ab45a !important;
+  stroke: #5ab45a !important;
+  filter: drop-shadow(0 0 5px rgba(90, 180, 90, 0.8));
+  transition: fill 0.1s, stroke 0.1s;
 }
-.synth-score-label {
-  color: #d4c9a8;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.synth-miss {
+  fill: #d94a4a !important;
+  stroke: #d94a4a !important;
+  filter: drop-shadow(0 0 5px rgba(217, 74, 74, 0.7));
+  transition: fill 0.1s, stroke 0.1s;
 }
-.synth-score {
-  color: var(--gold);
-  font-weight: 700;
-  font-family: monospace;
-  font-size: 13px;
-}
-/* Mensagem final (overlay no centro do stage) */
-.synth-final {
-  background: rgba(0, 0, 0, 0.85);
-  border: 1px solid var(--gold);
-  border-radius: 8px;
-  padding: 10px 14px;
-  color: var(--gold);
-  font-family: sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
-  transition: opacity 0.4s;
-}
-/* Botão Synthesia trigger — usa estilo do score-play-btn mas com cor diferente */
+
+/* Botão Synthesia — cor diferente pra destacar do Lento/Normal */
 .score-play-btn.synth-trigger {
   background: linear-gradient(180deg, #b8632a, #8a4a1f);
   border-color: #d97a3a;
