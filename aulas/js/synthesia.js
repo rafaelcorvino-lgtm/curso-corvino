@@ -260,6 +260,19 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
   // outro listener da página. Não interfere no iframe (frame separado).
   document.addEventListener('keydown', onKey, true);
 
+  // Toggle 𝄞/𝄢 mudou — sincroniza notas em preview que viraram auto.
+  // Se ficou todo mundo auto, retoma o cursor (sai da pausa).
+  if (figure) {
+    figure.addEventListener('handStateChange', () => {
+      if (!running) return;
+      autoFlushPreviews();
+      if (waiting) {
+        const stillWaiting = allNotes.some(n => n._state === 'preview');
+        if (!stillWaiting) resume();
+      }
+    });
+  }
+
   // O iframe da app repassa keydowns via postMessage('corvino:keyForward')
   // — necessário pq o iframe normalmente "consome" os eventos quando ele
   // tem foco, e o aluno frequentemente clica nele. Tratamos como keydown.
@@ -383,6 +396,22 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     meTimeouts.push(setTimeout(() => {
       postToApp({ type: 'corvino:noteOff', midi: note.midi, isBass: note.isBass });
     }, soundMs));
+  }
+
+  // Re-avalia notas em PREVIEW — se o toggle da mão mudou pra ON
+  // durante o jogo, auto-toca elas e marca hit. Necessário pra
+  // o aluno conseguir mudar de modo no meio do jogo sem travar.
+  function autoFlushPreviews() {
+    const handState = getHandState();
+    for (const note of allNotes) {
+      if (note._state !== 'preview') continue;
+      const auto = note.isBass ? handState.me : handState.md;
+      if (auto) {
+        autoPlayNote(note);
+        note._state = 'hit';
+        if (note._domEl && !note.isBass) markNote(note._domEl, 'hit');
+      }
+    }
   }
 
   // Agenda o auto-stop final (chamado no start)

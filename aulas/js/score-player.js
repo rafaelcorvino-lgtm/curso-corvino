@@ -209,13 +209,21 @@ function buildPlayerUI(playBtnId, defaultBpm, defaultLabel) {
     const handState = { md: true, me: true };
     figure._handState = handState;
 
+    function fireHandChange(hand) {
+      figure.dispatchEvent(new CustomEvent('handStateChange', {
+        detail: { hand, state: { ...handState } }
+      }));
+    }
+
     optionsRow.querySelector('[data-hand="md"]').addEventListener('click', e => {
       handState.md = !handState.md;
       e.currentTarget.classList.toggle('active', handState.md);
+      fireHandChange('md');
     });
     optionsRow.querySelector('[data-hand="me"]').addEventListener('click', e => {
       handState.me = !handState.me;
       e.currentTarget.classList.toggle('active', handState.me);
+      fireHandChange('me');
     });
 
     // Absorve botão Synthesia (se existir) na MESMA row das mãos.
