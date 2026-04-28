@@ -33,12 +33,14 @@ function saveZoom() {
 function clamp(v, mn, mx) { return Math.max(mn, Math.min(mx, v)); }
 
 function applyZoom() {
-  // Aplica o zoom apenas nos controles HUD/zoom/registers, não no teclado nem nos baixos
-  const els = document.querySelectorAll('.hud, .zoom-controls, #registers-bar');
+  // Aplica o zoom apenas nos controles HUD/zoom+kbd/registers, não no teclado nem nos baixos.
+  // .bottom-right-controls agora envolve kbd-toggle + zoom-controls — escalam juntos.
+  const els = document.querySelectorAll('.hud, .bottom-right-controls, #registers-bar');
   els.forEach(el => {
     el.style.transform = `scale(${ZOOM.current})`;
     el.style.transformOrigin = el.classList.contains('hud-tr') || el.classList.contains('hud-br') ? 'top right'
                               : el.classList.contains('hud-bl') ? 'bottom left'
+                              : el.classList.contains('bottom-right-controls') ? 'bottom right'
                               : 'top left';
   });
   showFeedback(`${Math.round(ZOOM.current * 100)}%`);

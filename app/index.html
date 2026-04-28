@@ -104,11 +104,15 @@
           <button class="mini-btn" id="metro-toggle" title="Ligar/desligar metrônomo">▶</button>
         </div>
       </div>
-      <!-- Zoom controls (A-, ⟲, A+) — canto inferior direito, horizontal -->
-      <div class="zoom-controls">
-        <button class="zoom-btn" id="zoom-down" title="Diminuir UI">A−</button>
-        <button class="zoom-btn" id="zoom-reset" title="Resetar zoom">⟲</button>
-        <button class="zoom-btn" id="zoom-up" title="Aumentar UI">A+</button>
+      <!-- Comandos flutuantes (canto inferior direito) — kbd-toggle ACIMA do zoom
+           para não sumir quando o app é redimensionado pra largura pequena -->
+      <div class="bottom-right-controls">
+        <button class="zoom-btn kbd-btn" id="kbd-toggle" title="Tocar com teclado do computador (H=Dó, J=Ré, K=Mi, L=Fá, Ç=Sol)">🎹</button>
+        <div class="zoom-controls">
+          <button class="zoom-btn" id="zoom-down" title="Diminuir UI">A−</button>
+          <button class="zoom-btn" id="zoom-reset" title="Resetar zoom">⟲</button>
+          <button class="zoom-btn" id="zoom-up" title="Aumentar UI">A+</button>
+        </div>
       </div>
       <div id="scale-feedback"></div>
       <div id="bass-grid"></div>
@@ -128,7 +132,6 @@
         <span class="conn-label">Teclado</span>
       </div>
       <div class="register-tabs" id="register-tabs"></div>
-      <button class="label-toggle" id="kbd-toggle" title="Tocar com teclado do computador (H=Dó, J=Ré, K=Mi, L=Fá, Ç=Sol)">🎹</button>
       <button class="label-toggle on" id="label-toggle" title="Mostrar/ocultar nomes das notas">🏷️</button>
     </div>
 

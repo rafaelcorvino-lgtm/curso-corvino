@@ -341,14 +341,24 @@ html.embedded #app, html.embedded #splash { display: flex !important; }
 .mini-btn:active { transform: scale(0.92); }
 
 /* Zoom controls (A+, ⟲, A-) — canto inferior direito, horizontal */
-.zoom-controls {
+/* Container que agrupa kbd-toggle (em cima) + zoom-controls (em baixo)
+   no canto inferior direito da bass-section. Garante que o botão de
+   ativar teclas do computador NÃO some quando o app é redimensionado. */
+.bottom-right-controls {
   position: absolute;
   right: 6px;
   bottom: 6px;
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  z-index: 5;
+}
+
+.zoom-controls {
+  display: flex;
   flex-direction: row;
   gap: 3px;
-  z-index: 5;
   padding: 2px 5px;
   background: rgba(10,10,14,0.55);
   border: 1px solid rgba(218,165,32,0.25);
@@ -861,11 +871,29 @@ dialog::backdrop { background: rgba(0,0,0,0.5); }
   .register-tab { font-size: 9px; padding: 3px 8px; min-width: 40px; }
 }
 
-/* ===== KEYBOARD INPUT (teclado do computador) ===== */
-#kbd-toggle {
-  margin-left: 0;
-  margin-right: 6px;
+/* ===== KEYBOARD INPUT (teclado do computador) =====
+   O botão fica acima do .zoom-controls, no canto inferior direito da
+   bass-section. Estilo parecido com .zoom-btn mas com fundo próprio
+   (igual à barra do zoom) pra ficar consistente visualmente. */
+#kbd-toggle.kbd-btn {
+  width: 32px;
+  height: 28px;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  background: rgba(10,10,14,0.7);
+  border: 1px solid rgba(218,165,32,0.4);
+  border-radius: 5px;
+  color: var(--gold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.15s;
 }
+#kbd-toggle.kbd-btn:hover { background: rgba(218,165,32,0.18); }
+#kbd-toggle.kbd-btn.on    { background: rgba(218,165,32,0.32); }
 .kbd-hint {
   position: absolute;
   top: 4px;
