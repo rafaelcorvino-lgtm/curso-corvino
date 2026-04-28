@@ -1154,7 +1154,7 @@ kbd {
   background: #ff9060;
   color: #1a1618;
 }
-.score-play-wrap {
+.score-play-wrap, .synth-play-wrap {
   text-align: center;
   margin: 8px 0 20px;
 }
