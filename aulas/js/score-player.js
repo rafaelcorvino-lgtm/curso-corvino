@@ -219,6 +219,13 @@ function buildPlayerUI(playBtnId, defaultBpm, defaultLabel) {
       <button class="score-bpm-display" type="button" title="Voltar ao BPM recomendado (${defaultBpm})">${defaultBpm}</button>
       <button class="score-bpm-btn" data-act="inc" type="button" aria-label="Aumentar BPM">+</button>
     </div>
+    <div class="score-hands" role="group" aria-label="Mãos automáticas (clique pra mutar)">
+      <span class="score-hands-label">Tocar:</span>
+      <button class="score-hand-btn active" data-hand="md" type="button"
+              title="Mão direita automática — clique pra mutar (visual continua)">♪ MD</button>
+      <button class="score-hand-btn active" data-hand="me" type="button"
+              title="Mão esquerda automática — clique pra mutar (visual continua)">♪ ME</button>
+    </div>
   `;
   toolbar.appendChild(row);
 
@@ -227,6 +234,8 @@ function buildPlayerUI(playBtnId, defaultBpm, defaultLabel) {
     bpmDisplay: row.querySelector('.score-bpm-display'),
     bpmDecBtn: row.querySelector('[data-act="dec"]'),
     bpmIncBtn: row.querySelector('[data-act="inc"]'),
+    handMdBtn: row.querySelector('[data-hand="md"]'),
+    handMeBtn: row.querySelector('[data-hand="me"]'),
     oldBtn,
     label: labelClean,
     hasUI: true
@@ -260,6 +269,11 @@ export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, not
   let scheduledOscs = [];
   let activeEls = [];
 
+  // Estado das mãos automáticas: true = toca som, false = só visual.
+  // Pode ser alterado durante o playback — notas não-tocadas no momento
+  // ficam mudas, mas continuam acendendo na partitura pra guiar o aluno.
+  const handState = { md: true, me: true };
+
   function setBpm(newBpm) {
     newBpm = Math.max(BPM_MIN, Math.min(BPM_MAX, Math.round(newBpm)));
     currentBpm = newBpm;
@@ -269,10 +283,21 @@ export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, not
     }
   }
 
+  function toggleHand(hand) {
+    handState[hand] = !handState[hand];
+    const btn = hand === 'md' ? ui.handMdBtn : ui.handMeBtn;
+    if (btn) btn.classList.toggle('active', handState[hand]);
+    // Toggle durante playback: o handState é lido em cada setTimeout
+    // (noteOn checa antes de postar). Notas que já dispararam noteOn
+    // têm onFired=true e fazem noteOff corretamente — sem nota presa.
+  }
+
   if (ui.hasUI) {
     ui.bpmDecBtn.addEventListener('click', () => { if (!playing) setBpm(currentBpm - BPM_STEP); });
     ui.bpmIncBtn.addEventListener('click', () => { if (!playing) setBpm(currentBpm + BPM_STEP); });
     ui.bpmDisplay.addEventListener('click', () => { if (!playing) setBpm(bpm); });
+    ui.handMdBtn.addEventListener('click', () => toggleHand('md'));
+    ui.handMeBtn.addEventListener('click', () => toggleHand('me'));
   }
 
   function setBpmControlsDisabled(disabled) {
@@ -381,10 +406,17 @@ export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, not
       // Visual ocupa o slot inteiro (não respeita articulation — não tem som).
       const visualMs = isVisualOnly ? slotMs : soundMs;
 
+      // Captura se o noteOn foi emitido — pra noteOff só disparar
+      // se a mão estava ativa naquele momento (evita "noteOff órfão"
+      // e nota presa se aluno toggle a mão durante o playback).
+      let onFired = false;
+
       // noteOn
       timeouts.push(setTimeout(() => {
-        if (!isVisualOnly) {
+        const handOn = isBass ? handState.me : handState.md;
+        if (!isVisualOnly && handOn) {
           postToApp({ type: 'corvino:noteOn', midi: note.midi, isBass });
+          onFired = true;
         }
         if (note.el) {
           const els = resolveEls(note.el);
@@ -403,8 +435,9 @@ export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, not
 
       // noteOff
       timeouts.push(setTimeout(() => {
-        if (!isVisualOnly) {
+        if (onFired) {
           postToApp({ type: 'corvino:noteOff', midi: note.midi, isBass });
+          onFired = false;
         }
         if (note.el) {
           const els = resolveEls(note.el);

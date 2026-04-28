@@ -1377,7 +1377,67 @@ kbd {
   cursor: not-allowed;
 }
 
-/* Em telas estreitas, empilha play + bpm */
+/* === Toggle de mãos automáticas (MD / ME) === */
+/* Aluno pode mutar uma mão pra estudar a outra solo. Quando muta, o
+   som da mão para mas a partitura continua acendendo as notas como
+   guia visual. Estado active = toca; sem active = mudo. */
+.score-hands {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: rgba(218, 165, 32, 0.07);
+  border: 1px solid rgba(218, 165, 32, 0.2);
+  border-radius: 8px;
+}
+.score-hands-label {
+  font-size: 0.78rem;
+  color: #c8bfa8;
+  margin-right: 2px;
+  letter-spacing: 0.02em;
+}
+.score-hand-btn {
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: rgba(40, 30, 25, 0.6);
+  color: #806a4a;
+  border: 1px solid rgba(218, 165, 32, 0.25);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s, box-shadow 0.12s;
+  position: relative;
+  min-width: 48px;
+  text-align: center;
+}
+.score-hand-btn:hover {
+  background: rgba(60, 45, 35, 0.7);
+  border-color: rgba(218, 165, 32, 0.5);
+}
+.score-hand-btn.active {
+  background: linear-gradient(180deg, #b8632a, #8a4a1f);
+  color: #fff;
+  border-color: #d97a3a;
+  box-shadow: 0 0 0 1px rgba(218, 165, 32, 0.3),
+              0 1px 4px rgba(0, 0, 0, 0.4);
+}
+.score-hand-btn.active:hover {
+  background: linear-gradient(180deg, #d97a3a, #b8632a);
+}
+/* Indicador visual "muted" — overlay riscado pra deixar claro */
+.score-hand-btn:not(.active)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 14%;
+  right: 14%;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+/* Em telas estreitas, empilha play + bpm + hands */
 @media (max-width: 720px) {
   .score-toolbar-row {
     flex-direction: column;
@@ -1386,7 +1446,8 @@ kbd {
   .score-toolbar .score-play-main {
     width: 100%;
   }
-  .score-bpm {
+  .score-bpm,
+  .score-hands {
     align-self: center;
   }
 }
