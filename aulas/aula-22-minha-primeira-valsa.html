@@ -587,10 +587,31 @@
         <div class="score-play-wrap">
           <button id="btn-pvd-l" class="score-play-btn">▶ Lento (60 BPM)</button>
           <button id="btn-pvd-n" class="score-play-btn">▶ Normal (90 BPM)</button>
+          <button id="btn-pvd-syn" class="score-play-btn synth-trigger">🎮 Modo Synthesia</button>
         </div>
       </figure>
 
-      <h2>4. Como estudar</h2>
+      <h2>4. 🎮 Modo Synthesia — pratique como num jogo</h2>
+      <div class="callout callout-info">
+        <strong>Novidade!</strong> No modo Synthesia, as notas <strong>caem do alto</strong> e
+        você toca quando elas chegam na linha dourada — estilo "Piano Tiles". Cada acerto
+        ganha um ponto. <strong>Verde</strong> = perfeito no tempo. <strong>Amarelo</strong>
+        = acertou mas atrasado/cedo. <strong>Vermelho</strong> = errou ou perdeu o tempo.
+        <ul style="margin:8px 0 0 18px; line-height:1.7">
+          <li>Toque com as teclas <strong>G H J K L Ç ~</strong> (Dó-Ré-Mi-Fá-Sol-Lá-Si).</li>
+          <li>Você só precisa tocar a <strong>mão direita</strong> — o baixo (ME) toca sozinho como acompanhamento.</li>
+          <li>O Synthesia usa o <strong>BPM lento (60)</strong> — chegue até dominar antes de tentar o Normal.</li>
+        </ul>
+      </div>
+      <figure class="score-figure">
+        <div id="pvd-synth-stage"></div>
+        <figcaption style="text-align:center">
+          Clique em <strong>🎮 Modo Synthesia</strong> acima pra começar. As barras douradas vão descer —
+          aperte a tecla certa quando elas tocarem a linha dourada.
+        </figcaption>
+      </figure>
+
+      <h2>5. Como estudar</h2>
       <ol>
         <li><strong>Ouça primeiro</strong> a Minha Primeira Valsa do Mascarenhas (link no callout amarelo) — 2 vezes pra fixar o caráter de valsa lenta.</li>
         <li><strong>MD sozinha, 60 BPM:</strong> cada nota dura 3 tempos. <em>Conte alto</em> "1-2-3" enquanto a nota soa. Decore as 8 notas.</li>
@@ -601,7 +622,7 @@
         <li><strong>Quando estiver fluido:</strong> avance pra <em>Primeira Valsa em Dó</em> (bônus acima) — primeiro só o tema (compassos 1 a 8) que é parecido, depois a variação (compassos 9 a 16) e a recapitulação (compassos 17 a 24).</li>
       </ol>
 
-      <h2>5. Sobre a peça (contexto)</h2>
+      <h2>6. Sobre a peça (contexto)</h2>
       <div class="callout callout-info">
         <strong>Minha Primeira Valsa</strong> é a primeira peça com mãos juntas no método de <strong>Mario Mascarenhas</strong> (1916-2002), o método de acordeon mais usado no Brasil no séc. XX. Toda criança que aprendeu pelo Mascarenhas passou por essa peça. É curta, com mín pontuadas e bum-tchim-tchim — exatamente o que você precisa pra <em>integrar as duas mãos pela primeira vez</em>.
       </div>
@@ -770,6 +791,57 @@
     }
     buildPVD(60, 'btn-pvd-l');
     buildPVD(90, 'btn-pvd-n');
+
+    // === MODO SYNTHESIA ===
+    // Constrói o array de notas (mesma lógica de buildPVD) e passa pra
+    // attachSynthesia. As teclas do mini-piano cobrem Dó4-Si4 (oitava
+    // onde a Primeira Valsa em Dó está).
+    import('./js/synthesia.js').then(({ attachSynthesia }) => {
+      const synNotes = [];
+      let mdI = 0;
+      for (let c = 0; c < 24; c++) {
+        const t0 = c*3;
+        if (pvdLayout[c]) {
+          synNotes.push({...pvdMD[mdI], startBeat:t0});
+          mdI++;
+        } else {
+          synNotes.push({...pvdMD[mdI], beats:1, articulation:MEL, startBeat:t0});
+          mdI++;
+          synNotes.push({...pvdMD[mdI], startBeat:t0+1});
+          mdI++;
+        }
+        const [F, M] = pvdME[c];
+        synNotes.push({midi:F, beats:1, isBass:true, articulation:SUST, startBeat:t0});
+        synNotes.push({midi:M, beats:1, isBass:true, articulation:STAC, startBeat:t0+1});
+        synNotes.push({midi:M, beats:1, isBass:true, articulation:STAC, startBeat:t0+2});
+      }
+
+      // Transpoe Si3 (59) → Si4 (71) só pro Synthesia. Si3 da peça fica fora
+      // do mini-piano (que mostra Dó4-Si4). Auditivamente quase idêntico — Si4
+      // é a oitava acima, mantém a frase melódica do C23 (Ré-Si). Não afeta o
+      // áudio dos players normais (Lento/Normal continuam tocando Si3).
+      synNotes.forEach(n => {
+        if (!n.isBass && n.midi === 59) n.midi = 71;
+      });
+
+      attachSynthesia({
+        triggerBtnId: 'btn-pvd-syn',
+        stageId: 'pvd-synth-stage',
+        bpm: 60,
+        notes: synNotes,
+        // Teclas do mini-piano: 7 brancas Dó4-Si4 (oitava da peça).
+        // kbdCode = event.code da tecla do PC; kbdCodeAlt = fallback (Backslash em ABNT2).
+        keys: [
+          { midi: 60, name: 'Dó',  kbdCode: 'KeyG',         kbdLabel: 'G' },
+          { midi: 62, name: 'Ré',  kbdCode: 'KeyH',         kbdLabel: 'H' },
+          { midi: 64, name: 'Mi',  kbdCode: 'KeyJ',         kbdLabel: 'J' },
+          { midi: 65, name: 'Fá',  kbdCode: 'KeyK',         kbdLabel: 'K' },
+          { midi: 67, name: 'Sol', kbdCode: 'KeyL',         kbdLabel: 'L' },
+          { midi: 69, name: 'Lá',  kbdCode: 'Semicolon',    kbdLabel: 'Ç' },
+          { midi: 71, name: 'Si',  kbdCode: 'Quote',        kbdLabel: '~' },
+        ],
+      });
+    }).catch(err => console.error('[synthesia] falha ao carregar:', err));
   </script>
   <script src="js/accessibility.js"></script>
 </body>

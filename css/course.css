@@ -1167,6 +1167,81 @@ kbd {
   transition: fill 0.05s, stroke 0.05s;
 }
 
+/* === SYNTHESIA MODE === */
+/* Stage onde as notas caem. SVG renderizado dinamicamente pelo synthesia.js */
+.synth-stage-wrap {
+  width: 100%;
+  margin: 14px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0a0808;
+  border: 2px solid var(--gold);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+.synth-stage-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* Tecla "ativa" (sendo tocada agora pelo aluno) */
+.synth-key {
+  transition: fill 0.08s;
+}
+.synth-key-active {
+  fill: #ffd060 !important;
+  filter: drop-shadow(0 0 6px rgba(255, 208, 96, 0.9));
+}
+/* Score box (canto superior direito) */
+.synth-score-box {
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: sans-serif;
+  font-size: 12px;
+  height: 26px;
+}
+.synth-score-label {
+  color: #d4c9a8;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.synth-score {
+  color: var(--gold);
+  font-weight: 700;
+  font-family: monospace;
+  font-size: 13px;
+}
+/* Mensagem final (overlay no centro do stage) */
+.synth-final {
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--gold);
+  font-family: sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  transition: opacity 0.4s;
+}
+/* Botão Synthesia trigger — usa estilo do score-play-btn mas com cor diferente */
+.score-play-btn.synth-trigger {
+  background: linear-gradient(180deg, #b8632a, #8a4a1f);
+  border-color: #d97a3a;
+}
+.score-play-btn.synth-trigger:hover {
+  background: linear-gradient(180deg, #d97a3a, #b8632a);
+}
+.score-play-btn.synth-trigger.playing {
+  background: linear-gradient(180deg, #d94a4a, #b03030);
+  border-color: #ff6060;
+}
+
 /* === Toolbar do player (topo da partitura) === */
 /* JS injeta como primeiro filho de .score-figure: play + BPM control.
    Cada attachScorePlayer adiciona uma row. */
