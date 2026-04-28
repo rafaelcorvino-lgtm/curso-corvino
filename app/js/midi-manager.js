@@ -200,10 +200,29 @@ function handleMidiMessage(event, device) {
   if (status === 0x90 && velocity > 0) {
     audio.noteOn(note, velocity, isBass);
     if (isBass) state.bassNoteOn(note); else state.pianoNoteOn(note);
+    relayMidiToParent('noteOn', note, velocity, isBass);
   } else if (status === 0x80 || (status === 0x90 && velocity === 0)) {
     audio.noteOff(note, isBass);
     if (isBass) state.bassNoteOff(note); else state.pianoNoteOff(note);
+    relayMidiToParent('noteOff', note, 0, isBass);
   }
+}
+
+// Relay MIDI events do Corvino real pro parent (curso). Necessário pra
+// Synthesia/score-player saberem que o aluno tocou — tanto via teclado
+// do computador (já tratado pelo keyboard-input.js) quanto via Corvino
+// MIDI físico (que entra direto aqui sem passar pelo browser keydown).
+function relayMidiToParent(evtName, midi, velocity, isBass) {
+  if (!window.parent || window.parent === window) return;
+  try {
+    window.parent.postMessage({
+      type: 'corvino:midiInput',
+      evt: evtName,        // 'noteOn' | 'noteOff'
+      midi,
+      velocity,
+      isBass,
+    }, '*');
+  } catch (_) {}
 }
 
 export function isSupported() {

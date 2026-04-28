@@ -171,18 +171,37 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   // O iframe da app repassa keydowns via postMessage('corvino:keyForward')
   // — necessário pq o iframe normalmente "consome" os eventos quando ele
   // tem foco, e o aluno frequentemente clica nele. Tratamos como keydown.
-  window.addEventListener('message', onForwardedKey);
-  function onForwardedKey(e) {
+  // Também escuta 'corvino:midiInput' (Corvino acordeon real → MIDI direto).
+  window.addEventListener('message', onIframeMessage);
+  function onIframeMessage(e) {
     const d = e && e.data;
     if (!d || typeof d !== 'object') return;
-    if (d.type !== 'corvino:keyForward' || d.evt !== 'keydown') return;
-    dlog('keyForward (iframe→parent) code=', d.code);
-    onKey({
-      code: d.code,
-      key: d.key,
-      repeat: !!d.repeat,
-      preventDefault: () => {},
-    });
+
+    // Teclado do computador relayado da iframe
+    if (d.type === 'corvino:keyForward' && d.evt === 'keydown') {
+      dlog('keyForward (iframe→parent) code=', d.code);
+      onKey({
+        code: d.code,
+        key: d.key,
+        repeat: !!d.repeat,
+        preventDefault: () => {},
+      });
+      return;
+    }
+
+    // Corvino MIDI físico (acordeon real). Só noteOn (não noteOff)
+    // — chegam direto na iframe pelo Web MIDI API e não disparam keydown.
+    if (d.type === 'corvino:midiInput' && d.evt === 'noteOn') {
+      if (!running) return;
+      dlog('midiInput (Corvino→parent) midi=', d.midi, 'isBass=', d.isBass);
+      // Synthesia hoje só checa MD (mão direita). Ignoramos baixos —
+      // o app já tocou o som direto, só não conta como acerto.
+      if (d.isBass) return;
+      flashBtn();
+      // playSound=false: o iframe já tocou o som via audio engine,
+      // não precisa disparar de novo via postMessage (evita dobro).
+      handleHit(d.midi, false);
+    }
   }
 
   function start() {
@@ -428,9 +447,13 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     setTimeout(() => triggerBtn.classList.remove('synth-key-flash'), 120);
   }
 
-  function handleHit(midi) {
-    postToApp({ type: 'corvino:noteOn', midi, isBass: false });
-    setTimeout(() => postToApp({ type: 'corvino:noteOff', midi, isBass: false }), 250);
+  // playSound=false quando o som já foi tocado pelo iframe (Corvino real
+  // ou kbd direto da app já em uso). Evita disparo duplicado.
+  function handleHit(midi, playSound = true) {
+    if (playSound) {
+      postToApp({ type: 'corvino:noteOn', midi, isBass: false });
+      setTimeout(() => postToApp({ type: 'corvino:noteOff', midi, isBass: false }), 250);
+    }
 
     const target = mdNotes.find(n => n._state === 'pending' || n._state === 'preview');
     dlog('handleHit midi=', midi, 'target=', target && target.midi, 'state=', target && target._state);
