@@ -166,6 +166,23 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   // outro listener da página. Não interfere no iframe (frame separado).
   document.addEventListener('keydown', onKey, true);
 
+  // O iframe da app repassa keydowns via postMessage('corvino:keyForward')
+  // — necessário pq o iframe normalmente "consome" os eventos quando ele
+  // tem foco, e o aluno frequentemente clica nele. Tratamos como keydown.
+  window.addEventListener('message', onForwardedKey);
+  function onForwardedKey(e) {
+    const d = e && e.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.type !== 'corvino:keyForward' || d.evt !== 'keydown') return;
+    dlog('keyForward (iframe→parent) code=', d.code);
+    onKey({
+      code: d.code,
+      key: d.key,
+      repeat: !!d.repeat,
+      preventDefault: () => {},
+    });
+  }
+
   function start() {
     console.log('[synthesia] START — bpm=', bpm, 'mdNotes[0].midi=', mdNotes[0].midi,
       '(esperado tecla:', midiToKey(mdNotes[0].midi), ')');
@@ -182,6 +199,12 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     cursor.style.display = '';
     ball.style.display = '';
     updateBtn();
+    // Foca o botão pra garantir que keydowns vão pro parent (não pra iframe)
+    try { triggerBtn.focus({ preventScroll: true }); } catch (_) {}
+    // Desativa kbd direto do iframe enquanto Synthesia toca, pra evitar
+    // som duplicado (iframe tocaria + Synthesia também via postToApp).
+    // O iframe salva o estado atual e restaura no stop.
+    postToApp({ type: 'corvino:setKbdEnabled', value: false, save: true });
     beatMs = 60000 / bpm;
     startMs = performance.now() + LOOKAHEAD_BEATS * beatMs;
     scheduleMEFromBeat(0);
@@ -195,6 +218,8 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     rafId = null;
     clearAllMeTimeouts();
     postToApp({ type: 'corvino:allOff' });
+    // Restaura kbd direto da iframe ao estado anterior (que ficou salvo no start)
+    postToApp({ type: 'corvino:setKbdEnabled', restore: true });
     triggerBtn.classList.remove('playing');
     cursor.style.display = 'none';
     ball.style.display = 'none';

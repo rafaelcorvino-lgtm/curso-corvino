@@ -204,10 +204,49 @@ export function isEnabled() {
   return enabled;
 }
 
+// ===== Relay pro parent (curso) =====
+// O iframe normalmente "trava" os eventos de teclado: quem tem foco
+// é a iframe, não o curso. O Synthesia (rodando no curso) precisa ver
+// as teclas — então repassamos via postMessage. Capture phase, antes
+// do nosso próprio onKeyDown.
+function relayKeyToParent(e, evtName) {
+  if (!window.parent || window.parent === window) return;
+  try {
+    window.parent.postMessage({
+      type: 'corvino:keyForward',
+      evt: evtName,           // 'keydown' | 'keyup'
+      code: e.code,
+      key: e.key,
+      repeat: !!e.repeat,
+    }, '*');
+  } catch (_) {}
+}
+
+// Quando o curso pede pra desativar o teclado direto da iframe (Synthesia
+// tomando conta), salvamos o estado e desligamos. No restore, voltamos.
+let _savedEnabled = null;
+function onCourseMessage(e) {
+  const d = e && e.data;
+  if (!d || typeof d !== 'object') return;
+  if (d.type !== 'corvino:setKbdEnabled') return;
+  if (d.save) _savedEnabled = enabled;
+  if (typeof d.value === 'boolean') {
+    setEnabled(d.value);
+  } else if (d.restore && _savedEnabled !== null) {
+    setEnabled(_savedEnabled);
+    _savedEnabled = null;
+  }
+}
+
 export function init() {
+  // Relay PRIMEIRO (capture), pra parent ver mesmo se enabled=false
+  window.addEventListener('keydown', e => relayKeyToParent(e, 'keydown'), true);
+  window.addEventListener('keyup',   e => relayKeyToParent(e, 'keyup'),   true);
+
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('blur', releaseAll);
+  window.addEventListener('message', onCourseMessage);
 
   const btn = document.getElementById('kbd-toggle');
   if (btn) btn.addEventListener('click', toggle);
