@@ -188,17 +188,17 @@
           <text x="185" y="22" fill="#d4c9a8" font-size="11" text-anchor="middle"
                 stroke="#1a1618" stroke-width="3" paint-order="stroke">toca 1× e segura 3 tempos</text>
 
-          <!-- Compasso 2: duas semínimas normais (sem ligadura) pra comparar -->
+          <!-- Compasso 2: três semínimas normais (sem ligadura) pra comparar -->
           <line x1="340" y1="125" x2="370" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
-          <ellipse cx="355" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+          <ellipse id="ex-lig-n3" cx="355" cy="125" rx="8" ry="6" fill="var(--gold)"/>
           <line x1="363" y1="125" x2="363" y2="88" stroke="var(--gold)" stroke-width="2"/>
 
           <line x1="410" y1="125" x2="440" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
-          <ellipse cx="425" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+          <ellipse id="ex-lig-n4" cx="425" cy="125" rx="8" ry="6" fill="var(--gold)"/>
           <line x1="433" y1="125" x2="433" y2="88" stroke="var(--gold)" stroke-width="2"/>
 
           <line x1="480" y1="125" x2="510" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
-          <ellipse cx="495" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+          <ellipse id="ex-lig-n5" cx="495" cy="125" rx="8" ry="6" fill="var(--gold)"/>
           <line x1="503" y1="125" x2="503" y2="88" stroke="var(--gold)" stroke-width="2"/>
 
           <text x="425" y="22" fill="#d4c9a8" font-size="11" text-anchor="middle"
@@ -274,19 +274,22 @@
       ],
     });
 
-    // Ligadura vs 3 semínimas separadas (compara)
+    // Ligadura vs 3 semínimas separadas (compara).
+    // Compasso 1: ligadura = 1 nota soando, mas anima AS DUAS cabeças (n1 e n2)
+    //   pra mostrar visualmente que estão "amarradas" como um som único.
+    // Compasso 2: 3 semínimas separadas — cada uma com seu próprio ID (n3, n4, n5).
     attachScorePlayer({
       playBtnId: 'btn-ex12-ligadura',
       bpm: 80,
       beatsPerBar: 4,
       notes: [
-        // Esquerda: ligadura = 1 nota de 3 tempos (semínima + mínima ligadas)
-        { midi: 48, beats: 3, el: '#ex-lig-n1', articulation: 0.95 },
+        // Esquerda: ligadura = 1 nota de 3 tempos, anima as duas cabeças juntas
+        { midi: 48, beats: 3, el: '#ex-lig-n1,#ex-lig-n2', articulation: 0.95 },
         { rest: true, beats: 1 }, // pausa entre os dois exemplos
         // Direita: 3 semínimas separadas — mesma duração total, 3 batidas
-        { midi: 48, beats: 1, articulation: 0.85 },
-        { midi: 48, beats: 1, articulation: 0.85 },
-        { midi: 48, beats: 1, articulation: 0.85 },
+        { midi: 48, beats: 1, el: '#ex-lig-n3', articulation: 0.85 },
+        { midi: 48, beats: 1, el: '#ex-lig-n4', articulation: 0.85 },
+        { midi: 48, beats: 1, el: '#ex-lig-n5', articulation: 0.85 },
       ],
     });
   </script>
