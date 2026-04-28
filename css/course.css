@@ -1224,6 +1224,7 @@ kbd {
 .score-play-btn.synth-trigger {
   background: linear-gradient(180deg, #b8632a, #8a4a1f);
   border-color: #d97a3a;
+  transition: box-shadow 0.08s, transform 0.08s;
 }
 .score-play-btn.synth-trigger:hover {
   background: linear-gradient(180deg, #d97a3a, #b8632a);
@@ -1231,6 +1232,12 @@ kbd {
 .score-play-btn.synth-trigger.playing {
   background: linear-gradient(180deg, #d94a4a, #b03030);
   border-color: #ff6060;
+}
+/* Feedback visual quando o listener captura uma tecla mapeada */
+.score-play-btn.synth-trigger.synth-key-flash {
+  box-shadow: 0 0 0 4px rgba(255, 208, 96, 0.85),
+              0 0 14px rgba(255, 208, 96, 0.7);
+  transform: scale(1.04);
 }
 
 /* === Toolbar do player (topo da partitura) === */

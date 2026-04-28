@@ -16,7 +16,10 @@
 // MD: aluno toca G H J K L Ç ~ pra disparar Dó-Ré-Mi-Fá-Sol-Lá-Si.
 // ME: toca em background como acompanhamento — pausa junto se MD travar.
 
-const DEBUG = false;
+// Liga DEBUG via querystring (?synthDebug=1) ou flag global window.SYNTH_DEBUG
+const DEBUG = (typeof window !== 'undefined' &&
+  (window.SYNTH_DEBUG === true ||
+   /[?&]synthDebug=1\b/.test(window.location.search)));
 function dlog(...args) { if (DEBUG) console.log('[synthesia]', ...args); }
 
 // --- postMessage pro app ---
@@ -137,7 +140,9 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     running ? stop(true) : start();
   });
 
-  window.addEventListener('keydown', onKey);
+  // Listener no document em fase de CAPTURE pra rodar antes de qualquer
+  // outro listener da página. Não interfere no iframe (frame separado).
+  document.addEventListener('keydown', onKey, true);
 
   function start() {
     running = true;
@@ -325,13 +330,24 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   }
 
   // ----- Input -----
+  // Captura keydown na fase de CAPTURE pra rodar antes de qualquer
+  // outro listener (e.g. iframe) e dar feedback visual mesmo quando
+  // a tecla não bate com nota nenhuma.
   function onKey(e) {
     if (!running) return;
     const midi = keyCodeToMidi(e.code);
+    dlog('keydown code=', e.code, 'midi=', midi, 'waiting=', waiting);
     if (midi == null) return;
     if (e.repeat) { e.preventDefault(); return; }
     e.preventDefault();
+    flashBtn();
     handleHit(midi);
+  }
+
+  // Pisca o botão pra confirmar visualmente que a tecla foi capturada
+  function flashBtn() {
+    triggerBtn.classList.add('synth-key-flash');
+    setTimeout(() => triggerBtn.classList.remove('synth-key-flash'), 120);
   }
 
   function handleHit(midi) {
@@ -339,6 +355,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     setTimeout(() => postToApp({ type: 'corvino:noteOff', midi, isBass: false }), 250);
 
     const target = mdNotes.find(n => n._state === 'pending' || n._state === 'preview');
+    dlog('handleHit midi=', midi, 'target=', target && target.midi, 'state=', target && target._state);
     if (!target) return;
 
     // Modo ESPERA: aceita o hit independente do tempo (cursor pausado)
@@ -357,6 +374,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     // Modo NORMAL: verifica janela de tempo
     const elapsedBeats = (performance.now() - startMs) / beatMs;
     const dt = Math.abs(elapsedBeats - target.startBeat);
+    dlog('  elapsed=', elapsedBeats.toFixed(2), 'targetBeat=', target.startBeat, 'dt=', dt.toFixed(2));
     if (target.midi === midi && dt <= HIT_WINDOW_BEATS) {
       target._state = 'hit';
       score.hits++;
