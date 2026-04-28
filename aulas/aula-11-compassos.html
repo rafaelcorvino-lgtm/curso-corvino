@@ -221,6 +221,12 @@
         da mão direita. Repare no número <strong>dourado acima</strong>
         de cada nota — é o dedo que você usa:
       </p>
+      <p>
+        Quando clicar em <strong>▶ Ouvir a valsa</strong>, o app toca a sua melodia (MD)
+        <em>junto com</em> o <strong>bum-tchim-tchim do baixo (ME)</strong> — assim você sente o
+        caráter de valsa de verdade. Você ainda <strong>não precisa tocar a ME</strong> nessa aula
+        (isso vem no Módulo 4); ela tá só no áudio pra você ouvir como soa o conjunto.
+      </p>
 
       <figure class="score-figure">
         <svg viewBox="0 0 560 140" class="score-svg">
@@ -294,6 +300,7 @@
           Três compassos de 3/4. Compasso 1 e 2 sobem (Dó-Ré-Mi, dedos
           1-2-3); Compasso 3 desce (Mi-Ré-Dó, dedos 3-2-1). Os números
           dourados acima são <strong>o dedilhado</strong>.
+          <em>O áudio toca também o bum-tchim-tchim da ME por baixo — pra a melodia soar como valsa.</em>
         </figcaption>
         <div class="score-play-wrap">
           <button id="btn-valsa-ex" class="score-play-btn">▶ Ouvir a valsa</button>
@@ -409,23 +416,37 @@
     });
 
     // Valsa simples Dó-Ré-Mi / Dó-Ré-Mi / Mi-Ré-Dó em 3/4, 80 BPM.
-    // Melodia com articulação 0.85 (cada nota distinta, fluindo — padrão Mascarenhas).
-    // O 1º tempo de cada compasso é levemente mais sustentado pra marcar o acento.
+    // MD: melodia (semínimas, articulação 0.85-0.95).
+    // ME: bum-tchim-tchim de Dó (Dó fundamental + 2× Dó M staccato) por compasso —
+    //     o aluno só pratica a MD aqui, a ME está no áudio pra dar caráter de valsa.
+    //     IDs ex-valsa-n1..n9 estão só na MD (a ME não tem visual ainda — clave de Fá vem no Módulo 7).
+    const valsaNotes = [];
+    const mdSeq = [
+      { midi: 48, articulation: 0.92, el: '#ex-valsa-n1' }, // C1 t1: Dó (forte)
+      { midi: 50, articulation: 0.85, el: '#ex-valsa-n2' }, // C1 t2: Ré
+      { midi: 52, articulation: 0.85, el: '#ex-valsa-n3' }, // C1 t3: Mi
+      { midi: 48, articulation: 0.92, el: '#ex-valsa-n4' }, // C2 t1: Dó (forte)
+      { midi: 50, articulation: 0.85, el: '#ex-valsa-n5' }, // C2 t2: Ré
+      { midi: 52, articulation: 0.85, el: '#ex-valsa-n6' }, // C2 t3: Mi
+      { midi: 52, articulation: 0.92, el: '#ex-valsa-n7' }, // C3 t1: Mi (forte, começa descida)
+      { midi: 50, articulation: 0.85, el: '#ex-valsa-n8' }, // C3 t2: Ré
+      { midi: 48, articulation: 0.95, el: '#ex-valsa-n9' }, // C3 t3: Dó (final, sustentado)
+    ];
+    mdSeq.forEach((n, i) => valsaNotes.push({ ...n, beats: 1, startBeat: i }));
+
+    // ME: bum-tchim-tchim em todos os 3 compassos (Dó é a única tonalidade)
+    for (let c = 0; c < 3; c++) {
+      const t0 = c * 3;
+      valsaNotes.push({ midi: DO_FUND,  beats: 1, isBass: true, articulation: SUST, startBeat: t0     });
+      valsaNotes.push({ midi: DO_MAIOR, beats: 1, isBass: true, articulation: STAC, startBeat: t0 + 1 });
+      valsaNotes.push({ midi: DO_MAIOR, beats: 1, isBass: true, articulation: STAC, startBeat: t0 + 2 });
+    }
+
     attachScorePlayer({
       playBtnId: 'btn-valsa-ex',
       bpm: 80,
       beatsPerBar: 3,
-      notes: [
-        { midi: 48, beats: 1, el: '#ex-valsa-n1', articulation: 0.92 }, // Dó (1) — forte
-        { midi: 50, beats: 1, el: '#ex-valsa-n2', articulation: 0.85 }, // Ré (2)
-        { midi: 52, beats: 1, el: '#ex-valsa-n3', articulation: 0.85 }, // Mi (3)
-        { midi: 48, beats: 1, el: '#ex-valsa-n4', articulation: 0.92 }, // Dó (1) — forte
-        { midi: 50, beats: 1, el: '#ex-valsa-n5', articulation: 0.85 },
-        { midi: 52, beats: 1, el: '#ex-valsa-n6', articulation: 0.85 },
-        { midi: 52, beats: 1, el: '#ex-valsa-n7', articulation: 0.92 }, // Mi (1) — forte (começa descida)
-        { midi: 50, beats: 1, el: '#ex-valsa-n8', articulation: 0.85 }, // Ré (2)
-        { midi: 48, beats: 1, el: '#ex-valsa-n9', articulation: 0.95 }, // Dó (3) — final, sustentado
-      ],
+      notes: valsaNotes,
     });
   </script>
 <script src="js/accessibility.js"></script>
