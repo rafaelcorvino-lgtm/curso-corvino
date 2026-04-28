@@ -191,15 +191,15 @@ function buildPlayerUI(playBtnId, defaultBpm, defaultLabel) {
     optionsRow.innerHTML = `
       <div class="score-hands" role="group" aria-label="Mãos automáticas (clique pra mutar)">
         <span class="score-hands-label">Tocar:</span>
-        <button class="score-hand-btn active" data-hand="md" type="button"
-                title="Mão direita (clave de Sol) — clique pra mutar; partitura continua acendendo">
-          <span class="clef-glyph clef-treble" aria-hidden="true">𝄞</span>
-          <span class="visually-hidden">Mão direita</span>
-        </button>
         <button class="score-hand-btn active" data-hand="me" type="button"
                 title="Mão esquerda (clave de Fá) — clique pra mutar; partitura continua acendendo">
           <span class="clef-glyph clef-bass" aria-hidden="true">𝄢</span>
           <span class="visually-hidden">Mão esquerda</span>
+        </button>
+        <button class="score-hand-btn active" data-hand="md" type="button"
+                title="Mão direita (clave de Sol) — clique pra mutar; partitura continua acendendo">
+          <span class="clef-glyph clef-treble" aria-hidden="true">𝄞</span>
+          <span class="visually-hidden">Mão direita</span>
         </button>
       </div>
     `;
