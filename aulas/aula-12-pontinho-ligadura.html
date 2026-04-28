@@ -165,7 +165,7 @@
           </g>
           <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
           <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
-            <text x="85" y="75" font-size="22">4</text>
+            <text x="85" y="75" font-size="22">3</text>
             <text x="85" y="102" font-size="22">4</text>
           </g>
           <g stroke="#e0d8c0" stroke-width="1.5">
@@ -173,7 +173,7 @@
             <line x1="538" y1="50" x2="538" y2="110" stroke-width="3"/>
           </g>
 
-          <!-- Compasso 1: semínima + mínima (Dó ligado a Dó) -->
+          <!-- Compasso 1 (3/4): semínima + mínima ligadas = 3 tempos = compasso inteiro -->
           <line x1="130" y1="125" x2="160" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
           <ellipse id="ex-lig-n1" cx="145" cy="125" rx="8" ry="6" fill="var(--gold)"/>
           <line x1="153" y1="125" x2="153" y2="88" stroke="var(--gold)" stroke-width="2"/>
@@ -186,7 +186,7 @@
           <path d="M 145 138 Q 185 158 225 138" stroke="var(--gold)" stroke-width="2.5" fill="none"/>
 
           <text x="185" y="22" fill="#d4c9a8" font-size="11" text-anchor="middle"
-                stroke="#1a1618" stroke-width="3" paint-order="stroke">toca 1× e segura 3 tempos</text>
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">1 ataque, dura 3 tempos</text>
 
           <!-- Compasso 2: três semínimas normais (sem ligadura) pra comparar -->
           <line x1="340" y1="125" x2="370" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
@@ -202,12 +202,14 @@
           <line x1="503" y1="125" x2="503" y2="88" stroke="var(--gold)" stroke-width="2"/>
 
           <text x="425" y="22" fill="#d4c9a8" font-size="11" text-anchor="middle"
-                stroke="#1a1618" stroke-width="3" paint-order="stroke">3 Dós separados</text>
+                stroke="#1a1618" stroke-width="3" paint-order="stroke">3 ataques, 1 tempo cada</text>
         </svg>
         <figcaption>
-          <strong>Esquerda:</strong> semínima + mínima ligadas = Dó tocado
-          uma vez e segurado por 3 tempos. <strong>Direita:</strong> três
-          semínimas separadas = Dó tocado três vezes, 1 tempo cada.
+          Dois compassos de <strong>3/4</strong> com a <em>mesma duração total</em> (3 tempos cada),
+          mas escritos diferente. <strong>Esquerda:</strong> semínima + mínima ligadas — Dó tocado
+          <em>uma vez</em> e segurado os 3 tempos. <strong>Direita:</strong> três semínimas separadas
+          — Dó tocado <em>três vezes</em>, 1 tempo cada. Ouça e perceba a diferença sonora entre
+          1 ataque sustentado e 3 ataques curtos.
         </figcaption>
         <div class="score-play-wrap">
           <button id="btn-ex12-ligadura" class="score-play-btn">▶ Comparar os dois</button>
@@ -274,31 +276,31 @@
       ],
     });
 
-    // Ligadura vs 3 semínimas separadas (compara).
+    // Ligadura vs 3 semínimas separadas — 2 compassos de 3/4 pra comparação direta.
     //
-    // Compasso 1: ligadura = 1 SOM de 3 tempos (não 2 ataques). Visualmente
+    // Compasso 1 (tempos 0-2): ligadura = 1 SOM de 3 tempos (1 ataque). Visualmente
     // são 2 cabeças (semínima + mínima ligadas):
     //   - n1 (semínima) acende no tempo 0 e apaga no tempo 1 (1 tempo dela)
     //   - n2 (mínima)   acende no tempo 1 e apaga no tempo 3 (2 tempos dela)
-    // Pra desacoplar SOM da animação, usamos 3 notas paralelas (startBeat):
+    // Pra desacoplar SOM de ANIMAÇÃO, usamos 3 notas paralelas (startBeat):
     //   - 1 com midi soando 3 tempos (sem el — não anima)
     //   - 2 visuais (rest + el) escalonadas
     //
-    // Compasso 2 (a partir do tempo 4): 3 semínimas com som E animação separadas.
+    // Compasso 2 (tempos 3-5): 3 semínimas separadas — mesma duração TOTAL (3 tempos)
+    // mas com 3 ataques distintos. Comparação direta com o compasso 1.
     attachScorePlayer({
       playBtnId: 'btn-ex12-ligadura',
       bpm: 80,
-      beatsPerBar: 4,
+      beatsPerBar: 3,
       notes: [
         // ----- Compasso 1: a ligadura (3 tempos = 1 som, 2 visuais escalonados) -----
         { midi: 48, beats: 3, startBeat: 0, articulation: 0.95 },             // som contínuo
         { rest: true, beats: 1, startBeat: 0, el: '#ex-lig-n1' },             // anima n1 no tempo 0-1
         { rest: true, beats: 2, startBeat: 1, el: '#ex-lig-n2' },             // anima n2 no tempo 1-3
-        // (rest do tempo 3 ao 4 — pausa entre os dois exemplos)
-        // ----- Compasso 2: 3 semínimas separadas, mesma duração total -----
-        { midi: 48, beats: 1, startBeat: 4, el: '#ex-lig-n3', articulation: 0.85 },
-        { midi: 48, beats: 1, startBeat: 5, el: '#ex-lig-n4', articulation: 0.85 },
-        { midi: 48, beats: 1, startBeat: 6, el: '#ex-lig-n5', articulation: 0.85 },
+        // ----- Compasso 2: 3 semínimas separadas (3 tempos, 3 ataques) -----
+        { midi: 48, beats: 1, startBeat: 3, el: '#ex-lig-n3', articulation: 0.85 },
+        { midi: 48, beats: 1, startBeat: 4, el: '#ex-lig-n4', articulation: 0.85 },
+        { midi: 48, beats: 1, startBeat: 5, el: '#ex-lig-n5', articulation: 0.85 },
       ],
     });
   </script>
