@@ -277,7 +277,7 @@
   import { attachScorePlayer } from './js/score-player.js';
   const MEL=0.85, SUST=0.85, STAC=0.28;
   // MIDIs MD: Mi=64, Fá=65, Sol=67, Ré=62, Dó central=60
-  // ME (Stradella): Dó=24, DóM=25, Mi(contra)=28, Sol=31, SolM=32, Sol7=33
+  // ME (Stradella): Dó=24, DóM=25, Mi(contra)=28, Sol=31, SolM=32, Sol7=44
 
   // 8 compassos × 4 tempos. Forma A-B com modulação pra Sol7.
   // Frase A (C1-C4): Mi-Sol-Mi-Dó | Mi-Ré-Mi-Sol | Mi-Sol-Mi-Dó | Mi-Sol-Mi-Sol (aberto)
@@ -298,12 +298,12 @@
   //     Sol-Sol7-Sol-Sol7 em compassos de modulação (C2, C4, C6, C7).
   const meSeq = [
     [24, 25, 28, 25],  // C1: Dó-DóM-Mi-DóM (xote Dó)
-    [31, 33, 31, 33],  // C2: Sol-Sol7-Sol-Sol7
+    [31, 44, 31, 44],  // C2: Sol-Sol7-Sol-Sol7
     [24, 25, 28, 25],  // C3: Dó
-    [31, 33, 31, 33],  // C4: Sol7
+    [31, 44, 31, 44],  // C4: Sol7
     [24, 25, 28, 25],  // C5: Dó
-    [31, 33, 31, 33],  // C6: Sol7
-    [31, 33, 31, 33],  // C7: Sol7 (preparação dominante)
+    [31, 44, 31, 44],  // C6: Sol7
+    [31, 44, 31, 44],  // C7: Sol7 (preparação dominante)
     [24, 25, 28, 25],  // C8: Dó (cadência final V-I)
   ];
 

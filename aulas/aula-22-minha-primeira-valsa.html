@@ -627,7 +627,7 @@
     import { attachScorePlayer } from './js/score-player.js';
     const MEL=0.95, SUST=0.85, STAC=0.28;
     // MIDIs MD: Mi=64, Sol=67, Ré=62, Dó central=60
-    // ME (Stradella): Dó=24, DóM=25, Sol=31, SolM=32, Sol7=33
+    // ME (Stradella): Dó=24, DóM=25, Sol=31, SolM=32, Sol7=44
 
     // Sequência Mi-Sol-Mi-Dó | Sol-Mi-Ré-Dó (forma A-B)
     const md = [
@@ -679,7 +679,7 @@
     // ============ Primeira Valsa em Dó (24 compassos, A-B-A) =====
     // ============================================================
     // MIDIs MD: Dó5=72, Ré5=74, Mi5=76, Fá5=77, Sol5=79, Lá5=81, Si4=71
-    // ME (Stradella): Dó=24, DóM=25, Fá=29, FáM=30, Sol=31, SolM=32, Sol7=33
+    // ME (Stradella): Dó=24, DóM=25, Fá=29, FáM=30, Sol=31, SolM=32, Sol7=44
 
     // 34 notas MD totais. Layout por compasso: 'min' (1 mín pontuada 3t) ou 'sem-min' (1 sem 1t + 1 mín 2t)
     const pvdMD = [
@@ -715,17 +715,17 @@
     // ME por compasso [fundamental, acorde]
     const pvdME = [
       [24,25],[24,25],[24,25],[24,25],  // C1-C4: Dó (tônica)
-      [31,33],[31,33],                  // C5-C6: Sol7 (dominante)
+      [31,44],[31,44],                  // C5-C6: Sol7 (dominante)
       [24,25],[24,25],                  // C7-C8: Dó (volta)
       [24,25],[24,25],                  // C9-C10: Dó
-      [31,33],[31,33],                  // C11-C12: Sol7
+      [31,44],[31,44],                  // C11-C12: Sol7
       [24,25],                          // C13: Dó
       [29,30],                          // C14: Fá (subdominante!)
-      [31,33],                          // C15: Sol7
+      [31,44],                          // C15: Sol7
       [24,25],                          // C16: Dó
       [24,25],[24,25],[24,25],[24,25],  // C17-C20: Dó (recapitulação)
       [29,30],[29,30],                  // C21-C22: Fá (IV)
-      [31,33],                          // C23: Sol7 (V)
+      [31,44],                          // C23: Sol7 (V)
       [24,25],                          // C24: Dó (I) — cadência IV-V-I final
     ];
 
