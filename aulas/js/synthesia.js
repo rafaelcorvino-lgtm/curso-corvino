@@ -16,10 +16,10 @@
 // MD: aluno toca G H J K L Ç ~ pra disparar Dó-Ré-Mi-Fá-Sol-Lá-Si.
 // ME: toca em background como acompanhamento — pausa junto se MD travar.
 
-// Liga DEBUG via querystring (?synthDebug=1) ou flag global window.SYNTH_DEBUG
-const DEBUG = (typeof window !== 'undefined' &&
-  (window.SYNTH_DEBUG === true ||
-   /[?&]synthDebug=1\b/.test(window.location.search)));
+// DEBUG ligado por padrão durante fase de bug-hunt do Synthesia.
+// Pode desligar via window.SYNTH_DEBUG = false antes do import.
+const DEBUG = (typeof window === 'undefined') ? false :
+  (window.SYNTH_DEBUG === false ? false : true);
 function dlog(...args) { if (DEBUG) console.log('[synthesia]', ...args); }
 
 // --- postMessage pro app ---
@@ -56,6 +56,25 @@ function keyCodeToMidi(code) {
     default: return null;
   }
 }
+// Inverso, só pra log: nome da tecla esperada pra um midi
+function midiToKey(midi) {
+  switch (midi) {
+    case 60: return 'G (Dó)';
+    case 62: return 'H (Ré)';
+    case 64: return 'J (Mi)';
+    case 65: return 'K (Fá)';
+    case 67: return 'L (Sol)';
+    case 69: return 'Ç (Lá)';
+    case 71: return '~ (Si)';
+    case 72: return '] (Dó8a)';
+    case 61: return 'Y (Dó#)';
+    case 63: return 'U (Ré#)';
+    case 66: return 'O (Fá#)';
+    case 68: return 'P (Sol#)';
+    case 70: return '[ (Lá#)';
+    default: return '?';
+  }
+}
 
 // --- Coords absolutas no SVG (lê translates dos parents) ---
 function getViewBoxPos(el) {
@@ -76,6 +95,7 @@ function getViewBoxPos(el) {
 
 // --- API ---
 export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
+  console.log('[synthesia] attach: btn=', triggerBtnId, 'bpm=', bpm, 'notes=', notes.length);
   const triggerBtn = document.getElementById(triggerBtnId);
   if (!triggerBtn) {
     console.warn('[synthesia] botão não encontrado:', triggerBtnId);
@@ -99,6 +119,8 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   }
 
   const meNotes = notes.filter(n => n.isBass);
+  console.log('[synthesia] MD=', mdNotes.length, 'ME=', meNotes.length,
+    'primeira MD: midi=', mdNotes[0].midi, 'el=', mdNotes[0].el);
 
   const firstEl = document.querySelector(mdNotes[0].el);
   if (!firstEl) {
@@ -145,6 +167,8 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   document.addEventListener('keydown', onKey, true);
 
   function start() {
+    console.log('[synthesia] START — bpm=', bpm, 'mdNotes[0].midi=', mdNotes[0].midi,
+      '(esperado tecla:', midiToKey(mdNotes[0].midi), ')');
     running = true;
     waiting = false;
     waitBeat = 0;
@@ -214,14 +238,19 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   }
 
   // ----- Pausa o jogo (cursor para de avançar) -----
-  function pause(atBeat) {
+  function pause(atBeat, target) {
     waiting = true;
     waitBeat = atBeat;
     clearAllMeTimeouts();
     postToApp({ type: 'corvino:allOff' });
     if (rafId) cancelAnimationFrame(rafId);
     rafId = null;
-    dlog('PAUSE em beat=', atBeat);
+    if (target) {
+      console.log('[synthesia] PAUSE beat=', atBeat,
+        '— esperando midi=', target.midi, '(tecla:', midiToKey(target.midi), ')');
+    } else {
+      dlog('PAUSE em beat=', atBeat);
+    }
     // O cursor permanece visível na posição da nota target (ball pulsa)
   }
 
@@ -232,7 +261,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     // Ajusta startMs pra que elapsedBeats continue de waitBeat
     startMs = performance.now() - waitBeat * beatMs;
     scheduleMEFromBeat(waitBeat);
-    dlog('RESUME a partir de beat=', waitBeat);
+    console.log('[synthesia] RESUME a partir de beat=', waitBeat);
     rafId = requestAnimationFrame(tick);
   }
 
@@ -256,7 +285,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
 
     // Se cursor passou da hit zone da próxima sem ela ser tocada: PAUSA
     if (nextPending && elapsedBeats > nextPending.startBeat + HIT_WINDOW_BEATS) {
-      pause(nextPending.startBeat);
+      pause(nextPending.startBeat, nextPending);
       // Posiciona ball/cursor sobre a nota travada
       const p = nextPending._pos;
       ball.setAttribute('cx', p.x);
@@ -334,9 +363,12 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   // outro listener (e.g. iframe) e dar feedback visual mesmo quando
   // a tecla não bate com nota nenhuma.
   function onKey(e) {
-    if (!running) return;
     const midi = keyCodeToMidi(e.code);
-    dlog('keydown code=', e.code, 'midi=', midi, 'waiting=', waiting);
+    // Log SEMPRE — mesmo se !running ou tecla não-mapeada — pra
+    // sabermos se o evento chegou no parent (vs ficou no iframe)
+    dlog('keydown code=', e.code, 'midi=', midi,
+      'running=', running, 'waiting=', waiting);
+    if (!running) return;
     if (midi == null) return;
     if (e.repeat) { e.preventDefault(); return; }
     e.preventDefault();
