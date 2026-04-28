@@ -513,10 +513,20 @@ body.app-hidden .layout-splitter {
 }
 
 /* === APP EMBED === */
+/* O app fica FIXO na tela conforme o aluno rola a aula —
+   sticky em top:110px (abaixo do site-header) com altura limitada
+   à viewport pra nunca "deslizar pra fora" em telas baixas. */
 .app-panel {
   position: sticky;
   top: 110px;
   align-self: start;
+  /* Limita altura à viewport disponível (descontando o header sticky
+     de 96px + folga). Se a tela for baixa, o iframe encolhe ao invés
+     de empurrar o sticky pra fora. */
+  max-height: calc(100vh - 130px);
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* permite que o flex children encolham abaixo do content-size */
 }
 
 .app-panel .panel-title {
@@ -528,6 +538,7 @@ body.app-hidden .layout-splitter {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: 0 0 auto; /* título não encolhe */
 }
 
 .app-panel .panel-title::before {
@@ -540,7 +551,10 @@ body.app-hidden .layout-splitter {
 
 .app-frame {
   width: 100%;
-  height: 540px;
+  /* Altura ideal de 540px, mas encolhe junto com o app-panel
+     em telas baixas (até o min-height). */
+  flex: 1 1 540px;
+  min-height: 320px;
   border: 2px solid #3a3537;
   border-radius: var(--radius);
   background: #000;
@@ -548,8 +562,22 @@ body.app-hidden .layout-splitter {
   box-shadow: var(--shadow);
 }
 
+/* Em telas mobile (< 1100px) o layout vira 1 coluna e o app fica
+   empilhado abaixo da aula — sticky perde o sentido (não há espaço
+   lateral). Volta a `position: relative` e altura fixa pra evitar
+   o app cobrir conteúdo ao final do scroll. */
 @media (max-width: 1099px) {
-  .app-frame { height: 480px; }
+  .app-panel {
+    position: relative;
+    top: auto;
+    max-height: none;
+    display: block;
+  }
+  .app-frame {
+    flex: none;
+    height: 480px;
+    min-height: 480px;
+  }
 }
 
 /* === APP LOADING PLACEHOLDER ===
