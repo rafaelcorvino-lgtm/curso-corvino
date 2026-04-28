@@ -73,6 +73,208 @@
         </p>
       </div>
 
+      <h2>🗺️ Mapa visual do teclado do computador</h2>
+      <p>
+        Cada cor mostra qual parte do acordeon você toca em cada tecla. As teclas em
+        <strong>cinza apagado</strong> não fazem nada (ficam livres). Os símbolos abaixo
+        são do layout <strong>BR ABNT2</strong> — em outros layouts os símbolos mudam
+        mas a posição física é a mesma.
+      </p>
+
+      <figure class="score-figure">
+        <svg viewBox="0 0 560 280" class="score-svg">
+          <!-- ============================================================
+               LINHA 1 — DÍGITOS (1 2 3 4 = contrabaixos da ME)
+               ============================================================ -->
+          <!-- 1 = Fá contrabaixo -->
+          <rect x="20" y="15" width="36" height="40" rx="4" fill="rgba(217,74,74,0.35)" stroke="#d94a4a" stroke-width="1.5"/>
+          <text x="38" y="36" font-size="13" font-weight="700" text-anchor="middle" fill="#ff9090" font-family="monospace">1</text>
+          <text x="38" y="49" font-size="7" text-anchor="middle" fill="#ff9090">Fá c.b.</text>
+          <!-- 2 = Dó contrabaixo -->
+          <rect x="60" y="15" width="36" height="40" rx="4" fill="rgba(217,74,74,0.35)" stroke="#d94a4a" stroke-width="1.5"/>
+          <text x="78" y="36" font-size="13" font-weight="700" text-anchor="middle" fill="#ff9090" font-family="monospace">2</text>
+          <text x="78" y="49" font-size="7" text-anchor="middle" fill="#ff9090">Dó c.b.</text>
+          <!-- 3 = Sol contrabaixo -->
+          <rect x="100" y="15" width="36" height="40" rx="4" fill="rgba(217,74,74,0.35)" stroke="#d94a4a" stroke-width="1.5"/>
+          <text x="118" y="36" font-size="13" font-weight="700" text-anchor="middle" fill="#ff9090" font-family="monospace">3</text>
+          <text x="118" y="49" font-size="7" text-anchor="middle" fill="#ff9090">Sol c.b.</text>
+          <!-- 4 = Ré contrabaixo -->
+          <rect x="140" y="15" width="36" height="40" rx="4" fill="rgba(217,74,74,0.35)" stroke="#d94a4a" stroke-width="1.5"/>
+          <text x="158" y="36" font-size="13" font-weight="700" text-anchor="middle" fill="#ff9090" font-family="monospace">4</text>
+          <text x="158" y="49" font-size="7" text-anchor="middle" fill="#ff9090">Ré c.b.</text>
+          <!-- 5 6 7 8 9 0 - = (sem função) -->
+          <g fill="#1f1d20" stroke="#3a3537" stroke-width="1">
+            <rect x="180" y="15" width="36" height="40" rx="4"/>
+            <rect x="220" y="15" width="36" height="40" rx="4"/>
+            <rect x="260" y="15" width="36" height="40" rx="4"/>
+            <rect x="300" y="15" width="36" height="40" rx="4"/>
+            <rect x="340" y="15" width="36" height="40" rx="4"/>
+            <rect x="380" y="15" width="36" height="40" rx="4"/>
+            <rect x="420" y="15" width="36" height="40" rx="4"/>
+            <rect x="460" y="15" width="36" height="40" rx="4"/>
+          </g>
+          <g font-size="11" text-anchor="middle" fill="#555" font-family="monospace">
+            <text x="198" y="40">5</text><text x="238" y="40">6</text><text x="278" y="40">7</text><text x="318" y="40">8</text>
+            <text x="358" y="40">9</text><text x="398" y="40">0</text><text x="438" y="40">-</text><text x="478" y="40">=</text>
+          </g>
+
+          <!-- ============================================================
+               LINHA 2 — QWERTY (Q W E R = fund ME, Y U O P [ = pretas MD)
+               ============================================================ -->
+          <!-- Q W E R = fundamentais da ME (Fá Dó Sol Ré) -->
+          <g>
+            <rect x="40" y="63" width="36" height="40" rx="4" fill="rgba(110,160,200,0.35)" stroke="#5a8acc" stroke-width="1.5"/>
+            <text x="58" y="84" font-size="13" font-weight="700" text-anchor="middle" fill="#a8c8ec" font-family="monospace">Q</text>
+            <text x="58" y="97" font-size="7" text-anchor="middle" fill="#a8c8ec">Fá fund</text>
+            <rect x="80" y="63" width="36" height="40" rx="4" fill="rgba(110,160,200,0.35)" stroke="#5a8acc" stroke-width="1.5"/>
+            <text x="98" y="84" font-size="13" font-weight="700" text-anchor="middle" fill="#a8c8ec" font-family="monospace">W</text>
+            <text x="98" y="97" font-size="7" text-anchor="middle" fill="#a8c8ec">Dó fund</text>
+            <rect x="120" y="63" width="36" height="40" rx="4" fill="rgba(110,160,200,0.35)" stroke="#5a8acc" stroke-width="1.5"/>
+            <text x="138" y="84" font-size="13" font-weight="700" text-anchor="middle" fill="#a8c8ec" font-family="monospace">E</text>
+            <text x="138" y="97" font-size="7" text-anchor="middle" fill="#a8c8ec">Sol fund</text>
+            <rect x="160" y="63" width="36" height="40" rx="4" fill="rgba(110,160,200,0.35)" stroke="#5a8acc" stroke-width="1.5"/>
+            <text x="178" y="84" font-size="13" font-weight="700" text-anchor="middle" fill="#a8c8ec" font-family="monospace">R</text>
+            <text x="178" y="97" font-size="7" text-anchor="middle" fill="#a8c8ec">Ré fund</text>
+          </g>
+          <!-- T = sem função -->
+          <rect x="200" y="63" width="36" height="40" rx="4" fill="#1f1d20" stroke="#3a3537"/>
+          <text x="218" y="88" font-size="11" text-anchor="middle" fill="#555" font-family="monospace">T</text>
+          <!-- Y U = pretas (Dó# Ré#) -->
+          <g>
+            <rect x="240" y="63" width="36" height="40" rx="4" fill="#2a2025" stroke="#ff9060" stroke-width="1.5"/>
+            <text x="258" y="84" font-size="13" font-weight="700" text-anchor="middle" fill="#ff9060" font-family="monospace">Y</text>
+            <text x="258" y="97" font-size="7" text-anchor="middle" fill="#ff9060">Dó♯</text>
+            <rect x="280" y="63" width="36" height="40" rx="4" fill="#2a2025" stroke="#ff9060" stroke-width="1.5"/>
+            <text x="298" y="84" font-size="13" font-weight="700" text-anchor="middle" fill="#ff9060" font-family="monospace">U</text>
+            <text x="298" y="97" font-size="7" text-anchor="middle" fill="#ff9060">Ré♯</text>
+          </g>
+          <!-- I = sem função (entre Mi-Fá não tem preta) -->
+          <rect x="320" y="63" width="36" height="40" rx="4" fill="#1f1d20" stroke="#3a3537"/>
+          <text x="338" y="88" font-size="11" text-anchor="middle" fill="#555" font-family="monospace">I</text>
+          <!-- O P [ = pretas (Fá# Sol# Lá#) -->
+          <g>
+            <rect x="360" y="63" width="36" height="40" rx="4" fill="#2a2025" stroke="#ff9060" stroke-width="1.5"/>
+            <text x="378" y="84" font-size="13" font-weight="700" text-anchor="middle" fill="#ff9060" font-family="monospace">O</text>
+            <text x="378" y="97" font-size="7" text-anchor="middle" fill="#ff9060">Fá♯</text>
+            <rect x="400" y="63" width="36" height="40" rx="4" fill="#2a2025" stroke="#ff9060" stroke-width="1.5"/>
+            <text x="418" y="84" font-size="13" font-weight="700" text-anchor="middle" fill="#ff9060" font-family="monospace">P</text>
+            <text x="418" y="97" font-size="7" text-anchor="middle" fill="#ff9060">Sol♯</text>
+            <rect x="440" y="63" width="36" height="40" rx="4" fill="#2a2025" stroke="#ff9060" stroke-width="1.5"/>
+            <text x="458" y="84" font-size="13" font-weight="700" text-anchor="middle" fill="#ff9060" font-family="monospace">[</text>
+            <text x="458" y="97" font-size="7" text-anchor="middle" fill="#ff9060">Lá♯</text>
+          </g>
+          <!-- ] = sem função (entre Si-Dó não tem preta) -->
+          <rect x="480" y="63" width="36" height="40" rx="4" fill="#1f1d20" stroke="#3a3537"/>
+          <text x="498" y="88" font-size="11" text-anchor="middle" fill="#555" font-family="monospace">]</text>
+
+          <!-- ============================================================
+               LINHA 3 — ASDF (A S D F = maiores ME, G H J K L Ç ~ ] = brancas MD)
+               ============================================================ -->
+          <!-- A S D F = acordes maiores ME -->
+          <g>
+            <rect x="60" y="111" width="36" height="40" rx="4" fill="rgba(140,200,140,0.35)" stroke="#5ab45a" stroke-width="1.5"/>
+            <text x="78" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="#90d090" font-family="monospace">A</text>
+            <text x="78" y="145" font-size="7" text-anchor="middle" fill="#90d090">Fá M</text>
+            <rect x="100" y="111" width="36" height="40" rx="4" fill="rgba(140,200,140,0.35)" stroke="#5ab45a" stroke-width="1.5"/>
+            <text x="118" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="#90d090" font-family="monospace">S</text>
+            <text x="118" y="145" font-size="7" text-anchor="middle" fill="#90d090">Dó M</text>
+            <rect x="140" y="111" width="36" height="40" rx="4" fill="rgba(140,200,140,0.35)" stroke="#5ab45a" stroke-width="1.5"/>
+            <text x="158" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="#90d090" font-family="monospace">D</text>
+            <text x="158" y="145" font-size="7" text-anchor="middle" fill="#90d090">Sol M</text>
+            <rect x="180" y="111" width="36" height="40" rx="4" fill="rgba(140,200,140,0.35)" stroke="#5ab45a" stroke-width="1.5"/>
+            <text x="198" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="#90d090" font-family="monospace">F</text>
+            <text x="198" y="145" font-size="7" text-anchor="middle" fill="#90d090">Ré M</text>
+          </g>
+          <!-- G H J K L Ç ~ ] = brancas da MD -->
+          <g>
+            <rect x="220" y="111" width="36" height="40" rx="4" fill="rgba(218,165,32,0.45)" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="238" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="var(--gold)" font-family="monospace">G</text>
+            <text x="238" y="145" font-size="8" text-anchor="middle" fill="var(--gold)">Dó</text>
+            <rect x="260" y="111" width="36" height="40" rx="4" fill="rgba(218,165,32,0.45)" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="278" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="var(--gold)" font-family="monospace">H</text>
+            <text x="278" y="145" font-size="8" text-anchor="middle" fill="var(--gold)">Ré</text>
+            <rect x="300" y="111" width="36" height="40" rx="4" fill="rgba(218,165,32,0.45)" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="318" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="var(--gold)" font-family="monospace">J</text>
+            <text x="318" y="145" font-size="8" text-anchor="middle" fill="var(--gold)">Mi</text>
+            <rect x="340" y="111" width="36" height="40" rx="4" fill="rgba(218,165,32,0.45)" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="358" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="var(--gold)" font-family="monospace">K</text>
+            <text x="358" y="145" font-size="8" text-anchor="middle" fill="var(--gold)">Fá</text>
+            <rect x="380" y="111" width="36" height="40" rx="4" fill="rgba(218,165,32,0.45)" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="398" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="var(--gold)" font-family="monospace">L</text>
+            <text x="398" y="145" font-size="8" text-anchor="middle" fill="var(--gold)">Sol</text>
+            <rect x="420" y="111" width="36" height="40" rx="4" fill="rgba(218,165,32,0.45)" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="438" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="var(--gold)" font-family="monospace">Ç</text>
+            <text x="438" y="145" font-size="8" text-anchor="middle" fill="var(--gold)">Lá</text>
+            <rect x="460" y="111" width="36" height="40" rx="4" fill="rgba(218,165,32,0.45)" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="478" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="var(--gold)" font-family="monospace">~</text>
+            <text x="478" y="145" font-size="8" text-anchor="middle" fill="var(--gold)">Si</text>
+            <rect x="500" y="111" width="36" height="40" rx="4" fill="rgba(218,165,32,0.45)" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="518" y="132" font-size="13" font-weight="700" text-anchor="middle" fill="var(--gold)" font-family="monospace">]</text>
+            <text x="518" y="145" font-size="7" text-anchor="middle" fill="var(--gold)">Dó (8va)</text>
+          </g>
+
+          <!-- ============================================================
+               LINHA 4 — ZXCV (Z X C V = menores ME, B N M sem função)
+               ============================================================ -->
+          <g>
+            <rect x="80" y="159" width="36" height="40" rx="4" fill="rgba(200,140,200,0.35)" stroke="#a065a0" stroke-width="1.5"/>
+            <text x="98" y="180" font-size="13" font-weight="700" text-anchor="middle" fill="#c890c8" font-family="monospace">Z</text>
+            <text x="98" y="193" font-size="7" text-anchor="middle" fill="#c890c8">Fá m</text>
+            <rect x="120" y="159" width="36" height="40" rx="4" fill="rgba(200,140,200,0.35)" stroke="#a065a0" stroke-width="1.5"/>
+            <text x="138" y="180" font-size="13" font-weight="700" text-anchor="middle" fill="#c890c8" font-family="monospace">X</text>
+            <text x="138" y="193" font-size="7" text-anchor="middle" fill="#c890c8">Dó m</text>
+            <rect x="160" y="159" width="36" height="40" rx="4" fill="rgba(200,140,200,0.35)" stroke="#a065a0" stroke-width="1.5"/>
+            <text x="178" y="180" font-size="13" font-weight="700" text-anchor="middle" fill="#c890c8" font-family="monospace">C</text>
+            <text x="178" y="193" font-size="7" text-anchor="middle" fill="#c890c8">Sol m</text>
+            <rect x="200" y="159" width="36" height="40" rx="4" fill="rgba(200,140,200,0.35)" stroke="#a065a0" stroke-width="1.5"/>
+            <text x="218" y="180" font-size="13" font-weight="700" text-anchor="middle" fill="#c890c8" font-family="monospace">V</text>
+            <text x="218" y="193" font-size="7" text-anchor="middle" fill="#c890c8">Ré m</text>
+          </g>
+          <g fill="#1f1d20" stroke="#3a3537" stroke-width="1">
+            <rect x="240" y="159" width="36" height="40" rx="4"/>
+            <rect x="280" y="159" width="36" height="40" rx="4"/>
+            <rect x="320" y="159" width="36" height="40" rx="4"/>
+          </g>
+          <g font-size="11" text-anchor="middle" fill="#555" font-family="monospace">
+            <text x="258" y="184">B</text><text x="298" y="184">N</text><text x="338" y="184">M</text>
+          </g>
+
+          <!-- ============================================================
+               LEGENDA
+               ============================================================ -->
+          <g font-family="sans-serif" font-size="10">
+            <!-- Mão direita -->
+            <text x="20" y="225" font-weight="700" fill="#d4c9a8">🎵 Mão direita:</text>
+            <rect x="120" y="217" width="14" height="10" fill="rgba(218,165,32,0.45)" stroke="var(--gold)"/>
+            <text x="138" y="226" fill="var(--gold)">brancas (Dó-Ré-Mi…)</text>
+            <rect x="270" y="217" width="14" height="10" fill="#2a2025" stroke="#ff9060"/>
+            <text x="288" y="226" fill="#ff9060">pretas (sustenidos #)</text>
+
+            <!-- Mão esquerda -->
+            <text x="20" y="248" font-weight="700" fill="#d4c9a8">🎵 Mão esquerda:</text>
+            <rect x="120" y="240" width="14" height="10" fill="rgba(217,74,74,0.35)" stroke="#d94a4a"/>
+            <text x="138" y="249" fill="#ff9090">contrabaixo</text>
+            <rect x="220" y="240" width="14" height="10" fill="rgba(110,160,200,0.35)" stroke="#5a8acc"/>
+            <text x="238" y="249" fill="#a8c8ec">fundamental</text>
+            <rect x="318" y="240" width="14" height="10" fill="rgba(140,200,140,0.35)" stroke="#5ab45a"/>
+            <text x="336" y="249" fill="#90d090">acorde Maior</text>
+            <rect x="418" y="240" width="14" height="10" fill="rgba(200,140,200,0.35)" stroke="#a065a0"/>
+            <text x="436" y="249" fill="#c890c8">acorde menor</text>
+
+            <!-- Sem função -->
+            <text x="20" y="271" font-weight="700" fill="#d4c9a8">⚪ Sem função:</text>
+            <rect x="120" y="263" width="14" height="10" fill="#1f1d20" stroke="#3a3537"/>
+            <text x="138" y="272" fill="#777">teclas livres (5-0, T, I, ], B, N, M, etc)</text>
+          </g>
+        </svg>
+        <figcaption>
+          <strong>Cada cor = uma função no acordeon.</strong> Repare na <em>geometria</em>:
+          a mão esquerda forma um <strong>retângulo de 4 colunas × 4 linhas</strong> (esquerda do teclado),
+          igual à matriz Stradella do baixo do acordeon. A mão direita usa a <strong>linha do meio</strong>
+          (brancas) + <strong>linha de cima</strong> (pretas) — exatamente como um piano.
+        </figcaption>
+      </figure>
+
       <div class="callout callout-info">
         <strong>Por que computador e não celular?</strong> O curso tem
         partitura, vídeos e o app ao lado — na tela pequena do celular
