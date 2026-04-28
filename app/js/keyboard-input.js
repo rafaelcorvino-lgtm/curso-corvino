@@ -32,28 +32,31 @@ import { state } from './state.js';
 // row usa o MESMO índice do BASS_ROWS do midi-data.js:
 //   0 = acordes 7ª, 1 = menores, 2 = maiores, 3 = fund, 4 = contrabaixo
 const KEY_MAP = {
-  // --- Mão direita (piano) — escala de Dó completa (Dó central a Dó oitava acima) ---
-  KeyG:         { midi: 48, isBass: false }, // Dó (Dó central, MIDI 48)
-  KeyH:         { midi: 50, isBass: false }, // Ré
-  KeyJ:         { midi: 52, isBass: false }, // Mi
-  KeyK:         { midi: 53, isBass: false }, // Fá
-  KeyL:         { midi: 55, isBass: false }, // Sol
-  Semicolon:    { midi: 57, isBass: false }, // Lá (em ABNT2: Ç)
-  Quote:        { midi: 59, isBass: false }, // Si (em ABNT2: ~ ou ')
+  // --- Mão direita (piano) — escala de Dó completa (Dó4 a Dó5) ---
+  // Convenção MIDI padrão: Dó4 = MIDI 60 (mesmo que o score-player e o
+  // Synthesia usam). Antes mapeava G→48 (Dó3) — desalinhava com a
+  // partitura que mostrava Dó4 acendendo no meio do teclado.
+  KeyG:         { midi: 60, isBass: false }, // Dó4 (Dó central)
+  KeyH:         { midi: 62, isBass: false }, // Ré4
+  KeyJ:         { midi: 64, isBass: false }, // Mi4
+  KeyK:         { midi: 65, isBass: false }, // Fá4
+  KeyL:         { midi: 67, isBass: false }, // Sol4
+  Semicolon:    { midi: 69, isBass: false }, // Lá4 (em ABNT2: Ç)
+  Quote:        { midi: 71, isBass: false }, // Si4 (em ABNT2: ~ ou ')
   // Dó oitava acima: ] no ABNT2 brasileiro corresponde ao Backslash (event.code
   // é POSICIONAL — em US a mesma posição é '\'). Mapeamos ambos pra cobrir
   // layouts US e ABNT2/ABNT.
-  Backslash:    { midi: 60, isBass: false }, // Dó oitava acima — ABNT2: tecla ] (à direita do ~)
-  BracketRight: { midi: 60, isBass: false }, // Dó oitava acima — US: tecla ]
+  Backslash:    { midi: 72, isBass: false }, // Dó5 — ABNT2: tecla ] (à direita do ~)
+  BracketRight: { midi: 72, isBass: false }, // Dó5 — US: tecla ]
 
   // Pretas (sustenidos) — linha de cima, entre as brancas correspondentes
-  KeyY:        { midi: 49, isBass: false }, // Dó# (entre G=Dó e H=Ré)
-  KeyU:        { midi: 51, isBass: false }, // Ré# (entre H=Ré e J=Mi)
-  KeyO:        { midi: 54, isBass: false }, // Fá# (entre K=Fá e L=Sol)
-  KeyP:        { midi: 56, isBass: false }, // Sol# (entre L=Sol e Ç=Lá)
+  KeyY:        { midi: 61, isBass: false }, // Dó#4 (entre G=Dó e H=Ré)
+  KeyU:        { midi: 63, isBass: false }, // Ré#4 (entre H=Ré e J=Mi)
+  KeyO:        { midi: 66, isBass: false }, // Fá#4 (entre K=Fá e L=Sol)
+  KeyP:        { midi: 68, isBass: false }, // Sol#4 (entre L=Sol e Ç=Lá)
   // Lá# (entre Ç=Lá e ~=Si): em ABNT2 a tecla [ pode ter event.code diferente
   // do US — mapeamos múltiplos códigos pra cobrir layouts.
-  BracketLeft: { midi: 58, isBass: false }, // Lá# — US e ABNT-US: tecla [
+  BracketLeft: { midi: 70, isBass: false }, // Lá#4 — US e ABNT-US: tecla [
 
   // --- Mão esquerda (baixo) ---
   // Coluna Dó (pos 6)
