@@ -1638,3 +1638,185 @@ kbd {
   }
   .a11y-btn { padding: 4px 8px; font-size: 0.75rem; min-height: 32px; }
 }
+
+/* ============================================================
+   BOTÃO REPORTAR BUG (debug-report.js)
+   FAB discreto no canto inferior esquerdo. Aluno aperta pra
+   abrir um modal com console + infos do sistema, pode copiar
+   ou mandar pelo WhatsApp.
+   ============================================================ */
+.dbg-fab {
+  position: fixed;
+  bottom: 14px;
+  left: 14px;
+  z-index: 9998;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(218, 165, 32, 0.45);
+  background: rgba(26, 22, 24, 0.85);
+  color: #ffd060;
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.dbg-fab:hover {
+  opacity: 1;
+  transform: scale(1.08);
+  box-shadow: 0 0 0 3px rgba(255, 208, 96, 0.25),
+              0 4px 14px rgba(0, 0, 0, 0.5);
+}
+.dbg-fab:focus-visible {
+  outline: 2px solid #ffd060;
+  outline-offset: 3px;
+  opacity: 1;
+}
+@media (max-width: 700px) {
+  .dbg-fab {
+    bottom: 10px;
+    left: 10px;
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+}
+
+/* Modal */
+.dbg-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: dbg-fade-in 0.15s ease-out;
+}
+@keyframes dbg-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.dbg-modal-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(2px);
+}
+.dbg-modal-card {
+  position: relative;
+  width: min(680px, 92vw);
+  max-height: 88vh;
+  overflow: auto;
+  background: #1a1618;
+  border: 1px solid rgba(218, 165, 32, 0.35);
+  border-radius: 12px;
+  padding: 22px 22px 18px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  color: #f0e6d2;
+}
+.dbg-title {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  color: #ffd060;
+}
+.dbg-help {
+  margin: 0 0 14px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: #c8bfa8;
+}
+.dbg-help b { color: #ffd060; }
+.dbg-label {
+  margin: 14px 0 4px;
+  font-size: 0.8rem;
+  color: #9c947f;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.dbg-user-msg {
+  width: 100%;
+  min-height: 60px;
+  padding: 10px 12px;
+  background: #0f0d0f;
+  border: 1px solid rgba(218, 165, 32, 0.25);
+  border-radius: 8px;
+  color: #f0e6d2;
+  font-family: inherit;
+  font-size: 0.92rem;
+  resize: vertical;
+  box-sizing: border-box;
+}
+.dbg-user-msg:focus {
+  outline: none;
+  border-color: #ffd060;
+  box-shadow: 0 0 0 2px rgba(255, 208, 96, 0.18);
+}
+.dbg-textarea {
+  width: 100%;
+  height: 220px;
+  padding: 10px 12px;
+  background: #0a0908;
+  border: 1px solid rgba(218, 165, 32, 0.18);
+  border-radius: 8px;
+  color: #d0c8b0;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  resize: vertical;
+  box-sizing: border-box;
+  white-space: pre;
+  overflow: auto;
+}
+.dbg-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.dbg-btn {
+  padding: 9px 16px;
+  background: #2a2426;
+  border: 1px solid rgba(218, 165, 32, 0.3);
+  border-radius: 7px;
+  color: #f0e6d2;
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-family: inherit;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.12s, border-color 0.12s;
+}
+.dbg-btn:hover {
+  background: #3a3032;
+  border-color: rgba(218, 165, 32, 0.55);
+}
+.dbg-btn-primary {
+  background: linear-gradient(180deg, #b8632a, #8a4a1f);
+  border-color: #d97a3a;
+  color: #fff;
+}
+.dbg-btn-primary:hover {
+  background: linear-gradient(180deg, #d97a3a, #b8632a);
+}
+.dbg-btn-wpp {
+  background: linear-gradient(180deg, #25d366, #1aa84d);
+  border-color: #25d366;
+  color: #0f3320;
+  font-weight: 600;
+}
+.dbg-btn-wpp:hover {
+  background: linear-gradient(180deg, #2bea73, #25d366);
+}
+@media (max-width: 700px) {
+  .dbg-modal-card {
+    width: 96vw;
+    padding: 16px 14px;
+  }
+  .dbg-textarea { height: 180px; font-size: 0.72rem; }
+  .dbg-btn { width: 100%; text-align: center; }
+}
