@@ -347,10 +347,29 @@ export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, not
       if (osc) scheduledOscs.push(osc);
     }
 
+    // Resolve `note.el` em array de elementos:
+    //   - string "#a"        → 1 elemento
+    //   - string "#a,#b"     → vários (seletor combinado)
+    //   - array [...]         → cada item resolvido (string ou DOM)
+    //   - DOM Element        → passa direto
+    // Útil pra ligaduras e tied notes onde uma nota soa uma vez e
+    // visualmente atinge mais de uma cabeça simultânea.
+    const resolveEls = (spec) => {
+      if (!spec) return [];
+      if (Array.isArray(spec)) return spec.flatMap(resolveEls);
+      if (typeof spec === 'string') return Array.from(document.querySelectorAll(spec));
+      return [spec];
+    };
+
     // Agenda notas (atrasadas por countInBeats)
     for (const { note, startBeats } of scheduled) {
-      // Pausa (rest): só ocupa espaço, não toca nem acende.
-      if (note.rest || note.midi == null) continue;
+      // Nota "visual-only" = sem som mas com `el` pra animar.
+      // Útil pra notas ligadas onde o som já está sendo tocado por uma
+      // outra nota paralela e essa só serve pra acender visualmente
+      // (segunda metade de uma ligadura, p.ex.).
+      const isVisualOnly = note.rest || note.midi == null;
+      // Pausa COMPLETA (rest sem el): só ocupa espaço, não toca nem anima.
+      if (isVisualOnly && !note.el) continue;
 
       const startMs = (startBeats + countInBeats) * beatMs;
       const slotMs = (note.beats || 0) * beatMs;
@@ -359,24 +378,14 @@ export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, not
         : 0.92;
       const soundMs = Math.max(50, slotMs * artic);
       const isBass = !!note.isBass;
-
-      // Resolve `note.el` em array de elementos:
-      //   - string "#a"        → 1 elemento
-      //   - string "#a,#b"     → vários (seletor combinado)
-      //   - array [...]         → cada item resolvido (string ou DOM)
-      //   - DOM Element        → passa direto
-      // Útil pra ligaduras e tied notes, onde a nota soa uma vez mas
-      // visualmente atinge mais de uma cabeça (ex: semínima ligada à mínima).
-      const resolveEls = (spec) => {
-        if (!spec) return [];
-        if (Array.isArray(spec)) return spec.flatMap(resolveEls);
-        if (typeof spec === 'string') return Array.from(document.querySelectorAll(spec));
-        return [spec];
-      };
+      // Visual ocupa o slot inteiro (não respeita articulation — não tem som).
+      const visualMs = isVisualOnly ? slotMs : soundMs;
 
       // noteOn
       timeouts.push(setTimeout(() => {
-        postToApp({ type: 'corvino:noteOn', midi: note.midi, isBass });
+        if (!isVisualOnly) {
+          postToApp({ type: 'corvino:noteOn', midi: note.midi, isBass });
+        }
         if (note.el) {
           const els = resolveEls(note.el);
           if (els.length) {
@@ -394,7 +403,9 @@ export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, not
 
       // noteOff
       timeouts.push(setTimeout(() => {
-        postToApp({ type: 'corvino:noteOff', midi: note.midi, isBass });
+        if (!isVisualOnly) {
+          postToApp({ type: 'corvino:noteOff', midi: note.midi, isBass });
+        }
         if (note.el) {
           const els = resolveEls(note.el);
           els.forEach(el => {
@@ -402,7 +413,7 @@ export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, not
             activeEls = activeEls.filter(x => x !== el);
           });
         }
-      }, startMs + soundMs));
+      }, startMs + visualMs));
     }
 
     // auto-reset depois que acabar (totalBeats em ms + folga)
