@@ -182,8 +182,9 @@
           <ellipse id="ex-lig-n2" cx="225" cy="125" rx="10" ry="6" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
           <line x1="235" y1="125" x2="235" y2="88" stroke="var(--gold)" stroke-width="2"/>
 
-          <!-- Ligadura — curva ABAIXO das cabeças das notas (hastes pra cima) -->
-          <path d="M 145 138 Q 185 158 225 138" stroke="var(--gold)" stroke-width="2.5" fill="none"/>
+          <!-- Ligadura — curva ABAIXO das cabeças das notas (hastes pra cima).
+               id="ex-lig-curva" pra animar o "som passando" da n1 pra n2 durante o playback. -->
+          <path id="ex-lig-curva" d="M 145 138 Q 185 158 225 138" stroke="var(--gold)" stroke-width="2.5" fill="none"/>
 
           <text x="185" y="22" fill="#d4c9a8" font-size="11" text-anchor="middle"
                 stroke="#1a1618" stroke-width="3" paint-order="stroke">1 ataque, dura 3 tempos</text>
@@ -293,10 +294,12 @@
       bpm: 80,
       beatsPerBar: 3,
       notes: [
-        // ----- Compasso 1: a ligadura (3 tempos = 1 som, 2 visuais escalonados) -----
-        { midi: 48, beats: 3, startBeat: 0, articulation: 0.95 },             // som contínuo
-        { rest: true, beats: 1, startBeat: 0, el: '#ex-lig-n1' },             // anima n1 no tempo 0-1
-        { rest: true, beats: 2, startBeat: 1, el: '#ex-lig-n2' },             // anima n2 no tempo 1-3
+        // ----- Compasso 1: a ligadura (1 som, 3 visuais escalonados em cascata) -----
+        // Brilho "viaja" da n1 → curva → n2, mostrando o som único atravessando a ligadura.
+        { midi: 48, beats: 3, startBeat: 0, articulation: 0.95 },             // som contínuo (3t)
+        { rest: true, beats: 1, startBeat: 0, el: '#ex-lig-n1' },             // tempo 0-1: ataque na n1 (semínima)
+        { rest: true, beats: 1, startBeat: 1, el: '#ex-lig-curva' },          // tempo 1-2: som passa pela curva
+        { rest: true, beats: 1, startBeat: 2, el: '#ex-lig-n2' },             // tempo 2-3: chega e segura na n2 (mínima)
         // ----- Compasso 2: 3 semínimas separadas (3 tempos, 3 ataques) -----
         { midi: 48, beats: 1, startBeat: 3, el: '#ex-lig-n3', articulation: 0.85 },
         { midi: 48, beats: 1, startBeat: 4, el: '#ex-lig-n4', articulation: 0.85 },
