@@ -207,10 +207,11 @@
 
       <figure class="score-figure">
         <svg viewBox="0 0 580 320" class="score-svg">
-          <!-- ===== SEÇÃO 1: CORVINO KEYBOARD ===== -->
-          <text x="290" y="14" font-size="12" fill="var(--gold)" text-anchor="middle" font-weight="700">🎹 No Corvino — 5 primeiras notas (Dó a Sol)</text>
+          <!-- ===== SEÇÃO 1: CORVINO KEYBOARD — escala completa de Dó (oitava) ===== -->
+          <text x="290" y="14" font-size="12" fill="var(--gold)" text-anchor="middle" font-weight="700">🎹 No Corvino — escala de Dó completa (uma oitava)</text>
 
-          <!-- Dedilhado acima das teclas -->
+          <!-- Dedilhado acima das teclas: 1-2-3-4-5 sobre Dó-Sol (5 dedos físicos).
+               Lá-Si-Dó precisam de passagem do polegar — explicado no Módulo 7. -->
           <g font-size="13" font-weight="800" fill="var(--gold)" text-anchor="middle">
             <text x="65" y="32">1</text>
             <text x="115" y="32">2</text>
@@ -218,20 +219,24 @@
             <text x="215" y="32">4</text>
             <text x="265" y="32">5</text>
           </g>
+          <!-- Texto pequeno indicando passagem do polegar acima de Lá-Si-Dó -->
+          <text x="365" y="32" font-size="9" font-style="italic" fill="#9a8c6a" text-anchor="middle">passagem do polegar (Módulo 7)</text>
 
           <!-- Bracket agrupando os 5 dedos -->
           <line x1="50" y1="38" x2="280" y2="38" stroke="var(--gold)" stroke-width="1.5"/>
+          <!-- Linha tracejada indicando o restante (Lá-Si-Dó disponível) -->
+          <line x1="290" y1="38" x2="440" y2="38" stroke="rgba(218,165,32,0.4)" stroke-width="1.5" stroke-dasharray="4,3"/>
 
-          <!-- Teclas brancas (8 = 1 oitava + Dó) — primeiras 5 destacadas -->
+          <!-- Teclas brancas (8 = 1 oitava completa) — TODAS destacadas (todas mapeadas) -->
           <g stroke="#1a1618" stroke-width="1.3">
             <rect x="40" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
             <rect x="90" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
             <rect x="140" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
             <rect x="190" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
             <rect x="240" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
-            <rect x="290" y="42" width="50" height="120" fill="#f4f0e6"/>
-            <rect x="340" y="42" width="50" height="120" fill="#f4f0e6"/>
-            <rect x="390" y="42" width="50" height="120" fill="#f4f0e6"/>
+            <rect x="290" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
+            <rect x="340" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
+            <rect x="390" y="42" width="50" height="120" fill="rgba(218,165,32,0.25)"/>
           </g>
 
           <!-- Teclas pretas -->
@@ -244,29 +249,32 @@
             <rect x="376" y="42" width="28" height="75"/>
           </g>
 
-          <!-- Labels das teclas brancas -->
-          <g font-size="14" font-weight="700" text-anchor="middle">
-            <text x="65" y="150" fill="#a07000">Dó</text>
-            <text x="115" y="150" fill="#a07000">Ré</text>
-            <text x="165" y="150" fill="#a07000">Mi</text>
-            <text x="215" y="150" fill="#a07000">Fá</text>
-            <text x="265" y="150" fill="#a07000">Sol</text>
-            <text x="315" y="150" fill="#5a5a5a">Lá</text>
-            <text x="365" y="150" fill="#5a5a5a">Si</text>
-            <text x="415" y="150" fill="#5a5a5a">Dó</text>
+          <!-- Labels das teclas brancas — todas em dourado (8 ativas) -->
+          <g font-size="14" font-weight="700" text-anchor="middle" fill="#a07000">
+            <text x="65" y="150">Dó</text>
+            <text x="115" y="150">Ré</text>
+            <text x="165" y="150">Mi</text>
+            <text x="215" y="150">Fá</text>
+            <text x="265" y="150">Sol</text>
+            <text x="315" y="150">Lá</text>
+            <text x="365" y="150">Si</text>
+            <text x="415" y="150">Dó</text>
           </g>
 
-          <!-- Linhas tracejadas conectando Corvino → teclado computador -->
+          <!-- Linhas tracejadas conectando Corvino → teclado computador (8 conectores) -->
           <g stroke="rgba(218,165,32,0.4)" stroke-width="1" stroke-dasharray="3,3">
             <line x1="65" y1="172" x2="257" y2="240"/>
             <line x1="115" y1="172" x2="297" y2="240"/>
             <line x1="165" y1="172" x2="337" y2="240"/>
             <line x1="215" y1="172" x2="377" y2="240"/>
             <line x1="265" y1="172" x2="417" y2="240"/>
+            <line x1="315" y1="172" x2="457" y2="240"/>
+            <line x1="365" y1="172" x2="497" y2="240"/>
+            <line x1="415" y1="172" x2="537" y2="240"/>
           </g>
 
           <!-- ===== SEÇÃO 2: TECLADO DO COMPUTADOR ===== -->
-          <text x="290" y="195" font-size="12" fill="var(--gold)" text-anchor="middle" font-weight="700">⌨ Pelo teclado do computador (G H J K L na fileira central)</text>
+          <text x="290" y="195" font-size="12" fill="var(--gold)" text-anchor="middle" font-weight="700">⌨ Pelo teclado do computador (G H J K L Ç ~ ] na fileira central)</text>
 
           <!-- Linha QWERTY (Q W E R T Y U I O P) -->
           <g font-family="monospace" text-anchor="middle">
@@ -313,9 +321,15 @@
             <text x="377" y="259" font-size="12" font-weight="700" fill="var(--gold)">K</text>
             <rect x="400" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
             <text x="417" y="259" font-size="12" font-weight="700" fill="var(--gold)">L</text>
-            <!-- Ç (Lá) — mapeado mas cobre nota além do escopo dessa aula -->
-            <rect x="440" y="240" width="34" height="28" rx="3" fill="#2c2729" stroke="#3a3537"/>
-            <text x="457" y="258" font-size="11" fill="#a8a29a">Ç</text>
+            <!-- Ç (Lá) destacado -->
+            <rect x="440" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="457" y="259" font-size="12" font-weight="700" fill="var(--gold)">Ç</text>
+            <!-- ~ (Si) destacado -->
+            <rect x="480" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="497" y="259" font-size="12" font-weight="700" fill="var(--gold)">~</text>
+            <!-- ] (Dó 8va) destacado -->
+            <rect x="520" y="240" width="34" height="28" rx="3" fill="rgba(218,165,32,0.4)" stroke="var(--gold)" stroke-width="2"/>
+            <text x="537" y="259" font-size="12" font-weight="700" fill="var(--gold)">]</text>
           </g>
 
           <!-- Linha ZXC -->
@@ -336,17 +350,25 @@
             <text x="357" y="290" font-size="11" fill="#a8a29a">M</text>
           </g>
 
-          <!-- Notas mapeadas embaixo das teclas G-L -->
+          <!-- Notas mapeadas embaixo das teclas G-] (oitava completa, 8 brancas) -->
           <g font-size="10" font-weight="700" text-anchor="middle" fill="var(--gold)">
             <text x="257" y="313">Dó</text>
             <text x="297" y="313">Ré</text>
             <text x="337" y="313">Mi</text>
             <text x="377" y="313">Fá</text>
             <text x="417" y="313">Sol</text>
+            <text x="457" y="313">Lá</text>
+            <text x="497" y="313">Si</text>
+            <text x="537" y="313">Dó</text>
           </g>
         </svg>
         <figcaption>
-          As 5 primeiras notas (Dó-Ré-Mi-Fá-Sol) são tocadas com os <strong>5 dedos da mão direita</strong> no Corvino, ou no teclado do computador pela <strong>fileira central</strong> (G H J K L). O dedilhado é o mesmo: dedo 1 = Dó, dedo 2 = Ré, e assim por diante. As linhas pontilhadas mostram a equivalência tecla → nota. <em>Lá-Si-Dó (Ç ~ ]) também já estão mapeados, mas você só vai usar a partir do Módulo 7.</em>
+          As <strong>8 notas brancas</strong> da escala de Dó (uma oitava completa) estão mapeadas:
+          Dó-Ré-Mi-Fá-Sol no Corvino com os <strong>5 dedos da mão direita</strong>; no teclado do
+          computador, ficam na <strong>fileira central</strong> (G H J K L Ç ~ ]). Lá-Si-Dó
+          (Ç ~ ]) já tocam, mas pra alcançá-las no Corvino físico você precisa da
+          <em>passagem do polegar</em>, técnica explicada no <strong>Módulo 7</strong>. Por enquanto
+          foque nas 5 primeiras (Dó-Sol) com dedilhado <strong>1-2-3-4-5</strong>.
         </figcaption>
       </figure>
 
