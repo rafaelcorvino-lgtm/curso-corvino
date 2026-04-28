@@ -1200,6 +1200,15 @@ kbd {
   }
 }
 
+/* Rótulo da tecla DENTRO da bolinha — diz QUAL tecla apertar.
+   Sem ele o aluno chuta letras aleatórias. Texto preto sobre amarelo. */
+.synth-key-label {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  paint-order: stroke;
+  stroke: #ffd060;
+  stroke-width: 2;
+}
+
 /* Estados das notas durante o jogo (ellipses ganham essas classes via JS) */
 .synth-preview {
   fill: #ffd060 !important;

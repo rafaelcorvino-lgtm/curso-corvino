@@ -135,6 +135,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
 
   const cursor = createCursor(scoreSvg);
   const ball = createBall(scoreSvg);
+  const keyLabel = createKeyLabel(scoreSvg);
 
   const totalBeats = Math.max(...mdNotes.map(n => n.startBeat + n.beats),
                               ...meNotes.map(n => (n.startBeat ?? 0) + (n.beats || 1))) + 1;
@@ -198,6 +199,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     triggerBtn.classList.add('playing');
     cursor.style.display = '';
     ball.style.display = '';
+    keyLabel.style.display = '';
     updateBtn();
     // Foca o botão pra garantir que keydowns vão pro parent (não pra iframe)
     try { triggerBtn.focus({ preventScroll: true }); } catch (_) {}
@@ -223,6 +225,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     triggerBtn.classList.remove('playing');
     cursor.style.display = 'none';
     ball.style.display = 'none';
+    keyLabel.style.display = 'none';
     if (showFinal) showFinalScore();
     updateBtn();
   }
@@ -313,8 +316,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
       pause(nextPending.startBeat, nextPending);
       // Posiciona ball/cursor sobre a nota travada
       const p = nextPending._pos;
-      ball.setAttribute('cx', p.x);
-      ball.setAttribute('cy', p.y);
+      placeBall(p, nextPending.midi);
       cursor.setAttribute('x1', p.x);
       cursor.setAttribute('x2', p.x);
       cursor.setAttribute('y1', p.y - 75);
@@ -332,14 +334,13 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
       cursor.setAttribute('y2', cursorPos.y + 90);
     }
 
-    // Posiciona bolinha (sempre sobre a próxima pendente)
+    // Posiciona bolinha + rótulo (sempre sobre a próxima pendente)
     if (nextPending) {
-      const p = nextPending._pos;
-      ball.setAttribute('cx', p.x);
-      ball.setAttribute('cy', p.y);
+      placeBall(nextPending._pos, nextPending.midi);
       scrollNoteIntoView(nextPending._domEl);
     } else {
       ball.style.display = 'none';
+      keyLabel.style.display = 'none';
     }
 
     if (elapsedBeats < totalBeats + LOOKAHEAD_BEATS) {
@@ -347,6 +348,15 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     } else {
       stop(true);
     }
+  }
+
+  // Helper: move ball + rótulo pra mesma posição da nota target
+  function placeBall(p, midi) {
+    ball.setAttribute('cx', p.x);
+    ball.setAttribute('cy', p.y);
+    keyLabel.setAttribute('x', p.x);
+    keyLabel.setAttribute('y', p.y);
+    keyLabel.textContent = midiToKeyLetter(midi);
   }
 
   // Interpolação linear entre prev e next, considerando pulos de stave
@@ -515,4 +525,41 @@ function createBall(svg) {
   circle.style.pointerEvents = 'none';
   svg.appendChild(circle);
   return circle;
+}
+
+// --- Rótulo da tecla (texto) — diz QUAL tecla apertar ---
+// Aparece dentro/sobre a bolinha quando pausado, ou logo abaixo dela
+// quando rolando. Sem ele o aluno tenta letras aleatórias até achar.
+function createKeyLabel(svg) {
+  const NS = 'http://www.w3.org/2000/svg';
+  const text = document.createElementNS(NS, 'text');
+  text.setAttribute('class', 'synth-key-label');
+  text.setAttribute('text-anchor', 'middle');
+  text.setAttribute('dominant-baseline', 'middle');
+  text.setAttribute('font-size', '11');
+  text.setAttribute('font-weight', '700');
+  text.setAttribute('fill', '#1a1618');
+  text.style.display = 'none';
+  text.style.pointerEvents = 'none';
+  svg.appendChild(text);
+  return text;
+}
+// Pega a letra da tecla a partir do midi (p/ exibir no rótulo)
+function midiToKeyLetter(midi) {
+  switch (midi) {
+    case 60: return 'G';
+    case 62: return 'H';
+    case 64: return 'J';
+    case 65: return 'K';
+    case 67: return 'L';
+    case 69: return 'Ç';
+    case 71: return '~';
+    case 72: return ']';
+    case 61: return 'Y';
+    case 63: return 'U';
+    case 66: return 'O';
+    case 68: return 'P';
+    case 70: return '[';
+    default: return '?';
+  }
 }
