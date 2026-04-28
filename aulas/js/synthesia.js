@@ -106,6 +106,13 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     console.warn('[synthesia] botão não encontrado:', triggerBtnId);
     return;
   }
+  // Pega a figure ancestral pra ler o handState compartilhado (toggles
+  // 𝄞 𝄢 da toolbar). Se não estiver dentro de uma figure (caso raro),
+  // assume ambas mãos ativas (comportamento default).
+  const figure = triggerBtn.closest('.score-figure');
+  function getHandState() {
+    return (figure && figure._handState) || { md: true, me: true };
+  }
 
   const mdNotes = notes
     .filter(n => !n.isBass && n.el && typeof n.midi === 'number')
@@ -305,12 +312,21 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       const artic = typeof note.articulation === 'number' ? note.articulation : 0.85;
       const soundMs = Math.max(50, slotMs * artic);
 
+      // Captura se o noteOn foi emitido (respeitou o toggle ME) — pra
+      // noteOff só disparar se o som chegou a tocar. Evita "noteOff órfão"
+      // se aluno mutar a ME no meio do playback.
+      let onFired = false;
       meTimeouts.push(setTimeout(() => {
         if (!running || waiting) return;
+        // Toggle 𝄢 (ME) apagado → não toca som (mas notas seguem o cursor)
+        if (!getHandState().me) return;
         postToApp({ type: 'corvino:noteOn', midi: note.midi, isBass: true });
+        onFired = true;
       }, startTimeMs));
       meTimeouts.push(setTimeout(() => {
+        if (!onFired) return;
         postToApp({ type: 'corvino:noteOff', midi: note.midi, isBass: true });
+        onFired = false;
       }, startTimeMs + soundMs));
     }
     // Auto-stop quando termina (só agenda no start, não em resumes)
