@@ -1182,6 +1182,24 @@ kbd {
   50%      { opacity: 1; }
 }
 
+/* Bolinha pulsante — fica sobre a próxima nota a tocar (alvo do aluno).
+   Pulsa de tamanho e opacidade pra chamar atenção. */
+.synth-ball {
+  animation: synth-ball-pulse 0.6s ease-in-out infinite;
+}
+@keyframes synth-ball-pulse {
+  0%, 100% {
+    r: 11;
+    opacity: 0.85;
+    stroke-width: 2.5;
+  }
+  50% {
+    r: 14;
+    opacity: 1;
+    stroke-width: 3;
+  }
+}
+
 /* Estados das notas durante o jogo (ellipses ganham essas classes via JS) */
 .synth-preview {
   fill: #ffd060 !important;

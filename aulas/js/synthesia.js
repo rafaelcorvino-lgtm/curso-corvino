@@ -1,41 +1,39 @@
 // ===== Synthesia mode pro curso Corvino =====
-// Modo de prática gamificado direto na partitura SVG: uma LINHA VERTICAL
-// (cursor de tempo) avança continuamente da esquerda pra direita conforme o
-// tempo passa, indicando QUANDO tocar. As próprias notas mudam de cor:
-//   - cor padrão (dourado)  = futura
-//   - amarelo                = a próxima a tocar (nota que o cursor está chegando)
-//   - verde                  = aluno acertou
-//   - vermelho               = passou sem tocar
+// Modo de prática gamificado direto na partitura SVG. 2 elementos visuais:
+//   - CURSOR (linha vertical): "AGORA" — avança continuamente em X com o tempo
+//   - BOLINHA (circle pulsante): "TOQUE essa" — fica sobre a próxima nota
 //
-// MD (mão direita): aluno toca G H J K L Ç ~ pra disparar Dó-Ré-Mi-Fá-Sol-Lá-Si.
-// ME (baixos): toca em background como acompanhamento — não precisa tocar.
+// MODO ESPERA: se o cursor chegar na nota e o aluno não tocar, o jogo PAUSA
+// até ele acertar a nota. Não cobra ritmo perfeito de iniciante.
 //
-// Uso:
-//   import { attachSynthesia } from './js/synthesia.js';
-//   attachSynthesia({
-//     triggerBtnId: 'btn-pvd-syn',
-//     bpm: 60,
-//     notes: [...],
-//   });
+// Estados visuais nas notas:
+//   cor padrão (dourado) = futura
+//   amarelo (.synth-preview) = a vez de tocar
+//   verde  (.synth-hit)      = aluno acertou
+//   vermelho (.synth-miss)   = perdeu (depois do retomar — aluno demorou demais
+//                              ou pulou; opcional, hoje não usamos)
+//
+// MD: aluno toca G H J K L Ç ~ pra disparar Dó-Ré-Mi-Fá-Sol-Lá-Si.
+// ME: toca em background como acompanhamento — pausa junto se MD travar.
 
-const DEBUG = false;  // mudar pra true se precisar de logs detalhados no console
+const DEBUG = false;
 function dlog(...args) { if (DEBUG) console.log('[synthesia]', ...args); }
 
-// --- postMessage pro app (mesma estratégia do score-player) ---
+// --- postMessage pro app ---
 function findAppFrame() {
   return document.querySelector('iframe.app-frame');
 }
 function postToApp(msg) {
   const frame = findAppFrame();
   if (!frame || !frame.contentWindow) {
-    console.warn('[synthesia] iframe.app-frame não encontrado — som não vai sair');
+    console.warn('[synthesia] iframe.app-frame não encontrado');
     return false;
   }
   frame.contentWindow.postMessage(msg, '*');
   return true;
 }
 
-// --- Mapeamento event.code → MIDI (oitava 4 — onde a Primeira Valsa está) ---
+// --- Mapeamento event.code → MIDI (oitava 4) ---
 function keyCodeToMidi(code) {
   switch (code) {
     case 'KeyG':         return 60;
@@ -56,7 +54,7 @@ function keyCodeToMidi(code) {
   }
 }
 
-// --- Coords (x, y) absolutas no SVG (lê translate dos parents) ---
+// --- Coords absolutas no SVG (lê translates dos parents) ---
 function getViewBoxPos(el) {
   const cx = parseFloat(el.getAttribute('cx') || el.getAttribute('x') || 0);
   const cy = parseFloat(el.getAttribute('cy') || el.getAttribute('y') || 0);
@@ -81,7 +79,6 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     return;
   }
 
-  // Filtra MD com `el` na partitura, ordena por tempo
   const mdNotes = notes
     .filter(n => !n.isBass && n.el && typeof n.midi === 'number')
     .map(n => ({
@@ -94,30 +91,25 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     .sort((a, b) => a.startBeat - b.startBeat);
 
   if (mdNotes.length === 0) {
-    console.warn('[synthesia] nenhuma nota MD com `el` encontrada');
+    console.warn('[synthesia] nenhuma nota MD compatível');
     return;
   }
 
   const meNotes = notes.filter(n => n.isBass);
 
-  // Acha o SVG da partitura
   const firstEl = document.querySelector(mdNotes[0].el);
   if (!firstEl) {
-    console.warn('[synthesia] el da primeira nota não achada:', mdNotes[0].el);
+    console.warn('[synthesia] el da primeira nota não achado:', mdNotes[0].el);
     return;
   }
   const scoreSvg = firstEl.closest('svg');
-  if (!scoreSvg) {
-    console.warn('[synthesia] elemento não está dentro de um <svg>');
-    return;
-  }
+  if (!scoreSvg) return;
 
-  // Resolve elementos uma vez
   mdNotes.forEach(n => { n._domEl = document.querySelector(n.el); });
-  // Pré-calcula coords absolutas das notas
   mdNotes.forEach(n => { n._pos = getViewBoxPos(n._domEl); });
 
   const cursor = createCursor(scoreSvg);
+  const ball = createBall(scoreSvg);
 
   const totalBeats = Math.max(...mdNotes.map(n => n.startBeat + n.beats),
                               ...meNotes.map(n => (n.startBeat ?? 0) + (n.beats || 1))) + 1;
@@ -125,8 +117,9 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   const HIT_WINDOW_BEATS = 0.45;
   const LOOKAHEAD_BEATS = 1.5;
 
-  // Estado
   let running = false;
+  let waiting = false;        // true = pausado esperando aluno tocar
+  let waitBeat = 0;           // beat onde o cursor parou
   let startMs = 0;
   let beatMs = 60000 / bpm;
   let rafId = null;
@@ -148,6 +141,8 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
 
   function start() {
     running = true;
+    waiting = false;
+    waitBeat = 0;
     score.hits = 0;
     score.missed = 0;
     mdNotes.forEach(n => {
@@ -156,63 +151,96 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     });
     triggerBtn.classList.add('playing');
     cursor.style.display = '';
+    ball.style.display = '';
     updateBtn();
     beatMs = 60000 / bpm;
     startMs = performance.now() + LOOKAHEAD_BEATS * beatMs;
-    scheduleME();
-    dlog('start. bpm=', bpm, 'beatMs=', beatMs, 'totalBeats=', totalBeats, 'mdNotes=', mdNotes.length);
+    scheduleMEFromBeat(0);
     rafId = requestAnimationFrame(tick);
   }
 
   function stop(showFinal = false) {
     running = false;
+    waiting = false;
     if (rafId) cancelAnimationFrame(rafId);
     rafId = null;
-    meTimeouts.forEach(t => clearTimeout(t));
-    meTimeouts = [];
+    clearAllMeTimeouts();
     postToApp({ type: 'corvino:allOff' });
     triggerBtn.classList.remove('playing');
     cursor.style.display = 'none';
+    ball.style.display = 'none';
     if (showFinal) showFinalScore();
     updateBtn();
   }
 
-  function scheduleME() {
+  function clearAllMeTimeouts() {
+    meTimeouts.forEach(t => clearTimeout(t));
+    meTimeouts = [];
+  }
+
+  // Agenda ME a partir de um beat específico (usado no start e no resume)
+  function scheduleMEFromBeat(fromBeat) {
+    clearAllMeTimeouts();
+    const startOffsetMs = (fromBeat === 0 ? LOOKAHEAD_BEATS : 0) * beatMs;
     for (const note of meNotes) {
-      const startBeats = (note.startBeat ?? 0) + LOOKAHEAD_BEATS;
-      const startTimeMs = startBeats * beatMs;
+      const noteStart = note.startBeat ?? 0;
+      // Pula notas que já passaram completamente
+      if (noteStart + (note.beats || 1) <= fromBeat) continue;
+
+      const startTimeMs = startOffsetMs + Math.max(0, noteStart - fromBeat) * beatMs;
       const slotMs = (note.beats || 1) * beatMs;
       const artic = typeof note.articulation === 'number' ? note.articulation : 0.85;
       const soundMs = Math.max(50, slotMs * artic);
+
       meTimeouts.push(setTimeout(() => {
-        if (!running) return;
+        if (!running || waiting) return;
         postToApp({ type: 'corvino:noteOn', midi: note.midi, isBass: true });
       }, startTimeMs));
       meTimeouts.push(setTimeout(() => {
         postToApp({ type: 'corvino:noteOff', midi: note.midi, isBass: true });
       }, startTimeMs + soundMs));
     }
-    meTimeouts.push(setTimeout(() => {
-      if (running) stop(true);
-    }, (totalBeats + LOOKAHEAD_BEATS) * beatMs + 500));
+    // Auto-stop quando termina (só agenda no start, não em resumes)
+    if (fromBeat === 0) {
+      meTimeouts.push(setTimeout(() => {
+        if (running && !waiting) stop(true);
+      }, (totalBeats + LOOKAHEAD_BEATS) * beatMs + 500));
+    }
+  }
+
+  // ----- Pausa o jogo (cursor para de avançar) -----
+  function pause(atBeat) {
+    waiting = true;
+    waitBeat = atBeat;
+    clearAllMeTimeouts();
+    postToApp({ type: 'corvino:allOff' });
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = null;
+    dlog('PAUSE em beat=', atBeat);
+    // O cursor permanece visível na posição da nota target (ball pulsa)
+  }
+
+  // ----- Retoma após o aluno tocar a nota correta -----
+  function resume() {
+    if (!waiting) return;
+    waiting = false;
+    // Ajusta startMs pra que elapsedBeats continue de waitBeat
+    startMs = performance.now() - waitBeat * beatMs;
+    scheduleMEFromBeat(waitBeat);
+    dlog('RESUME a partir de beat=', waitBeat);
+    rafId = requestAnimationFrame(tick);
   }
 
   // ----- Loop principal -----
   function tick(now) {
-    if (!running) return;
+    if (!running || waiting) return;
     const elapsedBeats = (now - startMs) / beatMs;
 
-    // Atualiza estados das notas
+    // Acha próxima nota pendente
     let nextPending = null;
     for (const n of mdNotes) {
       if (n._state === 'hit' || n._state === 'miss') continue;
-      const dt = elapsedBeats - n.startBeat;
-      if (dt > HIT_WINDOW_BEATS) {
-        n._state = 'miss';
-        score.missed++;
-        markNote(n._domEl, 'miss');
-        updateBtn();
-      } else if (!nextPending) {
+      if (!nextPending) {
         nextPending = n;
         if (n._state !== 'preview') {
           n._state = 'preview';
@@ -221,17 +249,39 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
       }
     }
 
-    // Posiciona o cursor (linha vertical) baseado no tempo
-    const pos = computeCursorPosition(elapsedBeats);
-    if (pos) {
-      cursor.setAttribute('x1', pos.x);
-      cursor.setAttribute('x2', pos.x);
-      cursor.setAttribute('y1', pos.y - 75);
-      cursor.setAttribute('y2', pos.y + 90);
+    // Se cursor passou da hit zone da próxima sem ela ser tocada: PAUSA
+    if (nextPending && elapsedBeats > nextPending.startBeat + HIT_WINDOW_BEATS) {
+      pause(nextPending.startBeat);
+      // Posiciona ball/cursor sobre a nota travada
+      const p = nextPending._pos;
+      ball.setAttribute('cx', p.x);
+      ball.setAttribute('cy', p.y);
+      cursor.setAttribute('x1', p.x);
+      cursor.setAttribute('x2', p.x);
+      cursor.setAttribute('y1', p.y - 75);
+      cursor.setAttribute('y2', p.y + 90);
+      scrollNoteIntoView(nextPending._domEl);
+      return;
     }
 
-    // Auto-scroll pra acompanhar
-    if (nextPending) scrollNoteIntoView(nextPending._domEl);
+    // Posiciona cursor (linha vertical) baseado no tempo
+    const cursorPos = computeCursorPosition(elapsedBeats);
+    if (cursorPos) {
+      cursor.setAttribute('x1', cursorPos.x);
+      cursor.setAttribute('x2', cursorPos.x);
+      cursor.setAttribute('y1', cursorPos.y - 75);
+      cursor.setAttribute('y2', cursorPos.y + 90);
+    }
+
+    // Posiciona bolinha (sempre sobre a próxima pendente)
+    if (nextPending) {
+      const p = nextPending._pos;
+      ball.setAttribute('cx', p.x);
+      ball.setAttribute('cy', p.y);
+      scrollNoteIntoView(nextPending._domEl);
+    } else {
+      ball.style.display = 'none';
+    }
 
     if (elapsedBeats < totalBeats + LOOKAHEAD_BEATS) {
       rafId = requestAnimationFrame(tick);
@@ -240,50 +290,37 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     }
   }
 
-  // Calcula posição do cursor de tempo:
-  // - Antes da 1ª nota: cursor aproxima-se da 1ª nota
-  // - Entre 2 notas: interpola linearmente em x e y
-  // - Se mudou de stave entre prev e next (y diferente): salta no meio
+  // Interpolação linear entre prev e next, considerando pulos de stave
   function computeCursorPosition(elapsedBeats) {
     let prev = null, next = null;
     for (let i = 0; i < mdNotes.length; i++) {
       if (mdNotes[i].startBeat <= elapsedBeats) prev = mdNotes[i];
       else { next = mdNotes[i]; break; }
     }
-
     if (!prev) {
-      // Cursor "vindo de fora" pra primeira nota
       next = mdNotes[0];
       const p = next._pos;
       const beatsBefore = next.startBeat - elapsedBeats;
       const offsetX = Math.max(0, Math.min(80, beatsBefore * 30));
       return { x: p.x - offsetX, y: p.y };
     }
-    if (!next) {
-      return { ...prev._pos };
-    }
+    if (!next) return { ...prev._pos };
 
     const segDur = next.startBeat - prev.startBeat;
     const t = segDur > 0 ? (elapsedBeats - prev.startBeat) / segDur : 0;
     const prevPos = prev._pos;
     const nextPos = next._pos;
 
-    // Mesma stave? Interpolação direta.
     if (Math.abs(prevPos.y - nextPos.y) < 30) {
       return {
         x: prevPos.x + (nextPos.x - prevPos.x) * t,
         y: prevPos.y,
       };
     }
-
-    // Mudou de stave: 1ª metade do segmento → vai até a borda direita;
-    // 2ª metade → começa na borda esquerda da próxima stave.
     if (t < 0.5) {
-      const tt = t * 2;
-      return { x: prevPos.x + (560 - prevPos.x) * tt, y: prevPos.y };
+      return { x: prevPos.x + (560 - prevPos.x) * t * 2, y: prevPos.y };
     } else {
-      const tt = (t - 0.5) * 2;
-      return { x: 20 + (nextPos.x - 20) * tt, y: nextPos.y };
+      return { x: 20 + (nextPos.x - 20) * (t - 0.5) * 2, y: nextPos.y };
     }
   }
 
@@ -298,25 +335,36 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   }
 
   function handleHit(midi) {
-    // Toca o som imediatamente (feedback auditivo)
-    const sent = postToApp({ type: 'corvino:noteOn', midi, isBass: false });
-    if (DEBUG) dlog('handleHit midi=', midi, 'postSent=', sent);
+    postToApp({ type: 'corvino:noteOn', midi, isBass: false });
     setTimeout(() => postToApp({ type: 'corvino:noteOff', midi, isBass: false }), 250);
 
     const target = mdNotes.find(n => n._state === 'pending' || n._state === 'preview');
     if (!target) return;
 
+    // Modo ESPERA: aceita o hit independente do tempo (cursor pausado)
+    if (waiting) {
+      if (target.midi === midi) {
+        target._state = 'hit';
+        score.hits++;
+        markNote(target._domEl, 'hit');
+        updateBtn();
+        resume();
+      }
+      // Nota errada em wait: ignora (continua esperando)
+      return;
+    }
+
+    // Modo NORMAL: verifica janela de tempo
     const elapsedBeats = (performance.now() - startMs) / beatMs;
     const dt = Math.abs(elapsedBeats - target.startBeat);
-
     if (target.midi === midi && dt <= HIT_WINDOW_BEATS) {
       target._state = 'hit';
       score.hits++;
       markNote(target._domEl, 'hit');
       updateBtn();
     }
-    // Caso tocou nota errada ou fora do tempo: ignora (target vira miss
-    // depois quando passar do tempo). Som ainda toca pra feedback.
+    // Nota errada / fora da janela: ignora; target continua pending
+    // (vai virar wait quando cursor passar)
   }
 
   function showFinalScore() {
@@ -331,7 +379,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   }
 }
 
-// --- Auto-scroll (acompanhar a stave atual) ---
+// --- Auto-scroll ---
 let _lastScrolledEl = null;
 let _lastScrollTs = 0;
 function scrollNoteIntoView(el) {
@@ -351,7 +399,6 @@ function scrollNoteIntoView(el) {
   } catch (_) {}
 }
 
-// --- Helpers de estado visual nas notas ---
 function markNote(el, state) {
   if (!el) return;
   el.classList.remove('synth-preview', 'synth-hit', 'synth-miss');
@@ -364,21 +411,33 @@ function resetNoteColor(el) {
   el.classList.remove('synth-preview', 'synth-hit', 'synth-miss');
 }
 
-// --- Cria o cursor de tempo (linha vertical, estilo Yousician) ---
+// --- Cursor de tempo (linha vertical) ---
 function createCursor(svg) {
   const NS = 'http://www.w3.org/2000/svg';
   const line = document.createElementNS(NS, 'line');
   line.setAttribute('class', 'synth-cursor');
-  line.setAttribute('x1', '0');
-  line.setAttribute('x2', '0');
-  line.setAttribute('y1', '0');
-  line.setAttribute('y2', '0');
   line.setAttribute('stroke', '#ffd060');
   line.setAttribute('stroke-width', '2.5');
   line.setAttribute('opacity', '0.85');
   line.style.display = 'none';
-  line.style.filter = 'drop-shadow(0 0 6px rgba(255, 208, 96, 0.95))';
+  line.style.filter = 'drop-shadow(0 0 6px rgba(255, 208, 96, 0.9))';
   line.style.pointerEvents = 'none';
   svg.appendChild(line);
   return line;
+}
+
+// --- Bolinha pulsante (sobre a próxima nota) ---
+function createBall(svg) {
+  const NS = 'http://www.w3.org/2000/svg';
+  const circle = document.createElementNS(NS, 'circle');
+  circle.setAttribute('class', 'synth-ball');
+  circle.setAttribute('r', '11');
+  circle.setAttribute('fill', 'none');
+  circle.setAttribute('stroke', '#ffd060');
+  circle.setAttribute('stroke-width', '2.5');
+  circle.style.display = 'none';
+  circle.style.filter = 'drop-shadow(0 0 8px rgba(255, 208, 96, 0.95))';
+  circle.style.pointerEvents = 'none';
+  svg.appendChild(circle);
+  return circle;
 }
