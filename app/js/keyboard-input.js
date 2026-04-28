@@ -4,9 +4,17 @@
 // Mapeamento por POSIÇÃO FÍSICA da tecla (event.code), funciona em qualquer
 // layout (ABNT, US, Dvorak). A exibição visual atualiza com event.key real.
 //
-// Mão direita (linha do meio + cantos da linha de cima): 8 teclas brancas = 1 oitava
-//   G  H  J  K  L  Ç  ~/'  ]
-//   Dó Ré Mi Fá Sol Lá Si  Dó (oitava acima)
+// Mão direita: brancas na linha do meio + pretas (sustenidos) na linha de cima
+//
+//   Linha cima:    Q  W  E  R  T   Y    U    I     O    P    [    ]
+//   Pretas (#):                    Dó#  Ré#  (—)   Fá#  Sol# Lá#  (—)
+//
+//   Linha meio:    A  S  D  F  G   H    J    K     L    Ç    ~    ]
+//   Brancas:                   Dó  Ré   Mi   Fá    Sol  Lá   Si   Dó(8va)
+//
+// Posição das pretas segue o piano: entre cada par de brancas adjacentes,
+// EXCETO entre Mi-Fá (= I) e Si-Dó (= ]) — nesses pares já é semitom natural,
+// não há preta no piano. Logo I e ] (linha cima) ficam sem nota.
 //
 // Mão esquerda (matriz 4 linhas × 4 colunas, baseada na coluna vertical
 // do acordeon: contrabaixo, fundamental, maior, menor):
@@ -38,6 +46,15 @@ const KEY_MAP = {
   Backslash:    { midi: 60, isBass: false }, // Dó oitava acima — ABNT2: tecla ] (à direita do ~)
   BracketRight: { midi: 60, isBass: false }, // Dó oitava acima — US: tecla ]
 
+  // Pretas (sustenidos) — linha de cima, entre as brancas correspondentes
+  KeyY:        { midi: 49, isBass: false }, // Dó# (entre G=Dó e H=Ré)
+  KeyU:        { midi: 51, isBass: false }, // Ré# (entre H=Ré e J=Mi)
+  KeyO:        { midi: 54, isBass: false }, // Fá# (entre K=Fá e L=Sol)
+  KeyP:        { midi: 56, isBass: false }, // Sol# (entre L=Sol e Ç=Lá)
+  // Lá# (entre Ç=Lá e ~=Si): em ABNT2 a tecla [ pode ter event.code diferente
+  // do US — mapeamos múltiplos códigos pra cobrir layouts.
+  BracketLeft: { midi: 58, isBass: false }, // Lá# — US e ABNT-US: tecla [
+
   // --- Mão esquerda (baixo) ---
   // Coluna Dó (pos 6)
   Digit2: { midi: 28, isBass: true, row: 4 }, // contrabaixo
@@ -63,10 +80,13 @@ const KEY_MAP = {
 
 // Labels padrão (ABNT2) — ajustados via event.key no primeiro keypress
 const DEFAULT_LABELS = {
-  // Mão direita: G H J K L (linha do meio) + Ç + ~ (à direita do Ç) + ] (canto)
+  // Mão direita brancas: G H J K L Ç ~ ]
   KeyG: 'G',       KeyH: 'H', KeyJ: 'J', KeyK: 'K', KeyL: 'L',
   Semicolon: 'Ç', Quote: '~',
   Backslash: ']', BracketRight: ']',  // mesma nota (Dó 8va), 2 códigos diferentes (ABNT2 / US)
+  // Mão direita pretas (sustenidos): Y U O P [
+  KeyY: 'Y',       KeyU: 'U', KeyO: 'O', KeyP: 'P',
+  BracketLeft: '[',
   // Mão esquerda
   Digit1: '1',     Digit2: '2', Digit3: '3', Digit4: '4',
   KeyQ: 'Q',       KeyW: 'W', KeyE: 'E', KeyR: 'R',
