@@ -91,36 +91,8 @@ function scrollNoteIntoView(el) {
   }
 }
 
-// Web Audio local pro metrônomo (clicks precisos, sem depender do app)
-let audioCtx = null;
-function ensureAudioCtx() {
-  if (!audioCtx) {
-    const AC = window.AudioContext || window.webkitAudioContext;
-    if (AC) audioCtx = new AC();
-  }
-  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-  return audioCtx;
-}
-
-// Agenda um click no momento certo. Retorna o oscillator pra poder parar.
-function scheduleClick(offsetSeconds, strong) {
-  const ctx = ensureAudioCtx();
-  if (!ctx) return null;
-  const t0 = ctx.currentTime + offsetSeconds;
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  // triangle em vez de sine: mais harmônicos → percebido como mais alto
-  osc.type = 'triangle';
-  osc.frequency.value = strong ? 1800 : 1000;
-  // envelope curto e ALTO
-  gain.gain.setValueAtTime(0.0001, t0);
-  gain.gain.exponentialRampToValueAtTime(strong ? 2.5 : 2.0, t0 + 0.002);
-  gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.06);
-  osc.connect(gain).connect(ctx.destination);
-  osc.start(t0);
-  osc.stop(t0 + 0.07);
-  return osc;
-}
+// Web Audio click compartilhado com synthesia.js
+import { ensureAudioCtx, scheduleClick } from './metronome.js';
 
 function findAppFrame() {
   return document.querySelector('iframe.app-frame');
@@ -208,21 +180,57 @@ function buildPlayerUI(playBtnId, defaultBpm, defaultLabel) {
     figure.insertBefore(toolbar, figure.firstChild);
   }
 
-  // Absorve botão Synthesia (se existir) na toolbar.
-  // synthesia.js mantém referência via getElementById — só movemos no DOM.
-  const synthWrap = figure.querySelector('.synth-play-wrap');
-  if (synthWrap && !toolbar.querySelector('.synth-trigger')) {
-    const synthBtn = synthWrap.querySelector('.synth-trigger');
-    if (synthBtn) {
-      const synthRow = document.createElement('div');
-      synthRow.className = 'score-toolbar-row score-toolbar-synth';
-      synthRow.appendChild(synthBtn);
-      toolbar.appendChild(synthRow);
-      synthWrap.style.display = 'none';
+  // Row de OPÇÕES COMPARTILHADAS (última row da toolbar):
+  //   - Toggles MD/ME (claves) — controlam som de TODOS os players da figure
+  //   - Botão Synthesia (se existir) — absorvido aqui também
+  // Estado compartilhado via figure._handState (lido por todos players).
+  let optionsRow = toolbar.querySelector('.score-toolbar-options');
+  if (!optionsRow) {
+    optionsRow = document.createElement('div');
+    optionsRow.className = 'score-toolbar-row score-toolbar-options';
+    optionsRow.innerHTML = `
+      <div class="score-hands" role="group" aria-label="Mãos automáticas (clique pra mutar)">
+        <span class="score-hands-label">Tocar:</span>
+        <button class="score-hand-btn active" data-hand="md" type="button"
+                title="Mão direita (clave de Sol) — clique pra mutar; partitura continua acendendo">
+          <span class="clef-glyph clef-treble" aria-hidden="true">𝄞</span>
+          <span class="visually-hidden">Mão direita</span>
+        </button>
+        <button class="score-hand-btn active" data-hand="me" type="button"
+                title="Mão esquerda (clave de Fá) — clique pra mutar; partitura continua acendendo">
+          <span class="clef-glyph clef-bass" aria-hidden="true">𝄢</span>
+          <span class="visually-hidden">Mão esquerda</span>
+        </button>
+      </div>
+    `;
+    toolbar.appendChild(optionsRow);
+
+    // Estado das mãos compartilhado por figure (lido por todos players)
+    const handState = { md: true, me: true };
+    figure._handState = handState;
+
+    optionsRow.querySelector('[data-hand="md"]').addEventListener('click', e => {
+      handState.md = !handState.md;
+      e.currentTarget.classList.toggle('active', handState.md);
+    });
+    optionsRow.querySelector('[data-hand="me"]').addEventListener('click', e => {
+      handState.me = !handState.me;
+      e.currentTarget.classList.toggle('active', handState.me);
+    });
+
+    // Absorve botão Synthesia (se existir) na MESMA row das mãos.
+    // synthesia.js mantém referência via getElementById — só movemos no DOM.
+    const synthWrap = figure.querySelector('.synth-play-wrap');
+    if (synthWrap) {
+      const synthBtn = synthWrap.querySelector('.synth-trigger');
+      if (synthBtn) {
+        optionsRow.appendChild(synthBtn);
+        synthWrap.style.display = 'none';
+      }
     }
   }
 
-  // Row deste player
+  // Row deste player (Lento, Normal...) — só play + BPM, sem hands
   const row = document.createElement('div');
   row.className = 'score-toolbar-row';
   row.innerHTML = `
@@ -233,34 +241,16 @@ function buildPlayerUI(playBtnId, defaultBpm, defaultLabel) {
       <button class="score-bpm-display" type="button" title="Voltar ao BPM recomendado (${defaultBpm})">${defaultBpm}</button>
       <button class="score-bpm-btn" data-act="inc" type="button" aria-label="Aumentar BPM">+</button>
     </div>
-    <div class="score-hands" role="group" aria-label="Mãos automáticas (clique pra mutar)">
-      <span class="score-hands-label">Tocar:</span>
-      <button class="score-hand-btn active" data-hand="md" type="button"
-              title="Mão direita (clave de Sol) — clique pra mutar; partitura continua acendendo">
-        <span class="clef-glyph clef-treble" aria-hidden="true">𝄞</span>
-        <span class="visually-hidden">Mão direita</span>
-      </button>
-      <button class="score-hand-btn active" data-hand="me" type="button"
-              title="Mão esquerda (clave de Fá) — clique pra mutar; partitura continua acendendo">
-        <span class="clef-glyph clef-bass" aria-hidden="true">𝄢</span>
-        <span class="visually-hidden">Mão esquerda</span>
-      </button>
-    </div>
   `;
-  toolbar.appendChild(row);
-
-  // Garante que o row do Synthesia (se existe) fique sempre por último,
-  // depois de todas as play rows (Lento, Normal...)
-  const synthRow = toolbar.querySelector('.score-toolbar-synth');
-  if (synthRow) toolbar.appendChild(synthRow);
+  // Insere ANTES do options row (que sempre fica por último)
+  toolbar.insertBefore(row, optionsRow);
 
   return {
     playBtn: row.querySelector('.score-play-main'),
     bpmDisplay: row.querySelector('.score-bpm-display'),
     bpmDecBtn: row.querySelector('[data-act="dec"]'),
     bpmIncBtn: row.querySelector('[data-act="inc"]'),
-    handMdBtn: row.querySelector('[data-hand="md"]'),
-    handMeBtn: row.querySelector('[data-hand="me"]'),
+    figure,                  // pra ler figure._handState durante playback
     oldBtn,
     label: labelClean,
     hasUI: true
@@ -294,10 +284,10 @@ export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, not
   let scheduledOscs = [];
   let activeEls = [];
 
-  // Estado das mãos automáticas: true = toca som, false = só visual.
-  // Pode ser alterado durante o playback — notas não-tocadas no momento
-  // ficam mudas, mas continuam acendendo na partitura pra guiar o aluno.
-  const handState = { md: true, me: true };
+  // Estado das mãos compartilhado via figure._handState — controlado
+  // pelos toggles na row de opções (única por figure). Lido em cada
+  // setTimeout do noteOn pra respeitar mudanças durante o playback.
+  const handState = (ui.figure && ui.figure._handState) || { md: true, me: true };
 
   function setBpm(newBpm) {
     newBpm = Math.max(BPM_MIN, Math.min(BPM_MAX, Math.round(newBpm)));
@@ -308,21 +298,10 @@ export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, not
     }
   }
 
-  function toggleHand(hand) {
-    handState[hand] = !handState[hand];
-    const btn = hand === 'md' ? ui.handMdBtn : ui.handMeBtn;
-    if (btn) btn.classList.toggle('active', handState[hand]);
-    // Toggle durante playback: o handState é lido em cada setTimeout
-    // (noteOn checa antes de postar). Notas que já dispararam noteOn
-    // têm onFired=true e fazem noteOff corretamente — sem nota presa.
-  }
-
   if (ui.hasUI) {
     ui.bpmDecBtn.addEventListener('click', () => { if (!playing) setBpm(currentBpm - BPM_STEP); });
     ui.bpmIncBtn.addEventListener('click', () => { if (!playing) setBpm(currentBpm + BPM_STEP); });
     ui.bpmDisplay.addEventListener('click', () => { if (!playing) setBpm(bpm); });
-    ui.handMdBtn.addEventListener('click', () => toggleHand('md'));
-    ui.handMeBtn.addEventListener('click', () => toggleHand('me'));
   }
 
   function setBpmControlsDisabled(disabled) {

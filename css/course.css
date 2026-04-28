@@ -1279,13 +1279,16 @@ kbd {
   gap: 12px;
   flex-wrap: wrap;
 }
-/* Synth row é a última e centraliza o botão (não tem BPM/hands).
-   Borda superior pra separar visualmente das play rows. */
-.score-toolbar-row.score-toolbar-synth {
+/* Row de OPÇÕES — sempre a última. Contém os toggles MD/ME (claves)
+   e o botão Synthesia (se existir). Compartilhado por todos os players
+   da figure (Lento, Normal, etc). Borda superior tracejada pra separar
+   visualmente das play rows. */
+.score-toolbar-row.score-toolbar-options {
   justify-content: center;
   padding-top: 10px;
   margin-top: 4px;
   border-top: 1px dashed rgba(218, 165, 32, 0.22);
+  gap: 18px;
 }
 
 /* Play maior e mais legível dentro da toolbar */
@@ -1297,7 +1300,8 @@ kbd {
   flex: 1 1 auto;
 }
 
-.score-toolbar .score-play-main.count-in {
+.score-toolbar .score-play-main.count-in,
+.score-play-btn.synth-trigger.count-in {
   background: #d4a740;
   animation: count-in-pulse 0.5s ease-in-out infinite alternate;
 }

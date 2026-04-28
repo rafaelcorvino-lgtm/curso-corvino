@@ -823,6 +823,7 @@
       attachSynthesia({
         triggerBtnId: 'btn-pvd-syn',
         bpm: 60,
+        beatsPerBar: 3,    // count-in 1-2-3 antes da 1ª nota (valsa)
         notes: synNotes,
       });
     }).catch(err => console.error('[synthesia] falha ao carregar:', err));

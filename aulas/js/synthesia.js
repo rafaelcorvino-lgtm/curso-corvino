@@ -16,6 +16,8 @@
 // MD: aluno toca G H J K L Ç ~ pra disparar Dó-Ré-Mi-Fá-Sol-Lá-Si.
 // ME: toca em background como acompanhamento — pausa junto se MD travar.
 
+import { ensureAudioCtx, scheduleClick } from './metronome.js';
+
 // DEBUG ligado por padrão durante fase de bug-hunt do Synthesia.
 // Pode desligar via window.SYNTH_DEBUG = false antes do import.
 const DEBUG = (typeof window === 'undefined') ? false :
@@ -94,7 +96,10 @@ function getViewBoxPos(el) {
 }
 
 // --- API ---
-export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
+// beatsPerBar: se setado (ex: 3 pra valsa), toca COUNT-IN — N clicks
+// metronome com a 1ª batida mais aguda — antes do jogo começar. O aluno
+// percebe o tempo antes de precisar tocar a 1ª nota. Default 0 (sem).
+export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes = [] }) {
   console.log('[synthesia] attach: btn=', triggerBtnId, 'bpm=', bpm, 'notes=', notes.length);
   const triggerBtn = document.getElementById(triggerBtnId);
   if (!triggerBtn) {
@@ -142,7 +147,9 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
                               ...meNotes.map(n => (n.startBeat ?? 0) + (n.beats || 1))) + 1;
 
   const HIT_WINDOW_BEATS = 0.45;
-  const LOOKAHEAD_BEATS = 1.5;
+  // LOOKAHEAD = lead-in antes da 1ª nota. Se beatsPerBar setado, vira
+  // count-in (N clicks). Senão, fica em 1.5 beats de margem silenciosa.
+  const LOOKAHEAD_BEATS = beatsPerBar > 0 ? beatsPerBar : 1.5;
 
   let running = false;
   let waiting = false;        // true = pausado esperando aluno tocar
@@ -151,6 +158,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
   let beatMs = 60000 / bpm;
   let rafId = null;
   let meTimeouts = [];
+  let scheduledClicks = [];   // oscillators do count-in pra cancelar no stop
   const score = { hits: 0, missed: 0, total: mdNotes.length };
 
   const originalBtnText = triggerBtn.textContent;
@@ -230,6 +238,29 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     postToApp({ type: 'corvino:setKbdEnabled', value: false, save: true });
     beatMs = 60000 / bpm;
     startMs = performance.now() + LOOKAHEAD_BEATS * beatMs;
+
+    // COUNT-IN: agenda N clicks de metrônomo durante o lead-in.
+    // 1º click = forte (1ª batida do compasso), demais = fracos.
+    // Dá ao aluno o "1, 2, 3" antes da 1ª nota tocar.
+    if (beatsPerBar > 0) {
+      ensureAudioCtx();
+      const beatSec = 60 / bpm;
+      for (let b = 0; b < beatsPerBar; b++) {
+        const osc = scheduleClick(b * beatSec, b === 0);
+        if (osc) scheduledClicks.push(osc);
+      }
+      // UX: mostra "Preparando…" no botão durante o count-in
+      const prepText = '⏳ Preparando…';
+      triggerBtn.textContent = prepText;
+      triggerBtn.classList.add('count-in');
+      setTimeout(() => {
+        if (running && triggerBtn.textContent === prepText) {
+          triggerBtn.classList.remove('count-in');
+          updateBtn();
+        }
+      }, beatsPerBar * beatMs);
+    }
+
     scheduleMEFromBeat(0);
     rafId = requestAnimationFrame(tick);
   }
@@ -240,10 +271,13 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, notes = [] }) {
     if (rafId) cancelAnimationFrame(rafId);
     rafId = null;
     clearAllMeTimeouts();
+    // Cancela clicks de count-in que ainda não tocaram
+    scheduledClicks.forEach(osc => { try { osc.stop(); } catch (_) {} });
+    scheduledClicks = [];
     postToApp({ type: 'corvino:allOff' });
     // Restaura kbd direto da iframe ao estado anterior (que ficou salvo no start)
     postToApp({ type: 'corvino:setKbdEnabled', restore: true });
-    triggerBtn.classList.remove('playing');
+    triggerBtn.classList.remove('playing', 'count-in');
     cursor.style.display = 'none';
     ball.style.display = 'none';
     keyLabel.style.display = 'none';
