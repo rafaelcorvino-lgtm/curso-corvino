@@ -646,7 +646,10 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     }
     if (currentMd && currentMd._domEl) scrollNoteIntoView(currentMd._domEl);
 
-    if (elapsedBeats < totalBeats + LOOKAHEAD_BEATS) {
+    // totalBeats já tem +1 de buffer depois da última nota — chega.
+    // Antes adicionava LOOKAHEAD_BEATS (count-in) aqui também, ficava
+    // 4+ beats parado depois do FIM antes de auto-stopar.
+    if (elapsedBeats < totalBeats) {
       rafId = requestAnimationFrame(tick);
     } else {
       stop(true);
@@ -685,7 +688,19 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       const offsetX = Math.max(0, Math.min(80, beatsBefore * 30));
       return { x: p.x - offsetX, y: p.y };
     }
-    if (!next) return { ...prev._pos };
+    if (!next) {
+      // Última nota: varre da posição da nota até o fim da pauta (x=560)
+      // ao longo da duração da nota (mín pontuada de 3 tempos varre 3s).
+      // Sem isso o cursor ficava parado em cima da última nota.
+      const elapsedInNote = elapsedBeats - prev.startBeat;
+      const noteDur = prev.beats || 1;
+      const t = Math.min(1, Math.max(0, elapsedInNote / noteDur));
+      const STAVE_END_X = 560;
+      return {
+        x: prev._pos.x + (STAVE_END_X - prev._pos.x) * t,
+        y: prev._pos.y,
+      };
+    }
 
     const segDur = next.startBeat - prev.startBeat;
     const t = segDur > 0 ? (elapsedBeats - prev.startBeat) / segDur : 0;
