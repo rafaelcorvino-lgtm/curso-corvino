@@ -800,6 +800,28 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
         }
       }, 400);
     });
+
+    // 5. SEMPRE mostra texto flutuante com nome da nota errada perto do
+    //    cursor — útil quando a nota errada não existe no compasso atual
+    //    (notas vermelhas=0). Aluno vê "✗ Ré" subindo e sumindo.
+    showWrongNoteText(midi, isBass);
+  }
+
+  // Cria um <text> SVG temporário "✗ NomeDaNota" próximo ao cursor.
+  // Anima subindo + fade out (700ms). Remove do DOM no fim.
+  // Posiciona no nível da pauta MD (cursor y1 + 60) — centralizado vertical.
+  function showWrongNoteText(midi, isBass) {
+    const noteName = isBass ? midiToBassName(midi) : midiToNoteName(midi);
+    const cx = parseFloat(cursor.getAttribute('x1') || 100);
+    const cyTop = parseFloat(cursor.getAttribute('y1') || 30);
+    const NS = 'http://www.w3.org/2000/svg';
+    const text = document.createElementNS(NS, 'text');
+    text.setAttribute('x', cx);
+    text.setAttribute('y', cyTop + 60);  // ~mid-staff (acompanha stave atual)
+    text.setAttribute('class', 'synth-wrong-text');
+    text.textContent = '✗ ' + noteName;
+    scoreSvg.appendChild(text);
+    setTimeout(() => { try { text.remove(); } catch (_) {} }, 700);
   }
 
   // Trata um hit do aluno (teclado do PC ou Corvino MIDI físico).
