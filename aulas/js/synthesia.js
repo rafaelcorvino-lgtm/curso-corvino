@@ -509,12 +509,18 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
   // Auto-play: toca a nota imediatamente e agenda noteOff.
   // Usado quando o toggle correspondente (𝄞/𝄢) está LIGADO — a mão
   // toca sozinha, sem esperar input do aluno.
+  // Pinta verde DURANTE o som; em ME volta pra cor original no fim
+  // (preserva info harmônica: Dó=ouro, Fá=verde, Sol7=vermelho).
   function autoPlayNote(note) {
     postToApp({ type: 'corvino:noteOn', midi: note.midi, isBass: note.isBass });
+    if (note._domEl) markNote(note._domEl, 'hit');
     const slotMs = note.beats * beatMs;
     const soundMs = Math.max(50, slotMs * note.articulation);
     meTimeouts.push(setTimeout(() => {
       postToApp({ type: 'corvino:noteOff', midi: note.midi, isBass: note.isBass });
+      // Revert visual pra ME — preserva cor harmônica original.
+      // MD mantém verde permanente como marca de "passou aqui".
+      if (note._domEl && note.isBass) resetNoteColor(note._domEl);
     }, soundMs));
   }
 
@@ -527,9 +533,8 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       if (note._state !== 'preview') continue;
       const auto = note.isBass ? handState.me : handState.md;
       if (auto) {
-        autoPlayNote(note);
+        autoPlayNote(note);  // já marca verde + agenda revert pra ME
         note._state = 'hit';
-        if (note._domEl && !note.isBass) markNote(note._domEl, 'hit');
       }
     }
   }
@@ -585,9 +590,8 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       if (note.startBeat > elapsedBeats) break; // ordenadas: futuras
       const auto = note.isBass ? handState.me : handState.md;
       if (auto) {
-        autoPlayNote(note);
+        autoPlayNote(note);  // já marca verde + agenda revert pra ME
         note._state = 'hit';
-        if (note._domEl && !note.isBass) markNote(note._domEl, 'hit');
       } else {
         note._state = 'preview';
         if (!note._counted) { score.total++; note._counted = true; }
