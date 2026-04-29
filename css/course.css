@@ -1282,7 +1282,8 @@ kbd {
 /* Dedilhado da MD — números 1-5 acima das notas (1=polegar a
    5=mínimo). Cor laranja pra distinguir das notas (douradas) e
    nomes (creme). Stroke escuro melhora legibilidade. */
-.finger-md text {
+.finger-md text,
+text.finger-md {
   font-family: sans-serif;
   font-weight: 700;
   font-size: 11px;
