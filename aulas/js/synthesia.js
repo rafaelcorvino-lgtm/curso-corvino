@@ -873,9 +873,14 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       'early=', earlyHit, 'elapsed=', elapsed.toFixed(2));
 
     if (!target) {
-      // Sem match. Se há nota esperada (preview) é HIT ERRADO — feedback visual.
-      const hasWaitingNote = allNotes.some(n => n._state === 'preview');
-      if (hasWaitingNote) flashWrongNote(midi, isBass);
+      // Sem match. Se ALGUMA mão está em modo WAIT (toggle OFF), qualquer
+      // tecla errada gera feedback visual — mesmo durante cursor andando
+      // entre PAUSEs (antes só funcionava com cursor parado).
+      // Em modo full-auto (ambas mãos ON), não dá feedback — aluno só toca
+      // junto pra acompanhar, sem desafio.
+      const handState = getHandState();
+      const inWaitMode = !handState.md || !handState.me;
+      if (inWaitMode) flashWrongNote(midi, isBass);
       return;
     }
 
