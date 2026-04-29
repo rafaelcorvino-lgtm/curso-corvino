@@ -1218,6 +1218,20 @@ kbd {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
 }
 
+/* Dedilhado da MD — números 1-5 acima das notas (1=polegar a
+   5=mínimo). Cor laranja pra distinguir das notas (douradas) e
+   nomes (creme). Stroke escuro melhora legibilidade. */
+.finger-md text {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  fill: #d97a3a;
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: rgba(26, 22, 24, 0.85);
+  stroke-width: 0.8;
+}
+
 /* Estados das notas durante o jogo (ellipses/rects/circles ganham
    via JS). Glow forte pra ficar visível mesmo em elementos que já
    têm cor (rects do baixo com fill harmônica). */
