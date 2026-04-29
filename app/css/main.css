@@ -845,9 +845,9 @@ dialog::backdrop { background: rgba(0,0,0,0.5); }
 
 /* Modo compacto — quando o iframe é estreito (curso, layout 460px) */
 @media (max-width: 600px) {
-  /* Bass buttons */
-  .bass-btn { width: 28px; height: 28px; font-size: 9px; }
-  .bass-row { gap: 8px; }
+  /* Bass buttons + gaps reduzidos pra caber 8 colunas + HUDs laterais */
+  .bass-btn { width: 24px; height: 24px; font-size: 9px; }
+  .bass-row { gap: 6px; }
   #bass-grid { gap: 4px; }
 
   /* Piano keys */
@@ -877,8 +877,10 @@ dialog::backdrop { background: rgba(0,0,0,0.5); }
   .hud-bl { left: 4px; }
   .hud-br { right: 4px; }
 
-  /* Bass section: menos padding já que os HUDs ficaram menores */
-  #bass-section { padding: 56px 4px 38px; }
+  /* Bass section: padding lateral pra clearar os HUDs absolute-positioned
+     (left HUD ritmo+metro ~115px largo, right HUD transpose ~70px).
+     Sem isso, a 1ª coluna do baixo (F#) fica atrás do HUD. */
+  #bass-section { padding: 56px 76px 38px 122px; }
 
   /* Rhythm selector compacto */
   .rhythm-name { font-size: 10px; }
