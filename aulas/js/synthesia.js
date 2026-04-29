@@ -555,8 +555,11 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     if (rafId) cancelAnimationFrame(rafId);
     rafId = null;
     if (target) {
+      const teclaInfo = target.isBass
+        ? `${midiToBassKey(target.midi)} (${midiToBassName(target.midi)})`
+        : midiToKey(target.midi);
       console.log('[synthesia] PAUSE beat=', atBeat,
-        '— esperando midi=', target.midi, '(tecla:', midiToKey(target.midi), ')');
+        '— esperando midi=', target.midi, '(tecla:', teclaInfo, ')');
     } else {
       dlog('PAUSE em beat=', atBeat);
     }
@@ -782,6 +785,9 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       n.startBeat < compassoEnd &&
       n._state !== 'preview'
     );
+
+    dlog('flashWrongNote midi=', midi, 'isBass=', isBass,
+      'compasso=[', compassoStart, ',', compassoEnd, '), notas vermelhas=', wrongs.length);
 
     // 4. Flash cada uma vermelha brevemente, depois volta
     wrongs.forEach(note => {
