@@ -584,13 +584,9 @@
           <em>Variação</em> (compassos 9 a 16): mesma ideia melódica mas com semínima + mínima por compasso, dando movimento.
           <em>Recapitulação</em> (compassos 17 a 24): volta ao tema nos primeiros 4 compassos e fecha com cadência <strong>IV-V-I</strong> (Fá-Sol7-Dó) — o "fim oficial" de uma valsa clássica.
         </figcaption>
-        <div class="score-play-wrap">
-          <button id="btn-pvd-l" class="score-play-btn">▶ Lento (60 BPM)</button>
-          <button id="btn-pvd-n" class="score-play-btn">▶ Normal (90 BPM)</button>
-        </div>
-        <!-- Botão Synthesia: score-player.js detecta esta div, move o botão
-             pra dentro da .score-toolbar como uma row própria, e oculta o
-             wrapper. O ID continua acessível pro synthesia.js attachar. -->
+        <!-- Botão Synthesia: synthesia.js cria a toolbar com este botão
+             + toggles MD/ME (claves) + BPM ajustável. Substitui Lento/Normal
+             — em modo "ambas mãos auto" (𝄢 ON, 𝄞 ON) já roda como Lento. -->
         <div class="synth-play-wrap">
           <button id="btn-pvd-syn" class="score-play-btn synth-trigger">🎮 Modo Synthesia</button>
         </div>
@@ -765,33 +761,6 @@
       false,false,false,false, false,false,false,false,// C9-C16: variação
       true,true,true,true, true, false,false, true     // C17-C24: recap + final
     ];
-
-    function buildPVD(bpm, btnId) {
-      const all = [];
-      let mdI = 0;
-      for (let c = 0; c < 24; c++) {
-        const t0 = c*3;
-        if (pvdLayout[c]) {
-          // 1 mín pontuada (3 tempos)
-          all.push({...pvdMD[mdI], startBeat:t0});
-          mdI++;
-        } else {
-          // sem (1t) + mín (2t)
-          all.push({...pvdMD[mdI], beats:1, articulation:MEL, startBeat:t0});
-          mdI++;
-          all.push({...pvdMD[mdI], startBeat:t0+1});
-          mdI++;
-        }
-        // ME: bum-tchim-tchim, IDs pvd-b1..pvd-b72
-        const [F, M] = pvdME[c];
-        all.push({midi:F, beats:1, isBass:true, articulation:SUST, startBeat:t0,   el:`#pvd-b${c*3+1}`});
-        all.push({midi:M, beats:1, isBass:true, articulation:STAC, startBeat:t0+1, el:`#pvd-b${c*3+2}`});
-        all.push({midi:M, beats:1, isBass:true, articulation:STAC, startBeat:t0+2, el:`#pvd-b${c*3+3}`});
-      }
-      attachScorePlayer({ playBtnId: btnId, bpm, beatsPerBar:3, notes: all });
-    }
-    buildPVD(60, 'btn-pvd-l');
-    buildPVD(90, 'btn-pvd-n');
 
     // === MODO SYNTHESIA ===
     // Modo de prática: bolinha guia pinga sobre cada nota da partitura na

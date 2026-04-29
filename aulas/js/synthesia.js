@@ -157,6 +157,105 @@ function getViewBoxPos(el) {
   return { x, y };
 }
 
+// Cria a toolbar do Synthesia (toggles + BPM + botão) se ainda não
+// existe na figure. Reusa a do score-player se houver. Devolve um
+// callback `getBpm()` que reflete o controle BPM ao vivo.
+function ensureSynthesiaToolbar(figure, synthBtn, defaultBpm) {
+  let toolbar = figure.querySelector('.score-toolbar');
+  if (!toolbar) {
+    toolbar = document.createElement('div');
+    toolbar.className = 'score-toolbar';
+    figure.insertBefore(toolbar, figure.firstChild);
+  }
+
+  let optionsRow = toolbar.querySelector('.score-toolbar-options');
+  if (!optionsRow) {
+    optionsRow = document.createElement('div');
+    optionsRow.className = 'score-toolbar-row score-toolbar-options';
+    optionsRow.innerHTML = `
+      <div class="score-hands" role="group" aria-label="Mãos automáticas (clique pra mutar)">
+        <span class="score-hands-label">Tocar:</span>
+        <button class="score-hand-btn active" data-hand="me" type="button"
+                title="Mão esquerda (clave de Fá) — clique pra mutar; partitura continua acendendo">
+          <span class="clef-glyph clef-bass" aria-hidden="true">𝄢</span>
+          <span class="visually-hidden">Mão esquerda</span>
+        </button>
+        <button class="score-hand-btn active" data-hand="md" type="button"
+                title="Mão direita (clave de Sol) — clique pra mutar; partitura continua acendendo">
+          <span class="clef-glyph clef-treble" aria-hidden="true">𝄞</span>
+          <span class="visually-hidden">Mão direita</span>
+        </button>
+      </div>
+    `;
+    toolbar.appendChild(optionsRow);
+
+    const handState = { md: true, me: true };
+    figure._handState = handState;
+    function fireHandChange(hand) {
+      figure.dispatchEvent(new CustomEvent('handStateChange', {
+        detail: { hand, state: { ...handState } }
+      }));
+    }
+    optionsRow.querySelector('[data-hand="md"]').addEventListener('click', e => {
+      handState.md = !handState.md;
+      e.currentTarget.classList.toggle('active', handState.md);
+      fireHandChange('md');
+    });
+    optionsRow.querySelector('[data-hand="me"]').addEventListener('click', e => {
+      handState.me = !handState.me;
+      e.currentTarget.classList.toggle('active', handState.me);
+      fireHandChange('me');
+    });
+  }
+
+  // Adiciona BPM ao options row se ainda não tiver
+  let bpmDisplay = optionsRow.querySelector('.score-bpm-display');
+  let currentBpm = defaultBpm;
+  if (!bpmDisplay) {
+    const bpmDiv = document.createElement('div');
+    bpmDiv.className = 'score-bpm';
+    bpmDiv.setAttribute('role', 'group');
+    bpmDiv.setAttribute('aria-label', 'Andamento (BPM)');
+    bpmDiv.innerHTML = `
+      <span class="score-bpm-label">BPM</span>
+      <button class="score-bpm-btn" data-act="dec" type="button" aria-label="Diminuir BPM">−</button>
+      <button class="score-bpm-display" type="button" title="Voltar ao BPM recomendado (${defaultBpm})">${defaultBpm}</button>
+      <button class="score-bpm-btn" data-act="inc" type="button" aria-label="Aumentar BPM">+</button>
+    `;
+    optionsRow.appendChild(bpmDiv);
+    bpmDisplay = bpmDiv.querySelector('.score-bpm-display');
+    const dec = bpmDiv.querySelector('[data-act="dec"]');
+    const inc = bpmDiv.querySelector('[data-act="inc"]');
+
+    function setBpm(newBpm) {
+      newBpm = Math.max(40, Math.min(200, Math.round(newBpm)));
+      currentBpm = newBpm;
+      bpmDisplay.textContent = newBpm;
+      bpmDisplay.classList.toggle('modified', newBpm !== defaultBpm);
+      figure.dispatchEvent(new CustomEvent('synthBpmChange', {
+        detail: { bpm: newBpm }
+      }));
+    }
+    dec.addEventListener('click', () => setBpm(currentBpm - 5));
+    inc.addEventListener('click', () => setBpm(currentBpm + 5));
+    bpmDisplay.addEventListener('click', () => setBpm(defaultBpm));
+  }
+
+  // Move botão Synthesia pra options row (último elemento)
+  if (synthBtn && !optionsRow.contains(synthBtn)) {
+    optionsRow.appendChild(synthBtn);
+    const wrap = synthBtn.closest('.synth-play-wrap');
+    if (wrap) wrap.style.display = 'none';
+  } else if (synthBtn && optionsRow.contains(synthBtn)) {
+    // Já está, mas garante posição final
+    optionsRow.appendChild(synthBtn);
+  }
+
+  return {
+    getBpm: () => currentBpm,
+  };
+}
+
 // --- API ---
 // beatsPerBar: se setado (ex: 3 pra valsa), toca COUNT-IN — N clicks
 // metronome com a 1ª batida mais aguda — antes do jogo começar. O aluno
@@ -174,6 +273,15 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
   const figure = triggerBtn.closest('.score-figure');
   function getHandState() {
     return (figure && figure._handState) || { md: true, me: true };
+  }
+
+  // Cria a toolbar com toggles + BPM + botão Synthesia se ainda não
+  // existe (usado quando a aula só tem Synthesia, sem Lento/Normal).
+  // Devolve callback p/ ler o BPM atual em tempo real.
+  let getCurrentBpm = () => bpm;
+  if (figure) {
+    const result = ensureSynthesiaToolbar(figure, triggerBtn, bpm);
+    if (result.getBpm) getCurrentBpm = result.getBpm;
   }
 
   // Lista UNIFICADA de notas (MD + ME), ordenada por startBeat. Cada nota
@@ -271,6 +379,13 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
         if (!stillWaiting) resume();
       }
     });
+    // BPM mudou na toolbar — só toma efeito no próximo start (mudar
+    // ao vivo confunde o cursor pq a relação tempo↔beat muda).
+    figure.addEventListener('synthBpmChange', e => {
+      if (!running) return;
+      console.log('[synthesia] BPM mudou pra', e.detail.bpm,
+        '— efeito no próximo play');
+    });
   }
 
   // O iframe da app repassa keydowns via postMessage('corvino:keyForward')
@@ -331,7 +446,9 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     // som duplicado (iframe tocaria + Synthesia também via postToApp).
     // O iframe salva o estado atual e restaura no stop.
     postToApp({ type: 'corvino:setKbdEnabled', value: false, save: true });
-    beatMs = 60000 / bpm;
+    // BPM ao vivo — lê do controle da toolbar (se existe), senão usa default
+    const activeBpm = getCurrentBpm();
+    beatMs = 60000 / activeBpm;
     startMs = performance.now() + LOOKAHEAD_BEATS * beatMs;
 
     // COUNT-IN: agenda N clicks de metrônomo durante o lead-in.
