@@ -604,29 +604,59 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
   }
 
   // Trata um hit do aluno (teclado do PC ou Corvino MIDI físico).
-  // Procura uma nota em PREVIEW que case com midi+isBass; se acertar:
-  //   - marca hit e som verde
-  //   - se não tem mais notas preview "stuck" (cursor passou), RESUME
-  // Se não tem target preview, só toca o som (feedback livre).
+  // 1ª busca: nota PREVIEW que case (cursor já chegou nela).
+  // 2ª busca (se não achou): nota PENDING dentro da hit window —
+  //    "hit precoce", aluno tocou antes do cursor processar a nota.
+  //    Aceita como hit (música tem que ter timing flexível).
   // playSound=false quando o som já foi tocado pelo iframe (Corvino real).
   function handleHit(midi, isBass = false, playSound = true) {
-    // Procura nota preview que case (pode ter várias se ambas mãos OFF
-    // no mesmo beat — pega a primeira que bate; nas próximas chamadas
-    // o aluno toca a outra).
-    const target = allNotes.find(n =>
-      n._state === 'preview' && n.midi === midi && n.isBass === isBass
-    );
-    dlog('handleHit midi=', midi, 'isBass=', isBass,
-      'target?', !!target, 'state=', target && target._state);
-
     if (playSound) {
       postToApp({ type: 'corvino:noteOn', midi, isBass });
       setTimeout(() => postToApp({ type: 'corvino:noteOff', midi, isBass }), 250);
     }
 
+    if (!running) return;
+
+    // Calcula elapsedBeats atual (durante pausa usa waitBeat)
+    const elapsed = waiting
+      ? waitBeat
+      : (performance.now() - startMs) / beatMs;
+
+    // 1ª tentativa: preview match (cursor já chegou)
+    let target = allNotes.find(n =>
+      n._state === 'preview' && n.midi === midi && n.isBass === isBass
+    );
+
+    // 2ª tentativa: pending early-hit (aluno antecipou dentro da window).
+    // SÓ aceita se essa mão está em modo WAIT (toggle OFF). Em modo auto,
+    // ignora — assim o auto-play continua normal sem ser cancelado.
+    let earlyHit = false;
+    if (!target) {
+      const handState = getHandState();
+      target = allNotes.find(n => {
+        if (n._state !== 'pending') return false;
+        if (n.midi !== midi || n.isBass !== isBass) return false;
+        if (Math.abs(elapsed - n.startBeat) > HIT_WINDOW_BEATS) return false;
+        // Só aceita early hit se a mão estaria em wait (toggle OFF)
+        return n.isBass ? !handState.me : !handState.md;
+      });
+      if (target) earlyHit = true;
+    }
+
+    dlog('handleHit midi=', midi, 'isBass=', isBass,
+      'target?', !!target, 'state=', target && target._state,
+      'early=', earlyHit, 'elapsed=', elapsed.toFixed(2));
+
     if (!target) return;
+
+    // Hit precoce: contabiliza no total (não passou pelo tick que faria isso)
+    if (earlyHit) {
+      score.total++;
+      target._counted = true;
+    }
+
     target._state = 'hit';
-    score.hits++;  // conta hits de qualquer mão (MD ou ME) que estavam waiting
+    score.hits++;
     if (target._domEl) markNote(target._domEl, 'hit');
     updateBtn();
 
