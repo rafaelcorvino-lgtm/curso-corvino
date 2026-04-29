@@ -1218,24 +1218,32 @@ kbd {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
 }
 
-/* Estados das notas durante o jogo (ellipses ganham essas classes via JS) */
+/* Estados das notas durante o jogo (ellipses/rects/circles ganham
+   via JS). Glow forte pra ficar visível mesmo em elementos que já
+   têm cor (rects do baixo com fill harmônica). */
 .synth-preview {
   fill: #ffd060 !important;
   stroke: #ffd060 !important;
-  filter: drop-shadow(0 0 5px rgba(255, 208, 96, 0.8));
-  transition: fill 0.1s, stroke 0.1s;
+  filter:
+    drop-shadow(0 0 8px rgba(255, 208, 96, 1))
+    drop-shadow(0 0 14px rgba(255, 208, 96, 0.7));
+  transition: fill 0.1s, stroke 0.1s, filter 0.1s;
 }
 .synth-hit {
   fill: #5ab45a !important;
   stroke: #5ab45a !important;
-  filter: drop-shadow(0 0 5px rgba(90, 180, 90, 0.8));
-  transition: fill 0.1s, stroke 0.1s;
+  filter:
+    drop-shadow(0 0 8px rgba(120, 220, 120, 1))
+    drop-shadow(0 0 14px rgba(120, 220, 120, 0.7));
+  transition: fill 0.1s, stroke 0.1s, filter 0.1s;
 }
 .synth-miss {
   fill: #d94a4a !important;
   stroke: #d94a4a !important;
-  filter: drop-shadow(0 0 5px rgba(217, 74, 74, 0.7));
-  transition: fill 0.1s, stroke 0.1s;
+  filter:
+    drop-shadow(0 0 8px rgba(255, 100, 100, 1))
+    drop-shadow(0 0 14px rgba(255, 100, 100, 0.7));
+  transition: fill 0.1s, stroke 0.1s, filter 0.1s;
 }
 
 /* Botão Synthesia — cor diferente pra destacar do Lento/Normal */
