@@ -630,12 +630,21 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       allNotes.find(n => n._state === 'preview');
     if (nextPreview && nextPreview._pos) {
       placeBall(nextPreview._pos, nextPreview.midi, nextPreview.isBass);
-      scrollNoteIntoView(nextPreview._domEl);
     } else {
       ball.style.display = 'none';
       keyLabel.style.display = 'none';
       keyHint.style.display = 'none';
     }
+
+    // 5) Auto-scroll: segue a nota MD ATUAL (a mais recente que o cursor
+    //    passou). Funciona em modo auto também — antes só rolava quando
+    //    havia preview, então em "ambas mãos auto" a página ficava parada.
+    let currentMd = null;
+    for (let i = 0; i < mdNotes.length; i++) {
+      if (mdNotes[i].startBeat <= elapsedBeats) currentMd = mdNotes[i];
+      else break;
+    }
+    if (currentMd && currentMd._domEl) scrollNoteIntoView(currentMd._domEl);
 
     if (elapsedBeats < totalBeats + LOOKAHEAD_BEATS) {
       rafId = requestAnimationFrame(tick);
@@ -804,13 +813,42 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
 }
 
 // --- Auto-scroll ---
-let _lastScrolledEl = null;
+// Throttle + visibility-check pra não brigar com scroll manual do aluno.
+// Detecta scroll manual (qualquer scroll fora da janela do nosso scroll
+// programado) e pausa o auto por USER_SCROLL_PAUSE_MS.
 let _lastScrollTs = 0;
+let _userScrolledAt = 0;
+const SCROLL_THROTTLE_MS = 600;
+const SCROLL_TOP_MARGIN = 130;       // header + folga
+const SCROLL_BOTTOM_MARGIN = 140;    // app/toolbar embaixo + folga
+const USER_SCROLL_PAUSE_MS = 2500;
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('scroll', () => {
+    const now = Date.now();
+    if (now - _lastScrollTs > SCROLL_THROTTLE_MS + 50) {
+      _userScrolledAt = now;
+    }
+  }, { passive: true });
+}
+
 function scrollNoteIntoView(el) {
-  if (!el || el === _lastScrolledEl) return;
-  const now = performance.now();
-  if (now - _lastScrollTs < 400) return;
-  _lastScrolledEl = el;
+  if (!el) return;
+  const now = Date.now();
+  // Throttle: evita scrolls em rajada
+  if (now - _lastScrollTs < SCROLL_THROTTLE_MS) return;
+  // Respeita scroll manual do aluno por alguns segundos
+  if (now - _userScrolledAt < USER_SCROLL_PAUSE_MS) return;
+
+  // Já tá visível (com folga)? Não faz nada.
+  let rect;
+  try { rect = el.getBoundingClientRect(); } catch (_) { return; }
+  if (!rect || (rect.width === 0 && rect.height === 0)) return;
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  const visible = rect.top >= SCROLL_TOP_MARGIN
+               && rect.bottom <= (vh - SCROLL_BOTTOM_MARGIN);
+  if (visible) return;
+
   _lastScrollTs = now;
   const reduced = window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -820,7 +858,9 @@ function scrollNoteIntoView(el) {
       block: 'center',
       inline: 'nearest',
     });
-  } catch (_) {}
+  } catch (_) {
+    try { el.scrollIntoView(); } catch (__) {}
+  }
 }
 
 function markNote(el, state) {
