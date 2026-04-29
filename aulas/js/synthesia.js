@@ -862,23 +862,20 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       }, 400);
     });
 
-    // 4. Se a nota errada não existe na partitura (notas vermelhas=0) e
-    //    é MD, cria uma "nota fantasma" vermelha no LUGAR CERTO da pauta
-    //    de Sol — aluno vê onde aquela nota ESTARIA se existisse.
-    //    Pra ME ainda não criamos fantasma (Stradella não tem cy fixa).
-    if (wrongs.length === 0 && !isBass) {
-      showGhostNote(midi);
+    // 4. Se a nota errada não existe NO COMPASSO ATUAL, cria uma
+    //    "nota fantasma" vermelha no x do cursor — aluno vê onde
+    //    aquela nota ESTARIA. MD: na pauta de Sol. ME: no stave de baixo.
+    if (wrongs.length === 0) {
+      showGhostNote(midi, isBass);
     }
   }
 
-  // Cria <ellipse> SVG temporário VERMELHO na posição do midi na pauta
-  // de Sol, no x do cursor. Anima fade in/out 600ms e remove do DOM.
-  function showGhostNote(midi) {
-    const relCy = midiToCy(midi);
-    if (relCy == null) return;
-
-    // Acha o stave atual usando a MD note mais recente — pra somar o
-    // offset correto no cy absoluto.
+  // Cria elemento SVG temporário VERMELHO na posição que a midi ocuparia.
+  // MD: ellipse na pauta de Sol (com ledger se necessário).
+  // ME: cell (rect/circle) na área do baixo com nome do acorde.
+  // Anima fade in/out 600ms e remove do DOM.
+  function showGhostNote(midi, isBass) {
+    // Stave offset via MD note mais recente
     const elapsed = waiting ? waitBeat : (performance.now() - startMs) / beatMs;
     let prev = null;
     for (const n of mdNotes) {
@@ -889,8 +886,18 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     const refCy = midiToCy(prev.midi);
     if (refCy == null) return;
     const staveOffset = prev._pos.y - refCy;
-
     const cx = parseFloat(cursor.getAttribute('x1') || prev._pos.x);
+
+    if (isBass) {
+      showGhostBassCell(cx, staveOffset, midi);
+    } else {
+      showGhostTrebleNote(cx, staveOffset, midi);
+    }
+  }
+
+  function showGhostTrebleNote(cx, staveOffset, midi) {
+    const relCy = midiToCy(midi);
+    if (relCy == null) return;
     const absCy = relCy + staveOffset;
 
     const NS = 'http://www.w3.org/2000/svg';
@@ -902,7 +909,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     ellipse.setAttribute('class', 'synth-ghost-note');
     scoreSvg.appendChild(ellipse);
 
-    // Linha suplementar p/ Dó4 (cy=125) e notas abaixo da pauta
+    // Linha suplementar p/ Dó4 (cy=125) e notas abaixo
     if (relCy >= 125) {
       const line = document.createElementNS(NS, 'line');
       line.setAttribute('x1', cx - 11);
@@ -915,6 +922,49 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     }
 
     setTimeout(() => { try { ellipse.remove(); } catch (_) {} }, 600);
+  }
+
+  function showGhostBassCell(cx, staveOffset, midi) {
+    const noteName = midiToBassName(midi);
+    if (noteName === '?') return;
+    // Bass cells stão em y=158-180 (relativo ao stave). Center y=170.
+    const cellY = 158 + staveOffset;
+
+    const NS = 'http://www.w3.org/2000/svg';
+    const g = document.createElementNS(NS, 'g');
+    g.setAttribute('class', 'synth-ghost-bass');
+
+    // Fundamentais usam rect (24×22). Acordes/cbx usam circle (r=11).
+    const fundMidis = [24, 26, 28, 29, 31, 33, 35, 49, 51, 54, 55, 20];
+    const isFund = fundMidis.includes(midi);
+    if (isFund) {
+      const rect = document.createElementNS(NS, 'rect');
+      rect.setAttribute('x', cx - 12);
+      rect.setAttribute('y', cellY);
+      rect.setAttribute('width', 24);
+      rect.setAttribute('height', 22);
+      rect.setAttribute('rx', 4);
+      rect.setAttribute('class', 'synth-ghost-bass-shape');
+      g.appendChild(rect);
+    } else {
+      const circle = document.createElementNS(NS, 'circle');
+      circle.setAttribute('cx', cx);
+      circle.setAttribute('cy', cellY + 12);
+      circle.setAttribute('r', 11);
+      circle.setAttribute('class', 'synth-ghost-bass-shape');
+      g.appendChild(circle);
+    }
+
+    const text = document.createElementNS(NS, 'text');
+    text.setAttribute('x', cx);
+    text.setAttribute('y', cellY + 16);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('class', 'synth-ghost-bass-label');
+    text.textContent = noteName;
+    g.appendChild(text);
+
+    scoreSvg.appendChild(g);
+    setTimeout(() => { try { g.remove(); } catch (_) {} }, 600);
   }
 
   // Trata um hit do aluno (teclado do PC ou Corvino MIDI físico).

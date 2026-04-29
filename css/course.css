@@ -1219,6 +1219,27 @@ kbd {
   pointer-events: none;
   animation: synth-ghost-fade 0.6s ease-out forwards;
 }
+
+/* Fantasma de baixo (ME) — cell vermelha temporária na área do bass
+   stave com nome do acorde dentro. Mesma anim fade do MD. */
+.synth-ghost-bass {
+  pointer-events: none;
+  animation: synth-ghost-fade 0.6s ease-out forwards;
+}
+.synth-ghost-bass-shape {
+  fill: #d94a4a;
+  stroke: #1a1618;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 8px rgba(217, 74, 74, 0.95))
+          drop-shadow(0 0 14px rgba(217, 74, 74, 0.6));
+}
+.synth-ghost-bass-label {
+  fill: #1a1618;
+  font-family: sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+}
+
 @keyframes synth-ghost-fade {
   0%   { opacity: 0; }
   20%  { opacity: 1; }
