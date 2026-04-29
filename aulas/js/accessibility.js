@@ -12,7 +12,7 @@
   let fontZoom = parseFloat(localStorage.getItem(STORAGE_FONT)) || 1.0;
   let hideApp = localStorage.getItem(STORAGE_HIDE_APP) === '1';
   let panelOpen = localStorage.getItem(STORAGE_PANEL_OPEN) === '1';
-  let appWidth = parseInt(localStorage.getItem(STORAGE_APP_WIDTH)) || 460;
+  let appWidth = parseInt(localStorage.getItem(STORAGE_APP_WIDTH)) || 650;
 
   const APP_MIN = 280;
   const APP_MAX = 900;
@@ -69,7 +69,7 @@
     applyState();
   }
   function resetAppWidth() {
-    appWidth = 460;
+    appWidth = 650;
     localStorage.setItem(STORAGE_APP_WIDTH, appWidth);
     applyState();
   }
