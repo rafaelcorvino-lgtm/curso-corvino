@@ -454,9 +454,12 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     // COUNT-IN: agenda N clicks de metrônomo durante o lead-in.
     // 1º click = forte (1ª batida do compasso), demais = fracos.
     // Dá ao aluno o "1, 2, 3" antes da 1ª nota tocar.
+    // BUG fix: usa `activeBpm` (BPM atual da toolbar) em vez do `bpm`
+    // fixo do attach. Antes, mudar BPM no controle não mudava o ritmo
+    // do count-in.
     if (beatsPerBar > 0) {
       ensureAudioCtx();
-      const beatSec = 60 / bpm;
+      const beatSec = 60 / activeBpm;
       for (let b = 0; b < beatsPerBar; b++) {
         const osc = scheduleClick(b * beatSec, b === 0);
         if (osc) scheduledClicks.push(osc);
