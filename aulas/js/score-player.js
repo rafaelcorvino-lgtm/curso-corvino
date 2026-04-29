@@ -265,8 +265,42 @@ function buildPlayerUI(playBtnId, defaultBpm, defaultLabel) {
   };
 }
 
+// Cria o botão Synthesia automaticamente na figure se ainda não existir.
+// Importa synthesia.js dinamicamente e attacha com as MESMAS notes do
+// score-player. Reutiliza notes (midi/beats/startBeat/el/isBass) — não
+// precisa duplicar configuração nas aulas.
+function autoAttachSynthesia(figure, playBtnId, bpm, beatsPerBar, notes) {
+  if (!figure) return;
+  if (figure.querySelector('.synth-trigger')) return;  // já tem (manual)
+
+  const wrap = document.createElement('div');
+  wrap.className = 'synth-play-wrap';
+  const btn = document.createElement('button');
+  btn.id = playBtnId + '-syn';
+  btn.className = 'score-play-btn synth-trigger';
+  btn.type = 'button';
+  btn.textContent = '🎮 Modo Synthesia';
+  wrap.appendChild(btn);
+  figure.appendChild(wrap);
+
+  import('./synthesia.js').then(({ attachSynthesia }) => {
+    attachSynthesia({
+      triggerBtnId: btn.id,
+      bpm,
+      beatsPerBar: beatsPerBar || 0,
+      notes,
+    });
+  }).catch(err => console.error('[score-player] falha ao carregar synthesia:', err));
+}
+
 export function attachScorePlayer({ playBtnId, bpm = 80, beatsPerBar = null, notes = [], countIn = true }) {
   startPinging();
+
+  // Auto-injeção do botão Synthesia ANTES do buildPlayerUI, pra que
+  // ele seja absorvido na options row da toolbar normalmente.
+  const oldBtn0 = document.getElementById(playBtnId);
+  const figure0 = oldBtn0 && oldBtn0.closest('.score-figure');
+  autoAttachSynthesia(figure0, playBtnId, bpm, beatsPerBar, notes);
 
   const ui = buildPlayerUI(playBtnId, bpm, 'Ouvir');
   if (!ui) return;
