@@ -821,25 +821,34 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
 
   // Tecla errada durante wait — feedback visual:
   //   1. Bolinha pulsa vermelha por 350ms
-  //   2. TODAS as notas com mesma midi NA PARTITURA INTEIRA brilham
-  //      vermelhas por 400ms — aluno vê todas as ocorrências da nota
-  //      que tocou errado, ajudando a identificar a tecla.
+  //   2. Notas com mesma midi DENTRO DO COMPASSO ATUAL brilham vermelho
+  //      400ms (não polui partitura inteira).
+  //   3. Se a midi não existe no compasso, cria nota fantasma no x
+  //      do cursor (= dentro do compasso atual visualmente).
   function flashWrongNote(midi, isBass) {
     // 1. Bolinha vermelha
     ball.classList.add('synth-ball-wrong');
     setTimeout(() => ball.classList.remove('synth-ball-wrong'), 350);
 
-    // 2. Acha TODAS as notas matching na partitura (exceto preview = target).
-    //    Sem filtro de compasso — nota errada pode estar em qualquer lugar.
+    // 2. Define janela do compasso atual baseado em beatsPerBar
+    const elapsed = waiting ? waitBeat : (performance.now() - startMs) / beatMs;
+    const bpb = beatsPerBar > 0 ? beatsPerBar : 4;
+    const compassoStart = Math.floor(elapsed / bpb) * bpb;
+    const compassoEnd = compassoStart + bpb;
+
+    // 3. Acha TODAS as notas matching DENTRO DO COMPASSO ATUAL
+    //    (exceto preview = target esperado)
     const wrongs = allNotes.filter(n =>
       n.midi === midi &&
       n.isBass === isBass &&
       n._domEl &&
+      n.startBeat >= compassoStart &&
+      n.startBeat < compassoEnd &&
       n._state !== 'preview'
     );
 
     dlog('flashWrongNote midi=', midi, 'isBass=', isBass,
-      'notas vermelhas=', wrongs.length);
+      'compasso=[', compassoStart, ',', compassoEnd, '), notas vermelhas=', wrongs.length);
 
     // 3. Flash cada uma vermelha brevemente, depois volta
     wrongs.forEach(note => {
