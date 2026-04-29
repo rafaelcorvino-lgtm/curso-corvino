@@ -1199,6 +1199,32 @@ kbd {
     stroke-width: 3;
   }
 }
+/* Nota fantasma — quando aluno toca nota que não existe na partitura,
+   cria um ellipse vermelho temporário NA POSIÇÃO CORRETA do staff.
+   Aluno vê onde aquela nota ESTARIA se a peça tivesse. */
+.synth-ghost-note {
+  fill: #d94a4a;
+  stroke: #d94a4a;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 8px rgba(217, 74, 74, 0.95))
+          drop-shadow(0 0 14px rgba(217, 74, 74, 0.6));
+  pointer-events: none;
+  animation: synth-ghost-fade 0.6s ease-out forwards;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.synth-ghost-ledger {
+  stroke: #d94a4a;
+  stroke-width: 1.8;
+  pointer-events: none;
+  animation: synth-ghost-fade 0.6s ease-out forwards;
+}
+@keyframes synth-ghost-fade {
+  0%   { opacity: 0; }
+  20%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 /* Tecla errada — bolinha pulsa VERMELHA brevemente (350ms). Sobrepõe
    o pulso normal por causa da especificidade + animation override. */
 .synth-ball.synth-ball-wrong {

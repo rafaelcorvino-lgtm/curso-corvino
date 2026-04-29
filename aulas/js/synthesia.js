@@ -157,6 +157,32 @@ function midiToBassName(midi) {
     default: return '?';
   }
 }
+
+// Posição vertical (cy RELATIVA ao stave) na pauta de Sol pra cada midi MD.
+// Linhas da pauta: 50, 65, 80, 95, 110. Espaços entre elas + fora.
+//   Top   y=50  → Fá5 (77)        Espaço:  y=57 → Mi5 (76)
+//   4ª    y=65  → Ré5 (74)        Espaço:  y=72 → Dó5 (72)
+//   3ª    y=80  → Si4 (71)        Espaço:  y=87 → Lá4 (69)
+//   2ª    y=95  → Sol4 (67)       Espaço: y=102 → Fá4 (65)
+//   Bot   y=110 → Mi4 (64)        Espaço: y=117 → Ré4 (62)
+//   Ledger 1 abaixo: y=125 → Dó4 (60)
+// Pretas (sharps): mesmo y da natural mais próxima.
+function midiToCy(midi) {
+  const map = {
+    60: 125, 61: 125,
+    62: 117, 63: 117,
+    64: 110,
+    65: 102, 66: 102,
+    67: 95,  68: 95,
+    69: 87,  70: 87,
+    71: 80,
+    72: 72,  73: 72,
+    74: 65,  75: 65,
+    76: 57,
+    77: 50,
+  };
+  return map[midi] != null ? map[midi] : null;
+}
 // Tecla do baixo (pra mostrar acima da bolinha)
 function midiToBassKey(midi) {
   switch (midi) {
@@ -826,6 +852,60 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
         }
       }, 400);
     });
+
+    // 4. Se a nota errada não existe na partitura (notas vermelhas=0) e
+    //    é MD, cria uma "nota fantasma" vermelha no LUGAR CERTO da pauta
+    //    de Sol — aluno vê onde aquela nota ESTARIA se existisse.
+    //    Pra ME ainda não criamos fantasma (Stradella não tem cy fixa).
+    if (wrongs.length === 0 && !isBass) {
+      showGhostNote(midi);
+    }
+  }
+
+  // Cria <ellipse> SVG temporário VERMELHO na posição do midi na pauta
+  // de Sol, no x do cursor. Anima fade in/out 600ms e remove do DOM.
+  function showGhostNote(midi) {
+    const relCy = midiToCy(midi);
+    if (relCy == null) return;
+
+    // Acha o stave atual usando a MD note mais recente — pra somar o
+    // offset correto no cy absoluto.
+    const elapsed = waiting ? waitBeat : (performance.now() - startMs) / beatMs;
+    let prev = null;
+    for (const n of mdNotes) {
+      if (n.startBeat <= elapsed) prev = n;
+      else break;
+    }
+    if (!prev) prev = mdNotes[0];
+    const refCy = midiToCy(prev.midi);
+    if (refCy == null) return;
+    const staveOffset = prev._pos.y - refCy;
+
+    const cx = parseFloat(cursor.getAttribute('x1') || prev._pos.x);
+    const absCy = relCy + staveOffset;
+
+    const NS = 'http://www.w3.org/2000/svg';
+    const ellipse = document.createElementNS(NS, 'ellipse');
+    ellipse.setAttribute('cx', cx);
+    ellipse.setAttribute('cy', absCy);
+    ellipse.setAttribute('rx', 9);
+    ellipse.setAttribute('ry', 6);
+    ellipse.setAttribute('class', 'synth-ghost-note');
+    scoreSvg.appendChild(ellipse);
+
+    // Linha suplementar p/ Dó4 (cy=125) e notas abaixo da pauta
+    if (relCy >= 125) {
+      const line = document.createElementNS(NS, 'line');
+      line.setAttribute('x1', cx - 11);
+      line.setAttribute('x2', cx + 11);
+      line.setAttribute('y1', absCy);
+      line.setAttribute('y2', absCy);
+      line.setAttribute('class', 'synth-ghost-ledger');
+      scoreSvg.appendChild(line);
+      setTimeout(() => { try { line.remove(); } catch (_) {} }, 600);
+    }
+
+    setTimeout(() => { try { ellipse.remove(); } catch (_) {} }, 600);
   }
 
   // Trata um hit do aluno (teclado do PC ou Corvino MIDI físico).
