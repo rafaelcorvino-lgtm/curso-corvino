@@ -780,10 +780,12 @@
           synNotes.push({...pvdMD[mdI], startBeat:t0+1});
           mdI++;
         }
+        // ME bum-tchim-tchim — refere o rect/circle do baixo via `el` pra
+        // sinalizar visual durante auto-play (Synthesia acende verde)
         const [F, M] = pvdME[c];
-        synNotes.push({midi:F, beats:1, isBass:true, articulation:SUST, startBeat:t0});
-        synNotes.push({midi:M, beats:1, isBass:true, articulation:STAC, startBeat:t0+1});
-        synNotes.push({midi:M, beats:1, isBass:true, articulation:STAC, startBeat:t0+2});
+        synNotes.push({midi:F, beats:1, isBass:true, articulation:SUST, startBeat:t0,   el:`#pvd-b${c*3+1}`});
+        synNotes.push({midi:M, beats:1, isBass:true, articulation:STAC, startBeat:t0+1, el:`#pvd-b${c*3+2}`});
+        synNotes.push({midi:M, beats:1, isBass:true, articulation:STAC, startBeat:t0+2, el:`#pvd-b${c*3+3}`});
       }
 
       // Valsa simplificada usa só Dó-Ré-Mi-Fá-Sol (1ª posição) — não tem

@@ -513,15 +513,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
   // (preserva info harmônica: Dó=ouro, Fá=verde, Sol7=vermelho).
   function autoPlayNote(note) {
     postToApp({ type: 'corvino:noteOn', midi: note.midi, isBass: note.isBass });
-    if (note._domEl) {
-      markNote(note._domEl, 'hit');
-      dlog('autoPlay', note.isBass ? 'ME' : 'MD', 'midi=', note.midi,
-        'el=', note.el, 'tag=', note._domEl.tagName,
-        'classes=', note._domEl.classList.toString());
-    } else {
-      dlog('autoPlay SEM domEl: midi=', note.midi, 'isBass=', note.isBass,
-        'el=', note.el);
-    }
+    if (note._domEl) markNote(note._domEl, 'hit');
     const slotMs = note.beats * beatMs;
     const soundMs = Math.max(50, slotMs * note.articulation);
     meTimeouts.push(setTimeout(() => {
