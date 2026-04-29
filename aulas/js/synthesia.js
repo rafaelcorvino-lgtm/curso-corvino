@@ -759,36 +759,41 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
 
   // Tecla errada durante wait — feedback visual:
   //   1. Bolinha pulsa vermelha por 350ms
-  //   2. Se a nota errada existe em algum lugar da partitura (mesma midi),
-  //      ela brilha vermelha brevemente — assim o aluno vê QUAL nota tocou
-  //      em vez da que era esperada.
+  //   2. TODAS as notas com mesma midi DENTRO DO COMPASSO ATUAL brilham
+  //      vermelhas por 400ms — aluno vê QUAL nota tocou em vez da esperada.
+  //      Limita ao compasso atual pra não poluir a partitura inteira.
   function flashWrongNote(midi, isBass) {
     // 1. Bolinha vermelha
     ball.classList.add('synth-ball-wrong');
     setTimeout(() => ball.classList.remove('synth-ball-wrong'), 350);
 
-    // 2. Acha nota com essa midi mais próxima do beat atual e flasha vermelha
+    // 2. Define janela do compasso atual baseado em beatsPerBar
     const elapsed = waiting ? waitBeat : (performance.now() - startMs) / beatMs;
-    let closest = null, closestDist = Infinity;
-    for (const n of allNotes) {
-      if (n.midi !== midi || n.isBass !== isBass) continue;
-      if (!n._domEl) continue;
-      // Não flasha em notas que já estão em estado especial (preserva visual)
-      if (n._state === 'preview') continue;
-      const dist = Math.abs(n.startBeat - elapsed);
-      if (dist < closestDist) { closestDist = dist; closest = n; }
-    }
-    if (closest && closest._domEl) {
-      const prevState = closest._state;
-      markNote(closest._domEl, 'miss');
+    const bpb = beatsPerBar > 0 ? beatsPerBar : 4;
+    const compassoStart = Math.floor(elapsed / bpb) * bpb;
+    const compassoEnd = compassoStart + bpb;
+
+    // 3. Acha TODAS as notas matching nesse compasso (exceto preview = target)
+    const wrongs = allNotes.filter(n =>
+      n.midi === midi &&
+      n.isBass === isBass &&
+      n._domEl &&
+      n.startBeat >= compassoStart &&
+      n.startBeat < compassoEnd &&
+      n._state !== 'preview'
+    );
+
+    // 4. Flash cada uma vermelha brevemente, depois volta
+    wrongs.forEach(note => {
+      const prevState = note._state;
+      markNote(note._domEl, 'miss');
       setTimeout(() => {
-        // Volta pro estado anterior (preview ou cor original)
-        if (closest._state === 'miss' || closest._state === prevState) {
-          if (prevState === 'hit') markNote(closest._domEl, 'hit');
-          else resetNoteColor(closest._domEl);
+        if (note._state === 'miss' || note._state === prevState) {
+          if (prevState === 'hit') markNote(note._domEl, 'hit');
+          else resetNoteColor(note._domEl);
         }
       }, 400);
-    }
+    });
   }
 
   // Trata um hit do aluno (teclado do PC ou Corvino MIDI físico).
