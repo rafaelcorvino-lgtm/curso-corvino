@@ -715,16 +715,22 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     const nextPos = next._pos;
 
     if (Math.abs(prevPos.y - nextPos.y) < 30) {
+      // Mesmo stave: linear de prev pra next.
       return {
         x: prevPos.x + (nextPos.x - prevPos.x) * t,
         y: prevPos.y,
       };
     }
-    if (t < 0.5) {
-      return { x: prevPos.x + (560 - prevPos.x) * t * 2, y: prevPos.y };
-    } else {
-      return { x: 20 + (nextPos.x - 20) * (t - 0.5) * 2, y: nextPos.y };
-    }
+    // Stave diferente: cursor varre o stave de prev em velocidade
+    // natural até o fim, depois SNAP pro stave de next no próximo
+    // tick (quando prev vira next no outer loop).
+    // Antes usava `* 2` em t<0.5/t>=0.5 — dobrava a velocidade
+    // durante a transição (Rafael notou: "ela acelera").
+    const STAVE_END_X = 565;
+    return {
+      x: prevPos.x + (STAVE_END_X - prevPos.x) * t,
+      y: prevPos.y,
+    };
   }
 
   // ----- Input -----
