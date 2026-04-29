@@ -1213,26 +1213,6 @@ kbd {
   100% { r: 11; stroke-width: 2.5; }
 }
 
-/* Texto flutuante de nota errada — "✗ Ré" sobe e some quando aluno
-   toca tecla errada. Útil quando a midi errada não tem nota visível
-   no compasso atual (não há o que pintar de vermelho). */
-.synth-wrong-text {
-  fill: #d94a4a;
-  font-family: sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  text-anchor: middle;
-  paint-order: stroke;
-  stroke: #1a1618;
-  stroke-width: 3;
-  pointer-events: none;
-  animation: synth-wrong-text-rise 0.7s ease-out forwards;
-}
-@keyframes synth-wrong-text-rise {
-  0%   { opacity: 0; transform: translateY(0px); }
-  15%  { opacity: 1; transform: translateY(-4px); }
-  100% { opacity: 0; transform: translateY(-22px); }
-}
 
 /* Rótulo DENTRO da bolinha — nome da nota (Dó, Ré, Mi...).
    Confirma qual nota o aluno deve tocar (bate com a partitura). */

@@ -105,22 +105,55 @@ function keyCodeToBassMidi(code) {
     default: return null;
   }
 }
-// Nome do baixo (pra mostrar dentro da bolinha)
+// Nome do baixo (Stradella completo, baseado em BASS_ROWS do midi-data.js).
+// Tabela de colunas (ciclo de quintas):
+//   col 0=Fá#, 1=Si, 2=Mi, 3=Lá, 4=Ré, 5=Sol, 6=Dó, 7=Fá
+// Linhas: 0=acordes 7ª, 1=menores, 2=maiores, 3=fundamentais, 4=cbx
 function midiToBassName(midi) {
   switch (midi) {
-    case 24: case 28: return 'Dó';
-    case 25:          return 'DóM';
-    case 36:          return 'Dóm';
-    case 29: case 33: return 'Fá';
-    case 30:          return 'FáM';
-    case 41:          return 'Fám';
-    case 31: case 35: return 'Sol';
-    case 32:          return 'SolM';
-    case 44:          return 'Sol7';
-    case 43:          return 'Solm';
-    case 26: case 54: return 'Ré';
-    case 27:          return 'RéM';
-    case 38:          return 'Rém';
+    // Fundamentais (Row 3)
+    case 24: return 'Dó';
+    case 26: return 'Ré';
+    case 28: return 'Mi';
+    case 29: return 'Fá';
+    case 31: return 'Sol';
+    case 33: return 'Lá';
+    case 35: return 'Si';
+    // case 54 abaixo (Fá# fund OU Ré cbx — mesma altura)
+    // Acordes maiores (Row 2)
+    case 25: return 'DóM';
+    case 27: return 'RéM';
+    case 30: return 'FáM';
+    case 32: return 'SolM';
+    case 34: return 'LáM';
+    case 48: return 'MiM';
+    case 50: return 'SiM';
+    case 23: return 'Fá#M';
+    // Acordes menores (Row 1)
+    case 36: return 'Dóm';
+    case 38: return 'Rém';
+    case 40: return 'Mim';
+    case 41: return 'Fám';
+    case 43: return 'Solm';
+    case 45: return 'Lám';
+    case 47: return 'Sim';
+    case 22: return 'Fá#m';
+    // Acordes 7ª (Row 0)
+    case 37: return 'Dó7';
+    case 39: return 'Ré7';
+    case 42: return 'Fá7';
+    case 44: return 'Sol7';
+    case 46: return 'Lá7';
+    case 53: return 'Mi7';
+    case 52: return 'Si7';
+    case 21: return 'Fá#7';
+    // Contrabaixos (Row 4) — overlapping com fundamentais (mesma altura).
+    // 28, 33, 35 já mapeados acima como fund. Os exclusivos:
+    case 49: return 'Lá';   // Lá cbx (= Mi fund repetido outra coluna)
+    case 51: return 'Si';   // Si cbx
+    case 54: return 'Ré';   // Ré cbx (= Fá# fund)
+    case 55: return 'Mi';   // Mi cbx
+    case 20: return 'Fá#';  // Fá# cbx
     default: return '?';
   }
 }
@@ -762,34 +795,27 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
 
   // Tecla errada durante wait — feedback visual:
   //   1. Bolinha pulsa vermelha por 350ms
-  //   2. TODAS as notas com mesma midi DENTRO DO COMPASSO ATUAL brilham
-  //      vermelhas por 400ms — aluno vê QUAL nota tocou em vez da esperada.
-  //      Limita ao compasso atual pra não poluir a partitura inteira.
+  //   2. TODAS as notas com mesma midi NA PARTITURA INTEIRA brilham
+  //      vermelhas por 400ms — aluno vê todas as ocorrências da nota
+  //      que tocou errado, ajudando a identificar a tecla.
   function flashWrongNote(midi, isBass) {
     // 1. Bolinha vermelha
     ball.classList.add('synth-ball-wrong');
     setTimeout(() => ball.classList.remove('synth-ball-wrong'), 350);
 
-    // 2. Define janela do compasso atual baseado em beatsPerBar
-    const elapsed = waiting ? waitBeat : (performance.now() - startMs) / beatMs;
-    const bpb = beatsPerBar > 0 ? beatsPerBar : 4;
-    const compassoStart = Math.floor(elapsed / bpb) * bpb;
-    const compassoEnd = compassoStart + bpb;
-
-    // 3. Acha TODAS as notas matching nesse compasso (exceto preview = target)
+    // 2. Acha TODAS as notas matching na partitura (exceto preview = target).
+    //    Sem filtro de compasso — nota errada pode estar em qualquer lugar.
     const wrongs = allNotes.filter(n =>
       n.midi === midi &&
       n.isBass === isBass &&
       n._domEl &&
-      n.startBeat >= compassoStart &&
-      n.startBeat < compassoEnd &&
       n._state !== 'preview'
     );
 
     dlog('flashWrongNote midi=', midi, 'isBass=', isBass,
-      'compasso=[', compassoStart, ',', compassoEnd, '), notas vermelhas=', wrongs.length);
+      'notas vermelhas=', wrongs.length);
 
-    // 4. Flash cada uma vermelha brevemente, depois volta
+    // 3. Flash cada uma vermelha brevemente, depois volta
     wrongs.forEach(note => {
       const prevState = note._state;
       markNote(note._domEl, 'miss');
@@ -800,28 +826,6 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
         }
       }, 400);
     });
-
-    // 5. SEMPRE mostra texto flutuante com nome da nota errada perto do
-    //    cursor — útil quando a nota errada não existe no compasso atual
-    //    (notas vermelhas=0). Aluno vê "✗ Ré" subindo e sumindo.
-    showWrongNoteText(midi, isBass);
-  }
-
-  // Cria um <text> SVG temporário "✗ NomeDaNota" próximo ao cursor.
-  // Anima subindo + fade out (700ms). Remove do DOM no fim.
-  // Posiciona no nível da pauta MD (cursor y1 + 60) — centralizado vertical.
-  function showWrongNoteText(midi, isBass) {
-    const noteName = isBass ? midiToBassName(midi) : midiToNoteName(midi);
-    const cx = parseFloat(cursor.getAttribute('x1') || 100);
-    const cyTop = parseFloat(cursor.getAttribute('y1') || 30);
-    const NS = 'http://www.w3.org/2000/svg';
-    const text = document.createElementNS(NS, 'text');
-    text.setAttribute('x', cx);
-    text.setAttribute('y', cyTop + 60);  // ~mid-staff (acompanha stave atual)
-    text.setAttribute('class', 'synth-wrong-text');
-    text.textContent = '✗ ' + noteName;
-    scoreSvg.appendChild(text);
-    setTimeout(() => { try { text.remove(); } catch (_) {} }, 700);
   }
 
   // Trata um hit do aluno (teclado do PC ou Corvino MIDI físico).
