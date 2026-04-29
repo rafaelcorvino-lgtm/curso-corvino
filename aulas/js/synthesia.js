@@ -757,6 +757,40 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     setTimeout(() => triggerBtn.classList.remove('synth-key-flash'), 120);
   }
 
+  // Tecla errada durante wait — feedback visual:
+  //   1. Bolinha pulsa vermelha por 350ms
+  //   2. Se a nota errada existe em algum lugar da partitura (mesma midi),
+  //      ela brilha vermelha brevemente — assim o aluno vê QUAL nota tocou
+  //      em vez da que era esperada.
+  function flashWrongNote(midi, isBass) {
+    // 1. Bolinha vermelha
+    ball.classList.add('synth-ball-wrong');
+    setTimeout(() => ball.classList.remove('synth-ball-wrong'), 350);
+
+    // 2. Acha nota com essa midi mais próxima do beat atual e flasha vermelha
+    const elapsed = waiting ? waitBeat : (performance.now() - startMs) / beatMs;
+    let closest = null, closestDist = Infinity;
+    for (const n of allNotes) {
+      if (n.midi !== midi || n.isBass !== isBass) continue;
+      if (!n._domEl) continue;
+      // Não flasha em notas que já estão em estado especial (preserva visual)
+      if (n._state === 'preview') continue;
+      const dist = Math.abs(n.startBeat - elapsed);
+      if (dist < closestDist) { closestDist = dist; closest = n; }
+    }
+    if (closest && closest._domEl) {
+      const prevState = closest._state;
+      markNote(closest._domEl, 'miss');
+      setTimeout(() => {
+        // Volta pro estado anterior (preview ou cor original)
+        if (closest._state === 'miss' || closest._state === prevState) {
+          if (prevState === 'hit') markNote(closest._domEl, 'hit');
+          else resetNoteColor(closest._domEl);
+        }
+      }, 400);
+    }
+  }
+
   // Trata um hit do aluno (teclado do PC ou Corvino MIDI físico).
   // 1ª busca: nota PREVIEW que case (cursor já chegou nela).
   // 2ª busca (se não achou): nota PENDING dentro da hit window —
@@ -801,7 +835,12 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       'target?', !!target, 'state=', target && target._state,
       'early=', earlyHit, 'elapsed=', elapsed.toFixed(2));
 
-    if (!target) return;
+    if (!target) {
+      // Sem match. Se há nota esperada (preview) é HIT ERRADO — feedback visual.
+      const hasWaitingNote = allNotes.some(n => n._state === 'preview');
+      if (hasWaitingNote) flashWrongNote(midi, isBass);
+      return;
+    }
 
     // Hit precoce: contabiliza no total (não passou pelo tick que faria isso)
     if (earlyHit) {
