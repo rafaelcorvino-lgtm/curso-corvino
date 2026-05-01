@@ -5,7 +5,7 @@ import * as audio from './audio-engine.js';
 
 const pianoElements = new Map(); // midi -> DOM element
 
-const NOTE_NAMES_PIANO = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+const NOTE_NAMES_PIANO = ['Dó', 'Dó#', 'Ré', 'Ré#', 'Mi', 'Fá', 'Fá#', 'Sol', 'Sol#', 'Lá', 'Lá#', 'Si'];
 
 // Nome da nota com transpose do teclado aplicado (igual a _keyboardNoteName do Flutter)
 function keyLabel(midi) {

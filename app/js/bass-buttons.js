@@ -5,7 +5,7 @@ import * as audio from './audio-engine.js';
 
 const bassElements = new Map(); // midi+row -> DOM element
 
-const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+const NOTE_NAMES = ['Dó', 'Dó#', 'Ré', 'Ré#', 'Mi', 'Fá', 'Fá#', 'Sol', 'Sol#', 'Lá', 'Lá#', 'Si'];
 
 // Correção de semitons para labels de contra-baixo (row 4) onde o MIDI do
 // soundfont não corresponde à nota real do Stradella.
