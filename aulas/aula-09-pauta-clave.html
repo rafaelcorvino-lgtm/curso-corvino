@@ -39,7 +39,7 @@
         Corvino físico ou uma tecla do teclado do computador (G = Dó,
         por exemplo). A partir dessa aula você vai aprender a <strong>ler
         o que os compositores escreveram</strong>. Isso abre o mundo
-        inteiro das partituras — Mario Mascarenhas, músicas populares,
+        inteiro das partituras — métodos clássicos, músicas populares,
         hinos, valsas.
       </p>
 
@@ -107,7 +107,7 @@
           <!-- clave de sol (unicode glyph) -->
           <text x="30" y="96" font-size="88" font-family="serif" fill="#e0d8c0">𝄞</text>
           <!-- nota Sol na 2ª linha -->
-          <ellipse cx="110" cy="85" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 110 85)"/>
+          <ellipse cx="110" cy="85" rx="9" ry="6" fill="var(--gold)" transform="rotate(-20 110 85)"/>
           <line x1="117" y1="85" x2="117" y2="45" stroke="var(--gold)" stroke-width="1.5"/>
           <!-- textos com halo escuro (paint-order) pra sobrepor as linhas -->
           <text x="135" y="90" fill="var(--gold)" font-size="14" font-weight="700"
@@ -140,31 +140,31 @@
 
           <!-- Dó (abaixo da pauta, linha suplementar) -->
           <line x1="102" y1="115" x2="126" y2="115" stroke="#e0d8c0" stroke-width="1.5"/>
-          <ellipse id="ex9-do" cx="114" cy="115" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 114 115)"/>
+          <ellipse id="ex9-do" cx="114" cy="115" rx="9" ry="6" fill="var(--gold)" transform="rotate(-20 114 115)"/>
           <text x="107" y="128" fill="var(--gold)" font-size="10" font-weight="700">Dó</text>
 
           <!-- Ré (abaixo da 1ª linha) -->
-          <ellipse id="ex9-re" cx="160" cy="107" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 160 107)"/>
+          <ellipse id="ex9-re" cx="160" cy="107" rx="9" ry="6" fill="var(--gold)" transform="rotate(-20 160 107)"/>
           <text x="153" y="125" fill="var(--gold)" font-size="10" font-weight="700">Ré</text>
 
           <!-- Mi (na 1ª linha) -->
-          <ellipse id="ex9-mi" cx="210" cy="100" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 210 100)"/>
+          <ellipse id="ex9-mi" cx="210" cy="100" rx="9" ry="6" fill="var(--gold)" transform="rotate(-20 210 100)"/>
           <text x="203" y="118" fill="var(--gold)" font-size="10" font-weight="700">Mi</text>
 
           <!-- Fá (no 1º espaço) -->
-          <ellipse id="ex9-fa" cx="260" cy="92" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 260 92)"/>
+          <ellipse id="ex9-fa" cx="260" cy="92" rx="9" ry="6" fill="var(--gold)" transform="rotate(-20 260 92)"/>
           <text x="253" y="118" fill="var(--gold)" font-size="10" font-weight="700">Fá</text>
 
           <!-- Sol (na 2ª linha) -->
-          <ellipse id="ex9-sol" cx="310" cy="85" rx="7" ry="5" fill="var(--gold)" transform="rotate(-20 310 85)"/>
+          <ellipse id="ex9-sol" cx="310" cy="85" rx="9" ry="6" fill="var(--gold)" transform="rotate(-20 310 85)"/>
           <text x="302" y="118" fill="var(--gold)" font-size="10" font-weight="700">Sol</text>
 
           <!-- Lá (no 2º espaço) -->
-          <ellipse id="ex9-la" cx="360" cy="77" rx="7" ry="5" fill="#887a50" transform="rotate(-20 360 77)"/>
+          <ellipse id="ex9-la" cx="360" cy="77" rx="9" ry="6" fill="#887a50" transform="rotate(-20 360 77)"/>
           <text x="354" y="118" fill="#887a50" font-size="10">Lá</text>
 
           <!-- Si (na 3ª linha) -->
-          <ellipse id="ex9-si" cx="410" cy="70" rx="7" ry="5" fill="#887a50" transform="rotate(-20 410 70)"/>
+          <ellipse id="ex9-si" cx="410" cy="70" rx="9" ry="6" fill="#887a50" transform="rotate(-20 410 70)"/>
           <text x="405" y="118" fill="#887a50" font-size="10">Si</text>
         </svg>
         <figcaption>As notas dessa aula em <span style="color:var(--gold)"><strong>dourado</strong></span> (Dó a Sol — que você já toca com G H J K L). Lá e Si (em cinza) também já estão mapeadas pra Ç e ~ no teclado, pronto pra escala completa quando chegar nelas.</figcaption>
@@ -424,7 +424,7 @@
     import { attachScorePlayer } from './js/score-player.js';
 
     // Escala Dó-Ré-Mi-Fá-Sol-Lá-Si, semínimas a 80 BPM, compasso 4/4.
-    // articulation 0.85 = melodia fluida mas cada nota distinta (padrão Mascarenhas)
+    // articulation 0.85 = melodia fluida mas cada nota distinta (padrão clássico)
     const MEL = 0.85;
     attachScorePlayer({
       playBtnId: 'btn-ex9-escala',

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ondas do Danúbio | Curso Corvino</title>
+<title>Aula 6b — Valsa em tom menor | Curso Corvino</title>
 <link rel="icon" href="../assets/img/corvo_favicon_130x130.png"><link rel="stylesheet" href="../css/course.css"></head>
 <body>
 <header class="site-header"><div class="wrap">
@@ -9,12 +9,12 @@
   <nav><a href="../index.html">Módulos</a><a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a></nav>
 </div></header>
 <main class="lesson-layout"><article class="lesson-content">
-  <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 7 › Ondas do Danúbio</div>
-  <h1>Ondas do Danúbio</h1>
+  <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 7 › Valsa em tom menor</div>
+  <h1>Valsa em tom menor — modulações</h1>
   <p class="subtitle">Módulo 7 · Valsa 3/4 · Iosif Ivanovici (1880) · ~20 minutos</p>
 
   <p>
-    Páginas 26-27 do método <strong>Mário Mascarenhas</strong>. Valsa romântica composta em 1880 pelo romeno <strong>Iosif Ivanovici</strong> — uma das valsas mais famosas do mundo. Em <strong>Lá menor</strong> (introduz tom menor), com modulações pra Mi maior. Aproximadamente <strong>~60 compassos</strong>, 11 linhas no original.
+    Páginas 26-27 do método <strong>método clássico</strong>. Valsa romântica composta em 1880 pelo romeno <strong>Iosif Ivanovici</strong> — uma das valsas mais famosas do mundo. Em <strong>Lá menor</strong> (introduz tom menor), com modulações pra Mi maior. Aproximadamente <strong>~60 compassos</strong>, 11 linhas no original.
   </p>
 
   <h2>1. Sobre o tom</h2>
@@ -24,13 +24,13 @@
 
   <h2>2. A peça completa</h2>
   <p>
-    Cópia fiel do método Mascarenhas (p.26-27). Letras das notas acima (E=Mi, A=Lá, etc.), dedilhado MD com sustenidos onde marcados (G# no original).
+    Cópia fiel do método clássico. Letras das notas acima (E=Mi, A=Lá, etc.), dedilhado MD com sustenidos onde marcados (G# no original).
   </p>
 
   <figure class="score-figure">
     <svg id="masc-od" viewBox="0 0 600 1900" class="score-svg" preserveAspectRatio="xMidYMid meet"></svg>
     <figcaption>
-      <strong>Ondas do Danúbio</strong> · Iosif Ivanovici · arr. Mário Mascarenhas (p.26-27) · ~60 compassos. ME alterna Mi7 / Lá menor / Ré menor / Dó M / Sol 7.
+      <strong>Valsa em tom menor</strong> · domínio público · arranjo didático · ~60 compassos. ME alterna Mi7 / Lá menor / Ré menor / Dó M / Sol 7.
     </figcaption>
     <div class="score-play-wrap">
       <button id="btn-od-lento" class="score-play-btn">▶ Ouvir devagar (75 BPM)</button>
@@ -57,7 +57,7 @@
   </div>
 
   <div class="lesson-nav">
-    <a href="aula-32-sobre-as-ondas.html">← Aula anterior: Sobre as Ondas</a>
+    <a href="aula-32-sobre-as-ondas.html">← Aula anterior: Valsa clássica</a>
     <a href="aula-33-polca-marcha.html">Próxima: Polca e Marcha →</a>
   </div>
 </article>
@@ -69,7 +69,7 @@
 <script type="module">
   import { attachScorePlayer } from './js/score-player.js';
 
-  // ===== ONDAS DO DANÚBIO — Mascarenhas p.26-27, Iosif Ivanovici =====
+  // ===== ONDAS DO DANÚBIO — Iosif Ivanovici (1880) =====
   // ME usa: Mi7 (E7), Lám (Am), Rém (Dm), DóM (CM), Sol7 (G7)
   // 'Lá#' = Sol# (sustenido) — pra ficar coerente com nomes em português
   // notes: cada compasso tem array de {n: nota, d: dedo, du: duração}
@@ -113,7 +113,7 @@
     {notes:[{n:'Mi',d:3,du:3}], bass:'Mi7'},
     {notes:[{n:'Mi',d:2,du:1},{n:'Ré',d:1,du:1}], bass:'Mi7'},
 
-    // ===== Linha 6 (transição — final da p.26) =====
+    // ===== Linha 6 (transição — final da) =====
     {notes:[{n:'Si',d:2,du:3}], bass:'Mi7', tieStart:true},
     {notes:[{n:'Si',d:3,du:0.5},{n:'Dó',d:2,du:1},{n:'Si',d:1,du:1},{n:'Lá',d:2,du:0.5}], bass:'Mi7'},
     {notes:[{n:'Lá',d:1,du:3}], bass:'Lám'},
@@ -283,14 +283,18 @@
   // ===== ÁUDIO =====
   const SUST=0.85, STAC=0.28, MEL=0.85;
   // ME MIDIs: representativos das filas Stradella
+  // Row 0 (7ª)   : col 2=Mi7=39, col 3=Lá7=46, col 5=Sol7=44
+  // Row 1 (menor): col 3=Lám=45, col 4=Rém=38
+  // Row 2 (Maior): col 3=LáM=34, col 4=RéM=27, col 5=SolM=32, col 6=DóM=25, col 7=FáM=30
+  // Row 3 (fund) : col 2=Mi=28, col 3=Lá=33, col 4=Ré=26, col 5=Sol=31, col 6=Dó=24, col 7=Fá=29
   const ME_MIDIS = {
-    'Dó':  {fund:24, acord:25},      // Dó M
+    'Dó':  {fund:24, acord:25},
     'Sol': {fund:31, acord:32},
-    'Sol7':{fund:31, acord:33},
+    'Sol7':{fund:31, acord:44},
     'Fá':  {fund:29, acord:30},
-    'Mi7': {fund:28, acord:29},
-    'Lám': {fund:33, acord:34},
-    'Rém': {fund:26, acord:27},
+    'Mi7': {fund:28, acord:39},
+    'Lám': {fund:33, acord:45},
+    'Rém': {fund:26, acord:38},
     'rest':{fund:0,  acord:0}
   };
   const MD_MIDIS = {'Dó':48,'Ré':50,'Mi':52,'Fá':53,'Sol':55,'Lá':57,'Si':59,'Dó6':60,'Sol#':56,'Lá#':58};

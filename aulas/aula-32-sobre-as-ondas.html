@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sobre as Ondas | Curso Corvino</title>
+<title>Aula 6 — Valsa clássica completa | Curso Corvino</title>
 <link rel="icon" href="../assets/img/corvo_favicon_130x130.png"><link rel="stylesheet" href="../css/course.css"></head>
 <body>
 <header class="site-header"><div class="wrap">
@@ -9,8 +9,8 @@
   <nav><a href="../index.html">Módulos</a><a href="https://www.corvino.com.br/" target="_blank">Comprar Acordeon</a></nav>
 </div></header>
 <main class="lesson-layout"><article class="lesson-content">
-  <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 7 › Sobre as Ondas</div>
-  <h1>Sobre as Ondas</h1>
+  <div class="breadcrumb"><a href="../index.html">Curso</a> › Módulo 7 › Valsa clássica</div>
+  <h1>Valsa clássica completa — cadência harmônica</h1>
   <p class="subtitle">Módulo 7 · Valsa 3/4 · Juventino Rosas (1888) · ~25 minutos</p>
 
   <p>
@@ -19,10 +19,10 @@
 
   <h2>1. A peça completa</h2>
 
-  <figure class="score-figure">
-    <svg id="masc-so" viewBox="0 0 600 1820" class="score-svg" preserveAspectRatio="xMidYMid meet"></svg>
+  <figure class="score-figure" style="width:calc(100% + 64px); margin-left:-32px; margin-right:-32px;">
+    <svg id="masc-so" viewBox="0 0 600 1820" class="score-svg" style="max-width:none" preserveAspectRatio="xMidYMid meet"></svg>
     <figcaption>
-      <strong>Sobre as Ondas</strong> · Juventino Rosas (1888) · arr. Mascarenhas (p.24-25) · ~60 compassos. ME usa Dó M, Sol 7, Fá M, Lám, Rém, Lá 7 (cadência completa).
+      <strong>Valsa clássica completa</strong> · domínio público (1888) · arranjo didático · ~60 compassos. ME usa Dó M, Sol 7, Fá M, Lám, Rém, Lá 7 (cadência completa).
     </figcaption>
     <div class="score-play-wrap"><button id="btn-so-lento" class="score-play-btn">▶ Ouvir devagar (75 BPM)</button></div>
     <div class="score-play-wrap" style="margin-top:8px"><button id="btn-so-normal" class="score-play-btn">▶ Ouvir no andamento (110 BPM)</button></div>
@@ -45,8 +45,8 @@
   </div>
 
   <div class="lesson-nav">
-    <a href="aula-31a-baratinha-tonta.html">← Aula anterior: A Baratinha Tonta</a>
-    <a href="aula-32a-ondas-danubio.html">Próxima: Ondas do Danúbio →</a>
+    <a href="aula-31a-baratinha-tonta.html">← Aula anterior: esse estudo de padrão repetitivo</a>
+    <a href="aula-32a-ondas-danubio.html">Próxima: Valsa em tom menor →</a>
   </div>
 </article>
 <aside class="app-panel"><div class="panel-title">App Corvino</div>
@@ -57,17 +57,17 @@
 <script type="module">
   import { attachScorePlayer } from './js/score-player.js';
 
-  // ===== SOBRE AS ONDAS — Juventino Rosas / Mascarenhas p.24-25 =====
+  // ===== SOBRE AS ONDAS — Juventino Rosas (1888) =====
   // ~60 compassos em 3/4. Cadência: Dó / Sol7 / Fá / Lám / Rém / Lá7
   const compassos = [
-    // ===== p.24 Linha 1 (5 compassos) — Moderato =====
+    // ===== Linha 1 (5 compassos) — Moderato =====
     {notes:[{n:'Mi',d:1,du:3}], bass:'Dó'},                                                    // C1: E (1)
     {notes:[{n:'Ré#',d:2,du:1},{n:'Fá',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Dó'},               // C2: D#-F-G
     {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó', tieStart:true},                                    // C3: C6 mín pont (ligadura)
     {notes:[{n:'Dó6',d:3,du:1},{n:'Si',d:4,du:1},{n:'Dó6',d:3,du:1}], bass:'Dó', tieEnd:true}, // C4: C-B-C
     {notes:[{n:'Ré6',d:5,du:1},{n:'Dó6',d:1,du:1},{n:'Si',d:1,du:1}], bass:'Dó'},              // C5: D-C-B
 
-    // ===== p.24 Linha 2 (6 compassos) =====
+    // ===== Linha 2 (6 compassos) =====
     {notes:[{n:'Dó6',d:4,du:1},{n:'Mi',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Dó'},              // C6
     {notes:[{n:'Ré6',d:4,du:3}], bass:'Sol7', tieStart:true},                                   // C7: D mín pont
     {notes:[{n:'Si',d:5,du:1}], bass:'Sol7', tieEnd:true},                                       // C8: B (rest)
@@ -75,7 +75,7 @@
     {notes:[{n:'Mi',d:2,du:1},{n:'Fá',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Sol7'},              // C10: E-F-G
     {notes:[{n:'Dó6',d:4,du:3}], bass:'Sol7'},                                                   // C11: C mín pont
 
-    // ===== p.24 Linha 3 (6 compassos) =====
+    // ===== Linha 3 (6 compassos) =====
     {notes:[{n:'Si',d:3,du:1},{n:'Lá#',d:4,du:1},{n:'Si',d:1,du:1}], bass:'Sol7'},               // C12
     {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:4,du:1},{n:'Lá#',d:3,du:1}], bass:'Sol7'},              // C13
     {notes:[{n:'Si',d:4,du:1},{n:'Fá',d:1,du:1},{n:'Si',d:4,du:1}], bass:'Sol7'},                // C14
@@ -83,7 +83,7 @@
     {notes:[{n:'Mi',d:1,du:3}], bass:'Dó', tieEnd:true},                                         // C16 (rest)
     {notes:[{n:'Mi',d:4,du:3}], bass:'Dó'},                                                       // C17
 
-    // ===== p.24 Linha 4 (6 compassos) =====
+    // ===== Linha 4 (6 compassos) =====
     {notes:[{n:'Ré#',d:2,du:1},{n:'Mi',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Dó'},                // C18
     {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó', tieStart:true},                                       // C19
     {notes:[{n:'Dó6',d:3,du:1},{n:'Si',d:4,du:1},{n:'Dó6',d:5,du:1}], bass:'Dó', tieEnd:true},   // C20
@@ -91,7 +91,7 @@
     {notes:[{n:'Dó6',d:4,du:1},{n:'Mi',d:1,du:1},{n:'Lá',d:3,du:1}], bass:'Dó'},                  // C22
     {notes:[{n:'Lá',d:3,du:3}], bass:'Fá'},                                                        // C23
 
-    // ===== p.24 Linha 5 (6 compassos) =====
+    // ===== Linha 5 (6 compassos) =====
     {notes:[{n:'Lá',d:1,du:1}], bass:'Fá'},                                                        // C24 (com rest)
     {notes:[{n:'Lá',d:1,du:3}], bass:'Fá'},                                                        // C25
     {notes:[{n:'Ré6',d:2,du:1},{n:'Fá',d:3,du:1},{n:'Lá',d:5,du:1}], bass:'Fá'},                  // C26
@@ -99,7 +99,7 @@
     {notes:[{n:'Sol',d:3,du:1},{n:'Fá',d:2,du:1}], bass:'Dó', tieEnd:true},                       // C28
     {notes:[{n:'Mi',d:3,du:1},{n:'Ré',d:2,du:1},{n:'Si',d:1,du:1}], bass:'Sol7'},                 // C29
 
-    // ===== p.25 Linha 1 (6 compassos) =====
+    // ===== Linha 1 (6 compassos) =====
     {notes:[{n:'Lá',d:1,du:1},{n:'Si',d:2,du:1},{n:'Ré6',d:4,du:1}], bass:'Sol7'},                // C30
     {notes:[{n:'Dó6',d:3,du:3}], bass:'Dó', tieStart:true},                                        // C31
     {notes:[{n:'Dó6',d:3,du:1}], bass:'Dó', tieEnd:true},                                          // C32 (rest)
@@ -107,7 +107,7 @@
     {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:4,du:1},{n:'Lá',d:3,du:1}], bass:'Dó'},                  // C34
     {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó', tieStart:true},                                        // C35
 
-    // ===== p.25 Linha 2 (6 compassos) =====
+    // ===== Linha 2 (6 compassos) =====
     {notes:[{n:'Dó6',d:4,du:1},{n:'Si',d:3,du:1}], bass:'Dó', tieEnd:true},                       // C36
     {notes:[{n:'Mi',d:1,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Mi',d:1,du:0.5},{n:'Lá',d:5,du:0.5},{n:'Sol',d:4,du:0.5},{n:'Fá',d:3,du:0.5}], bass:'Dó'}, // C37
     {notes:[{n:'Si',d:1,du:3}], bass:'Sol7'},                                                       // C38
@@ -115,27 +115,27 @@
     {notes:[{n:'Dó6',d:1,du:1},{n:'Lá#',d:2,du:1},{n:'Si',d:1,du:1}], bass:'Sol7'},                // C40
     {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:4,du:1},{n:'Fá#',d:3,du:1}], bass:'Sol7'},                // C41
 
-    // ===== p.25 Linha 3 (5 compassos) =====
+    // ===== Linha 3 (5 compassos) =====
     {notes:[{n:'Lá',d:5,du:3}], bass:'Sol7', tieStart:true},                                        // C42
     {notes:[{n:'Lá',d:4,du:1},{n:'Sol',d:3,du:1},{n:'Fá',d:2,du:1}], bass:'Sol7', tieEnd:true},   // C43
     {notes:[{n:'Si',d:1,du:1},{n:'Lá#',d:2,du:1},{n:'Si',d:1,du:1}], bass:'Sol7'},                 // C44
     {notes:[{n:'Fá',d:4,du:1},{n:'Mi',d:3,du:1},{n:'Ré',d:2,du:1}], bass:'Sol7'},                  // C45
 
-    // ===== p.25 Linha 4 (5 compassos) =====
+    // ===== Linha 4 (5 compassos) =====
     {notes:[{n:'Dó6',d:1,du:3}], bass:'Dó', tieStart:true},                                         // C46
     {notes:[{n:'Dó6',d:1,du:1}], bass:'Dó', tieEnd:true},                                           // C47 (rest)
     {notes:[{n:'Mi',d:1,du:1},{n:'Ré',d:2,du:1},{n:'Mi',d:1,du:1}], bass:'Dó'},                    // C48
     {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:4,du:1}], bass:'Dó', tieStart:true},                      // C49
     {notes:[{n:'Lá',d:3,du:1},{n:'Dó6',d:4,du:1},{n:'Si',d:3,du:1},{n:'Lá',d:2,du:1}], bass:'Dó', tieEnd:true}, // C50
 
-    // ===== p.25 Linha 5 (5 compassos) =====
+    // ===== Linha 5 (5 compassos) =====
     {notes:[{n:'Mi',d:1,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Mi',d:1,du:0.5},{n:'Lá',d:5,du:0.5},{n:'Sol',d:4,du:0.5},{n:'Fá',d:3,du:0.5}], bass:'Lá7'}, // C51
     {notes:[{n:'Lá',d:1,du:3}], bass:'Lá7'},                                                          // C52
     {notes:[{n:'Lá',d:1,du:3}], bass:'Rém', tieStart:true},                                           // C53
     {notes:[{n:'Lá#',d:1,du:1},{n:'Sol#',d:2,du:1},{n:'Lá',d:1,du:1}], bass:'Rém', tieEnd:true},    // C54
     {notes:[{n:'Fá',d:5,du:1},{n:'Mi',d:4,du:1},{n:'Ré',d:3,du:1}], bass:'Rém'},                    // C55
 
-    // ===== p.25 Linha 6 (5 compassos final) =====
+    // ===== Linha 6 (5 compassos final) =====
     {notes:[{n:'Mi',d:3,du:3}], bass:'Sol7'},                                                          // C56
     {notes:[{n:'Dó6',d:2,du:3}], bass:'Dó'},                                                            // C57
     {notes:[{n:'Dó6',d:1,du:1},{n:'Si',d:2,du:1},{n:'Lá',d:3,du:1}], bass:'Dó'},                      // C58
@@ -205,13 +205,18 @@
     for (let ni = 0; ni < comp.notes.length; ni++) {
       const n = comp.notes[ni];
       const eff = n.du * scale;
-      const xPos = xStart + (cursorBeats / totalBeats) * width + (eff / totalBeats) * width / 2;
+      // Min pontuada (1 nota cobrindo o compasso inteiro) alinha no t1/fundamental.
+      // Outras notas ficam no centro da janela de duração.
+      const isWhole = comp.notes.length === 1 && eff >= totalBeats - 0.01;
+      const xPos = isWhole
+        ? xStart + (1/totalBeats) * width / 2
+        : xStart + (cursorBeats / totalBeats) * width + (eff / totalBeats) * width / 2;
       const cy = NOTE_Y[n.n] || 70;
       const letter = NOTE_LETTER[n.n] || '?';
       const noteId = `so-md-${compIdx}-${ni}`;
 
-      s += `<text x="${xPos}" y="20" font-size="9" font-style="italic" fill="#e0d8c0" text-anchor="middle">${letter}</text>`;
-      s += `<text x="${xPos}" y="32" font-size="8" font-weight="700" fill="var(--gold)" text-anchor="middle">${n.d}</text>`;
+      s += `<text x="${xPos}" y="10" font-size="9" font-style="italic" fill="#e0d8c0" text-anchor="middle">${letter}</text>`;
+      s += `<text class="finger-md" x="${xPos}" y="22" font-size="10">${n.d}</text>`;
       if (NEEDS_SHARP[n.n]) s += `<text x="${xPos-9}" y="${cy+3}" font-size="10" fill="#e0d8c0">♯</text>`;
       if (n.n === 'Dó') s += `<line x1="${xPos-7}" y1="${cy}" x2="${xPos+7}" y2="${cy}" stroke="#e0d8c0" stroke-width="1.5"/>`;
       if (n.n === 'Dó6') s += `<line x1="${xPos-7}" y1="${cy}" x2="${xPos+7}" y2="${cy}" stroke="#e0d8c0" stroke-width="1.5"/>`;
@@ -280,14 +285,19 @@
 
   // ===== ÁUDIO =====
   const SUST=0.85, STAC=0.28, MEL=0.85;
+  // Stradella row map (verificado contra app/js/midi-data.js):
+  //  Row 0 (7ª)   : col 3=Lá7=46, col 5=Sol7=44, col 7=Fá7=42
+  //  Row 1 (menor): col 3=Lám=45, col 4=Rém=38, col 5=Solm=43
+  //  Row 2 (Maior): col 3=LáM=34, col 4=RéM=27, col 5=SolM=32, col 6=DóM=25, col 7=FáM=30
+  //  Row 3 (fund) : col 3=Lá=33,  col 4=Ré=26,  col 5=Sol=31,  col 6=Dó=24,  col 7=Fá=29
   const ME_MIDIS = {
     'Dó':{fund:24,acord:25},
     'Sol':{fund:31,acord:32},
-    'Sol7':{fund:31,acord:33},
+    'Sol7':{fund:31,acord:44},
     'Fá':{fund:29,acord:30},
-    'Lám':{fund:33,acord:34},
-    'Rém':{fund:26,acord:27},
-    'Lá7':{fund:33,acord:35}
+    'Lám':{fund:33,acord:45},
+    'Rém':{fund:26,acord:38},
+    'Lá7':{fund:33,acord:46}
   };
   const MD_MIDIS = {'Dó':48,'Ré':50,'Mi':52,'Fá':53,'Sol':55,'Lá':57,'Si':59,'Dó6':60,'Ré6':62,'Mi6':64,'Ré#':51,'Fá#':54,'Lá#':58,'Sol#':56};
 

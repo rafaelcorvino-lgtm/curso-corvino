@@ -2,7 +2,7 @@
 
 Curso completo pra iniciantes de acordeon — **52 aulas em 9 módulos**, do primeiro botão à primeira valsa, baião e xote.
 
-🎓 Inspirado no método clássico de **Mário Mascarenhas**, adaptado pro **Corvino Acordeon MIDI** — primeiro acordeon MIDI fabricado no Brasil (1,6 kg, conecta no celular/computador via USB).
+🎓 Inspirado no método clássico, adaptado pro **Corvino Acordeon MIDI** — primeiro acordeon MIDI fabricado no Brasil (1,6 kg, conecta no celular/computador via USB).
 
 ## 🌐 Acesse online
 
@@ -20,12 +20,12 @@ Curso completo pra iniciantes de acordeon — **52 aulas em 9 módulos**, do pri
 - **Módulo 5:** Como o Corvino se expressa — articulação, timbre, fraseado (4 aulas)
 
 ### Parte III — Primeiras Peças (Módulos 6-7)
-- **Módulo 6:** Minhas primeiras valsas (2 aulas, peças do Mascarenhas)
+- **Módulo 6:** Minhas primeiras valsas (2 aulas, estudos didáticos)
 - **Módulo 7:** Segunda aula básica + escala, polca, marcha, xote, acordes de Fá (10 aulas)
 
 ### Parte IV — Repertório (Módulos 8-9)
 - **Módulo 8:** Clave de Fá + ritmos brasileiros (vanerão, baião, forró, arrasta-pé) (7 aulas)
-- **Módulo 9:** Repertório clássico — Sanfoninha de Ouro, Noite Feliz, Carnaval de Veneza, Olhos Negros, Asa Branca, Luar do Sertão, Mulher Rendeira (7 peças + conclusão)
+- **Módulo 9:** Repertório clássico — Marcha didática, Noite Feliz, Carnaval de Veneza, Olhos Negros, Asa Branca, Luar do Sertão, Mulher Rendeira (7 peças + conclusão)
 
 ## ✨ Recursos integrados
 
@@ -51,7 +51,7 @@ python -m http.server 8000
 ## 📜 Licença & créditos
 
 - **Curso e código:** © 2026 Rafael Salim Corvino
-- **Método base:** Mário Mascarenhas (citação acadêmica)
+- **Método:** original, baseado em práticas pedagógicas tradicionais de acordeon
 - **App Corvino embedded:** parte do projeto Corvino Acordeon MIDI
 
 🌐 [corvino.com.br](https://www.corvino.com.br/) · 📍 Botucatu-SP, Brasil
