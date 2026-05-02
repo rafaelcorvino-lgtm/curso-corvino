@@ -14,18 +14,21 @@
   <p class="subtitle">Módulo 7 · Valsa 3/4 · Juventino Rosas (1888) · ~25 minutos</p>
 
   <p>
-    Páginas 24-25 do método. Valsa famosa do compositor mexicano <strong>Juventino Rosas</strong> (1868-1894) — uma das valsas mais reconhecíveis do mundo. Indicação: <em>Moderato</em>. <strong>~60 compassos</strong>, 10 linhas no original. Explora cadência <strong>Dó M / Sol 7 / Fá M / Lám / Rém / Lá 7</strong> — quase toda a matriz Stradella central.
+    Valsa famosa do compositor mexicano <strong>Juventino Rosas</strong> (1868-1894) — uma das valsas mais reconhecíveis do mundo. Indicação: <em>Moderato</em>. <strong>~60 compassos</strong>. Explora cadência <strong>Dó M / Sol 7 / Fá M / Lám / Rém / Lá 7</strong> — quase toda a matriz Stradella central.
   </p>
 
   <h2>1. A peça completa</h2>
 
   <figure class="score-figure" style="width:calc(100% + 64px); margin-left:-32px; margin-right:-32px;">
-    <svg id="masc-so" viewBox="0 0 600 2100" class="score-svg" style="max-width:none" preserveAspectRatio="xMidYMid meet"></svg>
+    <svg id="masc-so" viewBox="0 -45 600 2145" class="score-svg" style="max-width:none" preserveAspectRatio="xMidYMid meet"></svg>
     <figcaption>
       <strong>Valsa clássica completa</strong> · domínio público (1888) · arranjo didático · ~60 compassos. ME usa Dó M, Sol 7, Fá M, Lám, Rém, Lá 7 (cadência completa).
     </figcaption>
-    <div class="score-play-wrap"><button id="btn-so-lento" class="score-play-btn">▶ Ouvir devagar (75 BPM)</button></div>
-    <div class="score-play-wrap" style="margin-top:8px"><button id="btn-so-normal" class="score-play-btn">▶ Ouvir no andamento (110 BPM)</button></div>
+    <!-- Botão "play" oculto: necessário pro score-player.js anexar a toolbar
+         (▶ + BPM + Synthesia auto-injetados). Os controles ▶ 🔁 ⏹ das frases
+         são injetados DENTRO do SVG. O painel da peça inteira é HTML abaixo. -->
+    <button id="btn-so-play" class="score-play-btn" style="display:none">play</button>
+
   </figure>
 
   <h2>2. Como aprender</h2>
@@ -295,7 +298,23 @@
     'Ré#':63,'Fá#':66,'Sol#':68,'Lá#':70,'Dó#':61,
   };
 
-  function buildPlayer(bpm, btnId) {
+  // ===== Seções pedagógicas (8 frases de 8 compassos cada) =====
+  // Pra estudar a peça por partes em vez de sempre começar do C1.
+  // Cada frase tem ▶ (play 1x) e 🔁 (loop até clicar de novo).
+  const SECOES = [
+    { label: 'Início',  start: 1,  end: 8  },
+    { label: 'Frase 2', start: 9,  end: 16 },
+    { label: 'Frase 3', start: 17, end: 24 },
+    { label: 'Frase 4', start: 25, end: 32 },
+    { label: 'Frase 5', start: 33, end: 40 },
+    { label: 'Frase 6', start: 41, end: 48 },
+    { label: 'Frase 7', start: 49, end: 56 },
+    { label: 'Final',   start: 57, end: 64 },
+  ];
+  const SECTION_BPM = 75;
+  let startCompasso = 1;
+
+  function buildAllNotes() {
     const notes = [];
     let beat = 0;
     compassos.forEach((c, i) => {
@@ -306,24 +325,209 @@
         const eff = n.du * scale;
         const midi = MD_MIDIS[n.n];
         if (midi) notes.push({midi, beats:eff, el:`#so-md-${i}-${ni}`,
-                  articulation: eff >= 2.5 ? 0.95 : MEL, startBeat: beat + cb});
+                  articulation: eff >= 2.5 ? 0.95 : MEL, startBeat: beat + cb,
+                  _compIdx: i});
         cb += eff;
       });
       const me = ME_MIDIS[c.bass];
       if (me) {
-        notes.push({midi:me.fund, beats:1, isBass:true, articulation:SUST, el:`#so-me-${i}-1`, startBeat:beat});
+        notes.push({midi:me.fund, beats:1, isBass:true, articulation:SUST, el:`#so-me-${i}-1`, startBeat:beat, _compIdx:i});
         if (!c.isFinal) {
-          notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#so-me-${i}-2`, startBeat:beat+1});
-          notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#so-me-${i}-3`, startBeat:beat+2});
+          notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#so-me-${i}-2`, startBeat:beat+1, _compIdx:i});
+          notes.push({midi:me.acord, beats:1, isBass:true, articulation:STAC, el:`#so-me-${i}-3`, startBeat:beat+2, _compIdx:i});
         }
       }
       beat += 3;
     });
-    attachScorePlayer({playBtnId:btnId, bpm, beatsPerBar:3, notes});
+    return notes;
   }
-  buildPlayer(75,  'btn-so-lento');
-  buildPlayer(110, 'btn-so-normal');
+  const ALL_NOTES = buildAllNotes();
+
+  // Notas filtradas por seção (start..end), com startBeats rebaseados a 0.
+  function buildSectionNotes(sec) {
+    const skipBeats = (sec.start - 1) * 3;
+    return ALL_NOTES
+      .filter(n => n._compIdx >= sec.start - 1 && n._compIdx <= sec.end - 1)
+      .map(n => ({ ...n, startBeat: n.startBeat - skipBeats }));
+  }
+
+  let activeLoop = null;  // { sec, timeoutId } ou null
+
+  function clearLoop() {
+    if (activeLoop) {
+      clearTimeout(activeLoop.timeoutId);
+      activeLoop = null;
+    }
+    document.querySelectorAll('.frase-loop.loop-active')
+      .forEach(b => b.classList.remove('loop-active'));
+  }
+
+  // Toca uma seção em modo Synthesia, 1x ou em loop.
+  // Cada chamada: filtra notas, reseta toolbars/buttons, re-attacha
+  // score-player (que auto-injeta Synthesia) e dispara o .synth-trigger.
+  // Synthesia tá rodando? Trigger button ganha .playing OU .count-in quando ativo
+  // (cursor.style.display falha durante count-in, antes do cursor aparecer)
+  function isSynthRunning() {
+    const btn = document.querySelector('figure.score-figure .synth-trigger');
+    return btn && (btn.classList.contains('playing') || btn.classList.contains('count-in'));
+  }
+
+  function playFraseSynth(sec, loop) {
+    // Para qualquer playback que esteja rolando antes de iniciar nova frase
+    if (isSynthRunning()) {
+      const btn0 = document.querySelector('figure.score-figure .synth-trigger');
+      btn0.click();  // toggla running → false (stop)
+    }
+    clearLoop();
+    startCompasso = sec.start;
+
+    const notes = buildSectionNotes(sec);
+
+    // Remove toolbar antiga, synth-wrap antigo e clona o btn (remove listeners)
+    document.querySelectorAll('figure.score-figure .score-toolbar').forEach(t => t.remove());
+    document.querySelectorAll('figure.score-figure .synth-play-wrap').forEach(w => w.remove());
+    ['btn-so-play','btn-so-play-syn'].forEach(id => {
+      const b = document.getElementById(id);
+      if (b) b.replaceWith(b.cloneNode(true));
+    });
+
+    // Re-attacha — score-player.js auto-injeta o Synthesia botão
+    attachScorePlayer({ playBtnId: 'btn-so-play', bpm: SECTION_BPM, beatsPerBar: 3, notes });
+
+    // Aguarda Synthesia ser injetado e dispara
+    setTimeout(() => {
+      const synthBtn = document.querySelector('figure.score-figure .synth-trigger');
+      if (synthBtn) synthBtn.click();
+    }, 200);
+
+    // Scroll pra mostrar a seção
+    const firstNote = document.querySelector(`#so-md-${sec.start - 1}-0`);
+    if (firstNote) firstNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Loop: re-dispara após (count-in + duração da seção + buffer)
+    if (loop) {
+      const compsCount = sec.end - sec.start + 1;
+      const totalBeats = compsCount * 3;
+      const beatMs = 60 / SECTION_BPM * 1000;
+      const cycleMs = (3 + totalBeats) * beatMs + 2000;  // 3 beats count-in + tocar + buffer
+      activeLoop = {
+        sec,
+        timeoutId: setTimeout(() => playFraseSynth(sec, true), cycleMs),
+      };
+      // Marca o ícone 🔁 dessa seção como ativo (peça inteira vs frase)
+      requestAnimationFrame(() => {
+        const sel = sec === PECA_INTEIRA
+          ? '.frase-loop[data-whole="1"]'
+          : `.frase-loop[data-start="${sec.start}"]:not([data-whole])`;
+        const loopIcon = document.querySelector(sel);
+        if (loopIcon) loopIcon.classList.add('loop-active');
+      });
+    }
+  }
+
+  // Seção especial: peça inteira (renderizada no topo da partitura)
+  const PECA_INTEIRA = { label: 'Peça inteira', start: 1, end: 64 };
+
+  // ===== Injeta ▶ 🔁 ⏹ DENTRO do SVG: 1 painel no topo + 8 nas frases =====
+  function injectFraseControls() {
+    const svg = document.getElementById('masc-so');
+    if (!svg) return;
+
+    // PAINEL DA PEÇA INTEIRA — espaço criado no viewBox (-45..0 acima do stave 0)
+    const top = document.createElementNS('http://www.w3.org/2000/svg','g');
+    top.setAttribute('transform', 'translate(165, -38)');
+    top.innerHTML = `
+      <rect x="0" y="0" width="270" height="32" rx="6" fill="#1a1618" stroke="var(--gold)" stroke-width="1"/>
+      <text x="14" y="20" font-size="13" font-weight="700" fill="var(--gold-light)">🎼 Peça inteira:</text>
+      <text class="frase-play" data-whole="1" x="155" y="22" font-size="18" cursor="pointer" fill="var(--gold)" style="user-select:none">▶</text>
+      <text class="frase-loop" data-whole="1" x="195" y="22" font-size="18" cursor="pointer" fill="var(--gold)" style="user-select:none">🔁</text>
+      <text class="frase-stop" data-whole="1" x="235" y="22" font-size="18" cursor="pointer" fill="var(--gold)" style="user-select:none">⏹</text>
+      <title>Tocar a peça inteira (64 compassos)</title>
+    `;
+    svg.appendChild(top);
+
+    // PAINÉIS POR FRASE (8 painéis, um em cada início de frase)
+    SECOES.forEach((sec) => {
+      const firstNote = svg.querySelector(`#so-md-${sec.start - 1}-0`);
+      if (!firstNote) return;
+      const cx = parseFloat(firstNote.getAttribute('cx'));
+      // Acha o stave (g[transform]) pai pra pegar o offset y
+      let stave = firstNote.parentElement;
+      while (stave && stave.tagName.toLowerCase() !== 'g') stave = stave.parentElement;
+      while (stave && !stave.getAttribute('transform')) stave = stave.parentElement;
+      const tm = stave?.getAttribute('transform')?.match(/translate\([^,]+,\s*(-?[\d.]+)/);
+      const sy = tm ? parseFloat(tm[1]) : 0;
+
+      // Posição: acima da pauta MD. Painel com 3 ícones [▶ 🔁 ⏹] espaçados.
+      const ctrl = document.createElementNS('http://www.w3.org/2000/svg','g');
+      ctrl.setAttribute('transform', `translate(${cx - 28}, ${sy - 2})`);
+      ctrl.innerHTML = `
+        <rect x="-2" y="-12" width="62" height="14" rx="3" fill="#1a1618" fill-opacity="0.75" stroke="var(--gold)" stroke-width="0.5"/>
+        <text class="frase-play" data-start="${sec.start}" x="6"  y="-2" font-size="11" cursor="pointer" fill="var(--gold)" style="user-select:none">▶</text>
+        <text class="frase-loop" data-start="${sec.start}" x="24" y="-2" font-size="11" cursor="pointer" fill="var(--gold)" style="user-select:none">🔁</text>
+        <text class="frase-stop" data-start="${sec.start}" x="44" y="-2" font-size="11" cursor="pointer" fill="var(--gold)" style="user-select:none">⏹</text>
+        <title>${sec.label}: ▶ tocar 1x · 🔁 repetir · ⏹ parar</title>
+      `;
+      svg.appendChild(ctrl);
+    });
+
+    // Click handlers — `data-whole="1"` = peça inteira; senão pega frase pelo `data-start`
+    function getSec(el) {
+      if (el.dataset.whole === '1') return PECA_INTEIRA;
+      return SECOES.find(s => s.start === parseInt(el.dataset.start));
+    }
+    svg.querySelectorAll('.frase-play').forEach(el => {
+      el.addEventListener('click', () => {
+        const sec = getSec(el);
+        if (sec) playFraseSynth(sec, false);
+      });
+    });
+    svg.querySelectorAll('.frase-loop').forEach(el => {
+      el.addEventListener('click', () => {
+        const sec = getSec(el);
+        if (!sec) return;
+        if (activeLoop && activeLoop.sec === sec) stopAll();
+        else playFraseSynth(sec, true);
+      });
+    });
+    svg.querySelectorAll('.frase-stop').forEach(el => {
+      el.addEventListener('click', () => stopAll());
+    });
+  }
+
+  // Para qualquer playback ativo: cancela loop + clica synth-trigger se rodando
+  function stopAll() {
+    clearLoop();
+    if (isSynthRunning()) {
+      const btn = document.querySelector('figure.score-figure .synth-trigger');
+      btn.click();
+    }
+  }
+
+  // Anexa player inicial (peça inteira) — pro Synthesia/toolbar existir antes
+  // do primeiro click em frase. Depois injeta os controles ▶ 🔁 nas frases.
+  attachScorePlayer({ playBtnId: 'btn-so-play', bpm: SECTION_BPM, beatsPerBar: 3,
+    notes: ALL_NOTES.map(n => ({ ...n })) });
+  injectFraseControls();
 </script>
+<style>
+  /* Controles ▶ 🔁 ⏹ das frases (SVG <text>) */
+  .frase-play, .frase-loop, .frase-stop {
+    transition: fill 0.15s;
+  }
+  .frase-play:hover, .frase-loop:hover, .frase-stop:hover {
+    fill: var(--gold-light) !important;
+  }
+  .frase-loop.loop-active {
+    fill: #d94a4a !important;
+    animation: frase-loop-pulse 1s ease-in-out infinite;
+  }
+  @keyframes frase-loop-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.5; }
+  }
+
+</style>
 <script src="js/debug-report.js"></script>
   <script src="js/accessibility.js"></script>
 </body></html>
