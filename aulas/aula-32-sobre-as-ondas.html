@@ -20,7 +20,7 @@
   <h2>1. A peça completa</h2>
 
   <figure class="score-figure" style="width:calc(100% + 64px); margin-left:-32px; margin-right:-32px;">
-    <svg id="masc-so" viewBox="0 0 600 1820" class="score-svg" style="max-width:none" preserveAspectRatio="xMidYMid meet"></svg>
+    <svg id="masc-so" viewBox="0 0 600 2100" class="score-svg" style="max-width:none" preserveAspectRatio="xMidYMid meet"></svg>
     <figcaption>
       <strong>Valsa clássica completa</strong> · domínio público (1888) · arranjo didático · ~60 compassos. ME usa Dó M, Sol 7, Fá M, Lám, Rém, Lá 7 (cadência completa).
     </figcaption>
@@ -59,99 +59,88 @@
 
   // ===== SOBRE AS ONDAS — Juventino Rosas (1888) =====
   // ~60 compassos em 3/4. Cadência: Dó / Sol7 / Fá / Lám / Rém / Lá7
+  // Compassos extraídos do MusicXML original (Audiveris OMR de superpartituras.com.br).
+  // 64 compassos. Notas e durações fiéis ao PDF; bass chord (Sol7/Lám/Lá7/etc) é heurística
+  // do contexto harmônico — pode precisar tweak fino ouvindo.
   const compassos = [
-    // ===== Linha 1 (5 compassos) — Moderato =====
-    {notes:[{n:'Mi',d:1,du:3}], bass:'Dó'},                                                    // C1: E (1)
-    {notes:[{n:'Ré#',d:2,du:1},{n:'Fá',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Dó'},               // C2: D#-F-G
-    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó', tieStart:true},                                    // C3: C6 mín pont (ligadura)
-    {notes:[{n:'Dó6',d:3,du:1},{n:'Si',d:4,du:1},{n:'Dó6',d:3,du:1}], bass:'Dó', tieEnd:true}, // C4: C-B-C
-    {notes:[{n:'Ré6',d:5,du:1},{n:'Dó6',d:1,du:1},{n:'Si',d:1,du:1}], bass:'Dó'},              // C5: D-C-B
-
-    // ===== Linha 2 (6 compassos) =====
-    {notes:[{n:'Dó6',d:4,du:1},{n:'Mi',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Dó'},              // C6
-    {notes:[{n:'Ré6',d:4,du:3}], bass:'Sol7', tieStart:true},                                   // C7: D mín pont
-    {notes:[{n:'Si',d:5,du:1}], bass:'Sol7', tieEnd:true},                                       // C8: B (rest)
-    {notes:[{n:'Fá',d:1,du:3}], bass:'Sol7'},                                                    // C9: F mín pont
-    {notes:[{n:'Mi',d:2,du:1},{n:'Fá',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Sol7'},              // C10: E-F-G
-    {notes:[{n:'Dó6',d:4,du:3}], bass:'Sol7'},                                                   // C11: C mín pont
-
-    // ===== Linha 3 (6 compassos) =====
-    {notes:[{n:'Si',d:3,du:1},{n:'Lá#',d:4,du:1},{n:'Si',d:1,du:1}], bass:'Sol7'},               // C12
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:4,du:1},{n:'Lá#',d:3,du:1}], bass:'Sol7'},              // C13
-    {notes:[{n:'Si',d:4,du:1},{n:'Fá',d:1,du:1},{n:'Si',d:4,du:1}], bass:'Sol7'},                // C14
-    {notes:[{n:'Mi',d:1,du:3}], bass:'Dó', tieStart:true},                                       // C15
-    {notes:[{n:'Mi',d:1,du:3}], bass:'Dó', tieEnd:true},                                         // C16 (rest)
-    {notes:[{n:'Mi',d:4,du:3}], bass:'Dó'},                                                       // C17
-
-    // ===== Linha 4 (6 compassos) =====
-    {notes:[{n:'Ré#',d:2,du:1},{n:'Mi',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Dó'},                // C18
-    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó', tieStart:true},                                       // C19
-    {notes:[{n:'Dó6',d:3,du:1},{n:'Si',d:4,du:1},{n:'Dó6',d:5,du:1}], bass:'Dó', tieEnd:true},   // C20
-    {notes:[{n:'Ré6',d:4,du:1},{n:'Dó6',d:1,du:1},{n:'Si',d:3,du:1}], bass:'Dó'},                // C21
-    {notes:[{n:'Dó6',d:4,du:1},{n:'Mi',d:1,du:1},{n:'Lá',d:3,du:1}], bass:'Dó'},                  // C22
-    {notes:[{n:'Lá',d:3,du:3}], bass:'Fá'},                                                        // C23
-
-    // ===== Linha 5 (6 compassos) =====
-    {notes:[{n:'Lá',d:1,du:1}], bass:'Fá'},                                                        // C24 (com rest)
-    {notes:[{n:'Lá',d:1,du:3}], bass:'Fá'},                                                        // C25
-    {notes:[{n:'Ré6',d:2,du:1},{n:'Fá',d:3,du:1},{n:'Lá',d:5,du:1}], bass:'Fá'},                  // C26
-    {notes:[{n:'Sol',d:4,du:3}], bass:'Dó', tieStart:true},                                        // C27
-    {notes:[{n:'Sol',d:3,du:1},{n:'Fá',d:2,du:1}], bass:'Dó', tieEnd:true},                       // C28
-    {notes:[{n:'Mi',d:3,du:1},{n:'Ré',d:2,du:1},{n:'Si',d:1,du:1}], bass:'Sol7'},                 // C29
-
-    // ===== Linha 1 (6 compassos) =====
-    {notes:[{n:'Lá',d:1,du:1},{n:'Si',d:2,du:1},{n:'Ré6',d:4,du:1}], bass:'Sol7'},                // C30
-    {notes:[{n:'Dó6',d:3,du:3}], bass:'Dó', tieStart:true},                                        // C31
-    {notes:[{n:'Dó6',d:3,du:1}], bass:'Dó', tieEnd:true},                                          // C32 (rest)
-    {notes:[{n:'Mi',d:1,du:1},{n:'Ré',d:2,du:1},{n:'Mi',d:1,du:1}], bass:'Dó'},                   // C33
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:4,du:1},{n:'Lá',d:3,du:1}], bass:'Dó'},                  // C34
-    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó', tieStart:true},                                        // C35
-
-    // ===== Linha 2 (6 compassos) =====
-    {notes:[{n:'Dó6',d:4,du:1},{n:'Si',d:3,du:1}], bass:'Dó', tieEnd:true},                       // C36
-    {notes:[{n:'Mi',d:1,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Mi',d:1,du:0.5},{n:'Lá',d:5,du:0.5},{n:'Sol',d:4,du:0.5},{n:'Fá',d:3,du:0.5}], bass:'Dó'}, // C37
-    {notes:[{n:'Si',d:1,du:3}], bass:'Sol7'},                                                       // C38
-    {notes:[{n:'Si',d:1,du:1}], bass:'Sol7'},                                                       // C39 (rest)
-    {notes:[{n:'Dó6',d:1,du:1},{n:'Lá#',d:2,du:1},{n:'Si',d:1,du:1}], bass:'Sol7'},                // C40
-    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:4,du:1},{n:'Fá#',d:3,du:1}], bass:'Sol7'},                // C41
-
-    // ===== Linha 3 (5 compassos) =====
-    {notes:[{n:'Lá',d:5,du:3}], bass:'Sol7', tieStart:true},                                        // C42
-    {notes:[{n:'Lá',d:4,du:1},{n:'Sol',d:3,du:1},{n:'Fá',d:2,du:1}], bass:'Sol7', tieEnd:true},   // C43
-    {notes:[{n:'Si',d:1,du:1},{n:'Lá#',d:2,du:1},{n:'Si',d:1,du:1}], bass:'Sol7'},                 // C44
-    {notes:[{n:'Fá',d:4,du:1},{n:'Mi',d:3,du:1},{n:'Ré',d:2,du:1}], bass:'Sol7'},                  // C45
-
-    // ===== Linha 4 (5 compassos) =====
-    {notes:[{n:'Dó6',d:1,du:3}], bass:'Dó', tieStart:true},                                         // C46
-    {notes:[{n:'Dó6',d:1,du:1}], bass:'Dó', tieEnd:true},                                           // C47 (rest)
-    {notes:[{n:'Mi',d:1,du:1},{n:'Ré',d:2,du:1},{n:'Mi',d:1,du:1}], bass:'Dó'},                    // C48
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:4,du:1}], bass:'Dó', tieStart:true},                      // C49
-    {notes:[{n:'Lá',d:3,du:1},{n:'Dó6',d:4,du:1},{n:'Si',d:3,du:1},{n:'Lá',d:2,du:1}], bass:'Dó', tieEnd:true}, // C50
-
-    // ===== Linha 5 (5 compassos) =====
-    {notes:[{n:'Mi',d:1,du:0.5},{n:'Ré',d:2,du:0.5},{n:'Mi',d:1,du:0.5},{n:'Lá',d:5,du:0.5},{n:'Sol',d:4,du:0.5},{n:'Fá',d:3,du:0.5}], bass:'Lá7'}, // C51
-    {notes:[{n:'Lá',d:1,du:3}], bass:'Lá7'},                                                          // C52
-    {notes:[{n:'Lá',d:1,du:3}], bass:'Rém', tieStart:true},                                           // C53
-    {notes:[{n:'Lá#',d:1,du:1},{n:'Sol#',d:2,du:1},{n:'Lá',d:1,du:1}], bass:'Rém', tieEnd:true},    // C54
-    {notes:[{n:'Fá',d:5,du:1},{n:'Mi',d:4,du:1},{n:'Ré',d:3,du:1}], bass:'Rém'},                    // C55
-
-    // ===== Linha 6 (5 compassos final) =====
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Sol7'},                                                          // C56
-    {notes:[{n:'Dó6',d:2,du:3}], bass:'Dó'},                                                            // C57
-    {notes:[{n:'Dó6',d:1,du:1},{n:'Si',d:2,du:1},{n:'Lá',d:3,du:1}], bass:'Dó'},                      // C58
-    {notes:[{n:'Si',d:2,du:1},{n:'Ré6',d:4,du:1},{n:'Mi',d:5,du:1}], bass:'Sol7'},                    // C59
-    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:4,du:1}], bass:'Dó'},                                         // C60
-    {notes:[{n:'Dó6',d:1,du:3}], bass:'Dó', isFinal:true}                                              // C61 final
+    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},  // C1
+    {notes:[{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1}], bass:'Dó'},  // C2
+    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C3
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Dó6',d:5,du:1}], bass:'Dó'},  // C4
+    {notes:[{n:'Ré6',d:4,du:1},{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1}], bass:'Dó'},  // C5
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1}], bass:'Dó'},  // C6
+    {notes:[{n:'Si',d:5,du:2}], bass:'Sol7', tieStart:true},  // C7
+    {notes:[{n:'Si',d:5,du:2}], bass:'Sol7', tieEnd:true},  // C8
+    {notes:[{n:'Fá',d:4,du:3}], bass:'Sol7'},  // C9
+    {notes:[{n:'Mi',d:3,du:1},{n:'Fá',d:4,du:1},{n:'Sol',d:5,du:1}], bass:'Sol7'},  // C10
+    {notes:[{n:'Si',d:5,du:3}], bass:'Sol7', tieStart:true},  // C11
+    {notes:[{n:'Si',d:5,du:1},{n:'Lá#',d:4,du:1},{n:'Si',d:5,du:1}], bass:'Sol7', tieEnd:true},  // C12
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Lá#',d:4,du:1}], bass:'Sol7'},  // C13
+    {notes:[{n:'Si',d:5,du:1},{n:'Fá',d:4,du:1},{n:'Si',d:5,du:1}], bass:'Sol7'},  // C14
+    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó', tieStart:true},  // C15
+    {notes:[{n:'Mi',d:3,du:1}], bass:'Dó', tieEnd:true},  // C16
+    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},  // C17
+    {notes:[{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1}], bass:'Dó'},  // C18
+    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C19
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Dó6',d:5,du:1}], bass:'Dó'},  // C20
+    {notes:[{n:'Ré6',d:4,du:1},{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1}], bass:'Dó'},  // C21
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Mi',d:3,du:1},{n:'Lá',d:5,du:1}], bass:'Dó'},  // C22
+    {notes:[{n:'Lá',d:5,du:3}], bass:'Fá'},  // C23
+    {notes:[{n:'Lá',d:5,du:1}], bass:'Fá'},  // C24
+    {notes:[{n:'Lá',d:5,du:3}], bass:'Fá'},  // C25
+    {notes:[{n:'Ré6',d:4,du:1},{n:'Fá6',d:3,du:1},{n:'Lá6',d:3,du:1}], bass:'Fá'},  // C26
+    {notes:[{n:'Sol6',d:3,du:3}], bass:'Dó', tieStart:true},  // C27
+    {notes:[{n:'Sol6',d:3,du:1},{n:'Fá6',d:3,du:1},{n:'Mi6',d:5,du:1}], bass:'Dó', tieEnd:true},  // C28
+    {notes:[{n:'Ré6',d:4,du:1},{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1}], bass:'Sol7'},  // C29
+    {notes:[{n:'Lá',d:5,du:1},{n:'Si',d:5,du:1},{n:'Ré6',d:4,du:1}], bass:'Sol7'},  // C30
+    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C31
+    {notes:[{n:'Dó6',d:5,du:1}], bass:'Dó'},  // C32
+    {notes:[{n:'Mi',d:3,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},  // C33
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1.5},{n:'Lá',d:5,du:0.5}], bass:'Dó'},  // C34
+    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C35
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Lá',d:5,du:1}], bass:'Dó'},  // C36
+    {notes:[{n:'Mi',d:3,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},  // C37
+    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:5,du:1.5},{n:'Fá',d:4,du:0.5}], bass:'Dó'},  // C38
+    {notes:[{n:'Si',d:5,du:3}], bass:'Sol7', tieStart:true},  // C39
+    {notes:[{n:'Si',d:5,du:1}], bass:'Sol7', tieEnd:true},  // C40
+    {notes:[{n:'Si',d:5,du:1},{n:'Lá#',d:4,du:1},{n:'Si',d:5,du:1}], bass:'Sol7'},  // C41
+    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:5,du:1.5},{n:'Fá#',d:4,du:0.5}], bass:'Sol7'},  // C42
+    {notes:[{n:'Lá',d:5,du:3}], bass:'Sol7'},  // C43
+    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:5,du:1},{n:'Fá',d:4,du:1}], bass:'Sol7'},  // C44
+    {notes:[{n:'Si',d:5,du:1},{n:'Lá#',d:4,du:1},{n:'Si',d:5,du:1}], bass:'Sol7'},  // C45
+    {notes:[{n:'Fá',d:4,du:1},{n:'Mi',d:3,du:1},{n:'Ré',d:2,du:1}], bass:'Sol7'},  // C46
+    {notes:[{n:'Dó',d:1,du:3}], bass:'Dó', tieStart:true},  // C47
+    {notes:[{n:'Dó',d:1,du:1}], bass:'Dó', tieEnd:true},  // C48
+    {notes:[{n:'Mi',d:3,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},  // C49
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1.5},{n:'Lá',d:5,du:0.5}], bass:'Dó'},  // C50
+    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C51
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Lá',d:5,du:1}], bass:'Dó'},  // C52
+    {notes:[{n:'Mi',d:3,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},  // C53
+    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:5,du:1.5},{n:'Fá',d:4,du:0.5}], bass:'Lá7'},  // C54
+    {notes:[{n:'Lá',d:5,du:3}], bass:'Rém', tieStart:true},  // C55
+    {notes:[{n:'Lá',d:5,du:1}], bass:'Rém', tieEnd:true},  // C56
+    {notes:[{n:'Lá',d:5,du:1},{n:'Sol#',d:5,du:1},{n:'Lá',d:5,du:1}], bass:'Rém'},  // C57
+    {notes:[{n:'Fá6',d:3,du:1},{n:'Mi6',d:5,du:1},{n:'Ré6',d:4,du:1}], bass:'Sol7'},  // C58
+    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C59
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Lá#',d:4,du:1}], bass:'Dó'},  // C60
+    {notes:[{n:'Si',d:5,du:1},{n:'Ré6',d:4,du:1},{n:'Fá6',d:3,du:1}], bass:'Sol7'},  // C61
+    {notes:[{n:'Lá6',d:3,du:2},{n:'Sol6',d:3,du:1}], bass:'Sol7'},  // C62
+    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C63
+    {notes:[{n:'Dó6',d:5,du:1}], bass:'Dó', isFinal:true},  // C64
   ];
 
   // ===== RENDERIZAÇÃO =====
-  const NOTE_LETTER = {'Dó':'C','Ré':'D','Mi':'E','Fá':'F','Sol':'G','Lá':'A','Si':'B','Dó6':'C','Ré6':'D','Mi6':'E','Ré#':'D♯','Fá#':'F♯','Lá#':'A♯','Sol#':'G♯'};
-  const NOTE_Y = {'Dó':80,'Ré':75,'Mi':70,'Fá':65,'Sol':60,'Lá':55,'Si':50,'Dó6':45,'Ré6':40,'Mi6':35,'Ré#':75,'Fá#':65,'Lá#':55,'Sol#':60};
-  const NEEDS_SHARP = {'Ré#':true,'Fá#':true,'Lá#':true,'Sol#':true};
+  const NOTE_LETTER = {'Dó':'C','Ré':'D','Mi':'E','Fá':'F','Sol':'G','Lá':'A','Si':'B',
+                       'Dó6':'C','Ré6':'D','Mi6':'E','Fá6':'F','Sol6':'G','Lá6':'A',
+                       'Ré#':'D♯','Fá#':'F♯','Lá#':'A♯','Sol#':'G♯','Dó#':'C♯'};
+  const NOTE_Y = {'Dó':80,'Ré':75,'Mi':70,'Fá':65,'Sol':60,'Lá':55,'Si':50,
+                  'Dó6':45,'Ré6':40,'Mi6':35,'Fá6':30,'Sol6':25,'Lá6':20,
+                  'Ré#':75,'Fá#':65,'Lá#':55,'Sol#':60,'Dó#':80};
+  const NEEDS_SHARP = {'Ré#':true,'Fá#':true,'Lá#':true,'Sol#':true,'Dó#':true};
   const STAVE_HEIGHT = 175;
 
-  // 11 staves
-  const layout = [5,6,6,6,6,6,6,5,5,5,5];
+  // 12 staves: 64 compassos = 4+5+5+6+6+6+6+5+6+6+5+4 (média ~5.3 por linha)
+  const layout = [4,5,5,6,6,6,6,5,6,6,5,4];
   let cursor = 0;
   const STAVES = [];
   layout.forEach((n, li) => {
@@ -299,7 +288,12 @@
     'Rém':{fund:26,acord:38},
     'Lá7':{fund:33,acord:46}
   };
-  const MD_MIDIS = {'Dó':48,'Ré':50,'Mi':52,'Fá':53,'Sol':55,'Lá':57,'Si':59,'Dó6':60,'Ré6':62,'Mi6':64,'Ré#':51,'Fá#':54,'Lá#':58,'Sol#':56};
+  // MD MIDIs — convenção padrão Dó central = MIDI 60 (era 48 antes, oitava abaixo).
+  const MD_MIDIS = {
+    'Dó':60,'Ré':62,'Mi':64,'Fá':65,'Sol':67,'Lá':69,'Si':71,
+    'Dó6':72,'Ré6':74,'Mi6':76,'Fá6':77,'Sol6':79,'Lá6':81,
+    'Ré#':63,'Fá#':66,'Sol#':68,'Lá#':70,'Dó#':61,
+  };
 
   function buildPlayer(bpm, btnId) {
     const notes = [];
