@@ -375,6 +375,17 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
   const mdNotes = allNotes.filter(n => !n.isBass && n._domEl);
   const meNotes = allNotes.filter(n => n.isBass);
 
+  // STAVE_END_X = X final pro cursor varrer (após última nota / mudança de stave).
+  // Lê do viewBox do SVG da figure pra suportar partituras de larguras
+  // diferentes (560, 700, 580 etc). Sem isso o cursor ficava na X errada
+  // pra partituras estendidas (ex: aula-21 ex2 com viewBox 700).
+  let STAVE_END_X = 560;
+  if (figure) {
+    const svg = figure.querySelector('svg.score-svg');
+    const vb = svg?.getAttribute('viewBox')?.split(/\s+/).map(Number);
+    if (vb && vb.length === 4 && vb[2] > 0) STAVE_END_X = vb[2] - 4;
+  }
+
   if (mdNotes.length === 0) {
     console.warn('[synthesia] nenhuma nota MD compatível');
     return;
@@ -758,13 +769,12 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       return { x: p.x - offsetX, y: p.y };
     }
     if (!next) {
-      // Última nota: varre da posição da nota até o fim da pauta (x=560)
-      // ao longo da duração da nota (mín pontuada de 3 tempos varre 3s).
-      // Sem isso o cursor ficava parado em cima da última nota.
+      // Última nota: varre da posição da nota até o fim da pauta
+      // (STAVE_END_X = derivado do viewBox da partitura) ao longo da
+      // duração da nota. Sem isso o cursor ficava parado em cima da última.
       const elapsedInNote = elapsedBeats - prev.startBeat;
       const noteDur = prev.beats || 1;
       const t = Math.min(1, Math.max(0, elapsedInNote / noteDur));
-      const STAVE_END_X = 560;
       return {
         x: prev._pos.x + (STAVE_END_X - prev._pos.x) * t,
         y: prev._pos.y,
@@ -788,7 +798,6 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     // tick (quando prev vira next no outer loop).
     // Antes usava `* 2` em t<0.5/t>=0.5 — dobrava a velocidade
     // durante a transição (Rafael notou: "ela acelera").
-    const STAVE_END_X = 565;
     return {
       x: prevPos.x + (STAVE_END_X - prevPos.x) * t,
       y: prevPos.y,

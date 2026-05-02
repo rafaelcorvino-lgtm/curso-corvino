@@ -62,7 +62,7 @@
 
       <h2>2. Exercício 1 — escala lenta, subir e descer</h2>
       <p>
-        Repete a escala Dó-Ré-Mi-Fá-Sol-Fá-Mi-Ré-Dó (igual à aula 1),
+        Repete a melodia Dó-Ré-Mi-Fá-Sol-Fá-Mi-Ré-Dó (igual à aula 1),
         agora com metrônomo a <strong>60 BPM</strong>. Cada nota dura
         um tempo. Sem pressa. Foco: <strong>o dedo certo desce no
         tempo certo</strong>.
@@ -148,11 +148,11 @@
         </div>
       </figure>
 
-      <h2>4. Exercício 3 — mistura de semínimas e mínima</h2>
+      <h2>4. Exercício 3 — valsa em 3/4 (semínimas + mínima pontuada)</h2>
       <p>
-        Agora com variação de ritmo — 3 semínimas (dedos 1-2-3) seguidas
-        de uma mínima (dedo 5, sustentando 2 tempos). É o tipo de frase
-        que aparece em valsas. Compasso 4/4:
+        Padrão típico de valsa: um compasso com 3 semínimas
+        (dedos 1-2-3) e o próximo com uma mínima pontuada (dedo 5,
+        sustentando 3 tempos). Compasso <strong>3/4</strong>:
       </p>
 
       <figure class="score-figure">
@@ -166,15 +166,20 @@
           </g>
           <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
           <g font-family="serif" font-weight="700" text-anchor="middle" fill="#e0d8c0">
-            <text x="85" y="75" font-size="22">4</text>
+            <text x="85" y="75" font-size="22">3</text>
             <text x="85" y="102" font-size="22">4</text>
           </g>
           <g stroke="#e0d8c0" stroke-width="1.5">
+            <line x1="215" y1="50" x2="215" y2="110"/>
             <line x1="290" y1="50" x2="290" y2="110"/>
+            <line x1="425" y1="50" x2="425" y2="110"/>
             <line x1="538" y1="50" x2="538" y2="110" stroke-width="3"/>
           </g>
 
-          <!-- Compasso 1: Dó Ré Mi (semínimas) + Sol (mínima, 2 tempos) -->
+          <!-- C1 (Dó-Ré-Mi 3 sem) | C2 (Sol mín pont) | C3 (Sol-Fá-Mi 3 sem) | C4 (Dó mín pont) -->
+          <!-- Compasso 1: Dó Ré Mi (3 semínimas) -->
+          <!-- comentário antigo: era Sol mínima 2 tempos, agora Sol mín pontuada 3 tempos -->
+          <!-- (idem Dó final no compasso 4) -->
           <line x1="115" y1="125" x2="135" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
           <ellipse id="a18-e3-1" cx="125" cy="125" rx="9" ry="6" fill="var(--gold)"/>
             <text class="finger-md" x="125" y="42">1</text>
@@ -188,8 +193,9 @@
             <text class="finger-md" x="195" y="42">3</text>
           <line x1="202" y1="110" x2="202" y2="73" stroke="var(--gold)" stroke-width="2"/>
 
-          <!-- Sol mínima (2 tempos) -->
+          <!-- Sol mín pontuada (3 tempos = 1 compasso 3/4) -->
           <ellipse id="a18-e3-4" cx="240" cy="95" rx="10" ry="6" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+          <circle cx="256" cy="92" r="2.5" fill="var(--gold)"/>
             <text class="finger-md" x="240" y="42">5</text>
           <line x1="250" y1="95" x2="250" y2="58" stroke="var(--gold)" stroke-width="2"/>
 
@@ -206,15 +212,18 @@
             <text class="finger-md" x="400" y="42">3</text>
           <line x1="407" y1="110" x2="407" y2="73" stroke="var(--gold)" stroke-width="2"/>
 
-          <!-- Dó mínima (linha supl) -->
-          <line x1="435" y1="125" x2="465" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+          <!-- Dó mín pontuada (linha supl) -->
+          <line x1="435" y1="125" x2="475" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
           <ellipse id="a18-e3-8" cx="450" cy="125" rx="10" ry="6" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+          <circle cx="466" cy="122" r="2.5" fill="var(--gold)"/>
             <text class="finger-md" x="450" y="42">1</text>
           <line x1="460" y1="125" x2="460" y2="88" stroke="var(--gold)" stroke-width="2"/>
         </svg>
         <figcaption>
-          Exercício 3: Dó-Ré-Mi-Sol̄ / Sol-Fá-Mi-Dō̄ (3 semínimas + mínima
-          por compasso). Dedilhado <strong>1-2-3-5 / 5-4-3-1</strong>.
+          Exercício 3 — valsa em 3/4: Dó-Ré-Mi (semínimas) |
+          Sol (mínima pontuada) | Sol-Fá-Mi (semínimas) |
+          Dó (mínima pontuada). Dedilhado
+          <strong>1-2-3 / 5 / 5-4-3 / 1</strong>.
         </figcaption>
         <div class="score-play-wrap">
           <button id="btn-a18-e3" class="score-play-btn">▶ Ouvir (80 BPM)</button>
@@ -299,20 +308,20 @@
       ],
     });
 
-    // Exercício 3 — 3 semínimas + mínima, 2 compassos 4/4
+    // Exercício 3 — valsa em 3/4: 4 compassos (3 sem | 1 mín pont | 3 sem | 1 mín pont)
     attachScorePlayer({
       playBtnId: 'btn-a18-e3',
       bpm: 80,
-      beatsPerBar: 4,
+      beatsPerBar: 3,
       notes: [
         { midi: 48, beats: 1, el: '#a18-e3-1', articulation: MEL },
         { midi: 50, beats: 1, el: '#a18-e3-2', articulation: MEL },
         { midi: 52, beats: 1, el: '#a18-e3-3', articulation: MEL },
-        { midi: 55, beats: 2, el: '#a18-e3-4', articulation: 0.92 },
+        { midi: 55, beats: 3, el: '#a18-e3-4', articulation: 0.92 },
         { midi: 55, beats: 1, el: '#a18-e3-5', articulation: MEL },
         { midi: 53, beats: 1, el: '#a18-e3-6', articulation: MEL },
         { midi: 52, beats: 1, el: '#a18-e3-7', articulation: MEL },
-        { midi: 48, beats: 2, el: '#a18-e3-8', articulation: 0.95 },
+        { midi: 48, beats: 3, el: '#a18-e3-8', articulation: 0.95 },
       ],
     });
   </script>
