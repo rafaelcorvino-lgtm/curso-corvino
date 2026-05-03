@@ -29,6 +29,16 @@
          são injetados DENTRO do SVG. O painel da peça inteira é HTML abaixo. -->
     <button id="btn-so-play" class="score-play-btn" style="display:none">play</button>
 
+    <!-- Editor de dedilhado (uso interno do Rafael) — escondido por padrão.
+         Pra editar localmente, abra com `?edit=1` na URL. -->
+    <div id="finger-editor" style="display:none; margin:14px 0; padding:12px 14px; background:rgba(60,52,55,0.4); border-radius:8px; border:1px solid #3a3537">
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+        <button id="toggle-edit-fingers" type="button" style="padding:6px 14px; background:#2a2426; color:var(--gold); border:1px solid var(--gold); border-radius:6px; cursor:pointer; font-weight:700">✏️ Editar dedilhado</button>
+        <button id="copy-fingers" type="button" style="padding:6px 14px; background:#2a2426; color:var(--gold-light); border:1px solid #4a3f3f; border-radius:6px; cursor:pointer; display:none">📋 Copiar JS atualizado</button>
+        <span id="finger-edit-hint" style="color:var(--fg-dim); font-size:0.85rem; display:none">Clique num número de dedilhado pra trocar (1-5)</span>
+      </div>
+      <textarea id="finger-export" readonly style="display:none; width:100%; box-sizing:border-box; height:240px; margin-top:10px; padding:10px; background:#1a1618; color:#e0d8c0; border:1px solid #4a3f3f; border-radius:6px; font-family:monospace; font-size:11px; line-height:1.4"></textarea>
+    </div>
   </figure>
 
   <h2>2. Como aprender</h2>
@@ -62,80 +72,80 @@
 
   // ===== SOBRE AS ONDAS — Juventino Rosas (1888) =====
   // ~60 compassos em 3/4. Cadência: Dó / Sol7 / Fá / Lám / Rém / Lá7
-  // Compassos extraídos do MusicXML original (Audiveris OMR de superpartituras.com.br).
-  // 64 compassos. Notas e durações fiéis ao PDF; bass chord (Sol7/Lám/Lá7/etc) é heurística
-  // do contexto harmônico — pode precisar tweak fino ouvindo.
+  // 64 compassos extraídos do MuseScore + dedilhado refinado pelo Rafael
+  // via editor inline (clica no número 1-5 sobre cada nota).
   const compassos = [
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},  // C1
-    {notes:[{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1}], bass:'Dó'},  // C2
+    {notes:[{n:'Mi',d:1,du:3}], bass:'Dó'},  // C1
+    {notes:[{n:'Ré#',d:2,du:1},{n:'Mi',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Dó'},  // C2
     {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C3
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Dó6',d:5,du:1}], bass:'Dó'},  // C4
-    {notes:[{n:'Ré6',d:4,du:1},{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1}], bass:'Dó'},  // C5
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1}], bass:'Dó'},  // C6
-    {notes:[{n:'Si',d:5,du:2}], bass:'Sol7', tieStart:true},  // C7
-    {notes:[{n:'Si',d:5,du:2}], bass:'Sol7', tieEnd:true},  // C8
-    {notes:[{n:'Fá',d:4,du:3}], bass:'Sol7'},  // C9
-    {notes:[{n:'Mi',d:3,du:1},{n:'Fá',d:4,du:1},{n:'Sol',d:5,du:1}], bass:'Sol7'},  // C10
-    {notes:[{n:'Si',d:5,du:3}], bass:'Sol7', tieStart:true},  // C11
-    {notes:[{n:'Si',d:5,du:1},{n:'Lá#',d:4,du:1},{n:'Si',d:5,du:1}], bass:'Sol7', tieEnd:true},  // C12
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Lá#',d:4,du:1}], bass:'Sol7'},  // C13
-    {notes:[{n:'Si',d:5,du:1},{n:'Fá',d:4,du:1},{n:'Si',d:5,du:1}], bass:'Sol7'},  // C14
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó', tieStart:true},  // C15
-    {notes:[{n:'Mi',d:3,du:1}], bass:'Dó', tieEnd:true},  // C16
-    {notes:[{n:'Mi',d:3,du:3}], bass:'Dó'},  // C17
-    {notes:[{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1},{n:'Sol',d:5,du:1}], bass:'Dó'},  // C18
+    {notes:[{n:'Dó6',d:4,du:1},{n:'Si',d:3,du:1},{n:'Dó6',d:4,du:1}], bass:'Dó'},  // C4
+    {notes:[{n:'Ré6',d:5,du:1},{n:'Dó6',d:4,du:1},{n:'Si',d:3,du:1}], bass:'Dó'},  // C5
+    {notes:[{n:'Dó6',d:4,du:1},{n:'Mi',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Dó'},  // C6
+    {notes:[{n:'Si',d:4,du:2}], bass:'Sol7', tieStart:true},  // C7
+    {notes:[{n:'Si',d:4,du:2}], bass:'Sol7', tieEnd:true},  // C8
+    {notes:[{n:'Fá',d:1,du:3}], bass:'Sol7'},  // C9
+    {notes:[{n:'Mi',d:2,du:1},{n:'Fá',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Sol7'},  // C10
+    {notes:[{n:'Si',d:4,du:3}], bass:'Sol7', tieStart:true},  // C11
+    {notes:[{n:'Si',d:4,du:1},{n:'Lá#',d:3,du:1},{n:'Si',d:4,du:1}], bass:'Sol7', tieEnd:true},  // C12
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:4,du:1},{n:'Lá#',d:3,du:1}], bass:'Sol7'},  // C13
+    {notes:[{n:'Si',d:4,du:1},{n:'Fá',d:1,du:1},{n:'Si',d:4,du:1}], bass:'Sol7'},  // C14
+    {notes:[{n:'Mi',d:1,du:3}], bass:'Dó', tieStart:true},  // C15
+    {notes:[{n:'Mi',d:1,du:1}], bass:'Dó', tieEnd:true},  // C16
+    {notes:[{n:'Mi',d:4,du:3}], bass:'Dó'},  // C17
+    {notes:[{n:'Ré#',d:3,du:1},{n:'Mi',d:1,du:1},{n:'Sol',d:2,du:1}], bass:'Dó'},  // C18
     {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C19
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Dó6',d:5,du:1}], bass:'Dó'},  // C20
-    {notes:[{n:'Ré6',d:4,du:1},{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1}], bass:'Dó'},  // C21
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Mi',d:3,du:1},{n:'Lá',d:5,du:1}], bass:'Dó'},  // C22
-    {notes:[{n:'Lá',d:5,du:3}], bass:'Fá'},  // C23
-    {notes:[{n:'Lá',d:5,du:1}], bass:'Fá'},  // C24
-    {notes:[{n:'Lá',d:5,du:3}], bass:'Fá'},  // C25
-    {notes:[{n:'Ré6',d:4,du:1},{n:'Fá6',d:3,du:1},{n:'Lá6',d:3,du:1}], bass:'Fá'},  // C26
-    {notes:[{n:'Sol6',d:3,du:3}], bass:'Dó', tieStart:true},  // C27
-    {notes:[{n:'Sol6',d:3,du:1},{n:'Fá6',d:3,du:1},{n:'Mi6',d:5,du:1}], bass:'Dó', tieEnd:true},  // C28
-    {notes:[{n:'Ré6',d:4,du:1},{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1}], bass:'Sol7'},  // C29
-    {notes:[{n:'Lá',d:5,du:1},{n:'Si',d:5,du:1},{n:'Ré6',d:4,du:1}], bass:'Sol7'},  // C30
-    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C31
-    {notes:[{n:'Dó6',d:5,du:1}], bass:'Dó'},  // C32
-    {notes:[{n:'Mi',d:3,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},  // C33
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1.5},{n:'Lá',d:5,du:0.5}], bass:'Dó'},  // C34
+    {notes:[{n:'Dó6',d:4,du:1},{n:'Si',d:3,du:1},{n:'Dó6',d:4,du:1}], bass:'Dó'},  // C20
+    {notes:[{n:'Ré6',d:5,du:1},{n:'Dó6',d:4,du:1},{n:'Si',d:3,du:1}], bass:'Dó'},  // C21
+    {notes:[{n:'Dó6',d:4,du:1},{n:'Mi',d:1,du:1},{n:'Lá',d:3,du:1}], bass:'Dó'},  // C22
+    {notes:[{n:'Lá',d:3,du:3}], bass:'Fá'},  // C23
+    {notes:[{n:'Lá',d:3,du:1}], bass:'Fá'},  // C24
+    {notes:[{n:'Lá',d:1,du:3}], bass:'Fá'},  // C25
+    {notes:[{n:'Ré6',d:2,du:1},{n:'Fá6',d:3,du:1},{n:'Lá6',d:5,du:1}], bass:'Fá'},  // C26
+    {notes:[{n:'Sol6',d:4,du:3}], bass:'Dó', tieStart:true},  // C27
+    {notes:[{n:'Sol6',d:4,du:1},{n:'Fá6',d:3,du:1},{n:'Mi6',d:2,du:1}], bass:'Dó', tieEnd:true},  // C28
+    {notes:[{n:'Ré6',d:1,du:1},{n:'Dó6',d:3,du:1},{n:'Si',d:2,du:1}], bass:'Sol7'},  // C29
+    {notes:[{n:'Lá',d:1,du:1},{n:'Si',d:2,du:1},{n:'Ré6',d:4,du:1}], bass:'Sol7'},  // C30
+    {notes:[{n:'Dó6',d:3,du:3}], bass:'Dó'},  // C31
+    {notes:[{n:'Dó6',d:3,du:1}], bass:'Dó'},  // C32
+    {notes:[{n:'Mi',d:1,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:1,du:1}], bass:'Dó'},  // C33
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:4,du:1.5},{n:'Lá',d:3,du:0.5}], bass:'Dó'},  // C34
     {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C35
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Lá',d:5,du:1}], bass:'Dó'},  // C36
-    {notes:[{n:'Mi',d:3,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},  // C37
-    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:5,du:1.5},{n:'Fá',d:4,du:0.5}], bass:'Dó'},  // C38
-    {notes:[{n:'Si',d:5,du:3}], bass:'Sol7', tieStart:true},  // C39
-    {notes:[{n:'Si',d:5,du:1}], bass:'Sol7', tieEnd:true},  // C40
-    {notes:[{n:'Si',d:5,du:1},{n:'Lá#',d:4,du:1},{n:'Si',d:5,du:1}], bass:'Sol7'},  // C41
-    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:5,du:1.5},{n:'Fá#',d:4,du:0.5}], bass:'Sol7'},  // C42
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:4,du:1},{n:'Lá',d:3,du:1}], bass:'Dó'},  // C36
+    {notes:[{n:'Mi',d:1,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:1,du:1}], bass:'Dó'},  // C37
+    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:4,du:1.5},{n:'Fá',d:3,du:0.5}], bass:'Dó'},  // C38
+    {notes:[{n:'Si',d:1,du:3}], bass:'Sol7', tieStart:true},  // C39
+    {notes:[{n:'Si',d:1,du:1}], bass:'Sol7', tieEnd:true},  // C40
+    {notes:[{n:'Si',d:1,du:1},{n:'Lá#',d:2,du:1},{n:'Si',d:1,du:1}], bass:'Sol7'},  // C41
+    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:4,du:1.5},{n:'Fá#',d:3,du:0.5}], bass:'Sol7'},  // C42
     {notes:[{n:'Lá',d:5,du:3}], bass:'Sol7'},  // C43
-    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:5,du:1},{n:'Fá',d:4,du:1}], bass:'Sol7'},  // C44
-    {notes:[{n:'Si',d:5,du:1},{n:'Lá#',d:4,du:1},{n:'Si',d:5,du:1}], bass:'Sol7'},  // C45
+    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:4,du:1},{n:'Fá',d:3,du:1}], bass:'Sol7'},  // C44
+    {notes:[{n:'Si',d:1,du:1},{n:'Lá#',d:2,du:1},{n:'Si',d:1,du:1}], bass:'Sol7'},  // C45
     {notes:[{n:'Fá',d:4,du:1},{n:'Mi',d:3,du:1},{n:'Ré',d:2,du:1}], bass:'Sol7'},  // C46
     {notes:[{n:'Dó',d:1,du:3}], bass:'Dó', tieStart:true},  // C47
     {notes:[{n:'Dó',d:1,du:1}], bass:'Dó', tieEnd:true},  // C48
-    {notes:[{n:'Mi',d:3,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},  // C49
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1.5},{n:'Lá',d:5,du:0.5}], bass:'Dó'},  // C50
+    {notes:[{n:'Mi',d:1,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:1,du:1}], bass:'Dó'},  // C49
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:4,du:1.5},{n:'Lá',d:3,du:0.5}], bass:'Dó'},  // C50
     {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C51
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Lá',d:5,du:1}], bass:'Dó'},  // C52
-    {notes:[{n:'Mi',d:3,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:3,du:1}], bass:'Dó'},  // C53
-    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:5,du:1.5},{n:'Fá',d:4,du:0.5}], bass:'Lá7'},  // C54
+    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:4,du:1},{n:'Lá',d:3,du:1}], bass:'Dó'},  // C52
+    {notes:[{n:'Mi',d:1,du:1},{n:'Ré#',d:2,du:1},{n:'Mi',d:1,du:1}], bass:'Dó'},  // C53
+    {notes:[{n:'Lá',d:5,du:1},{n:'Sol',d:4,du:1.5},{n:'Fá',d:3,du:0.5}], bass:'Lá7'},  // C54
     {notes:[{n:'Lá',d:5,du:3}], bass:'Rém', tieStart:true},  // C55
     {notes:[{n:'Lá',d:5,du:1}], bass:'Rém', tieEnd:true},  // C56
-    {notes:[{n:'Lá',d:5,du:1},{n:'Sol#',d:5,du:1},{n:'Lá',d:5,du:1}], bass:'Rém'},  // C57
-    {notes:[{n:'Fá6',d:3,du:1},{n:'Mi6',d:5,du:1},{n:'Ré6',d:4,du:1}], bass:'Sol7'},  // C58
-    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C59
-    {notes:[{n:'Dó6',d:5,du:1},{n:'Si',d:5,du:1},{n:'Lá#',d:4,du:1}], bass:'Dó'},  // C60
-    {notes:[{n:'Si',d:5,du:1},{n:'Ré6',d:4,du:1},{n:'Fá6',d:3,du:1}], bass:'Sol7'},  // C61
-    {notes:[{n:'Lá6',d:3,du:2},{n:'Sol6',d:3,du:1}], bass:'Sol7'},  // C62
-    {notes:[{n:'Dó6',d:5,du:3}], bass:'Dó'},  // C63
-    {notes:[{n:'Dó6',d:5,du:1}], bass:'Dó', isFinal:true},  // C64
+    {notes:[{n:'Lá',d:1,du:1},{n:'Sol#',d:2,du:1},{n:'Lá',d:1,du:1}], bass:'Rém'},  // C57
+    {notes:[{n:'Fá6',d:5,du:1},{n:'Mi6',d:4,du:1},{n:'Ré6',d:3,du:1}], bass:'Sol7'},  // C58
+    {notes:[{n:'Dó6',d:2,du:3}], bass:'Dó'},  // C59
+    {notes:[{n:'Dó6',d:2,du:1},{n:'Si',d:1,du:1},{n:'Lá#',d:2,du:1}], bass:'Dó'},  // C60
+    {notes:[{n:'Si',d:1,du:1},{n:'Ré6',d:2,du:1},{n:'Fá6',d:3,du:1}], bass:'Sol7'},  // C61
+    {notes:[{n:'Lá6',d:5,du:2},{n:'Sol6',d:4,du:1}], bass:'Sol7'},  // C62
+    {notes:[{n:'Dó6',d:1,du:3}], bass:'Dó'},  // C63
+    {notes:[{n:'Dó6',d:1,du:1}], bass:'Dó', isFinal:true},  // C64
   ];
 
   // ===== RENDERIZAÇÃO =====
-  const NOTE_LETTER = {'Dó':'C','Ré':'D','Mi':'E','Fá':'F','Sol':'G','Lá':'A','Si':'B',
-                       'Dó6':'C','Ré6':'D','Mi6':'E','Fá6':'F','Sol6':'G','Lá6':'A',
-                       'Ré#':'D♯','Fá#':'F♯','Lá#':'A♯','Sol#':'G♯','Dó#':'C♯'};
+  // Labels acima de cada nota — em PT-BR (Dó/Ré/Mi…) com cores Boomwhackers via CSS.
+  const NOTE_LETTER = {'Dó':'Dó','Ré':'Ré','Mi':'Mi','Fá':'Fá','Sol':'Sol','Lá':'Lá','Si':'Si',
+                       'Dó6':'Dó','Ré6':'Ré','Mi6':'Mi','Fá6':'Fá','Sol6':'Sol','Lá6':'Lá',
+                       'Ré#':'Ré♯','Fá#':'Fá♯','Lá#':'Lá♯','Sol#':'Sol♯','Dó#':'Dó♯'};
   const NOTE_Y = {'Dó':80,'Ré':75,'Mi':70,'Fá':65,'Sol':60,'Lá':55,'Si':50,
                   'Dó6':45,'Ré6':40,'Mi6':35,'Fá6':30,'Sol6':25,'Lá6':20,
                   'Ré#':75,'Fá#':65,'Lá#':55,'Sol#':60,'Dó#':80};
@@ -207,11 +217,21 @@
       const letter = NOTE_LETTER[n.n] || '?';
       const noteId = `so-md-${compIdx}-${ni}`;
 
-      s += `<text x="${xPos}" y="10" font-size="9" font-style="italic" fill="#e0d8c0" text-anchor="middle">${letter}</text>`;
-      s += `<text class="finger-md" x="${xPos}" y="22" font-size="10">${n.d}</text>`;
+      // Label/dedilhado sempre acima do ellipse: pra notas agudas (cy baixo)
+      // sobem proporcionalmente pra não colidir com a cabeça da nota.
+      const labelY  = Math.min(10, cy - 22);
+      const fingerY = Math.min(22, cy - 12);
+      const baseNote = n.n.replace('6','').replace('#','');
+
+      s += `<text class="note-label" data-note="${baseNote}" x="${xPos}" y="${labelY}" font-size="9" font-weight="700" text-anchor="middle">${letter}</text>`;
+      s += `<text class="finger-md" data-comp-idx="${compIdx}" data-note-idx="${ni}" data-note="${baseNote}" x="${xPos}" y="${fingerY}" font-size="10">${n.d}</text>`;
       if (NEEDS_SHARP[n.n]) s += `<text x="${xPos-9}" y="${cy+3}" font-size="10" fill="#e0d8c0">♯</text>`;
-      if (n.n === 'Dó') s += `<line x1="${xPos-7}" y1="${cy}" x2="${xPos+7}" y2="${cy}" stroke="#e0d8c0" stroke-width="1.5"/>`;
-      if (n.n === 'Dó6') s += `<line x1="${xPos-7}" y1="${cy}" x2="${xPos+7}" y2="${cy}" stroke="#e0d8c0" stroke-width="1.5"/>`;
+      // Linhas suplementares — só pra notas FORA do staff (staff lines y=30..70):
+      //   Dó central (C4, y=80) abaixo · Lá6 (A5, y=20) acima
+      // Dó6 (C5) está DENTRO do staff (y=45, espaço central), NÃO leva ledger.
+      if (n.n === 'Dó' || n.n === 'Lá6') {
+        s += `<line x1="${xPos-7}" y1="${cy}" x2="${xPos+7}" y2="${cy}" stroke="#e0d8c0" stroke-width="1.5"/>`;
+      }
 
       if (eff >= 2.5) {
         s += `<ellipse id="${noteId}" cx="${xPos}" cy="${cy}" rx="6" ry="4" fill="none" stroke="var(--gold)" stroke-width="1.8"/>`;
@@ -245,17 +265,20 @@
       s += `<line x1="${x0}" y1="${yBeam}" x2="${x1}" y2="${yBeam}" stroke="var(--gold)" stroke-width="2.2"/>`;
     }
 
-    // Baixo
+    // Baixo — cores Boomwhackers (mesma lógica das notas MD)
+    // Dó:vermelho · Ré:laranja · Mi:amarelo · Fá:lima · Sol:verde · Lá:azul · Si:roxo
     const colors = {
-      'Dó':{bg:'var(--gold)',m:'#e0d8c0',label:'Dó',acord:'M'},
-      'Sol':{bg:'#d94a4a',m:'#d94a4a',label:'Sol',acord:'M'},
-      'Sol7':{bg:'#d94a4a',m:'#d94a4a',label:'Sol',acord:'7'},
-      'Fá':{bg:'#e8a45f',m:'#e8a45f',label:'Fá',acord:'M'},
-      'Lám':{bg:'#5fc99c',m:'#5fc99c',label:'Lá',acord:'m'},
-      'Rém':{bg:'#5fb3c9',m:'#5fb3c9',label:'Ré',acord:'m'},
-      'Lá7':{bg:'#5fc99c',m:'#5fc99c',label:'Lá',acord:'7'}
+      'Dó':{bg:'#ff6b6b',m:'#ff6b6b',label:'Dó',acord:'M'},   // vermelho
+      'Sol':{bg:'#66dd88',m:'#66dd88',label:'Sol',acord:'M'},  // verde
+      'Sol7':{bg:'#66dd88',m:'#66dd88',label:'Sol',acord:'7'},
+      'Fá':{bg:'#b8e060',m:'#b8e060',label:'Fá',acord:'M'},    // verde-limão
+      'Lám':{bg:'#5dade2',m:'#5dade2',label:'Lá',acord:'m'},   // azul
+      'Lá7':{bg:'#5dade2',m:'#5dade2',label:'Lá',acord:'7'},
+      'Rém':{bg:'#ff9944',m:'#ff9944',label:'Ré',acord:'m'},   // laranja
+      'Mi7':{bg:'#ffd84d',m:'#ffd84d',label:'Mi',acord:'7'},   // amarelo
+      'Si':{bg:'#c98ce8',m:'#c98ce8',label:'Si',acord:'M'},    // roxo
     };
-    const co = colors[comp.bass] || {bg:'var(--gold)',m:'#e0d8c0',label:comp.bass,acord:'M'};
+    const co = colors[comp.bass] || {bg:'#e0d8c0',m:'#e0d8c0',label:comp.bass,acord:'M'};
     const beat0X = xStart + (1/totalBeats) * width / 2;
     const beat1X = xStart + (1/totalBeats) * width + (1/totalBeats) * width / 2;
     const beat2X = xStart + (2/totalBeats) * width + (1/totalBeats) * width / 2;
@@ -509,8 +532,166 @@
   attachScorePlayer({ playBtnId: 'btn-so-play', bpm: SECTION_BPM, beatsPerBar: 3,
     notes: ALL_NOTES.map(n => ({ ...n })) });
   injectFraseControls();
+
+  // ===== Editor de dedilhado (clica num número 1-5 da MD pra trocar) =====
+  let editingFingers = false;
+
+  function regenExportText() {
+    const lines = compassos.map((c, i) => {
+      const nl = c.notes.map(n => `{n:'${n.n}',d:${n.d},du:${n.du}}`).join(',');
+      let s = `    {notes:[${nl}], bass:'${c.bass}'`;
+      if (c.tieStart) s += ', tieStart:true';
+      if (c.tieEnd)   s += ', tieEnd:true';
+      if (c.isFinal)  s += ', isFinal:true';
+      return s + `},  // C${i+1}`;
+    }).join('\n');
+    return '  const compassos = [\n' + lines + '\n  ];';
+  }
+
+  function setupFingerEditor() {
+    // Editor escondido por padrão — abre com ?edit=1 na URL (uso interno)
+    const editorDiv  = document.getElementById('finger-editor');
+    if (location.search.includes('edit=1') && editorDiv) {
+      editorDiv.style.display = '';
+    }
+    const toggleBtn  = document.getElementById('toggle-edit-fingers');
+    const copyBtn    = document.getElementById('copy-fingers');
+    const hint       = document.getElementById('finger-edit-hint');
+    const exportArea = document.getElementById('finger-export');
+
+    let activePicker = null;
+    function closePicker() {
+      if (activePicker) { activePicker.remove(); activePicker = null; }
+    }
+    function showPicker(el, ci, ni, note) {
+      closePicker();
+      const rect = el.getBoundingClientRect();
+      const picker = document.createElement('div');
+      picker.style.cssText =
+        `position:fixed; top:${rect.bottom + 6}px; left:${Math.max(10, rect.left - 60)}px;` +
+        `z-index:99999; background:#1a1618; border:2px solid var(--gold); border-radius:8px;` +
+        `padding:6px 8px; display:flex; flex-direction:column; gap:4px;` +
+        `box-shadow:0 6px 16px rgba(0,0,0,0.6)`;
+      const label = document.createElement('div');
+      label.style.cssText = 'color:var(--gold-light); font-size:11px; font-weight:700; text-align:center';
+      label.textContent = `C${ci+1} · ${note.n}`;
+      picker.appendChild(label);
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex; gap:4px';
+      for (let i = 1; i <= 5; i++) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = String(i);
+        const isCurrent = note.d === i;
+        b.style.cssText =
+          `width:30px; height:30px; cursor:pointer; font-weight:700; font-size:14px;` +
+          `border-radius:5px; border:1px solid ${isCurrent ? 'var(--gold)' : '#4a3f3f'};` +
+          `background:${isCurrent ? 'var(--gold)' : '#2a2426'};` +
+          `color:${isCurrent ? '#1a1618' : 'var(--gold)'}`;
+        b.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          note.d = i;
+          el.textContent = String(i);
+          el.classList.add('edited');
+          exportArea.value = regenExportText();
+          closePicker();
+        });
+        row.appendChild(b);
+      }
+      picker.appendChild(row);
+      document.body.appendChild(picker);
+      activePicker = picker;
+      // Click fora fecha
+      setTimeout(() => {
+        document.addEventListener('click', function outside(e) {
+          if (!picker.contains(e.target) && !el.contains(e.target)) {
+            closePicker();
+            document.removeEventListener('click', outside);
+          }
+        });
+      }, 50);
+    }
+
+    function syncFingerHandlers() {
+      document.querySelectorAll('.finger-md').forEach(el => {
+        if (el._editorBound) return;
+        el._editorBound = true;
+        el.addEventListener('click', (e) => {
+          if (!editingFingers) return;
+          e.stopPropagation();
+          const ci = parseInt(el.dataset.compIdx);
+          const ni = parseInt(el.dataset.noteIdx);
+          if (isNaN(ci) || isNaN(ni)) return;
+          const note = compassos[ci]?.notes?.[ni];
+          if (!note) return;
+          showPicker(el, ci, ni, note);
+        });
+      });
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      editingFingers = !editingFingers;
+      toggleBtn.textContent = editingFingers ? '✅ Concluir edição' : '✏️ Editar dedilhado';
+      toggleBtn.style.background = editingFingers ? 'var(--gold)' : '#2a2426';
+      toggleBtn.style.color = editingFingers ? '#1a1618' : 'var(--gold)';
+      copyBtn.style.display    = editingFingers ? 'inline-block' : 'none';
+      hint.style.display       = editingFingers ? 'inline' : 'none';
+      exportArea.style.display = editingFingers ? 'block' : 'none';
+      document.body.classList.toggle('finger-editing', editingFingers);
+      if (editingFingers) {
+        syncFingerHandlers();
+        exportArea.value = regenExportText();
+      }
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(exportArea.value);
+        const orig = copyBtn.textContent;
+        copyBtn.textContent = '✓ Copiado!';
+        setTimeout(() => copyBtn.textContent = orig, 1500);
+      } catch (err) {
+        // Fallback: select + execCommand
+        exportArea.select();
+        document.execCommand('copy');
+      }
+    });
+  }
+  setupFingerEditor();
 </script>
 <style>
+  /* Cores Boomwhackers — labels (Dó/Ré/Mi…) e dedilhados herdam a cor da nota.
+     Sistema didático mais usado no mundo (instrumentos coloridos pra crianças).
+     Sustenidos (Dó#, Ré#, etc.) usam a cor da natural mais próxima abaixo. */
+  text.finger-md[data-note="Dó"],  text.note-label[data-note="Dó"]  { fill: #ff6b6b; }  /* vermelho */
+  text.finger-md[data-note="Ré"],  text.note-label[data-note="Ré"]  { fill: #ff9944; }  /* laranja */
+  text.finger-md[data-note="Mi"],  text.note-label[data-note="Mi"]  { fill: #ffd84d; }  /* amarelo */
+  text.finger-md[data-note="Fá"],  text.note-label[data-note="Fá"]  { fill: #b8e060; }  /* verde-limão */
+  text.finger-md[data-note="Sol"], text.note-label[data-note="Sol"] { fill: #66dd88; }  /* verde */
+  text.finger-md[data-note="Lá"],  text.note-label[data-note="Lá"]  { fill: #5dade2; }  /* azul */
+  text.finger-md[data-note="Si"],  text.note-label[data-note="Si"]  { fill: #c98ce8; }  /* roxo */
+  /* Stroke escuro nos labels pra legibilidade contra fundo do stave */
+  text.note-label {
+    paint-order: stroke;
+    stroke: rgba(26, 22, 24, 0.8);
+    stroke-width: 0.6;
+  }
+
+  /* Editor de dedilhado: realça números clicáveis quando editing está ON */
+  body.finger-editing .finger-md {
+    cursor: pointer;
+    outline: 1px dashed rgba(255, 255, 255, 0.5);
+    outline-offset: 1px;
+    transition: outline-color 0.15s;
+  }
+  body.finger-editing .finger-md:hover {
+    outline-color: #fff !important;
+  }
+  /* .edited deixa um glow branco em volta sem mudar a cor (cor agora = nota) */
+  .finger-md.edited {
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8));
+  }
+
   /* Controles ▶ 🔁 ⏹ das frases (SVG <text>) */
   .frase-play, .frase-loop, .frase-stop {
     transition: fill 0.15s;
