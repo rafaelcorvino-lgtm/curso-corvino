@@ -314,11 +314,14 @@
     'Rém':{fund:26,acord:38},
     'Lá7':{fund:33,acord:46}
   };
-  // MD MIDIs — convenção padrão Dó central = MIDI 60 (era 48 antes, oitava abaixo).
+  // MD MIDIs — partitura tocada na OITAVA DO TECLADO Corvino (MIDI 48-72).
+  // Treble clef escrito em oitava 4-5, mas o instrumento é 1 oitava abaixo:
+  // Dó (escrito Dó4) → MIDI 48 (Dó3, leftmost key) · Lá6 (escrito A5) → MIDI 69
+  // Sem isso as notas agudas (Lá6, Sol6, Fá6) não tocam tecla visível no app.
   const MD_MIDIS = {
-    'Dó':60,'Ré':62,'Mi':64,'Fá':65,'Sol':67,'Lá':69,'Si':71,
-    'Dó6':72,'Ré6':74,'Mi6':76,'Fá6':77,'Sol6':79,'Lá6':81,
-    'Ré#':63,'Fá#':66,'Sol#':68,'Lá#':70,'Dó#':61,
+    'Dó':48,'Ré':50,'Mi':52,'Fá':53,'Sol':55,'Lá':57,'Si':59,
+    'Dó6':60,'Ré6':62,'Mi6':64,'Fá6':65,'Sol6':67,'Lá6':69,
+    'Ré#':51,'Fá#':54,'Sol#':56,'Lá#':58,'Dó#':49,
   };
 
   // ===== Seções pedagógicas (8 frases de 8 compassos cada) =====
