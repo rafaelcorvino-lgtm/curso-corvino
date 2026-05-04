@@ -649,8 +649,16 @@ html.embedded #app, html.embedded #splash { display: flex !important; }
   pointer-events: none;
 }
 
-.label-toggle {
+/* Grupo dos 3 toggles fixos (🎹 tecla PC, 🏷️ etiqueta, ☰ menu).
+   margin-left: auto empurra o grupo INTEIRO pra direita da registers-bar. */
+.bar-toggles {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.label-toggle {
   width: 28px;
   height: 28px;
   border-radius: 4px;
@@ -895,28 +903,21 @@ dialog::backdrop { background: rgba(0,0,0,0.5); }
 }
 
 /* ===== KEYBOARD INPUT (teclado do computador) =====
-   O botão fica acima do .zoom-controls, no canto inferior direito da
-   bass-section. Estilo parecido com .zoom-btn mas com fundo próprio
-   (igual à barra do zoom) pra ficar consistente visualmente. */
-#kbd-toggle.kbd-btn {
-  width: 32px;
-  height: 28px;
-  padding: 0;
-  font-size: 14px;
-  line-height: 1;
-  background: rgba(10,10,14,0.7);
-  border: 1px solid rgba(218,165,32,0.4);
-  border-radius: 5px;
-  color: var(--gold);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(4px);
-  transition: background 0.15s;
+   O botão fica DENTRO do registers-bar, ao lado do label-toggle (mostrar
+   notas) e do ui-toggle (esconder/mostrar HUDs). Compartilha o estilo
+   da .label-toggle. Quando "on" (ativo), recebe destaque dourado. */
+#kbd-toggle.label-toggle.on { background: rgba(218,165,32,0.32); }
+
+/* ===== UI TOGGLE (esconder/mostrar HUDs) ===== */
+/* Quando #app.hide-ui-controls, esconde os 4 grupos de comandos flutuantes,
+   mantendo só o registers-bar (registros fixos + toggles essenciais). */
+#app.hide-ui-controls .hud-tl,
+#app.hide-ui-controls .hud-tr,
+#app.hide-ui-controls .hud-bl,
+#app.hide-ui-controls .bottom-right-controls {
+  display: none;
 }
-#kbd-toggle.kbd-btn:hover { background: rgba(218,165,32,0.18); }
-#kbd-toggle.kbd-btn.on    { background: rgba(218,165,32,0.32); }
+#ui-toggle.label-toggle.on { background: rgba(218,165,32,0.32); }
 .kbd-hint {
   position: absolute;
   top: 4px;

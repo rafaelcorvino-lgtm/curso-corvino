@@ -104,10 +104,9 @@
           <button class="mini-btn" id="metro-toggle" title="Ligar/desligar metrônomo">▶</button>
         </div>
       </div>
-      <!-- Comandos flutuantes (canto inferior direito) — kbd-toggle ACIMA do zoom
-           para não sumir quando o app é redimensionado pra largura pequena -->
+      <!-- Comandos flutuantes (canto inferior direito) — só zoom (kbd-toggle
+           foi movido pra registers-bar pra ficar perto do toggle de notas) -->
       <div class="bottom-right-controls">
-        <button class="zoom-btn kbd-btn" id="kbd-toggle" title="Tocar com teclado do computador (H=Dó, J=Ré, K=Mi, L=Fá, Ç=Sol)">🎹</button>
         <div class="zoom-controls">
           <button class="zoom-btn" id="zoom-down" title="Diminuir UI">A−</button>
           <button class="zoom-btn" id="zoom-reset" title="Resetar zoom">⟲</button>
@@ -121,7 +120,8 @@
     <!-- Fole decorativo (separador entre baixos e teclado) -->
     <div id="bellows-bar"></div>
 
-    <!-- Barra Central: indicadores de conexão + Ritmo + tabs de timbre + toggle labels -->
+    <!-- Barra Central: indicadores de conexão + Ritmo + tabs de timbre + toggles fixos
+         (teclado do PC, mostrar notas, esconder/mostrar HUDs) -->
     <div id="registers-bar">
       <div class="conn-indicator" id="conn-bass">
         <span class="conn-dot"></span>
@@ -132,7 +132,11 @@
         <span class="conn-label">Teclado</span>
       </div>
       <div class="register-tabs" id="register-tabs"></div>
-      <button class="label-toggle on" id="label-toggle" title="Mostrar/ocultar nomes das notas">🏷️</button>
+      <div class="bar-toggles">
+        <button class="label-toggle" id="kbd-toggle" title="Tocar com teclado do computador (G=Dó, H=Ré, J=Mi, K=Fá, L=Sol)">🎹</button>
+        <button class="label-toggle on" id="label-toggle" title="Mostrar/ocultar nomes das notas">🏷️</button>
+        <button class="label-toggle" id="ui-toggle" title="Esconder/mostrar comandos">☰</button>
+      </div>
     </div>
 
     <!-- Piano Section -->

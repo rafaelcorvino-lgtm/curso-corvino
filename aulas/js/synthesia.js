@@ -810,15 +810,26 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
         y: prevPos.y,
       };
     }
-    // Stave diferente: cursor varre o stave de prev em velocidade
-    // natural até o fim, depois SNAP pro stave de next no próximo
-    // tick (quando prev vira next no outer loop).
-    // Antes usava `* 2` em t<0.5/t>=0.5 — dobrava a velocidade
-    // durante a transição (Rafael notou: "ela acelera").
-    return {
-      x: prevPos.x + (STAVE_END_X - prevPos.x) * t,
-      y: prevPos.y,
-    };
+    // Stave diferente: cursor anda na VELOCIDADE LOCAL do stave atual
+    // (estimada pela transição entre as 2 últimas notas do mesmo stave),
+    // sem ultrapassar STAVE_END_X. Quando atinge o fim do stave, fica
+    // parado lá até elapsedBeats == next.startBeat — aí o snap pro novo
+    // stave acontece naturalmente no próximo tick (prev → next).
+    // Evita acelerar (versão antiga) e travar (versão "fica parado").
+    let speed = 40; // px/beat default
+    const prevIdx = mdNotes.indexOf(prev);
+    if (prevIdx > 0) {
+      const beforePrev = mdNotes[prevIdx - 1];
+      // Só usa se beforePrev estiver no MESMO stave que prev
+      if (beforePrev._pos && Math.abs(beforePrev._pos.y - prevPos.y) < 30) {
+        const dist = prevPos.x - beforePrev._pos.x;
+        const dur = prev.startBeat - beforePrev.startBeat;
+        if (dur > 0 && dist > 0) speed = dist / dur;
+      }
+    }
+    const elapsedInPrev = elapsedBeats - prev.startBeat;
+    const targetX = Math.min(STAVE_END_X, prevPos.x + speed * elapsedInPrev);
+    return { x: targetX, y: prevPos.y };
   }
 
   // ----- Input -----

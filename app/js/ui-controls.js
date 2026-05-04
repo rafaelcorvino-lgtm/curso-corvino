@@ -187,6 +187,24 @@ function setupLabelToggle() {
   });
 }
 
+// ============ UI TOGGLE (esconder/mostrar HUDs flutuantes) ============
+// Mantém só os registros fixos da registers-bar (timbres + 3 toggles).
+// Útil pra o aluno focar no instrumento sem distração dos comandos.
+function setupUiToggle() {
+  const btn = document.getElementById('ui-toggle');
+  if (!btn) return;
+  const app = document.getElementById('app');
+  if (!app) return;
+  btn.addEventListener('click', () => {
+    const hidden = app.classList.toggle('hide-ui-controls');
+    // botão fica "on" quando os HUDs estão VISÍVEIS (estado normal)
+    // — fica "off" (apagado) quando estão escondidos
+    btn.classList.toggle('on', !hidden);
+  });
+  // Estado inicial: HUDs visíveis = botão on
+  btn.classList.add('on');
+}
+
 // ============ REGISTER TABS (timbre selector) ============
 async function setupRegisterTabs() {
   const container = document.getElementById('register-tabs');
@@ -421,6 +439,7 @@ export function init() {
   setupTranspose();
   setupMetronome();
   setupLabelToggle();
+  setupUiToggle();
   setupRegisterTabs();
   setupRhythm();
   setupConnectionWatch();
