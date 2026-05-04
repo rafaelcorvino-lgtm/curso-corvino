@@ -1281,7 +1281,9 @@ kbd {
 
 /* Dedilhado da MD — números 1-5 acima das notas (1=polegar a
    5=mínimo). Cor laranja pra distinguir das notas (douradas) e
-   nomes (creme). Stroke escuro melhora legibilidade. */
+   nomes (creme). Stroke escuro melhora legibilidade.
+   Quando finger-md tem [data-note], a regra Boomwhackers abaixo
+   sobrescreve a cor padrão (cores por nota). */
 .finger-md text,
 text.finger-md {
   font-family: sans-serif;
@@ -1292,6 +1294,25 @@ text.finger-md {
   paint-order: stroke;
   stroke: rgba(26, 22, 24, 0.85);
   stroke-width: 0.8;
+}
+
+/* === Sistema Boomwhackers GLOBAL — cores das notas musicais ===
+   Aplica-se a qualquer <text> com data-note="Dó/Ré/Mi/Fá/Sol/Lá/Si".
+   Sustenidos herdam a cor da natural. Funciona em note-labels (Mi/Sol/etc)
+   e em finger-md (1-5) quando tem o atributo. */
+text[data-note="Dó"]  { fill: #ff6b6b; }  /* vermelho */
+text[data-note="Ré"]  { fill: #ff9944; }  /* laranja */
+text[data-note="Mi"]  { fill: #ffd84d; }  /* amarelo */
+text[data-note="Fá"]  { fill: #b8e060; }  /* verde-limão */
+text[data-note="Sol"] { fill: #66dd88; }  /* verde */
+text[data-note="Lá"]  { fill: #5dade2; }  /* azul */
+text[data-note="Si"]  { fill: #c98ce8; }  /* roxo */
+/* Stroke escuro nos labels pra legibilidade contra fundo */
+text.note-label {
+  paint-order: stroke;
+  stroke: rgba(26, 22, 24, 0.85);
+  stroke-width: 0.6;
+  font-weight: 700;
 }
 
 /* Estados das notas durante o jogo (ellipses/rects/circles ganham

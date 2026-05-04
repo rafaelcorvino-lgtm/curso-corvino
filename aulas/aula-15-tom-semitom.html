@@ -74,14 +74,14 @@
 
           <!-- Nomes das brancas -->
           <g fill="#1a1618" font-size="12" font-weight="700" text-anchor="middle" font-family="sans-serif">
-            <text x="75"  y="132">Dó</text>
-            <text x="127" y="132">Ré</text>
-            <text x="179" y="132">Mi</text>
-            <text x="231" y="132">Fá</text>
-            <text x="283" y="132">Sol</text>
-            <text x="335" y="132">Lá</text>
-            <text x="387" y="132">Si</text>
-            <text x="439" y="132">Dó</text>
+            <text class="note-label" x="75"  y="132" data-note="Dó">Dó</text>
+            <text class="note-label" x="127" y="132" data-note="Ré">Ré</text>
+            <text class="note-label" x="179" y="132" data-note="Mi">Mi</text>
+            <text class="note-label" x="231" y="132" data-note="Fá">Fá</text>
+            <text class="note-label" x="283" y="132" data-note="Sol">Sol</text>
+            <text class="note-label" x="335" y="132" data-note="Lá">Lá</text>
+            <text class="note-label" x="387" y="132" data-note="Si">Si</text>
+            <text class="note-label" x="439" y="132" data-note="Dó">Dó</text>
           </g>
 
           <!-- Destaca os DOIS semitons naturais (Mi-Fá e Si-Dó) com arcos laranjas -->
@@ -134,7 +134,7 @@
       </p>
 
       <figure class="score-figure">
-        <svg viewBox="0 0 560 180" class="score-svg">
+        <svg viewBox="0 0 560 192" class="score-svg">
           <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
             <line x1="20" y1="50" x2="540" y2="50"/>
             <line x1="20" y1="65" x2="540" y2="65"/>
@@ -147,41 +147,49 @@
 
           <!-- Escala Dó-Ré-Mi-Fá-Sol-Lá-Si-Dó ascendente -->
           <!-- Dó (linha supl abaixo) -->
-          <line x1="92" y1="115" x2="112" y2="115" stroke="#e0d8c0" stroke-width="1.5"/>
-          <ellipse id="ex15-n1" cx="102" cy="115" rx="9" ry="6" fill="var(--gold)"/>
-          <text class="finger-md" x="102" y="42">1</text>
+          <line x1="85" y1="125" x2="119" y2="125" stroke="#e0d8c0" stroke-width="2.5"/>
+          <ellipse id="ex15-n1" cx="102" cy="125" rx="9" ry="6" fill="var(--gold)"/>
+          <text class="note-label" x="102" y="22" font-size="10" text-anchor="middle" data-note="Dó">Dó</text>
+          <text class="finger-md" x="102" y="42" data-note="Dó">1</text>
           <!-- Ré -->
-          <ellipse id="ex15-n2" cx="150" cy="107" rx="9" ry="6" fill="var(--gold)"/>
-          <text class="finger-md" x="150" y="42">2</text>
+          <ellipse id="ex15-n2" cx="150" cy="117" rx="9" ry="6" fill="var(--gold)"/>
+          <text class="note-label" x="150" y="22" font-size="10" text-anchor="middle" data-note="Ré">Ré</text>
+          <text class="finger-md" x="150" y="42" data-note="Ré">2</text>
           <!-- Mi -->
-          <ellipse id="ex15-n3" cx="198" cy="100" rx="9" ry="6" fill="var(--gold)"/>
-          <text class="finger-md" x="198" y="42">3</text>
+          <ellipse id="ex15-n3" cx="198" cy="110" rx="9" ry="6" fill="var(--gold)"/>
+          <text class="note-label" x="198" y="22" font-size="10" text-anchor="middle" data-note="Mi">Mi</text>
+          <text class="finger-md" x="198" y="42" data-note="Mi">3</text>
           <!-- Fá -->
-          <ellipse id="ex15-n4" cx="246" cy="92" rx="9" ry="6" fill="var(--gold)"/>
-          <text class="finger-md" x="246" y="42">1</text>
+          <ellipse id="ex15-n4" cx="246" cy="102" rx="9" ry="6" fill="var(--gold)"/>
+          <text class="note-label" x="246" y="22" font-size="10" text-anchor="middle" data-note="Fá">Fá</text>
+          <text class="finger-md" x="246" y="42" data-note="Fá">1</text>
           <!-- Sol -->
-          <ellipse id="ex15-n5" cx="294" cy="85" rx="9" ry="6" fill="var(--gold)"/>
-          <text class="finger-md" x="294" y="42">2</text>
+          <ellipse id="ex15-n5" cx="294" cy="95" rx="9" ry="6" fill="var(--gold)"/>
+          <text class="note-label" x="294" y="22" font-size="10" text-anchor="middle" data-note="Sol">Sol</text>
+          <text class="finger-md" x="294" y="42" data-note="Sol">2</text>
           <!-- Lá -->
-          <ellipse id="ex15-n6" cx="342" cy="77" rx="9" ry="6" fill="var(--gold)"/>
-          <text class="finger-md" x="342" y="42">3</text>
+          <ellipse id="ex15-n6" cx="342" cy="87" rx="9" ry="6" fill="var(--gold)"/>
+          <text class="note-label" x="342" y="22" font-size="10" text-anchor="middle" data-note="Lá">Lá</text>
+          <text class="finger-md" x="342" y="42" data-note="Lá">3</text>
           <!-- Si -->
-          <ellipse id="ex15-n7" cx="390" cy="70" rx="9" ry="6" fill="var(--gold)"/>
-          <text class="finger-md" x="390" y="42">4</text>
+          <ellipse id="ex15-n7" cx="390" cy="80" rx="9" ry="6" fill="var(--gold)"/>
+          <text class="note-label" x="390" y="22" font-size="10" text-anchor="middle" data-note="Si">Si</text>
+          <text class="finger-md" x="390" y="42" data-note="Si">4</text>
           <!-- Dó (1 oitava acima) -->
-          <ellipse id="ex15-n8" cx="440" cy="62" rx="9" ry="6" fill="var(--gold)"/>
-          <text class="finger-md" x="440" y="42">5</text>
+          <ellipse id="ex15-n8" cx="440" cy="72" rx="9" ry="6" fill="var(--gold)"/>
+          <text class="note-label" x="440" y="22" font-size="10" text-anchor="middle" data-note="Dó">Dó6</text>
+          <text class="finger-md" x="440" y="42" data-note="Dó">5</text>
 
           <!-- Marcadores de intervalo — entre PARES de notas, com setinhas conectando -->
           <!-- Setinhas curvas indicando o intervalo (nota i → nota i+1) -->
           <g stroke="#d4c9a8" stroke-width="1.2" fill="none" opacity="0.7">
-            <path d="M 109 130 Q 126 145 143 130" marker-end="url(#arrow)"/>
-            <path d="M 157 130 Q 174 145 191 130" marker-end="url(#arrow)"/>
-            <path d="M 205 130 Q 222 145 239 130" stroke="#ff9060" marker-end="url(#arrow-orange)"/>
-            <path d="M 253 130 Q 270 145 287 130" marker-end="url(#arrow)"/>
-            <path d="M 301 130 Q 318 145 335 130" marker-end="url(#arrow)"/>
-            <path d="M 349 130 Q 366 145 383 130" marker-end="url(#arrow)"/>
-            <path d="M 397 130 Q 415 145 433 130" stroke="#ff9060" marker-end="url(#arrow-orange)"/>
+            <path d="M 109 140 Q 126 155 143 140" marker-end="url(#arrow)"/>
+            <path d="M 157 140 Q 174 155 191 140" marker-end="url(#arrow)"/>
+            <path d="M 205 140 Q 222 155 239 140" stroke="#ff9060" marker-end="url(#arrow-orange)"/>
+            <path d="M 253 140 Q 270 155 287 140" marker-end="url(#arrow)"/>
+            <path d="M 301 140 Q 318 155 335 140" marker-end="url(#arrow)"/>
+            <path d="M 349 140 Q 366 155 383 140" marker-end="url(#arrow)"/>
+            <path d="M 397 140 Q 415 155 433 140" stroke="#ff9060" marker-end="url(#arrow-orange)"/>
           </g>
 
           <!-- Markers de seta -->
@@ -197,17 +205,17 @@
           <!-- T/½ no centro de cada arco (CIMA do arco — entre 2 notas) -->
           <g font-size="13" font-weight="800" text-anchor="middle" font-family="monospace"
              stroke="#1a1618" stroke-width="2.5" paint-order="stroke">
-            <text x="126" y="148" fill="#d4c9a8">T</text>
-            <text x="174" y="148" fill="#d4c9a8">T</text>
-            <text x="222" y="148" fill="#ff9060">½</text>
-            <text x="270" y="148" fill="#d4c9a8">T</text>
-            <text x="318" y="148" fill="#d4c9a8">T</text>
-            <text x="366" y="148" fill="#d4c9a8">T</text>
-            <text x="415" y="148" fill="#ff9060">½</text>
+            <text x="126" y="158" fill="#d4c9a8">T</text>
+            <text x="174" y="158" fill="#d4c9a8">T</text>
+            <text x="222" y="158" fill="#ff9060">½</text>
+            <text x="270" y="158" fill="#d4c9a8">T</text>
+            <text x="318" y="158" fill="#d4c9a8">T</text>
+            <text x="366" y="158" fill="#d4c9a8">T</text>
+            <text x="415" y="158" fill="#ff9060">½</text>
           </g>
 
           <!-- Legenda -->
-          <text x="280" y="172" fill="#d4c9a8" font-size="11" text-anchor="middle">
+          <text x="280" y="178" fill="#d4c9a8" font-size="11" text-anchor="middle">
             <tspan font-weight="700">T</tspan> = tom ·
             <tspan fill="#ff9060" font-weight="700">½</tspan> = semitom · cada label = intervalo entre 2 notas vizinhas
           </text>

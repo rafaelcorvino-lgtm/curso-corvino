@@ -347,12 +347,23 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
   // ganha _state que migra: pending → preview (esperando aluno tocar) ou
   // pending → hit (auto-tocada). Toggle 𝄞/𝄢 da toolbar decide auto vs wait
   // POR NOTA, no momento que o cursor chega nela.
+  //
+  // startBeat: se não vier explícito, calcula SEQUENCIALMENTE (cumulativo)
+  // — incluindo pausas (n.rest) que avançam o cursor mas não viram allNotes.
+  // Mesma lógica do score-player.js (linha 402).
+  let _seqCursor = 0;
   const allNotes = notes
-    .filter(n => typeof n.midi === 'number')
-    .map(n => ({
+    .map(n => {
+      const hasExplicitStart = typeof n.startBeat === 'number';
+      const startBeat = hasExplicitStart ? n.startBeat : _seqCursor;
+      _seqCursor = startBeat + (n.beats || 0);
+      return { _src: n, startBeat };
+    })
+    .filter(({ _src }) => typeof _src.midi === 'number')
+    .map(({ _src: n, startBeat }) => ({
       midi: n.midi,
       beats: n.beats || 1,
-      startBeat: n.startBeat ?? 0,
+      startBeat,
       el: n.el,
       isBass: !!n.isBass,
       articulation: typeof n.articulation === 'number'
@@ -372,8 +383,14 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
 
   // Sub-listas pra acesso rápido. mdNotes é usada pra posicionar o cursor
   // (que segue só a melodia da MD através dos staves).
-  const mdNotes = allNotes.filter(n => !n.isBass && n._domEl);
+  // Pra peças que SÓ têm baixos (ex: aula 20 — exercícios de bum-tchim-tchim
+  // sem MD), o cursor cai automaticamente nas notas ME pra ainda funcionar.
+  let mdNotes = allNotes.filter(n => !n.isBass && n._domEl);
   const meNotes = allNotes.filter(n => n.isBass);
+  if (mdNotes.length === 0) {
+    mdNotes = meNotes.filter(n => n._domEl);
+    console.log('[synthesia] peça só com baixos — cursor seguirá ME');
+  }
 
   // STAVE_END_X = X final pro cursor varrer (após última nota / mudança de stave).
   // Lê do viewBox do SVG da figure pra suportar partituras de larguras
@@ -387,7 +404,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
   }
 
   if (mdNotes.length === 0) {
-    console.warn('[synthesia] nenhuma nota MD compatível');
+    console.warn('[synthesia] nenhuma nota com elemento DOM');
     return;
   }
 

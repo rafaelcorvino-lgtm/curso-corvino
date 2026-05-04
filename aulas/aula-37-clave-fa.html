@@ -87,13 +87,13 @@
 
       <!-- Nome de cada nota -->
       <g font-size="11" font-weight="700" text-anchor="middle" fill="#d4c9a8" font-style="italic">
-        <text x="120" y="135">Dó</text>
-        <text x="180" y="135">Ré</text>
-        <text x="240" y="135">Mi</text>
-        <text x="300" y="135" fill="var(--gold)">Fá</text>
-        <text x="360" y="135">Sol</text>
-        <text x="420" y="135">Lá</text>
-        <text x="480" y="135">Dó</text>
+        <text class="note-label" x="120" y="135" data-note="Dó">Dó</text>
+        <text class="note-label" x="180" y="135" data-note="Ré">Ré</text>
+        <text class="note-label" x="240" y="135" data-note="Mi">Mi</text>
+        <text class="note-label" x="300" y="135" fill="var(--gold)" data-note="Fá">Fá</text>
+        <text class="note-label" x="360" y="135" data-note="Sol">Sol</text>
+        <text class="note-label" x="420" y="135" data-note="Lá">Lá</text>
+        <text class="note-label" x="480" y="135" data-note="Dó">Dó</text>
       </g>
       <!-- Indicador da linha de referência (Fá) -->
       <text x="305" y="155" font-size="9" fill="var(--gold)" text-anchor="middle" font-style="italic">↑ linha de referência</text>
@@ -119,14 +119,14 @@
       <!-- Notas em clave de Sol: Dó central (linha supl. abaixo y=115) -->
       <line x1="173" y1="115" x2="187" y2="115" stroke="#e0d8c0" stroke-width="1.5"/>
       <ellipse cx="180" cy="115" rx="9" ry="6" fill="var(--gold)"/>
-      <text x="180" y="138" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle">Dó</text>
+      <text class="note-label" x="180" y="138" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle" data-note="Dó">Dó</text>
 
       <!-- Mi -->
       <ellipse cx="280" cy="100" rx="9" ry="6" fill="var(--gold)"/>
-      <text x="280" y="138" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle">Mi</text>
+      <text class="note-label" x="280" y="138" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle" data-note="Mi">Mi</text>
       <!-- Sol -->
       <ellipse cx="380" cy="85" rx="9" ry="6" fill="var(--gold)"/>
-      <text x="380" y="138" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle">Sol</text>
+      <text class="note-label" x="380" y="138" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle" data-note="Sol">Sol</text>
       <!-- Dó alto -->
       <ellipse cx="480" cy="60" rx="9" ry="6" fill="var(--gold)"/>
       <text x="480" y="138" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle">Dó'</text>
@@ -143,14 +143,14 @@
       <!-- Mesmo Dó central, agora em cima da pauta (1º espaço acima da 5ª linha) -->
       <ellipse cx="180" cy="151" rx="9" ry="6" fill="var(--gold)"/>
       <line x1="173" y1="151" x2="187" y2="151" stroke="#e0d8c0" stroke-width="1.5"/>
-      <text x="180" y="240" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle">Dó</text>
+      <text class="note-label" x="180" y="240" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle" data-note="Dó">Dó</text>
 
       <!-- Mi grave (3º espaço, y=182) -->
       <ellipse cx="280" cy="182" rx="9" ry="6" fill="var(--gold)"/>
-      <text x="280" y="240" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle">Mi</text>
+      <text class="note-label" x="280" y="240" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle" data-note="Mi">Mi</text>
       <!-- Sol grave (4º espaço, y=167) -->
       <ellipse cx="380" cy="167" rx="9" ry="6" fill="var(--gold)"/>
-      <text x="380" y="240" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle">Sol</text>
+      <text class="note-label" x="380" y="240" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle" data-note="Sol">Sol</text>
       <!-- Dó grave (2ª linha, y=197) -->
       <ellipse cx="480" cy="197" rx="9" ry="6" fill="var(--gold)"/>
       <text x="480" y="240" font-size="11" font-weight="700" fill="var(--gold)" text-anchor="middle">Dó'</text>
