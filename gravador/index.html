@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gravador MIDI — Corvino Acordeon</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🪗</span>
+      <h1>Gravador Corvino</h1>
+    </div>
+    <div class="conn" id="connStatus">
+      <span class="dot"></span>
+      <span class="label">Conectando ao app…</span>
+    </div>
+    <a class="back" href="../index.html" title="Voltar ao curso">← Curso</a>
+  </header>
+
+  <section class="transport">
+    <button id="btnRec"  class="big rec"   title="Gravar (R)">⏺ Gravar</button>
+    <button id="btnStop" class="big stop"  title="Parar (espaço)" disabled>⏹ Parar</button>
+    <button id="btnPlay" class="big play"  title="Tocar (P)" disabled>▶ Tocar</button>
+    <button id="btnLoop" class="big loop"  title="Loop on/off (L)">🔁 Loop</button>
+    <button id="btnClear" class="big clear" title="Apagar gravação" disabled>🗑 Limpar</button>
+
+    <span class="sep"></span>
+
+    <button id="btnSave"   class="big" disabled title="Salvar arquivo .corvinorec.json">💾 Salvar</button>
+    <label class="big file-btn" title="Carregar arquivo .corvinorec.json">
+      📂 Carregar
+      <input type="file" id="fileLoad" accept=".json,.corvinorec,.corvinorec.json" hidden>
+    </label>
+    <button id="btnExportMidi" class="big midi" disabled title="Exportar .mid pra abrir no MuseScore">🎼 .mid</button>
+  </section>
+
+  <section class="hud">
+    <label class="hud-field">
+      <span>BPM</span>
+      <input type="number" id="bpm" value="120" min="40" max="240" step="1">
+    </label>
+    <label class="hud-field">
+      <span>Quantize</span>
+      <select id="quantize">
+        <option value="0">Off (livre)</option>
+        <option value="0.25">1/16</option>
+        <option value="0.5" selected>1/8</option>
+        <option value="1">1/4</option>
+      </select>
+    </label>
+    <label class="hud-check">
+      <input type="checkbox" id="countIn" checked>
+      <span>Conta-regressiva 4 tempos</span>
+    </label>
+    <label class="hud-check">
+      <input type="checkbox" id="metronome" checked>
+      <span>Metrônomo (clique) durante gravação</span>
+    </label>
+    <div class="timer" id="timer">0:00</div>
+  </section>
+
+  <section class="roll-section">
+    <div class="roll-head">
+      <span>Piano Roll</span>
+      <span class="legend">
+        <span class="sw md"></span> MD
+        <span class="sw bf"></span> Baixo
+        <span class="sw cb"></span> Contra
+        <span class="sw cM"></span> Maior
+        <span class="sw cm"></span> menor
+        <span class="sw c7"></span> 7ª
+      </span>
+    </div>
+    <div class="roll-wrap">
+      <canvas id="rollCanvas" width="2000" height="320"></canvas>
+    </div>
+  </section>
+
+  <section class="info">
+    <div id="infoText">Aguardando o app conectar… Toque qualquer nota no Corvino, no piano da tela ou no teclado do PC pra testar.</div>
+  </section>
+
+  <section class="app-frame">
+    <iframe
+      id="corvinoApp"
+      src="../app/?embed=1"
+      allow="midi"
+      title="Corvino Acordeão Digital">
+    </iframe>
+  </section>
+
+  <script type="module" src="gravador.js"></script>
+</body>
+</html>

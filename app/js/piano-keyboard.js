@@ -35,7 +35,7 @@ const BLACK_KEY_OFFSETS = {
 export function render(container) {
   container.innerHTML = '';
 
-  const keys = generatePianoKeys(48, 72); // C4 to C6 (25 teclas)
+  const keys = generatePianoKeys(48, 72); // 25 teclas (2 oitavas: Dó3 a Dó5) — espelho do Corvino físico
   const whiteKeys = keys.filter(k => !k.accidental);
   const blackKeys = keys.filter(k => k.accidental);
 

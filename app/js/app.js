@@ -9,6 +9,8 @@ import * as lessonPlayer from './lesson-player.js';
 import * as uiControls from './ui-controls.js';
 import * as keyboardInput from './keyboard-input.js';
 import * as embedApi from './embed-api.js';
+import * as pcKeyboard from './pc-keyboard.js';
+import * as appMode from './app-mode.js';
 
 // ===== SPLASH SCREEN =====
 function showSplash() {
@@ -201,6 +203,14 @@ async function main() {
   // Teclado do computador — opcional, pro aluno experimentar sem Corvino físico
   keyboardInput.init();
   keyboardInput.attachHints();
+
+  // PC keyboard view (renderiza SVG do teclado QWERTY virtual) +
+  // toggle Acordeon/PC. Modo persiste em localStorage.
+  // audio + state injetados pra o click/touch nas teclas virtuais tocarem
+  // som (mesma cadeia de keyboard-input.js, sem import circular).
+  const { state } = await import('./state.js');
+  pcKeyboard.init({ audio, state });
+  appMode.init();
 
   // Embed API — permite que as aulas controlem o som via postMessage
   embedApi.init();

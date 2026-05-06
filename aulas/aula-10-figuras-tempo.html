@@ -112,8 +112,16 @@
       <p>
         Quando você vê uma <strong>semínima</strong>, toca a nota e conta
         "1". Próxima semínima, "2". E assim por diante. Quando vê uma
-        <strong>mínima</strong>, toca e <strong>segura</strong> pelo tempo
-        "1 e 2". Semibreve, toca e segura "1, 2, 3, 4".
+        <strong>mínima</strong>, toca e <strong>segura</strong> por 2 tempos
+        ("1, 2"). Semibreve, toca e segura "1, 2, 3, 4".
+      </p>
+      <p>
+        Pra <strong>colcheia</strong> (½ tempo) é o oposto: você toca <em>duas</em>
+        no espaço de uma batida. A trick clássica é contar
+        "<strong>1 e 2 e 3 e 4 e</strong>" — toca a 1ª colcheia em "1", a 2ª em "e",
+        a 3ª em "2", a 4ª em "e"... O "e" cai exatamente no meio de cada batida do
+        metrônomo. Pratique falando alto antes de tocar — quando o "e" virar natural,
+        a colcheia sai sozinha.
       </p>
 
       <h2>Exercício — Dó em várias durações</h2>
@@ -124,7 +132,8 @@
       </p>
 
       <figure class="score-figure">
-        <svg viewBox="0 0 560 150" class="score-svg">
+        <svg viewBox="0 0 560 290" class="score-svg">
+          <!-- ========== STAVE 1: Compassos 1-3 (semibreve, mínimas, semínimas) ========== -->
           <!-- pauta -->
           <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
             <line x1="20" y1="50" x2="540" y2="50"/>
@@ -195,21 +204,132 @@
           <text class="finger-md" x="481" y="35" fill="var(--gold)" font-size="13" font-weight="700" text-anchor="middle"
                 stroke="#1a1618" stroke-width="3" paint-order="stroke" data-note="Dó">1</text>
 
-          <!-- Legenda de contagem abaixo -->
+          <!-- Legenda de contagem stave 1 (corrigida: C2 mín 1 = "1-2", C2 mín 2 = "3-4") -->
           <g fill="var(--fg-dim)" font-size="10" font-family="monospace" text-anchor="middle">
             <text x="164" y="145">1–2–3–4</text>
             <text x="272" y="145">1–2</text>
-            <text x="320" y="145">1–2</text>
+            <text x="320" y="145">3–4</text>
             <text x="389" y="145">1</text>
             <text x="420" y="145">2</text>
             <text x="451" y="145">3</text>
             <text x="481" y="145">4</text>
           </g>
+
+          <!-- ========== STAVE 2: Compassos 4-6 (colcheias + mix + semibreve final) ========== -->
+          <g transform="translate(0, 140)">
+            <!-- pauta -->
+            <g stroke="#e0d8c0" stroke-width="1.5" fill="none">
+              <line x1="20" y1="50" x2="540" y2="50"/>
+              <line x1="20" y1="65" x2="540" y2="65"/>
+              <line x1="20" y1="80" x2="540" y2="80"/>
+              <line x1="20" y1="95" x2="540" y2="95"/>
+              <line x1="20" y1="110" x2="540" y2="110"/>
+            </g>
+            <!-- clave -->
+            <text x="25" y="106" font-size="75" font-family="serif" fill="#e0d8c0">𝄞</text>
+            <!-- barras de compasso -->
+            <g stroke="#e0d8c0" stroke-width="1.5">
+              <line x1="100" y1="50" x2="100" y2="110"/>
+              <line x1="230" y1="50" x2="230" y2="110"/>
+              <line x1="360" y1="50" x2="360" y2="110"/>
+              <line x1="490" y1="50" x2="490" y2="110"/>
+              <line x1="538" y1="50" x2="538" y2="110" stroke-width="3"/>
+            </g>
+
+            <!-- Compasso 4: 8 colcheias (½ tempo cada) — 2 grupos de 4 unidas pelo beam -->
+            <!-- linha suplementar contínua cobrindo as 8 -->
+            <line x1="105" y1="125" x2="225" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+
+            <!-- Grupo 1: colcheias 1-4 (tempos 1 e 2) -->
+            <ellipse id="ex1-n8"  cx="115" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <ellipse id="ex1-n9"  cx="129" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <ellipse id="ex1-n10" cx="143" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <ellipse id="ex1-n11" cx="157" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <line x1="123" y1="125" x2="123" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="137" y1="125" x2="137" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="151" y1="125" x2="151" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="165" y1="125" x2="165" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <rect x="121" y="80" width="46" height="5" fill="var(--gold)"/>
+
+            <!-- Grupo 2: colcheias 5-8 (tempos 3 e 4) -->
+            <ellipse id="ex1-n12" cx="175" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <ellipse id="ex1-n13" cx="189" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <ellipse id="ex1-n14" cx="203" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <ellipse id="ex1-n15" cx="217" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <line x1="183" y1="125" x2="183" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="197" y1="125" x2="197" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="211" y1="125" x2="211" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="225" y1="125" x2="225" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <rect x="181" y="80" width="46" height="5" fill="var(--gold)"/>
+
+            <!-- Labels só na 1ª colcheia do compasso 4 (8 notas iguais — não polui) -->
+            <text class="note-label" x="115" y="21" font-size="11" font-weight="700" text-anchor="middle" data-note="Dó">Dó</text>
+            <text class="finger-md" x="115" y="35" fill="var(--gold)" font-size="13" font-weight="700" text-anchor="middle"
+                  stroke="#1a1618" stroke-width="3" paint-order="stroke" data-note="Dó">1</text>
+
+            <!-- Compasso 5: 4 colcheias (tempos 1 e 2) + 2 semínimas (tempos 3 e 4) -->
+            <line x1="245" y1="125" x2="300" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+
+            <!-- 4 colcheias unidas -->
+            <ellipse id="ex1-n16" cx="252" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <ellipse id="ex1-n17" cx="266" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <ellipse id="ex1-n18" cx="280" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <ellipse id="ex1-n19" cx="294" cy="125" rx="8" ry="6" fill="var(--gold)"/>
+            <line x1="260" y1="125" x2="260" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="274" y1="125" x2="274" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="288" y1="125" x2="288" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <line x1="302" y1="125" x2="302" y2="83" stroke="var(--gold)" stroke-width="2"/>
+            <rect x="258" y="80" width="46" height="5" fill="var(--gold)"/>
+
+            <!-- 2 semínimas -->
+            <line x1="308" y1="125" x2="326" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse id="ex1-n20" cx="317" cy="125" rx="9" ry="6" fill="var(--gold)"/>
+            <line x1="325" y1="125" x2="325" y2="85" stroke="var(--gold)" stroke-width="2"/>
+
+            <line x1="338" y1="125" x2="356" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse id="ex1-n21" cx="347" cy="125" rx="9" ry="6" fill="var(--gold)"/>
+            <line x1="355" y1="125" x2="355" y2="85" stroke="var(--gold)" stroke-width="2"/>
+
+            <!-- Labels do C5: 1ª colcheia + 2 semínimas -->
+            <text class="note-label" x="252" y="21" font-size="11" font-weight="700" text-anchor="middle" data-note="Dó">Dó</text>
+            <text class="finger-md" x="252" y="35" fill="var(--gold)" font-size="13" font-weight="700" text-anchor="middle"
+                  stroke="#1a1618" stroke-width="3" paint-order="stroke" data-note="Dó">1</text>
+            <text class="note-label" x="317" y="21" font-size="11" font-weight="700" text-anchor="middle" data-note="Dó">Dó</text>
+            <text class="finger-md" x="317" y="35" fill="var(--gold)" font-size="13" font-weight="700" text-anchor="middle"
+                  stroke="#1a1618" stroke-width="3" paint-order="stroke" data-note="Dó">1</text>
+            <text class="note-label" x="347" y="21" font-size="11" font-weight="700" text-anchor="middle" data-note="Dó">Dó</text>
+            <text class="finger-md" x="347" y="35" fill="var(--gold)" font-size="13" font-weight="700" text-anchor="middle"
+                  stroke="#1a1618" stroke-width="3" paint-order="stroke" data-note="Dó">1</text>
+
+            <!-- Compasso 6: semibreve final (resolve / repouso) -->
+            <line x1="411" y1="125" x2="439" y2="125" stroke="#e0d8c0" stroke-width="1.5"/>
+            <ellipse id="ex1-n22" cx="425" cy="125" rx="10" ry="6" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+            <text class="note-label" x="425" y="16" font-size="11" font-weight="700" text-anchor="middle" data-note="Dó">Dó</text>
+            <text class="finger-md" x="425" y="30" fill="var(--gold)" font-size="13" font-weight="700" text-anchor="middle"
+                  stroke="#1a1618" stroke-width="3" paint-order="stroke" data-note="Dó">1</text>
+
+            <!-- Legenda contagem stave 2: colcheias usam "e" entre tempos -->
+            <g fill="var(--fg-dim)" font-size="10" font-family="monospace" text-anchor="middle">
+              <!-- C4: 8 colcheias -->
+              <text x="115" y="145">1</text><text x="129" y="145">e</text>
+              <text x="143" y="145">2</text><text x="157" y="145">e</text>
+              <text x="175" y="145">3</text><text x="189" y="145">e</text>
+              <text x="203" y="145">4</text><text x="217" y="145">e</text>
+              <!-- C5: 4 colcheias + 2 semínimas -->
+              <text x="252" y="145">1</text><text x="266" y="145">e</text>
+              <text x="280" y="145">2</text><text x="294" y="145">e</text>
+              <text x="317" y="145">3</text>
+              <text x="347" y="145">4</text>
+              <!-- C6: semibreve -->
+              <text x="425" y="145">1–2–3–4</text>
+            </g>
+          </g>
         </svg>
         <figcaption>
-          Todas são a mesma nota (<strong>Dó</strong>, dedo <strong>1</strong>)
-          — só muda a duração. Compasso 1: semibreve. Compasso 2: duas
-          mínimas. Compasso 3: quatro semínimas.
+          Todas são a mesma nota (<strong>Dó</strong>, dedo <strong>1</strong>) — só muda a duração.
+          <strong>Linha 1:</strong> C1 semibreve (4 tempos), C2 duas mínimas (2+2), C3 quatro semínimas (1+1+1+1).
+          <strong>Linha 2:</strong> C4 oito <em>colcheias</em> (½ tempo cada — pulsa o dobro!),
+          C5 mistura (4 colcheias + 2 semínimas), C6 semibreve final (a peça <em>resolve</em>).
         </figcaption>
         <div class="score-play-wrap">
           <button id="btn-ex1" class="score-play-btn">▶ Ouvir</button>
@@ -228,8 +348,20 @@
       <p>
         Use o <strong>metrônomo do app</strong> (embaixo dos comandos de
         ritmo) a <strong>60 BPM</strong> pra começar. Cada clique é uma
-        batida. Toque conforme a partitura — segure a semibreve por 4
-        cliques, a mínima por 2, a semínima por 1, e conte em voz alta.
+        batida. Toque conforme a partitura:
+      </p>
+      <ul>
+        <li>Segure a <strong>semibreve</strong> por 4 cliques.</li>
+        <li>Segure a <strong>mínima</strong> por 2 cliques.</li>
+        <li>A <strong>semínima</strong> dura 1 clique.</li>
+        <li>A <strong>colcheia</strong> dura ½ clique — toque DUAS pra cada batida do metrônomo
+            (uma em cima do clique, outra entre os cliques).</li>
+      </ul>
+      <p>
+        E sempre conte em voz alta. <strong>Truque pras colcheias:</strong> conte
+        "<strong>1 e 2 e 3 e 4 e</strong>" — o "e" é o meio do tempo, onde cai a colcheia ímpar.
+        Se você só consegue tocar bem o compasso 4 (8 colcheias), comece com BPM mais lento
+        (40-50) e suba aos poucos.
       </p>
       <ul>
         <li>
@@ -278,18 +410,39 @@
     //   semibreve: quase toda sustentada (0.95) — nota LONGA
     //   mínimas:   sustentação média-alta (0.92)
     //   semínimas: articulação de escala (0.85) — nota destacada, pulsa
+    //   colcheias: articulação curta (0.65) — pulsa rápido (½ tempo cada)
     attachScorePlayer({
       playBtnId: 'btn-ex1',
       bpm: 60,
-      beatsPerBar: 4, // metrônomo: click agudo no tempo 1 de cada compasso
+      beatsPerBar: 4,        // metrônomo: click agudo no tempo 1 de cada compasso
+      metronome: 'always',   // click acompanha TODA a peça (vital pra exercício de figuras/ritmo)
       notes: [
-        { midi: 48, beats: 4, el: '#ex1-n1', articulation: 0.95 }, // semibreve
-        { midi: 48, beats: 2, el: '#ex1-n2', articulation: 0.92 }, // mínima
-        { midi: 48, beats: 2, el: '#ex1-n3', articulation: 0.92 }, // mínima
-        { midi: 48, beats: 1, el: '#ex1-n4', articulation: 0.85 }, // semínima
-        { midi: 48, beats: 1, el: '#ex1-n5', articulation: 0.85 },
-        { midi: 48, beats: 1, el: '#ex1-n6', articulation: 0.85 },
-        { midi: 48, beats: 1, el: '#ex1-n7', articulation: 0.85 },
+        // STAVE 1
+        { midi: 48, beats: 4,   el: '#ex1-n1', articulation: 0.95 }, // C1 semibreve
+        { midi: 48, beats: 2,   el: '#ex1-n2', articulation: 0.92 }, // C2 mínima 1
+        { midi: 48, beats: 2,   el: '#ex1-n3', articulation: 0.92 }, // C2 mínima 2
+        { midi: 48, beats: 1,   el: '#ex1-n4', articulation: 0.85 }, // C3 semínima 1
+        { midi: 48, beats: 1,   el: '#ex1-n5', articulation: 0.85 }, // C3 semínima 2
+        { midi: 48, beats: 1,   el: '#ex1-n6', articulation: 0.85 }, // C3 semínima 3
+        { midi: 48, beats: 1,   el: '#ex1-n7', articulation: 0.85 }, // C3 semínima 4
+        // STAVE 2 — C4: 8 colcheias (4 tempos no total)
+        { midi: 48, beats: 0.5, el: '#ex1-n8',  articulation: 0.65 },
+        { midi: 48, beats: 0.5, el: '#ex1-n9',  articulation: 0.65 },
+        { midi: 48, beats: 0.5, el: '#ex1-n10', articulation: 0.65 },
+        { midi: 48, beats: 0.5, el: '#ex1-n11', articulation: 0.65 },
+        { midi: 48, beats: 0.5, el: '#ex1-n12', articulation: 0.65 },
+        { midi: 48, beats: 0.5, el: '#ex1-n13', articulation: 0.65 },
+        { midi: 48, beats: 0.5, el: '#ex1-n14', articulation: 0.65 },
+        { midi: 48, beats: 0.5, el: '#ex1-n15', articulation: 0.65 },
+        // C5: 4 colcheias + 2 semínimas (4 tempos)
+        { midi: 48, beats: 0.5, el: '#ex1-n16', articulation: 0.65 },
+        { midi: 48, beats: 0.5, el: '#ex1-n17', articulation: 0.65 },
+        { midi: 48, beats: 0.5, el: '#ex1-n18', articulation: 0.65 },
+        { midi: 48, beats: 0.5, el: '#ex1-n19', articulation: 0.65 },
+        { midi: 48, beats: 1,   el: '#ex1-n20', articulation: 0.85 },
+        { midi: 48, beats: 1,   el: '#ex1-n21', articulation: 0.85 },
+        // C6: semibreve final (resolve)
+        { midi: 48, beats: 4,   el: '#ex1-n22', articulation: 0.95 },
       ],
     });
   </script>

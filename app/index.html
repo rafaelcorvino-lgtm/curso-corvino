@@ -104,8 +104,9 @@
           <button class="mini-btn" id="metro-toggle" title="Ligar/desligar metrônomo">▶</button>
         </div>
       </div>
-      <!-- Comandos flutuantes (canto inferior direito) — só zoom (kbd-toggle
-           foi movido pra registers-bar pra ficar perto do toggle de notas) -->
+      <!-- Comandos flutuantes (canto inferior direito da bass-section) — zoom
+           (A−, ⟲, A+). Toggle de modo do app (⌨️/🎹) ficou no bar-toggles
+           pra ser visível em ambos os modos. -->
       <div class="bottom-right-controls">
         <div class="zoom-controls">
           <button class="zoom-btn" id="zoom-down" title="Diminuir UI">A−</button>
@@ -115,6 +116,10 @@
       </div>
       <div id="scale-feedback"></div>
       <div id="bass-grid"></div>
+
+      <!-- PC keyboard: BAIXO (cbx + fund + maj + min) — visível só no
+           modo PC, ocupa a área do bass-grid. SVG injetado por pc-keyboard.js. -->
+      <div id="pc-bass-section"></div>
     </div>
 
     <!-- Fole decorativo (separador entre baixos e teclado) -->
@@ -133,7 +138,17 @@
       </div>
       <div class="register-tabs" id="register-tabs"></div>
       <div class="bar-toggles">
-        <button class="label-toggle" id="kbd-toggle" title="Tocar com teclado do computador (G=Dó, H=Ré, J=Mi, K=Fá, L=Sol)">🎹</button>
+        <button class="label-toggle" id="kbd-toggle" title="Tocar com teclado do computador (G=Dó, H=Ré, J=Mi, K=Fá, L=Sol)">
+          <svg viewBox="0 0 24 14" width="22" height="13" aria-hidden="true">
+            <rect x="0.5" y="0.5" width="7" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <rect x="8.5" y="0.5" width="7" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <rect x="16.5" y="0.5" width="7" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="4"  y="8.5" font-size="6" text-anchor="middle" fill="currentColor" font-family="monospace" font-weight="700">G</text>
+            <text x="12" y="8.5" font-size="6" text-anchor="middle" fill="currentColor" font-family="monospace" font-weight="700">H</text>
+            <text x="20" y="8.5" font-size="6" text-anchor="middle" fill="currentColor" font-family="monospace" font-weight="700">J</text>
+          </svg>
+        </button>
+        <button class="label-toggle" id="app-mode-toggle" title="Trocar pra visualização do Teclado PC">⌨️</button>
         <button class="label-toggle on" id="label-toggle" title="Mostrar/ocultar nomes das notas">🏷️</button>
         <button class="label-toggle" id="ui-toggle" title="Esconder/mostrar comandos">☰</button>
       </div>
@@ -142,6 +157,10 @@
     <!-- Piano Section -->
     <div id="piano-section">
       <div id="piano-container"></div>
+
+      <!-- PC keyboard: TECLADO MD (brancas + pretas) — visível só no modo PC,
+           ocupa a área do piano. SVG injetado por pc-keyboard.js. -->
+      <div id="pc-md-section"></div>
     </div>
   </div>
 

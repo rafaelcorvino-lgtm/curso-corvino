@@ -319,7 +319,12 @@ function ensureSynthesiaToolbar(figure, synthBtn, defaultBpm) {
 // beatsPerBar: se setado (ex: 3 pra valsa), toca COUNT-IN — N clicks
 // metronome com a 1ª batida mais aguda — antes do jogo começar. O aluno
 // percebe o tempo antes de precisar tocar a 1ª nota. Default 0 (sem).
-export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes = [] }) {
+// metronome:
+//   'countIn' (default) — clicks só no count-in (1 compasso antes da peça).
+//   'always'            — clicks no count-in E em todos os tempos da peça.
+//                         Útil em exercícios de RITMO (figuras, contagem) onde
+//                         o aluno precisa do pulso pra acertar duração.
+export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes = [], metronome = 'countIn' }) {
   console.log('[synthesia] attach: btn=', triggerBtnId, 'bpm=', bpm, 'notes=', notes.length);
   const triggerBtn = document.getElementById(triggerBtnId);
   if (!triggerBtn) {
@@ -401,6 +406,37 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     const svg = figure.querySelector('svg.score-svg');
     const vb = svg?.getAttribute('viewBox')?.split(/\s+/).map(Number);
     if (vb && vb.length === 4 && vb[2] > 0) STAVE_END_X = vb[2] - 4;
+  }
+
+  // Limites Y do cursor — detecta as linhas HORIZONTAIS da pauta no SVG
+  // pra fazer o cursor sempre cobrir a pauta inteira + folga, em vez de
+  // usar offset fixo (cy ± 75/90) que falhava em pautas pequenas (ex aula-12,
+  // viewBox=170 com notas em cy=125: cursor começava no meio da pauta).
+  // Estratégia: line.y1==y2 + extensão x grande (>= 100) = linha de pauta.
+  let CURSOR_Y_TOP = 0;
+  let CURSOR_Y_BOTTOM = 200;
+  if (figure) {
+    const svg = figure.querySelector('svg.score-svg');
+    if (svg) {
+      const lines = svg.querySelectorAll('line');
+      const staveYs = [];
+      for (const ln of lines) {
+        const y1 = parseFloat(ln.getAttribute('y1') || '0');
+        const y2 = parseFloat(ln.getAttribute('y2') || '0');
+        const x1 = parseFloat(ln.getAttribute('x1') || '0');
+        const x2 = parseFloat(ln.getAttribute('x2') || '0');
+        // Linha horizontal extensa = linha da pauta
+        if (Math.abs(y1 - y2) < 0.1 && Math.abs(x2 - x1) >= 100) {
+          staveYs.push(y1);
+        }
+      }
+      if (staveYs.length >= 2) {
+        const minY = Math.min(...staveYs);
+        const maxY = Math.max(...staveYs);
+        CURSOR_Y_TOP = Math.max(0, minY - 10);     // 10px acima da 1ª linha
+        CURSOR_Y_BOTTOM = maxY + 30;               // 30px abaixo (cobre notas com linha supl)
+      }
+    }
   }
 
   if (mdNotes.length === 0) {
@@ -544,11 +580,23 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     // BUG fix: usa `activeBpm` (BPM atual da toolbar) em vez do `bpm`
     // fixo do attach. Antes, mudar BPM no controle não mudava o ritmo
     // do count-in.
+    // Se metronome === 'always', estende o loop pra cobrir TODA a peça
+    // (count-in + duração total) — útil em exercícios de figuras/ritmo.
     if (beatsPerBar > 0) {
       ensureAudioCtx();
       const beatSec = 60 / activeBpm;
-      for (let b = 0; b < beatsPerBar; b++) {
-        const osc = scheduleClick(b * beatSec, b === 0);
+      // Quantos beats no total agendar clicks pra
+      let clickBeats = beatsPerBar;
+      if (metronome === 'always' && allNotes.length > 0) {
+        // duração total da peça (em beats) = max endBeat de todas as notas
+        const musicBeats = Math.ceil(
+          allNotes.reduce((max, n) => Math.max(max, n.startBeat + n.beats), 0)
+        );
+        clickBeats = beatsPerBar + musicBeats;
+      }
+      for (let b = 0; b < clickBeats; b++) {
+        const isStrong = (b % beatsPerBar) === 0;
+        const osc = scheduleClick(b * beatSec, isStrong);
         if (osc) scheduledClicks.push(osc);
       }
       // UX: mostra "Preparando…" no botão durante o count-in
@@ -702,10 +750,11 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       const focus = stuckMd || stuck;
       if (focus._pos) {
         placeBall(focus._pos, focus.midi, focus.isBass);
+        const so = staveOffsetOf(focus);
         cursor.setAttribute('x1', focus._pos.x);
         cursor.setAttribute('x2', focus._pos.x);
-        cursor.setAttribute('y1', focus._pos.y - 75);
-        cursor.setAttribute('y2', focus._pos.y + 90);
+        cursor.setAttribute('y1', CURSOR_Y_TOP + so);
+        cursor.setAttribute('y2', CURSOR_Y_BOTTOM + so);
         scrollNoteIntoView(focus._domEl);
       }
       return;
@@ -714,10 +763,14 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     // 3) Cursor avança com o tempo (segue posição da MD no SVG)
     const cursorPos = computeCursorPosition(elapsedBeats);
     if (cursorPos) {
+      // Stave Y atual: pega offset do prev MD pra cursor cobrir só o stave
+      // dele (não a partitura inteira). CURSOR_Y_TOP/BOTTOM são RELATIVOS
+      // ao stave (~40/230); somar staveOffset dá Y absoluto pro cursor.
+      const so = cursorPos.staveOffset || 0;
       cursor.setAttribute('x1', cursorPos.x);
       cursor.setAttribute('x2', cursorPos.x);
-      cursor.setAttribute('y1', cursorPos.y - 75);
-      cursor.setAttribute('y2', cursorPos.y + 90);
+      cursor.setAttribute('y1', CURSOR_Y_TOP + so);
+      cursor.setAttribute('y2', CURSOR_Y_BOTTOM + so);
     }
 
     // 4) Bolinha + rótulo: aponta a próxima nota a tocar (preview).
@@ -771,6 +824,17 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       : '⌨ ' + midiToKeyLetter(midi);
   }
 
+  // Calcula o offset Y do stave da nota: posição absoluta - cy relativa
+  // (= valor do translate do <g stave>). Usado pra fazer cursor cobrir só
+  // o stave da nota atual em partituras multi-stave.
+  function staveOffsetOf(note) {
+    if (!note || !note._pos || !note._domEl) return 0;
+    const cyAttr = parseFloat(
+      note._domEl.getAttribute('cy') || note._domEl.getAttribute('y') || 0
+    );
+    return note._pos.y - cyAttr;
+  }
+
   // Interpolação linear entre prev e next, considerando pulos de stave
   function computeCursorPosition(elapsedBeats) {
     let prev = null, next = null;
@@ -783,7 +847,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       const p = next._pos;
       const beatsBefore = next.startBeat - elapsedBeats;
       const offsetX = Math.max(0, Math.min(80, beatsBefore * 30));
-      return { x: p.x - offsetX, y: p.y };
+      return { x: p.x - offsetX, y: p.y, staveOffset: staveOffsetOf(next) };
     }
     if (!next) {
       // Última nota: varre da posição da nota até o fim da pauta
@@ -795,6 +859,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       return {
         x: prev._pos.x + (STAVE_END_X - prev._pos.x) * t,
         y: prev._pos.y,
+        staveOffset: staveOffsetOf(prev),
       };
     }
 
@@ -808,6 +873,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
       return {
         x: prevPos.x + (nextPos.x - prevPos.x) * t,
         y: prevPos.y,
+        staveOffset: staveOffsetOf(prev),
       };
     }
     // Stave diferente: cursor anda na VELOCIDADE LOCAL do stave atual
@@ -829,7 +895,7 @@ export function attachSynthesia({ triggerBtnId, bpm = 60, beatsPerBar = 0, notes
     }
     const elapsedInPrev = elapsedBeats - prev.startBeat;
     const targetX = Math.min(STAVE_END_X, prevPos.x + speed * elapsedInPrev);
-    return { x: targetX, y: prevPos.y };
+    return { x: targetX, y: prevPos.y, staveOffset: staveOffsetOf(prev) };
   }
 
   // ----- Input -----

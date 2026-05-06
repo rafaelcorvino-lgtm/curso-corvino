@@ -7,6 +7,7 @@ import * as groovePlayer from './groove-player.js';
 import { state } from './state.js';
 import * as bassButtons from './bass-buttons.js';
 import * as pianoKeyboard from './piano-keyboard.js';
+import * as pcKeyboard from './pc-keyboard.js';
 
 // ============ ZOOM (UI scale) ============
 const ZOOM = {
@@ -108,6 +109,11 @@ function setTranspose(isBass, value) {
   // Atualiza labels para refletir a nova tonalidade (igual app Flutter)
   if (isBass) bassButtons.refreshLabels();
   else pianoKeyboard.refreshLabels();
+  // Sincroniza o teclado PC virtual também (G mostra "Ré" se kb-tr=+2, etc.)
+  pcKeyboard.refreshLabels({
+    kbTranspose: audio.getTranspose(false),
+    bassTranspose: audio.getTranspose(true),
+  });
 }
 
 function setupTranspose() {

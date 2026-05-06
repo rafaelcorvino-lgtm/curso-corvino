@@ -290,17 +290,19 @@ a:hover { color: var(--gold-light); text-decoration: underline; }
 
 /* === LESSON PAGE === */
 .lesson-layout {
-  max-width: 1400px;
+  /* max-width removido: layout fluído ocupa toda a largura da tela.
+     Padding mínimo (8px) na direita pro app colar na borda em monitores
+     widescreen. À esquerda, 16px pra respiro do conteúdo da aula. */
   margin: 24px auto;
-  padding: 0 24px;
+  padding: 0 8px 0 16px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
 }
 
 @media (min-width: 1100px) {
-  /* Layout 70/30 — mais espaço pro conteúdo da aula, app mais compacto */
-  .lesson-layout { grid-template-columns: minmax(0, 1fr) 460px; }
+  /* Layout: conteúdo da aula (fluído) + app fixo de 540px à direita. */
+  .lesson-layout { grid-template-columns: minmax(0, 1fr) 540px; }
 }
 
 /* === MODO "APP OCULTO" === */

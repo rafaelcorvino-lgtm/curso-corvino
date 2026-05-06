@@ -46,10 +46,9 @@ export const TIMBRES = [
 
 const BASS_SF2 = 'assets/soundfonts/corvino_baixo.sf2';
 
-// Timbre default: accordion (244KB). Bem menor que basson (59MB) —
-// carga instantânea no primeiro acesso. Usuário pode trocar depois e o
-// soundfont escolhido é baixado sob demanda (lazy).
-let currentTimbre = 'accordion';
+// Timbre default: violin. Usuário pode trocar via tabs no registers-bar e
+// o soundfont escolhido é baixado sob demanda (lazy).
+let currentTimbre = 'violin';
 let keyboardTranspose = 0;
 let bassTranspose = 0;
 

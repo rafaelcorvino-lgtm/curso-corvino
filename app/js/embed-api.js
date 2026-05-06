@@ -13,6 +13,7 @@
 
 import * as audio from './audio-engine.js';
 import { state } from './state.js';
+import * as pcKeyboard from './pc-keyboard.js';
 
 const active = new Set(); // "midi:isBass" — pra all-off
 
@@ -32,6 +33,9 @@ function onMessage(ev) {
         // Feedback visual nas próprias teclas do app também
         if (d.isBass) state.bassNoteOn(d.midi);
         else state.pianoNoteOn(d.midi);
+        // Acende a tecla virtual no PC keyboard (pra que Synthesia das aulas
+        // funcione igual no modo PC — aluno vê acender mesmo sem Corvino físico)
+        pcKeyboard.setActiveByMidi(d.midi, !!d.isBass, true);
         active.add(`${d.midi}:${!!d.isBass}`);
         break;
       }
@@ -39,6 +43,7 @@ function onMessage(ev) {
         audio.noteOff(d.midi, !!d.isBass);
         if (d.isBass) state.bassNoteOff(d.midi);
         else state.pianoNoteOff(d.midi);
+        pcKeyboard.setActiveByMidi(d.midi, !!d.isBass, false);
         active.delete(`${d.midi}:${!!d.isBass}`);
         break;
       case 'corvino:allOff':
@@ -49,6 +54,7 @@ function onMessage(ev) {
           audio.noteOff(midi, isBass);
           if (isBass) state.bassNoteOff(midi);
           else state.pianoNoteOff(midi);
+          pcKeyboard.setActiveByMidi(midi, isBass, false);
         }
         active.clear();
         break;

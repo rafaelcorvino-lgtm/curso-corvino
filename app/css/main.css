@@ -908,6 +908,171 @@ dialog::backdrop { background: rgba(0,0,0,0.5); }
    da .label-toggle. Quando "on" (ativo), recebe destaque dourado. */
 #kbd-toggle.label-toggle.on { background: rgba(218,165,32,0.32); }
 
+/* ===== APP MODE TOGGLE + PC KEYBOARD VIEW =====
+   Modo "acordeon" (default): mostra bass-section + piano-section, esconde
+   pc-keyboard-section. Modo "pc": inverso — pc-keyboard-section ocupa o
+   lugar dos bass+piano. body recebe a classe app-mode-acordeon ou app-mode-pc. */
+
+/* Modo Acordeon (default) — esconde os 2 containers do PC keyboard */
+body.app-mode-acordeon #pc-bass-section,
+body.app-mode-acordeon #pc-md-section { display: none; }
+
+/* Modo PC — esconde só os botões/teclas reais do acordeon (bass-grid +
+   piano-container). Tudo o resto (HUDs, registers-bar, zoom-controls,
+   bellows-bar) FICA visível. Os 2 SVGs do PC keyboard ocupam o lugar:
+   - pc-bass-section dentro de #bass-section (substitui bass-grid)
+   - pc-md-section dentro de #piano-section (substitui piano-container) */
+body.app-mode-pc #bass-grid,
+body.app-mode-pc #piano-container { display: none; }
+body.app-mode-pc #pc-bass-section,
+body.app-mode-pc #pc-md-section { display: flex; }
+
+/* No modo PC, força bass-section a respeitar a altura disponível pra
+   evitar que o pc-bass-section vaze pros vizinhos (registers/bellows). */
+body.app-mode-pc #bass-section { overflow: hidden; }
+
+/* PC bass: position:absolute no modo PC pra ocupar 100% do bass-section
+   sem influenciar a altura calculada pelo flexbox (que estava forçando
+   esticar o pai). */
+#pc-bass-section {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 160px;
+  overflow: hidden;
+}
+body.app-mode-pc #pc-bass-section {
+  display: flex;
+  position: absolute;
+  inset: 0;
+  z-index: 1;  /* abaixo dos HUDs (z:5) e do scale-feedback */
+}
+#pc-bass-section .pc-kbd-svg {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  aspect-ratio: 280 / 210;
+}
+
+/* Piano-section: position relative pra ancorar o .hud-tr quando movido
+   pra cá no modo PC. Altura aumentada no modo PC pra dar mais espaço
+   pro PC keyboard MD ficar com teclas grandes. */
+#piano-section { position: relative; }
+body.app-mode-pc #piano-section { flex: 0 0 40vh; min-height: 170px; }
+
+/* No modo PC, força piano-section a respeitar altura. */
+body.app-mode-pc #piano-section { overflow: hidden; }
+
+/* PC md: position:absolute pra cobrir 100% do piano-section. */
+#pc-md-section {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 130px;
+  overflow: hidden;
+}
+body.app-mode-pc #pc-md-section {
+  display: flex;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+#pc-md-section .pc-kbd-svg {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  aspect-ratio: 340 / 105;
+}
+
+.pc-kbd-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 1100px;
+  max-height: 100%;
+}
+
+/* Cores das teclas por kind. Cada .pc-key tem um <rect> filho que recebe
+   a cor de fundo + borda. Os .pc-letter são as letras grandes do meio
+   (Q W A S G H...) e .pc-label é a sub-legenda (Fá fund, Dó M, etc.). */
+.pc-key rect {
+  transition: fill 0.08s, filter 0.08s;
+}
+.pc-letter {
+  font-size: 13px;
+  font-weight: 700;
+  text-anchor: middle;
+  font-family: monospace;
+}
+.pc-label {
+  font-size: 7px;
+  text-anchor: middle;
+}
+.pc-letter-empty {
+  font-size: 11px;
+  text-anchor: middle;
+  fill: #555;
+  font-family: monospace;
+}
+
+/* Contrabaixos (linha 1, vermelho) */
+.pc-key[data-kind="cbx"] rect { fill: rgba(217,74,74,0.35); stroke: #d94a4a; stroke-width: 1.5; }
+.pc-key[data-kind="cbx"] .pc-letter,
+.pc-key[data-kind="cbx"] .pc-label { fill: #ff9090; }
+
+/* Fundamentais (Q W E R, azul) */
+.pc-key[data-kind="fund"] rect { fill: rgba(110,160,200,0.35); stroke: #5a8acc; stroke-width: 1.5; }
+.pc-key[data-kind="fund"] .pc-letter,
+.pc-key[data-kind="fund"] .pc-label { fill: #a8c8ec; }
+
+/* Acordes maiores (A S D F, verde) */
+.pc-key[data-kind="maj"] rect { fill: rgba(140,200,140,0.35); stroke: #5ab45a; stroke-width: 1.5; }
+.pc-key[data-kind="maj"] .pc-letter,
+.pc-key[data-kind="maj"] .pc-label { fill: #90d090; }
+
+/* Acordes menores (Z X C V, roxo) */
+.pc-key[data-kind="min"] rect { fill: rgba(200,140,200,0.35); stroke: #a065a0; stroke-width: 1.5; }
+.pc-key[data-kind="min"] .pc-letter,
+.pc-key[data-kind="min"] .pc-label { fill: #c890c8; }
+
+/* Brancas MD (G H J K L Ç ~ ], dourado) */
+.pc-key[data-kind="white"] rect { fill: rgba(218,165,32,0.45); stroke: var(--gold); stroke-width: 1.5; }
+.pc-key[data-kind="white"] .pc-letter,
+.pc-key[data-kind="white"] .pc-label { fill: var(--gold); }
+.pc-key[data-kind="white"] .pc-label { font-size: 8px; }
+
+/* Pretas MD (Y U O P [, laranja) */
+.pc-key[data-kind="black"] rect { fill: #2a2025; stroke: #ff9060; stroke-width: 1.5; }
+.pc-key[data-kind="black"] .pc-letter,
+.pc-key[data-kind="black"] .pc-label { fill: #ff9060; }
+
+/* Empty (sem função: 5-= T I ] B N M) */
+.pc-key.pc-empty rect { fill: #1f1d20; stroke: #3a3537; stroke-width: 1; }
+
+/* Estado ATIVO — quando aluno aperta a tecla física no PC */
+.pc-key.active rect {
+  fill: var(--gold);
+  filter: drop-shadow(0 0 8px rgba(218,165,32,0.9))
+          drop-shadow(0 0 14px rgba(218,165,32,0.6));
+}
+.pc-key.active .pc-letter,
+.pc-key.active .pc-label { fill: #1a1618; }
+
+/* Legenda da peça (no rodapé do SVG) — caixinhas coloridas iguais às teclas */
+.pc-legend-cbx { fill: rgba(217,74,74,0.35); stroke: #d94a4a; }
+.pc-legend-fund { fill: rgba(110,160,200,0.35); stroke: #5a8acc; }
+.pc-legend-maj { fill: rgba(140,200,140,0.35); stroke: #5ab45a; }
+.pc-legend-min { fill: rgba(200,140,200,0.35); stroke: #a065a0; }
+.pc-legend-white { fill: rgba(218,165,32,0.45); stroke: var(--gold); }
+.pc-legend-black { fill: #2a2025; stroke: #ff9060; }
+.pc-legend-empty { fill: #1f1d20; stroke: #3a3537; }
+
+/* Botão de toggle do app mode (no bar-toggles, ao lado do kbd-toggle) */
+#app-mode-toggle.label-toggle { font-size: 14px; }
+/* Quando modo = PC, destaca o botão pra mostrar que está ativo */
+body.app-mode-pc #app-mode-toggle.label-toggle { background: rgba(218,165,32,0.32); }
+
 /* ===== UI TOGGLE (esconder/mostrar HUDs) ===== */
 /* Quando #app.hide-ui-controls, esconde os 4 grupos de comandos flutuantes,
    mantendo só o registers-bar (registros fixos + toggles essenciais). */

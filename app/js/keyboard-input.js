@@ -27,6 +27,7 @@
 
 import * as audio from './audio-engine.js';
 import { state } from './state.js';
+import * as pcKeyboard from './pc-keyboard.js';
 
 // Cada entry: { midi, isBass, row (só pro baixo — posiciona o hint visual) }
 // row usa o MESMO índice do BASS_ROWS do midi-data.js:
@@ -121,6 +122,7 @@ function onKeyDown(e) {
   audio.noteOn(entry.midi, 100, entry.isBass);
   if (entry.isBass) state.bassNoteOn(entry.midi);
   else state.pianoNoteOn(entry.midi);
+  pcKeyboard.setActive(e.code, true);
   e.preventDefault();
 }
 
@@ -133,6 +135,7 @@ function onKeyUp(e) {
   audio.noteOff(entry.midi, entry.isBass);
   if (entry.isBass) state.bassNoteOff(entry.midi);
   else state.pianoNoteOff(entry.midi);
+  pcKeyboard.setActive(e.code, false);
   e.preventDefault();
 }
 
@@ -145,6 +148,7 @@ function releaseAll() {
     else state.pianoNoteOff(entry.midi);
   }
   activeCodes.clear();
+  pcKeyboard.releaseAll();
 }
 
 // Encontra o botão/tecla DOM correspondente a uma entrada KEY_MAP

@@ -166,6 +166,10 @@
           <!-- Si (na 3ª linha) -->
           <ellipse id="ex9-si" cx="410" cy="70" rx="9" ry="6" fill="#887a50" transform="rotate(-20 410 70)"/>
           <text class="note-label" x="405" y="118" fill="#887a50" font-size="10" data-note="Si">Si</text>
+
+          <!-- Dó (oitava acima, no 3º espaço — fecha a escala) -->
+          <ellipse id="ex9-do6" cx="460" cy="62" rx="9" ry="6" fill="#887a50" transform="rotate(-20 460 62)"/>
+          <text class="note-label" x="455" y="118" fill="#887a50" font-size="10" data-note="Dó">Dó</text>
         </svg>
         <figcaption>As notas dessa aula em <span style="color:var(--gold)"><strong>dourado</strong></span> (Dó a Sol — que você já toca com G H J K L). Lá e Si (em cinza) também já estão mapeadas pra Ç e ~ no teclado, pronto pra escala completa quando chegar nelas.</figcaption>
         <div class="score-play-wrap">
@@ -195,8 +199,7 @@
       <p>
         E os quatro espaços (de baixo pra cima) são <strong>Fá – Lá –
         Dó – Mi</strong> — que por sorte soletram a palavra
-        "<strong>FALÁDOMI</strong>" ou, mais fácil ainda, a palavra
-        em inglês "<strong>FACE</strong>" (F-A-C-E = Fá-Lá-Dó-Mi).
+        "<strong>FALÁDOMI</strong>".
       </p>
 
       <h2>5. Pratique no app ao lado</h2>
@@ -380,7 +383,7 @@
         </li>
         <li>
           <strong>Pelo teclado do computador:</strong> ative o botão
-          <strong>🎹</strong> no canto inferior direito do app (acima dos botões A−/⟲/A+ de zoom) e use:
+          <strong>🎹</strong> na barra central do app (ao lado do 🏷️ que mostra os nomes das notas) e use:
         </li>
       </ul>
       <div class="fingering">
@@ -438,7 +441,7 @@
         { midi: 55, beats: 1, el: '#ex9-sol', articulation: MEL },
         { midi: 57, beats: 1, el: '#ex9-la',  articulation: MEL },
         { midi: 59, beats: 1, el: '#ex9-si',  articulation: MEL },
-        { midi: 60, beats: 1,                 articulation: 0.95 }, // Dó final um pouco mais longo
+        { midi: 60, beats: 2, el: '#ex9-do6', articulation: 0.95 }, // Dó (oitava acima) sustentado no fim
       ],
     });
   </script>
