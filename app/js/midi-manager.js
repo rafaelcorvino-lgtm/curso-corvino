@@ -225,12 +225,17 @@ function handleMidiMessage(event, device) {
   const velocity = data[2];
   const isBass = device._isBass;  // pré-calculado em connectDevice
 
-  // HOT PATH: áudio primeiro, state/UI depois (outros status são ignorados)
+  // HOT PATH: áudio primeiro, state/UI depois (outros status são ignorados).
+  // Velocity FIXA — Corvino é "sem sensibilidade" por design (mesmo se o
+  // controller físico envia velocity variável, ex: SMK-25 Mini do RC2).
+  // A velocity original ainda é usada pra distinguir noteOn real (>0) de
+  // noteOff disfarçado (==0), como o protocolo MIDI permite.
+  const FIXED_VEL = 100;
   if (status === 0x90 && velocity > 0) {
-    midiHotLog('noteOn dev=', device.name, 'midi=', note, 'vel=', velocity, 'isBass=', isBass);
-    audio.noteOn(note, velocity, isBass);
+    midiHotLog('noteOn dev=', device.name, 'midi=', note, 'velRaw=', velocity, 'isBass=', isBass);
+    audio.noteOn(note, FIXED_VEL, isBass);
     if (isBass) state.bassNoteOn(note); else state.pianoNoteOn(note);
-    relayMidiToParent('noteOn', note, velocity, isBass);
+    relayMidiToParent('noteOn', note, FIXED_VEL, isBass);
   } else if (status === 0x80 || (status === 0x90 && velocity === 0)) {
     midiHotLog('noteOff dev=', device.name, 'midi=', note, 'isBass=', isBass);
     audio.noteOff(note, isBass);
