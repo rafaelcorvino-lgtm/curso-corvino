@@ -116,11 +116,18 @@ export async function init() {
     await JSSynth.waitForReady();
 
     // AudioContext: deixa o navegador escolher o sampleRate nativo da placa de som
-    // (evita resample desnecessário — algumas placas são 44.1k, outras 48k)
+    // (evita resample desnecessário — algumas placas são 44.1k, outras 48k).
+    // latencyHint: número em SEGUNDOS pede um buffer ainda menor que 'interactive'
+    // (que vira ~20ms em Chrome). 0.01 = pede 10ms. Browser usa o mais próximo
+    // que o hardware aguenta; em PCs modernos cai pra ~5-10ms de output buffer.
+    // Se falhar (browser muito antigo), tenta de novo com 'interactive'.
     const Ctx = window.AudioContext || window.webkitAudioContext;
-    audioCtx = new Ctx({
-      latencyHint: 'interactive',
-    });
+    try {
+      audioCtx = new Ctx({ latencyHint: 0.01 });
+    } catch (e) {
+      console.warn('[CorvinoAudio] latencyHint numérico rejeitado, usando "interactive":', e.message);
+      audioCtx = new Ctx({ latencyHint: 'interactive' });
+    }
 
     // === Tenta AudioWorklet primeiro (latência muito menor) ===
     try {
