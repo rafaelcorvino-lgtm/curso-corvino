@@ -66,21 +66,32 @@ export function generatePianoKeys(startMidi = 48, endMidi = 84) {
 
 // Check if a device name corresponds to the Corvino accordion (bass controller)
 // Padrões reais observados nos diagnósticos:
-//   "Arduino LLC Corvino Acordeon Midi" → baixo
-//   "Jieli Technology SINCO"            → teclado
+//   "Arduino LLC Corvino Acordeon Midi"    → baixo (Windows)
+//   "Baixo Corvino"                         → baixo (Windows registry)
+//   "Jieli Technology SINCO"                → teclado RC1 (Windows)
+//   "SMK25Mini" / "M-VAVE SMK-25 Mini"      → teclado RC2 (Windows/Mac)
+//   "Worlde Easykey"                        → teclado RC1 alternativo
+// No macOS o prefixo pode ser diferente do Windows. Lista de keywords
+// foi alargada pra cobrir os modelos conhecidos. Em caso de match
+// ambíguo, isKeyboardDevice TEM PRIORIDADE sobre isBassDevice.
 export function isCorvinoDevice(name) {
-  const n = (name || '').toLowerCase();
-  return n.includes('corvino') || n.includes('arduino') || n.includes('sinco') || n.includes('jieli');
+  return isBassDevice(name) || isKeyboardDevice(name);
 }
 
-// Identifica especificamente o BAIXO (40 botões) — Arduino-based
-export function isBassDevice(name) {
-  const n = (name || '').toLowerCase();
-  return n.includes('arduino') || n.includes('corvino');
-}
-
-// Identifica especificamente o TECLADO — chip Jieli/SINCO
+// Identifica o TECLADO — chips/modelos conhecidos. Inclui keywords
+// de RC1 (Jieli/SINCO, Worlde Easykey) e RC2 (M-VAVE SMK-25 Mini).
 export function isKeyboardDevice(name) {
   const n = (name || '').toLowerCase();
-  return n.includes('sinco') || n.includes('jieli');
+  return n.includes('sinco') || n.includes('jieli')
+    || n.includes('smk') || n.includes('mvave') || n.includes('m-vave')
+    || n.includes('worlde') || n.includes('easykey');
+}
+
+// Identifica o BAIXO (40 botões) — chip Arduino. "corvino" pode aparecer
+// em ambos no Mac (ex: "Corvino MIDI"), então excluímos casos que também
+// batem como teclado conhecido pra evitar classificar teclado como baixo.
+export function isBassDevice(name) {
+  const n = (name || '').toLowerCase();
+  if (isKeyboardDevice(n)) return false;
+  return n.includes('arduino') || n.includes('corvino') || n.includes('baixo');
 }
