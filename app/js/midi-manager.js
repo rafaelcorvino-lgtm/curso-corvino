@@ -2,6 +2,7 @@
 import { state } from './state.js';
 import { isCorvinoDevice, isBassDevice, isKeyboardDevice } from './midi-data.js';
 import * as audio from './audio-engine.js';
+import * as bleMidi from './bluetooth-midi.js';
 
 let midiAccess = null;
 let onDeviceChangeCallback = null;
@@ -182,10 +183,56 @@ export function disconnectDevice(device) {
   if (device.inputPort) {
     device.inputPort.onmidimessage = null;
   }
+  if (device._btDisconnect) {
+    try { device._btDisconnect(); } catch (_) {}
+  }
   device._listener = null;
   device.connected = false;
   state.removeDevice(device.name);
   refreshConnectionFlags();
+}
+
+// Conecta um teclado MIDI via Bluetooth (BLE-MIDI). Abre o popup
+// nativo do sistema pra escolher o device. Após conectar, as mensagens
+// entram no mesmo handleMidiMessage — o app não distingue USB de BT.
+export async function connectBluetoothMIDI() {
+  if (!bleMidi.isBluetoothMIDISupported()) {
+    throw new Error('Web Bluetooth não disponível neste navegador');
+  }
+
+  let device = null;
+  const conn = await bleMidi.connectBluetoothMIDI(
+    (midiData) => {
+      if (!device) return;
+      handleMidiMessage({ data: midiData }, device);
+    },
+    (btDev) => {
+      midiDlog('BLE desconectado:', btDev?.name);
+      if (device) disconnectDevice(device);
+    }
+  );
+
+  device = {
+    id: 'ble:' + (conn.deviceName || 'unknown'),
+    name: conn.deviceName,
+    manufacturer: 'Bluetooth',
+    state: 'connected',
+    type: 'input',
+    inputPort: null,
+    outputPort: null,
+    connected: true,
+    _listener: null,
+    _isBass: isBassDevice(conn.deviceName),
+    _btDisconnect: conn.disconnect,
+  };
+  state.addDevice(device.name, device);
+  midiDlog('BLE conectado:', device.name, device._isBass ? '(BAIXO)' : '(TECLADO)');
+  refreshConnectionFlags();
+  return device;
+}
+
+export function isBluetoothMIDISupported() {
+  return bleMidi.isBluetoothMIDISupported();
 }
 
 // DEBUG temporário: log de eventos MIDI relevantes (handshake, noteOn,

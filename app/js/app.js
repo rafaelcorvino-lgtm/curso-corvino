@@ -212,6 +212,29 @@ async function main() {
   pcKeyboard.init({ audio, state });
   appMode.init();
 
+  // Limpa eventuais customizações antigas do kbd-editor (substituído
+  // definitivamente pelo toggle Mesa/Peito).
+  try { localStorage.removeItem('corvino:kbdMap'); } catch (e) {}
+
+  // Toggle Mesa/Peito: troca BOTH bass+MD layout no teclado virtual E o
+  // KEY_MAP do keyboard-input (físico). Visível em todos os modos.
+  const mesaBtn  = document.getElementById('bass-layout-mesa');
+  const peitoBtn = document.getElementById('bass-layout-peito');
+  function applyLayoutBtnState() {
+    const cur = pcKeyboard.getBassLayout();
+    mesaBtn?.classList.toggle('on',  cur === 'mesa');
+    peitoBtn?.classList.toggle('on', cur === 'peito');
+  }
+  function switchLayout(layout) {
+    pcKeyboard.setBassLayout(layout);
+    keyboardInput.setLayout(layout);
+    applyLayoutBtnState();
+    keyboardInput.attachHints();
+  }
+  mesaBtn?.addEventListener('click',  () => switchLayout('mesa'));
+  peitoBtn?.addEventListener('click', () => switchLayout('peito'));
+  applyLayoutBtnState();
+
   // Embed API — permite que as aulas controlem o som via postMessage
   embedApi.init();
 
@@ -219,6 +242,30 @@ async function main() {
   const midiOk = await midi.init();
   if (!midiOk) {
     console.log('MIDI not available - touch-only mode');
+  }
+
+  // Botão Bluetooth: pareia teclado BLE-MIDI (M-VAVE SMK-25, Worlde, etc).
+  // Só faz sentido em navegadores com Web Bluetooth (Chrome/Edge). Em Safari,
+  // Firefox e iOS o botão fica escondido — nesses casos, o aluno pareia pelo
+  // Bluetooth do SO e o teclado aparece como device MIDI normal via Web MIDI.
+  const btBtn = document.getElementById('bt-toggle');
+  if (btBtn) {
+    if (midi.isBluetoothMIDISupported()) {
+      btBtn.addEventListener('click', async () => {
+        btBtn.classList.add('pairing');
+        try {
+          const dev = await midi.connectBluetoothMIDI();
+          btBtn.classList.add('on');
+          btBtn.title = 'Conectado: ' + dev.name;
+        } catch (err) {
+          console.log('[BLE-MIDI] pareamento cancelado ou falhou:', err.message);
+        } finally {
+          btBtn.classList.remove('pairing');
+        }
+      });
+    } else {
+      btBtn.style.display = 'none';
+    }
   }
 
   setupResizeHandler();

@@ -138,6 +138,20 @@
       </div>
       <div class="register-tabs" id="register-tabs"></div>
       <div class="bar-toggles">
+        <!-- Toggle de layout do baixo. Mesa = home row no m / número row no fund.
+             Peito = número row no m / home row no fund. MD igual nos dois.
+             Posicionado primeiro pra agrupar visual: layout do baixo à esquerda,
+             ícones (⌨️ G-H-J 🏷️ ☰) juntos à direita. -->
+        <div class="bass-layout-toggle" id="bass-layout-toggle">
+          <button class="label-toggle on" id="bass-layout-mesa" title="Layout Mesa: home row (ASDF) no m, número row (1234) no fund">Mesa</button>
+          <button class="label-toggle"    id="bass-layout-peito" title="Layout Peito: número row (1234) no m, home row (ASDF) no fund">Peito</button>
+        </div>
+        <button class="label-toggle" id="bt-toggle" title="Conectar teclado por Bluetooth (M-VAVE SMK-25, Worlde, etc)">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path d="M6.5 5.5 L17 12 L12 17.5 L12 2 L17 6.5 L6.5 18.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button class="label-toggle" id="app-mode-toggle" title="Trocar pra visualização do Teclado PC">⌨️</button>
         <button class="label-toggle" id="kbd-toggle" title="Tocar com teclado do computador (G=Dó, H=Ré, J=Mi, K=Fá, L=Sol)">
           <svg viewBox="0 0 24 14" width="22" height="13" aria-hidden="true">
             <rect x="0.5" y="0.5" width="7" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
@@ -148,7 +162,6 @@
             <text x="20" y="8.5" font-size="6" text-anchor="middle" fill="currentColor" font-family="monospace" font-weight="700">J</text>
           </svg>
         </button>
-        <button class="label-toggle" id="app-mode-toggle" title="Trocar pra visualização do Teclado PC">⌨️</button>
         <button class="label-toggle on" id="label-toggle" title="Mostrar/ocultar nomes das notas">🏷️</button>
         <button class="label-toggle" id="ui-toggle" title="Esconder/mostrar comandos">☰</button>
       </div>
