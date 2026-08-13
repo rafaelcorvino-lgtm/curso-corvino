@@ -25,32 +25,21 @@ function showSplash() {
       }
     });
 
-    // Wait at least 2s, then check every 500ms if audio is ready
+    // Splash é APENAS visual — sai depois de 2s e não bloqueia o app.
+    // A UI já renderiza atrás (piano/baixos/midi.init sem depender de audio),
+    // e o SF2 continua carregando em background. Se o aluno tocar antes do
+    // SF2 estar pronto, audio.noteOn ignora silenciosamente até o synth
+    // ficar disponível. Antes o splash esperava até 15s por audio.isReady()
+    // e travava toda a UI enquanto o SF2 (~59MB) baixava em rede lenta.
     const minTime = 2000;
-    const start = Date.now();
-
-    function checkReady() {
-      const elapsed = Date.now() - start;
-      if (elapsed >= minTime && audio.isReady()) {
-        if (splashText) splashText.textContent = 'ACORDEÃO DIGITAL';
-        splash.classList.add('fade-out');
-        setTimeout(() => {
-          splash.style.display = 'none';
-          resolve();
-        }, 800);
-      } else if (elapsed > 15000) {
-        // Timeout after 15s, proceed anyway
-        splash.classList.add('fade-out');
-        setTimeout(() => {
-          splash.style.display = 'none';
-          resolve();
-        }, 800);
-      } else {
-        setTimeout(checkReady, 500);
-      }
-    }
-
-    checkReady();
+    setTimeout(() => {
+      if (splashText) splashText.textContent = 'ACORDEÃO DIGITAL';
+      splash.classList.add('fade-out');
+      setTimeout(() => {
+        splash.style.display = 'none';
+        resolve();
+      }, 800);
+    }, minTime);
   });
 }
 
