@@ -184,10 +184,14 @@ async function main() {
   // Setup resume-on-touch (AudioContext needs user gesture)
   setupAudioInit();
 
-  // Wait for SF2 loading to complete if not done yet
-  await audioInitPromise;
+  // NÃO await audioInitPromise aqui — bloqueia toda a UI e o midi.init()
+  // até o SF2 (~59MB) terminar de baixar. No PC/rede lenta ficava travado
+  // 20-30s com tela vazia, e o aluno via "acordeon não reconhecido" porque
+  // midi.init() só rodava depois. Deixamos audio carregar em background —
+  // audio.noteOn ignora silenciosamente se synth ainda não pronto.
+  audioInitPromise.then(() => console.log('[app] SF2 loading complete'));
 
-  // Render UI
+  // Render UI IMEDIATAMENTE (não depende de audio)
   bassButtons.render(document.getElementById('bass-grid'));
   pianoKeyboard.render(document.getElementById('piano-container'));
 
