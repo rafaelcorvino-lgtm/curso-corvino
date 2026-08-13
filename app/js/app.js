@@ -36,10 +36,10 @@ function showSplash() {
       if (splashText) splashText.textContent = 'ACORDEÃO DIGITAL';
       splash.classList.add('fade-out');
       setTimeout(() => {
-        // No embed (iframe do curso), o CSS tem `html.embedded #splash
-        // { display: flex !important }` — style.display = 'none' seria
-        // ignorado. setProperty com !important sobrepõe.
-        splash.style.setProperty('display', 'none', 'important');
+        // Adiciona .hidden pra CSS remover — no embed, o seletor
+        // `html #splash.hidden` bate `html.embedded #splash { display:
+        // flex !important }` por causa da especificidade extra.
+        splash.classList.add('hidden');
         resolve();
       }, 800);
     }, minTime);

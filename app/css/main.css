@@ -72,6 +72,9 @@ html, body {
   transition: opacity 0.8s ease-out;
 }
 #splash.fade-out { opacity: 0; pointer-events: none; }
+/* Especificidade maior que `html.embedded #splash { display: flex !important }`
+   pra permitir esconder o splash no modo embed via classe .hidden. */
+html #splash.hidden, html.embedded #splash.hidden { display: none !important; }
 #splash-logo { width: min(40vw, 260px); height: auto; object-fit: contain; }
 #splash-text { color: var(--gold); font-size: 1.1rem; font-weight: 600; letter-spacing: 4px; }
 
@@ -571,11 +574,26 @@ html.embedded #app, html.embedded #splash { display: flex !important; }
   gap: 4px;
   align-items: center;
   justify-content: center;
-  /* Centralizado no meio exato da barra, independente do tamanho dos lados */
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  /* Flex-flow no meio da barra (entre conn-row à esquerda e bar-toggles à
+     direita). Cresce pra preencher o espaço disponível, e scrolla horizontal
+     quando os tabs não couberem (iframe estreito). NÃO sobrepõe os outros
+     elementos porque participa do flex layout. */
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(218,165,32,0.4) transparent;
+}
+.register-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+.register-tabs::-webkit-scrollbar-thumb {
+  background: rgba(218,165,32,0.4);
+  border-radius: 2px;
+}
+.register-tabs::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .register-tab {
@@ -672,6 +690,30 @@ html.embedded #app, html.embedded #splash { display: flex !important; }
   justify-content: center;
 }
 .label-toggle.on { background: rgba(218,165,32,0.25); }
+
+/* Toggle Mesa/Peito do layout do baixo (modo PC). Pareceu bonito grudar
+   os 2 botões num grupo com bordas conectadas. */
+.bass-layout-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.bass-layout-toggle.hidden { display: none; }
+.bass-layout-toggle .label-toggle {
+  width: auto;
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 0;
+}
+.bass-layout-toggle .label-toggle:first-child {
+  border-radius: 4px 0 0 4px;
+  border-right-width: 0;
+}
+.bass-layout-toggle .label-toggle:last-child {
+  border-radius: 0 4px 4px 0;
+}
 
 /* ===== KEYBOARD SECTION ===== */
 #piano-section {
@@ -952,7 +994,9 @@ body.app-mode-pc #pc-bass-section {
   max-height: 100%;
   width: auto;
   height: auto;
-  aspect-ratio: 280 / 210;
+  /* Ambos Mesa e Peito: viewBox 240x162 (3 linhas m/M/fund — sem 7ª nem cbx).
+     Diferença entre layouts é só nas teclas físicas atribuídas, não no tamanho. */
+  aspect-ratio: 240 / 162;
 }
 
 /* Piano-section: position relative pra ancorar o .hud-tr quando movido
@@ -1036,6 +1080,11 @@ body.app-mode-pc #pc-md-section {
 .pc-key[data-kind="min"] .pc-letter,
 .pc-key[data-kind="min"] .pc-label { fill: #c890c8; }
 
+/* Acordes 7ª (sem default — só via editor, ciano) */
+.pc-key[data-kind="set"] rect { fill: rgba(120,200,210,0.35); stroke: #50a5b0; stroke-width: 1.5; }
+.pc-key[data-kind="set"] .pc-letter,
+.pc-key[data-kind="set"] .pc-label { fill: #a0e0e8; }
+
 /* Brancas MD (G H J K L Ç ~ ], dourado) */
 .pc-key[data-kind="white"] rect { fill: rgba(218,165,32,0.45); stroke: var(--gold); stroke-width: 1.5; }
 .pc-key[data-kind="white"] .pc-letter,
@@ -1049,6 +1098,18 @@ body.app-mode-pc #pc-md-section {
 
 /* Empty (sem função: 5-= T I ] B N M) */
 .pc-key.pc-empty rect { fill: #1f1d20; stroke: #3a3537; stroke-width: 1; }
+
+/* Slots de baixo SEM tecla atribuída (cols 1-4 novas: Fá# Si Mi Lá quando
+   sem default e ainda não customizadas pelo aluno). Visualmente atenuadas
+   pra indicar "disponível pra mapear" — quando aluno mapeia via kbd-editor,
+   ganham data-code e voltam ao visual normal. */
+.pc-key[data-bass-target]:not([data-code]) rect {
+  opacity: 0.45;
+  stroke-dasharray: 3 3;
+}
+.pc-key[data-bass-target]:not([data-code]) .pc-label {
+  opacity: 0.55;
+}
 
 /* Estado ATIVO — quando aluno aperta a tecla física no PC */
 .pc-key.active rect {
@@ -1064,6 +1125,7 @@ body.app-mode-pc #pc-md-section {
 .pc-legend-fund { fill: rgba(110,160,200,0.35); stroke: #5a8acc; }
 .pc-legend-maj { fill: rgba(140,200,140,0.35); stroke: #5ab45a; }
 .pc-legend-min { fill: rgba(200,140,200,0.35); stroke: #a065a0; }
+.pc-legend-set { fill: rgba(120,200,210,0.35); stroke: #50a5b0; }
 .pc-legend-white { fill: rgba(218,165,32,0.45); stroke: var(--gold); }
 .pc-legend-black { fill: #2a2025; stroke: #ff9060; }
 .pc-legend-empty { fill: #1f1d20; stroke: #3a3537; }
@@ -1083,6 +1145,128 @@ body.app-mode-pc #app-mode-toggle.label-toggle { background: rgba(218,165,32,0.3
   display: none;
 }
 #ui-toggle.label-toggle.on { background: rgba(218,165,32,0.32); }
+
+/* ===== Editor de teclas do PC ===== */
+/* Botão ✏️ — só aparece no modo PC keyboard (toggled via .hidden class por app-mode.js) */
+#kbd-edit-toggle.hidden { display: none; }
+#kbd-edit-toggle.on {
+  background: rgba(218,165,32,0.32);
+  outline: 2px solid var(--gold);
+}
+
+/* Banner de edição — faixa horizontal NO TOPO do app, NÃO cobre as teclas/baixos.
+   Layout linha única: ícone + texto à esquerda, botões à direita. */
+.kbd-edit-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 16px;
+  background: #1a1820;
+  border-bottom: 2px solid var(--gold);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  pointer-events: auto;
+  opacity: 1;
+}
+.kbd-edit-banner.hidden { display: none; }
+.kbd-edit-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold-light);
+  font-size: 13px;
+  flex: 1;
+  min-width: 0; /* permite truncar se faltar espaço */
+}
+.kbd-edit-info strong { color: var(--gold); font-size: 14px; white-space: nowrap; }
+.kbd-edit-step {
+  color: #d4c9a8;
+  font-size: 12px;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.kbd-edit-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+/* Override do .label-toggle (28x28 fixo) — botões do banner têm texto */
+.kbd-edit-actions .label-toggle {
+  width: auto;
+  height: auto;
+  font-size: 12px;
+  padding: 6px 12px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+/* Quando edição ativa, empurra o conteúdo do app pra baixo pra
+   não ficar embaixo da faixa do banner */
+#app.kbd-editing > #bass-section,
+#app.kbd-editing > #bellows-bar,
+#app.kbd-editing > #registers-bar,
+#app.kbd-editing > #piano-section {
+  /* margem pra empurrar conforme a altura aproximada do banner */
+  /* não usa margin pq mexeria no layout flex; usa transform via CSS var */
+}
+#app.kbd-editing {
+  padding-top: 50px;
+  transition: padding-top 0.2s;
+}
+
+/* Modo edição: cursor pointer nas teclas/baixos pra deixar claro que dá pra clicar */
+#app.kbd-editing #pc-md-section,
+#app.kbd-editing #pc-bass-section,
+#app.kbd-editing #piano-container,
+#app.kbd-editing #bass-grid {
+  cursor: pointer;
+}
+#app.kbd-editing .key,
+#app.kbd-editing .bass-btn,
+#app.kbd-editing .pc-key {
+  cursor: pointer;
+}
+
+/* Tecla/baixo SELECIONADO pra reatribuir — borda dourada pulsante */
+.pc-key.kbd-edit-selected rect,
+.key.kbd-edit-selected,
+.bass-btn.kbd-edit-selected {
+  outline: 3px solid #ffd060 !important;
+  outline-offset: 2px;
+  filter: drop-shadow(0 0 8px rgba(255,208,96,0.9));
+  animation: kbd-edit-pulse 1s ease-in-out infinite;
+  z-index: 10;
+}
+.pc-key.kbd-edit-selected rect {
+  /* SVG não suporta outline igual a HTML — fallback pra stroke */
+  outline: none !important;
+  stroke: #ffd060 !important;
+  stroke-width: 3 !important;
+}
+@keyframes kbd-edit-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.7; }
+}
+
+/* Hover em modo edição: indicador suave de "clicável" */
+#app.kbd-editing .key:hover,
+#app.kbd-editing .bass-btn:hover {
+  outline: 2px dashed rgba(255,208,96,0.6);
+  outline-offset: 1px;
+}
+#app.kbd-editing .pc-key:hover rect {
+  stroke: #ffd060;
+  stroke-width: 2;
+}
+/* ===== fim editor de teclas ===== */
 .kbd-hint {
   position: absolute;
   top: 4px;
