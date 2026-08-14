@@ -84,6 +84,10 @@ function applyMode() {
   if (currentMode === 'pc') {
     keyboardInput.setEnabled(true);
   }
+
+  // Toggle "Mesa/Peito" agora é visível em TODOS os modos — afeta tanto
+  // o teclado PC quanto os hints dos botões do app Acordeon.
+  // (Não precisa mais show/hide aqui, fica sempre visível pelo HTML.)
 }
 
 export function getMode() { return currentMode; }
